@@ -10,12 +10,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapApp/ViewController.swift"
-            timestampString = "573902313.2452869"
+            timestampString = "574702728.23093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "initMap()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/ViewController.swift"
+            timestampString = "574702728.231645"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "mapViewDidLongPress(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MapApp.ViewController.mapViewDidLongPress(__C.UILongPressGestureRecognizer) -&gt; ()"
+                  moduleName = "MapApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sasaki_yuta/Desktop/proj/GitHub-Sourcetree/MapApp/MapApp/ViewController.swift"
+                  timestampString = "574484275.749966"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "246"
+                  endingLineNumber = "246"
+                  offsetFromSymbolStart = "4340">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; () in MapApp.ViewController.mapViewDidLongPress(__C.UILongPressGestureRecognizer) -&gt; ()"
+                  moduleName = "MapApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sasaki_yuta/Desktop/proj/GitHub-Sourcetree/MapApp/MapApp/ViewController.swift"
+                  timestampString = "574484275.752254"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "247"
+                  endingLineNumber = "247"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/ViewController.swift"
+            timestampString = "574702728.232007"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "session(_:activationDidCompleteWith:error:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/ViewController.swift"
+            timestampString = "574702728.232325"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "session(_:activationDidCompleteWith:error:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +106,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapApp/ViewController.swift"
-            timestampString = "573902313.246709"
+            timestampString = "574702728.23263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
-            landmarkName = "mapViewDidLongPress(_:)"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "sessionDidBecomeInactive(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/ViewController.swift"
+            timestampString = "574702728.232933"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "sessionDidDeactivate(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/ViewController.swift"
+            timestampString = "574702728.233227"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "session(_:didReceiveMessage:replyHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,12 +154,108 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapAppWatch Extension/InterfaceController.swift"
-            timestampString = "573902313.247342"
+            timestampString = "574702728.2335269"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "awake(withContext:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapAppWatch Extension/InterfaceController.swift"
+            timestampString = "574702728.2337559"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "session(_:didReceiveMessage:replyHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapAppWatch Extension/InterfaceController.swift"
+            timestampString = "574702728.233817"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "awake(withContext:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapAppWatch Extension/InterfaceController.swift"
+            timestampString = "574702728.2338721"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "locationManager(_:didUpdateLocations:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MapAppWatch_Extension.InterfaceController.locationManager(_: __C.CLLocationManager, didUpdateLocations: Swift.Array&lt;__C.CLLocation&gt;) -&gt; ()"
+                  moduleName = "MapAppWatch Extension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sasaki_yuta/Desktop/proj/GitHub-Sourcetree/MapApp/MapAppWatch%20Extension/InterfaceController.swift"
+                  timestampString = "574700963.788808"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "740">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MapAppWatch_Extension.InterfaceController.locationManager(_: __C.CLLocationManager, didUpdateLocations: Swift.Array&lt;__C.CLLocation&gt;) -&gt; ()"
+                  moduleName = "MapAppWatch Extension"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sasaki_yuta/Desktop/proj/GitHub-Sourcetree/MapApp/MapAppWatch%20Extension/InterfaceController.swift"
+                  timestampString = "574700963.790958"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "2996">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapAppWatch Extension/InterfaceController.swift"
+            timestampString = "574702728.233915"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -9,25 +9,27 @@
 import UIKit
 import MapKit
 import CoreLocation
-import WatchConnectivity //saski
+import WatchConnectivity
 
 class ViewController:   UIViewController,
                         CLLocationManagerDelegate,
                         UIGestureRecognizerDelegate,
-                        WCSessionDelegate { //sasaki
+                        WCSessionDelegate {
 
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var longPressGesRec: UILongPressGestureRecognizer!
     var locManager: CLLocationManager!
     var pointAno: MKPointAnnotation = MKPointAnnotation()
     var mapViewType: UIButton!
-    var session = WCSession.default; //saski
+    var session: WCSession!
+    var dlon:Double!
+    var dlat:Double!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        // sasaki
+        // セッションをアクティブにする
         if (WCSession.isSupported()) {
             self.session = WCSession.default
             self.session.delegate = self
@@ -55,22 +57,45 @@ class ViewController:   UIViewController,
         initMap()
     }
     
-    //sasaki start
+    // セッションアクティブ化の結果が通知される(無いとエラーになる)
+    public func session(_ session: WCSession, activationDidCompleteWith activationState:    WCSessionActivationState, error: Error?){
+        switch activationState {
+        case .activated:
+            print("セッションアクティブ")
+        case .inactive:
+            print("セッションはアクティブでデータ受信できる可能性はあるが、相手にはデータ送信できない")
+        case .notActivated:
+            print("セッション非アクティブで通信できない状態")
+            let errStr = error?.localizedDescription.description
+            print("error: " + (errStr?.description)!)
+        }
+    }
+    
+    public func sessionDidBecomeInactive(_ session: WCSession){
+        print("sessionDidBecomeInactive")
+    }
+    
+    public func sessionDidDeactivate(_ session: WCSession){
+        print("sessionDidDeactivate")
+    }
+    
+    // watchOSからMessage受信
     public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Swift.Void){
         print("receiveMessage::\(message)")
+        replyHandler(["message" : "受信しました！"])
+        
+        // sasaki
+        let contents =  ["lon":dlon, "lat":dlat]
+        self.session.sendMessage(contents as [String : Any], replyHandler: { (replyMessage) -> Void in
+            print ("receive from apple watch");
+        }) { (error) -> Void in
+            print(error)
+        }
     }
     
     public func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
         print("userInfoTransfer::\(userInfoTransfer)")
     }
-    public func session(_ session: WCSession, activationDidCompleteWith activationState:    WCSessionActivationState, error: Error?){
-    }
-    public func sessionDidBecomeInactive(_ session: WCSession){
-    }
-    public func sessionDidDeactivate(_ session: WCSession){
-    }
-    //sasaki end
-        
         
     // 地図の初期化
     func initMap() {
@@ -224,10 +249,12 @@ class ViewController:   UIViewController,
             pointAno.title = str
             mapView.addAnnotation(pointAno)
             
-            //sasaki
-            let contents =  ["body":str]
-            self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
-                print ("receive from apple watch","test");
+            // watchOSに緯度経度を送信
+            dlon = center.longitude
+            dlat = center.latitude
+            let contents =  ["lon":dlon, "lat":dlat]
+            self.session.sendMessage(contents as [String : Any], replyHandler: { (replyMessage) -> Void in
+                print ("receive from apple watch");
             }) { (error) -> Void in
                 print(error)
             }
