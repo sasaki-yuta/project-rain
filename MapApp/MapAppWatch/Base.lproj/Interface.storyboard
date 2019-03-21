@@ -14,7 +14,10 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="MapAppWatch" customModuleProvider="target">
                     <items>
-                        <label width="134" height="144" alignment="center" verticalAlignment="center" text="no data" numberOfLines="10" id="ch3-C2-3y5"/>
+                        <label width="123" height="115" alignment="center" verticalAlignment="center" text="no data" numberOfLines="2" id="ch3-C2-3y5">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                        </label>
                     </items>
                     <connections>
                         <outlet property="label" destination="ch3-C2-3y5" id="V9k-Pj-XIQ"/>

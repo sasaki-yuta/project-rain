@@ -45,7 +45,7 @@ class ViewController:   UIViewController,
         if CLLocationManager.locationServicesEnabled() {
             switch CLLocationManager.authorizationStatus() {
             case .authorizedWhenInUse:
-                // 座標の表示
+                // 現在位置の更新を開始
                 locManager.startUpdatingLocation()
                 break
             default:
@@ -82,14 +82,24 @@ class ViewController:   UIViewController,
     // watchOSからMessage受信
     public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Swift.Void){
         print("receiveMessage::\(message)")
-        replyHandler(["message" : "受信しました！"])
-        
-        // sasaki
-        let contents =  ["lon":dlon, "lat":dlat]
-        self.session.sendMessage(contents as [String : Any], replyHandler: { (replyMessage) -> Void in
-            print ("receive from apple watch");
-        }) { (error) -> Void in
-            print(error)
+        replyHandler(["message" : "received message."])
+
+        // String型以外は処理しない
+        guard let getType = message["GET"] as? String else {
+            return
+        }
+
+        switch getType {
+        case "LONLAT":
+            // watchOSにロングタップしてピンを立てた地点の緯度経度を送信
+            let contents =  ["lon":dlon, "lat":dlat]
+            self.session.sendMessage(contents as [String : Any], replyHandler: { (replyMessage) -> Void in
+                print ("receive from apple watch");
+            }) { (error) -> Void in
+                print(error)
+            }
+        default:
+            print("not exist type.")
         }
     }
     
@@ -249,7 +259,7 @@ class ViewController:   UIViewController,
             pointAno.title = str
             mapView.addAnnotation(pointAno)
             
-            // watchOSに緯度経度を送信
+            // watchOSにロングタップしてピンを立てた地点の緯度経度を送信
             dlon = center.longitude
             dlat = center.latitude
             let contents =  ["lon":dlon, "lat":dlat]
