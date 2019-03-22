@@ -15,6 +15,7 @@
 		9B107B762217D74C006971FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B107B742217D74C006971FF /* LaunchScreen.storyboard */; };
 		9B107B812217D74C006971FF /* MapAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B107B802217D74C006971FF /* MapAppTests.swift */; };
 		9B107B8C2217D74C006971FF /* MapAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B107B8B2217D74C006971FF /* MapAppUITests.swift */; };
+		9B1103932244A33C00798283 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1103922244A33C00798283 /* MenuViewController.swift */; };
 		9BE20C2B22338A7800ABA8ED /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE20C2922338A7800ABA8ED /* Interface.storyboard */; };
 		9BE20C2D22338A7B00ABA8ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BE20C2C22338A7B00ABA8ED /* Assets.xcassets */; };
 		9BE20C3422338A7B00ABA8ED /* MapAppWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9BE20C3322338A7B00ABA8ED /* MapAppWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -96,6 +97,7 @@
 		9B107B872217D74C006971FF /* MapAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B107B8B2217D74C006971FF /* MapAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAppUITests.swift; sourceTree = "<group>"; };
 		9B107B8D2217D74C006971FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B1103922244A33C00798283 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		9BE20C2722338A7800ABA8ED /* MapAppWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapAppWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE20C2A22338A7800ABA8ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		9BE20C2C22338A7B00ABA8ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			children = (
 				9B107B682217D74A006971FF /* AppDelegate.swift */,
 				9B107B6A2217D74A006971FF /* ViewController.swift */,
+				9B1103922244A33C00798283 /* MenuViewController.swift */,
 				9B107B6C2217D74A006971FF /* Main.storyboard */,
 				9B107B722217D74C006971FF /* Assets.xcassets */,
 				9B107B742217D74C006971FF /* LaunchScreen.storyboard */,
@@ -415,6 +418,7 @@
 				9B107B712217D74A006971FF /* MapApp.xcdatamodeld in Sources */,
 				9B107B6B2217D74A006971FF /* ViewController.swift in Sources */,
 				9B107B692217D74A006971FF /* AppDelegate.swift in Sources */,
+				9B1103932244A33C00798283 /* MenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
