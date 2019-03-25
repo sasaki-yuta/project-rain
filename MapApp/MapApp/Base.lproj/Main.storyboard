@@ -27,9 +27,8 @@
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZ8-dj-6AQ">
-                                <rect key="frame" x="251" y="63" width="46" height="30"/>
+                                <rect key="frame" x="299" y="67" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
                                 <connections>
                                     <segue destination="e3M-bM-kPo" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="a6w-95-33O"/>
                                 </connections>
@@ -41,6 +40,7 @@
                     <connections>
                         <outlet property="longPressGesRec" destination="7M3-eP-f7Q" id="X58-0C-EQc"/>
                         <outlet property="mapView" destination="blC-OF-Rwu" id="gub-nJ-bG6"/>
+                        <outlet property="mapViewTypeOver" destination="wZ8-dj-6AQ" id="stT-ol-AnH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -64,23 +64,88 @@
                                 <rect key="frame" x="0.0" y="0.0" width="147" height="812"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FEA-d2-Qlb">
-                                        <rect key="frame" x="30" y="102" width="62" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FEA-d2-Qlb">
+                                        <rect key="frame" x="30" y="150" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="航空写真">
                                             <color key="titleColor" red="0.0" green="0.57843422889709473" blue="0.99782758951187134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="btnSatelliteBtnThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="jAA-fM-Ad6"/>
+                                            <action selector="btnSatelliteThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="MlP-Lz-Vgz"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="地図タイプ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfV-up-oT2">
-                                        <rect key="frame" x="30" y="73" width="87" height="21"/>
+                                        <rect key="frame" x="30" y="70" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k7p-Rg-3ju">
+                                        <rect key="frame" x="30" y="110" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="標準">
+                                            <color key="titleColor" red="0.0" green="0.57843422889709473" blue="0.99782758951187134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnStandardThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="2g3-95-KYG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2E-0K-t3n">
+                                        <rect key="frame" x="30" y="190" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="標準 + 航空">
+                                            <color key="titleColor" red="0.0" green="0.57843422889709473" blue="0.99782758951187134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnHybridThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="wYQ-2K-Bhl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WLf-GF-Dxx">
+                                        <rect key="frame" x="30" y="230" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="データ強調">
+                                            <color key="titleColor" red="0.0" green="0.57843422889709473" blue="0.99782758951187134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnMutedStandardThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="Tfk-Df-qvH"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="地図モード" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxm-ov-7tw">
+                                        <rect key="frame" x="30" y="300" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYG-ZK-E4x">
+                                        <rect key="frame" x="30" y="340" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="標準">
+                                            <color key="titleColor" red="0.0" green="0.57843422889709473" blue="0.99782758951187134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y7n-Uo-XM8">
+                                        <rect key="frame" x="30" y="380" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="ゴルフ">
+                                            <color key="titleColor" red="0.0" green="0.57843422889709473" blue="0.99782758951187134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T83-Ro-UDf">
+                                        <rect key="frame" x="30" y="420" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="サイクル">
+                                            <color key="titleColor" red="0.0" green="0.57843422889709473" blue="0.99782758951187134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEm-v1-MlP">
+                                        <rect key="frame" x="30" y="460" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="ウォーキング">
+                                            <color key="titleColor" red="0.0" green="0.57843422889709473" blue="0.99782758951187134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -90,6 +155,10 @@
                         <viewLayoutGuide key="safeArea" id="5rx-1a-RpQ"/>
                     </view>
                     <connections>
+                        <outlet property="btnHybrid" destination="c2E-0K-t3n" id="kwh-GD-8gy"/>
+                        <outlet property="btnMutedStandard" destination="WLf-GF-Dxx" id="NTN-NJ-cXK"/>
+                        <outlet property="btnSatellite" destination="FEA-d2-Qlb" id="d4e-Uf-irG"/>
+                        <outlet property="btnStandard" destination="k7p-Rg-3ju" id="QnZ-K1-C6f"/>
                         <outlet property="menuView" destination="0jL-7h-96e" id="XWS-U6-vZC"/>
                     </connections>
                 </viewController>

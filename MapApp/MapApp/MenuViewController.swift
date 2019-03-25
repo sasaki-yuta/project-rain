@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import MapKit
 
 class MenuViewController: UIViewController {
 
     @IBOutlet weak var menuView:UIView!
+    @IBOutlet weak var btnStandard: UIButton!
     @IBOutlet weak var btnSatellite: UIButton!
+    @IBOutlet weak var btnHybrid: UIButton!
+    @IBOutlet weak var btnMutedStandard: UIButton!
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -66,9 +71,35 @@ class MenuViewController: UIViewController {
         }
     }
 
-    // 地図の表示タイプを切り替える
-    @IBAction func btnSatelliteBtnThouchDown(_ sender: Any) {
+    // 地図の表示タイプを切り替える（標準）
+    @IBAction func btnStandardThouchDown(_ sender: Any) {
         print("btnSatelliteBtnThouchDown")
-//        viewController?.setMapTypeA()
+        
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.viewController.setMapType(.standard)
+    }
+    
+    // 地図の表示タイプを切り替える（航空写真）
+    @IBAction func btnSatelliteThouchDown(_ sender: Any) {
+        print("btnSatelliteBtnThouchDown")
+        
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.viewController.setMapType(.satellite)
+    }
+
+    // 地図の表示タイプを切り替える（標準＋航空）
+    @IBAction func btnHybridThouchDown(_ sender: Any) {
+        print("btnSatelliteBtnThouchDown")
+        
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.viewController.setMapType(.hybrid)
+    }
+
+    // 地図の表示タイプを切り替える（データ強調）
+    @IBAction func btnMutedStandardThouchDown(_ sender: Any) {
+        print("btnSatelliteBtnThouchDown")
+        
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.viewController.setMapType(.mutedStandard)
     }
 }

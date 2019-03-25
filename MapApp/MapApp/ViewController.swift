@@ -18,6 +18,8 @@ class ViewController:   UIViewController,
 
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var longPressGesRec: UILongPressGestureRecognizer!
+    @IBOutlet var mapViewTypeOver: UIButton!
+    
     var locManager: CLLocationManager!
     var pointAno: MKPointAnnotation = MKPointAnnotation()
     var mapViewType: UIButton!
@@ -29,6 +31,10 @@ class ViewController:   UIViewController,
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
+        // AppDelegateに追加したviewControllerに自身を設定
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.viewController = self
+        
         // セッションをアクティブにする
         if (WCSession.isSupported()) {
             self.session = WCSession.default
@@ -137,7 +143,10 @@ class ViewController:   UIViewController,
         mapViewType.layer.shadowRadius = 3 // ぼかし
         mapViewType.layer.cornerRadius = 5.0 // 角丸のサイズ
         self.view.addSubview(mapViewType)
-        mapViewType.addTarget(self, action: #selector(ViewController.mapViewTypeBtnThouchDown(_:)), for: .touchDown)
+//      mapViewType.addTarget(self, action: #selector(ViewController.mapViewTypeBtnThouchDown(_:)), for: .touchDown)
+        
+        mapViewTypeOver.frame = CGRect(x:width - 50, y:58, width:40, height:40)
+        self.view.addSubview(mapViewTypeOver)
         
         // トラッキングボタン表示
         let trakingBtn = MKUserTrackingButton(mapView: mapView)
@@ -325,6 +334,10 @@ class ViewController:   UIViewController,
         }
     }
     
+    // 地図の表示タイプを切り替える
+    func setMapType(_ mapType: MKMapType) {
+        mapView.mapType = mapType
+    }
 }
 
 // MKMapViewDelegate
