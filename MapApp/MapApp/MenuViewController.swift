@@ -22,7 +22,7 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        updateMapTypeBtn()
+        updateBtn()
     }
     
 
@@ -89,6 +89,16 @@ class MenuViewController: UIViewController {
             delay: 0,
             options: .curveEaseOut,
             animations: {self.btnMutedStandard.layer.position.x = btnMutePos.x},
+            completion: {bool in}
+        )
+        
+        let btnModeGolfPos = btnModeGolf.layer.position
+        btnModeGolf.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnModeGolf.layer.position.x = btnModeGolfPos.x},
             completion: {bool in}
         )
 
@@ -160,6 +170,18 @@ class MenuViewController: UIViewController {
                         self.dismiss(animated: true, completion: nil)
                     }
                 )
+                
+                UIView.animate(
+                    withDuration: 0.2,
+                    delay: 0,
+                    options: .curveEaseIn,
+                    animations: {
+                        self.btnModeGolf.layer.position.x = -self.menuView.frame.width
+                    },
+                    completion: { bool in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                )
             }
         }
     }
@@ -171,7 +193,7 @@ class MenuViewController: UIViewController {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.standard)
         
-        updateMapTypeBtn()
+        updateBtn()
     }
     
     // 地図の表示タイプを切り替える（航空写真）
@@ -181,7 +203,7 @@ class MenuViewController: UIViewController {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.satellite)
         
-        updateMapTypeBtn()
+        updateBtn()
     }
 
     // 地図の表示タイプを切り替える（標準＋航空）
@@ -191,7 +213,7 @@ class MenuViewController: UIViewController {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.hybrid)
         
-        updateMapTypeBtn()
+        updateBtn()
     }
 
     // 地図の表示タイプを切り替える（データ強調）
@@ -201,11 +223,11 @@ class MenuViewController: UIViewController {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.mutedStandard)
         
-        updateMapTypeBtn()
+        updateBtn()
     }
     
     // 地図タイプボタンのアクティブ状態を更新
-    func updateMapTypeBtn() {
+    func updateBtn() {
         // カスタムの文字色で初期化
         let g = CGFloat(0x94) / 255
         let b = CGFloat(0xFE) / 255
@@ -232,10 +254,13 @@ class MenuViewController: UIViewController {
             break;
         }
         
+        btnModeGolf.setTitleColor(UIColor.gray, for: .normal)
+        
         // ボタンの再描画
         self.view.addSubview(btnStandard)
         self.view.addSubview(btnSatellite)
         self.view.addSubview(btnHybrid)
         self.view.addSubview(btnMutedStandard)
+        self.view.addSubview(btnModeGolf)
     }
 }
