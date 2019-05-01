@@ -16,12 +16,13 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var btnSatellite: UIButton!
     @IBOutlet weak var btnHybrid: UIButton!
     @IBOutlet weak var btnMutedStandard: UIButton!
-
+    @IBOutlet weak var btnModeGolf: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        
+        updateMapTypeBtn()
     }
     
 
@@ -49,6 +50,48 @@ class MenuViewController: UIViewController {
             animations: {self.menuView.layer.position.x = menuPos.x},
             completion: {bool in}
         )
+        
+        // ボタンのアニメーション
+        let btnStaPos = btnStandard.layer.position
+        btnStandard.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnStandard.layer.position.x = btnStaPos.x},
+            completion: {bool in}
+        )
+        
+        let btnSatePos = btnSatellite.layer.position
+        btnSatellite.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnSatellite.layer.position.x = btnSatePos.x},
+            completion: {bool in}
+        )
+        
+        let btnHyPos = btnHybrid.layer.position
+        btnHybrid.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnHybrid.layer.position.x = btnHyPos.x},
+            completion: {bool in}
+        )
+        
+        let btnMutePos = btnMutedStandard.layer.position
+        btnMutedStandard.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnMutedStandard.layer.position.x = btnMutePos.x},
+            completion: {bool in}
+        )
+
     }
     
     // メニューエリア以外タップ時の処理
@@ -56,16 +99,66 @@ class MenuViewController: UIViewController {
         super.touchesEnded(touches, with: event)
         for touch in touches {
             if touch.view?.tag == 1 {
+                // Viewのアニメーション
                 UIView.animate(
                     withDuration: 0.2,
                     delay: 0,
                     options: .curveEaseIn,
                     animations: {
                         self.menuView.layer.position.x = -self.menuView.frame.width
-                },
+                    },
                     completion: { bool in
                         self.dismiss(animated: true, completion: nil)
-                }
+                    }
+                )
+                
+                // ボタンのアニメーション
+                UIView.animate(
+                    withDuration: 0.2,
+                    delay: 0,
+                    options: .curveEaseIn,
+                    animations: {
+                        self.btnStandard.layer.position.x = -self.menuView.frame.width
+                    },
+                    completion: { bool in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                )
+                
+                UIView.animate(
+                    withDuration: 0.2,
+                    delay: 0,
+                    options: .curveEaseIn,
+                    animations: {
+                        self.btnSatellite.layer.position.x = -self.menuView.frame.width
+                    },
+                    completion: { bool in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                )
+                
+                UIView.animate(
+                    withDuration: 0.2,
+                    delay: 0,
+                    options: .curveEaseIn,
+                    animations: {
+                        self.btnHybrid.layer.position.x = -self.menuView.frame.width
+                    },
+                    completion: { bool in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                )
+                
+                UIView.animate(
+                    withDuration: 0.2,
+                    delay: 0,
+                    options: .curveEaseIn,
+                    animations: {
+                        self.btnMutedStandard.layer.position.x = -self.menuView.frame.width
+                    },
+                    completion: { bool in
+                        self.dismiss(animated: true, completion: nil)
+                    }
                 )
             }
         }
@@ -77,6 +170,8 @@ class MenuViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.standard)
+        
+        updateMapTypeBtn()
     }
     
     // 地図の表示タイプを切り替える（航空写真）
@@ -85,6 +180,8 @@ class MenuViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.satellite)
+        
+        updateMapTypeBtn()
     }
 
     // 地図の表示タイプを切り替える（標準＋航空）
@@ -93,6 +190,8 @@ class MenuViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.hybrid)
+        
+        updateMapTypeBtn()
     }
 
     // 地図の表示タイプを切り替える（データ強調）
@@ -101,5 +200,42 @@ class MenuViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.mutedStandard)
+        
+        updateMapTypeBtn()
+    }
+    
+    // 地図タイプボタンのアクティブ状態を更新
+    func updateMapTypeBtn() {
+        // カスタムの文字色で初期化
+        let g = CGFloat(0x94) / 255
+        let b = CGFloat(0xFE) / 255
+        let strColor: UIColor = UIColor(red: 0, green: g, blue: b, alpha: 1.0)
+
+        btnStandard.setTitleColor(strColor, for: .normal)
+        btnSatellite.setTitleColor(strColor, for: .normal)
+        btnHybrid.setTitleColor(strColor, for: .normal)
+        btnMutedStandard.setTitleColor(strColor, for: .normal)
+        
+        // 選択されているボタンの文字をグレーにする
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        switch appDelegate.viewController.mapView.mapType {
+        case .standard:
+            btnStandard.setTitleColor(UIColor.gray, for: .normal)
+        case .satellite:
+            btnSatellite.setTitleColor(UIColor.gray, for: .normal)
+        case .hybrid:
+            btnHybrid.setTitleColor(UIColor.gray, for: .normal)
+        case .mutedStandard:
+            btnMutedStandard.setTitleColor(UIColor.gray, for: .normal)
+        default:
+            break;
+        }
+        
+        // ボタンの再描画
+        self.view.addSubview(btnStandard)
+        self.view.addSubview(btnSatellite)
+        self.view.addSubview(btnHybrid)
+        self.view.addSubview(btnMutedStandard)
     }
 }
