@@ -38,6 +38,12 @@ class MenuViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        // Voewのサイズを画面サイズに設定する
+        let dispSize: CGSize = UIScreen.main.bounds.size
+        let height = Int(dispSize.height)
+        menuView.frame.size = CGSize(width: 150, height: height)
+
         // メニューの位置を取得する
         let menuPos = self.menuView.layer.position
         // 初期位置を画面の外側にするため、メニューの幅の分だけマイナスする

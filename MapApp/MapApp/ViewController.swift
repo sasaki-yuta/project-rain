@@ -124,6 +124,10 @@ class ViewController:   UIViewController,
         // デバイスの画面サイズを取得する
         let dispSize: CGSize = UIScreen.main.bounds.size
         let width = Int(dispSize.width)
+        let height = Int(dispSize.height)
+        
+        // 地図のサイズを画面サイズに設定する
+        mapView.frame.size = CGSize(width: width, height: height)
         
         // 地図表示タイプを切り替えるボタン
         mapViewType = UIButton(type: UIButton.ButtonType.detailDisclosure)

@@ -75,6 +75,7 @@ class InterfaceController:  WKInterfaceController,
             }
         }
   
+        // 地図の中心位置と縮尺を設定
         let coordinate = CLLocationCoordinate2DMake(37.331667, -122.030833)
         let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         let region = MKCoordinateRegion(center: coordinate, span: span)
@@ -140,6 +141,9 @@ class InterfaceController:  WKInterfaceController,
         // iOSからsendMessageで送信された緯度経度を変数に設定
         dlon = lon
         dlat = lat
+        
+        // アノテーションを削除する
+        mapView.removeAllAnnotations()
 
         // iOSから緯度経度を受信した時にも現在位置との距離を表示する
         if (nil != locCord2D) {
@@ -153,6 +157,10 @@ class InterfaceController:  WKInterfaceController,
                 // 距離をラベルのテキストに設定する
 //              text = String(Int(distance).description + "m" + "\n" + yardStr.description + "y")
                 text = String(yardStr.description + "y")
+
+                // 緯度経度が有効であればアノテーションを設定する
+                let cordinate2D = CLLocationCoordinate2DMake(dlat, dlon)
+                mapView.addAnnotation(cordinate2D, with: .red)
             }
 
             let fontSize = UIFont.systemFont(ofSize: 20)
