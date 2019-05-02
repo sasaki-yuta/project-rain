@@ -21,6 +21,7 @@ class InterfaceController:  WKInterfaceController,
     var locCord2D:CLLocationCoordinate2D?
 
     @IBOutlet weak var label: WKInterfaceLabel!
+    @IBOutlet var mapView: WKInterfaceMap!
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -73,6 +74,11 @@ class InterfaceController:  WKInterfaceController,
                 print("denied")
             }
         }
+  
+        let coordinate = CLLocationCoordinate2DMake(37.331667, -122.030833)
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region)
     }
 
     // CLLocationManagerのdelegate：現在位置更新
@@ -89,11 +95,17 @@ class InterfaceController:  WKInterfaceController,
             // mをyardに変換する
             let yardStr = Int(distance * 1.09361)
             // 距離をラベルのテキストに設定する
-            let fontSize = UIFont.systemFont(ofSize: 45)
-            let text = String(Int(distance).description + "m" + "\n" + yardStr.description + "y")
+            let fontSize = UIFont.systemFont(ofSize: 20)
+//          let text = String(Int(distance).description + "m" + "\n" + yardStr.description + "y")
+            let text = String(yardStr.description + "y")
             let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
             label.setAttributedText(attrStr)
         }
+
+        let coordinate = (locations.last?.coordinate)!
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region)
     }
     
     // 2点間の距離(m)を算出する
@@ -130,14 +142,20 @@ class InterfaceController:  WKInterfaceController,
         dlat = lat
 
         // iOSから緯度経度を受信した時にも現在位置との距離を表示する
-        if nil != locCord2D {
-            // 現在位置とiOSから受信した緯度経度との距離(m)を算出する
-            let distance = calcDistance(locCord2D!)
-            // mをyardに変換する
-            let yardStr = Int(distance * 1.09361)
-            // 距離をラベルのテキストに設定する
-            let fontSize = UIFont.systemFont(ofSize: 45)
-            let text = String(Int(distance).description + "m" + "\n" + yardStr.description + "y")
+        if (nil != locCord2D) {
+            var text = "no data"
+
+            if (0 != dlon) && (0 != dlat) {
+                // 現在位置とiOSから受信した緯度経度との距離(m)を算出する
+                let distance = calcDistance(locCord2D!)
+                // mをyardに変換する
+                let yardStr = Int(distance * 1.09361)
+                // 距離をラベルのテキストに設定する
+//              text = String(Int(distance).description + "m" + "\n" + yardStr.description + "y")
+                text = String(yardStr.description + "y")
+            }
+
+            let fontSize = UIFont.systemFont(ofSize: 20)
             let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
             label.setAttributedText(attrStr)
         }

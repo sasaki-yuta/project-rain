@@ -24,9 +24,9 @@ class ViewController:   UIViewController,
     var pointAno: MKPointAnnotation = MKPointAnnotation()
     var mapViewType: UIButton!
     var session: WCSession!
-    var dlon:Double!
-    var dlat:Double!
-
+    var dlon:Double! = 0
+    var dlat:Double! = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -98,12 +98,7 @@ class ViewController:   UIViewController,
         switch getType {
         case "LONLAT":
             // watchOSにロングタップしてピンを立てた地点の緯度経度を送信
-            let contents =  ["lon":dlon, "lat":dlat]
-            self.session.sendMessage(contents as [String : Any], replyHandler: { (replyMessage) -> Void in
-                print ("receive from apple watch");
-            }) { (error) -> Void in
-                print(error)
-            }
+            sendMessageLonLat()
         default:
             print("not exist type.")
         }
@@ -112,7 +107,7 @@ class ViewController:   UIViewController,
     public func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
         print("userInfoTransfer::\(userInfoTransfer)")
     }
-        
+
     // 地図の初期化
     func initMap() {
         // 縮尺を設定
@@ -134,8 +129,6 @@ class ViewController:   UIViewController,
         mapViewType = UIButton(type: UIButton.ButtonType.detailDisclosure)
         mapViewType.frame = CGRect(x:width - 50, y:58, width:40, height:40)
         mapViewType.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor // 背景色
-//      mapViewType.layer.borderWidth = 0.5 // 枠線の幅
-//      mapViewType.layer.borderColor = UIColor.blue.cgColor // 枠線の色
         mapViewType.layer.masksToBounds = false
         mapViewType.layer.shadowColor = UIColor.black.cgColor
         mapViewType.layer.shadowOffset = CGSize(width: 2, height: 2)
@@ -152,8 +145,6 @@ class ViewController:   UIViewController,
         let trakingBtn = MKUserTrackingButton(mapView: mapView)
         trakingBtn.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
         trakingBtn.frame = CGRect(x:width - 50, y:100, width:40, height:40)
-//      trakingBtn.layer.borderWidth = 0.5 // 枠線の幅
-//      trakingBtn.layer.borderColor = UIColor.blue.cgColor // 枠線の色
         trakingBtn.layer.shadowColor = UIColor.black.cgColor
         trakingBtn.layer.shadowColor = UIColor.black.cgColor
         trakingBtn.layer.shadowOffset = CGSize(width: 2, height: 2)
@@ -186,30 +177,10 @@ class ViewController:   UIViewController,
         print("lon : " + lonStr)
         print("lat : " + latStr)
 
-
-//-----------------------------------------------------------------------------------
-//      トラッキングモードボタンを自作する場合の処理
-
-        //【パターン1】スクロールモード以外であれば現在位置を地図の中心に更新する(カクカク表示されてしまう)
-//      updateCurrentPos((locations.last?.coordinate)!)
-
-        //【パターン2】カクカクしない様に対応した
-//      switch mapView.userTrackingMode {
-//      case .followWithHeading:
-//          mapView.userTrackingMode = .followWithHeading
-//          break
-//      case .follow:
-//          mapView.userTrackingMode = .follow
-//          break
-//      default:
-//          break
-//      }
-//-----------------------------------------------------------------------------------
-
-        // 現在位置とタッウプした位置の距離(m)を算出する
-        let distance = calcDistance(mapView.userLocation.coordinate, pointAno.coordinate)
-        
-        if (0 != distance) {
+        if (true == isExistLongTapPoint()) {
+            // 現在位置とタッウプした位置の距離(m)を算出する
+            let distance = calcDistance(mapView.userLocation.coordinate, pointAno.coordinate)
+            
             // ピンに設定する文字列を生成する
             var str:String = Int(distance).description
             str = str + " m"
@@ -239,6 +210,8 @@ class ViewController:   UIViewController,
         if sender.state == .began {
             // ロングタップ開始時に古いピンを削除する
             mapView.removeAnnotation(pointAno)
+            dlon = 0
+            dlat = 0
         }
         // ロングタップ終了（手を離した）
         else if sender.state == .ended {
@@ -271,15 +244,9 @@ class ViewController:   UIViewController,
             // watchOSにロングタップしてピンを立てた地点の緯度経度を送信
             dlon = center.longitude
             dlat = center.latitude
-            let contents =  ["lon":dlon, "lat":dlat]
-            self.session.sendMessage(contents as [String : Any], replyHandler: { (replyMessage) -> Void in
-                print ("receive from apple watch");
-            }) { (error) -> Void in
-                print(error)
-            }
+            sendMessageLonLat()
         }
     }
-    
     
     // 2点間の距離(m)を算出する
     func calcDistance(_ a: CLLocationCoordinate2D, _ b: CLLocationCoordinate2D) -> CLLocationDistance {
@@ -290,25 +257,6 @@ class ViewController:   UIViewController,
         let dist = bLoc.distance(from: aLoc)
         return dist
     }
-    
-    // トラッキングボタンタッチダウン
-    @IBAction func trackingBtnThouchDown(_ sender: AnyObject) {
-//-----------------------------------------------------------------------------------
-//      トラッキングモードボタンを自作する場合の処理
-//
-//      switch mapView.userTrackingMode {
-//      case .follow:
-//          mapView.userTrackingMode = .followWithHeading
-//          break
-//      case .followWithHeading:
-//          mapView.userTrackingMode = .none
-//          break
-//      default:
-//          mapView.userTrackingMode = .follow
-//          break
-//      }
-//-----------------------------------------------------------------------------------
-   }
     
     // 地図の表示タイプを切り替える
     @objc internal func mapViewTypeBtnThouchDown(_ sender: Any) {
@@ -337,6 +285,34 @@ class ViewController:   UIViewController,
     // 地図の表示タイプを切り替える
     func setMapType(_ mapType: MKMapType) {
         mapView.mapType = mapType
+    }
+    
+    // ロングタップした地点が存在するか？
+    func isExistLongTapPoint() -> Bool {
+        var retVal: Bool = false
+        if 0 != dlon && 0 != dlat {
+            retVal = true
+        }
+        return retVal
+    }
+    
+    // ロングタップした地点を削除する
+    func delLongTapPoint() {
+        mapView.removeAnnotation(pointAno)
+        dlon = 0
+        dlat = 0
+        // watchOSに緯度経度を送信
+        sendMessageLonLat()
+    }
+    
+    // watchOSに緯度経度を送信
+    func sendMessageLonLat() {
+        let contents =  ["lon":dlon, "lat":dlat]
+        self.session.sendMessage(contents as [String : Any], replyHandler: { (replyMessage) -> Void in
+            print ("receive from apple watch");
+        }) { (error) -> Void in
+            print(error)
+        }
     }
 }
 

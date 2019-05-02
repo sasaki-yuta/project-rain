@@ -16,8 +16,8 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var btnSatellite: UIButton!
     @IBOutlet weak var btnHybrid: UIButton!
     @IBOutlet weak var btnMutedStandard: UIButton!
-    @IBOutlet weak var btnModeGolf: UIButton!
-    
+    @IBOutlet weak var btnDelTapPoint: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -92,13 +92,13 @@ class MenuViewController: UIViewController {
             completion: {bool in}
         )
         
-        let btnModeGolfPos = btnModeGolf.layer.position
-        btnModeGolf.layer.position.x = -self.menuView.frame.width
+        let btnDelTapPointPos = btnDelTapPoint.layer.position
+        btnDelTapPoint.layer.position.x = -self.menuView.frame.width
         UIView.animate(
             withDuration: 0.5,
             delay: 0,
             options: .curveEaseOut,
-            animations: {self.btnModeGolf.layer.position.x = btnModeGolfPos.x},
+            animations: {self.btnDelTapPoint.layer.position.x = btnDelTapPointPos.x},
             completion: {bool in}
         )
 
@@ -176,7 +176,7 @@ class MenuViewController: UIViewController {
                     delay: 0,
                     options: .curveEaseIn,
                     animations: {
-                        self.btnModeGolf.layer.position.x = -self.menuView.frame.width
+                        self.btnDelTapPoint.layer.position.x = -self.menuView.frame.width
                     },
                     completion: { bool in
                         self.dismiss(animated: true, completion: nil)
@@ -226,6 +226,16 @@ class MenuViewController: UIViewController {
         updateBtn()
     }
     
+    // ロングタップした地点を削除する
+    @IBAction func btnDelTapPointThouchDown(_ sender: Any) {
+        print("btnDelTapPointThouchDown")
+
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.viewController.delLongTapPoint()
+        
+        updateBtn()
+    }
+    
     // 地図タイプボタンのアクティブ状態を更新
     func updateBtn() {
         // カスタムの文字色で初期化
@@ -237,6 +247,7 @@ class MenuViewController: UIViewController {
         btnSatellite.setTitleColor(strColor, for: .normal)
         btnHybrid.setTitleColor(strColor, for: .normal)
         btnMutedStandard.setTitleColor(strColor, for: .normal)
+        btnDelTapPoint.setTitleColor(strColor, for: .normal)
         
         // 選択されているボタンの文字をグレーにする
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -254,13 +265,16 @@ class MenuViewController: UIViewController {
             break;
         }
         
-        btnModeGolf.setTitleColor(UIColor.gray, for: .normal)
+        // ロングタップした地点がなければ文字をグレーにする
+        if false == appDelegate.viewController.isExistLongTapPoint() {
+            btnDelTapPoint.setTitleColor(UIColor.gray, for: .normal)
+        }
         
         // ボタンの再描画
         self.view.addSubview(btnStandard)
         self.view.addSubview(btnSatellite)
         self.view.addSubview(btnHybrid)
         self.view.addSubview(btnMutedStandard)
-        self.view.addSubview(btnModeGolf)
+        self.view.addSubview(btnDelTapPoint)
     }
 }

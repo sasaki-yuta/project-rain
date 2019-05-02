@@ -111,8 +111,8 @@
                                             <action selector="btnMutedStandardThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="Tfk-Df-qvH"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="地図モード" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxm-ov-7tw">
-                                        <rect key="frame" x="30" y="300" width="90" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ゴルフモード" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxm-ov-7tw">
+                                        <rect key="frame" x="30" y="300" width="109" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -121,9 +121,12 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYG-ZK-E4x">
                                         <rect key="frame" x="30" y="340" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="ゴルフ">
+                                        <state key="normal" title="地点削除">
                                             <color key="titleColor" red="0.0" green="0.57843422889709473" blue="0.99782758951187134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnDelTapPointThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="b7l-TT-iba"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -134,8 +137,8 @@
                         <viewLayoutGuide key="safeArea" id="5rx-1a-RpQ"/>
                     </view>
                     <connections>
+                        <outlet property="btnDelTapPoint" destination="rYG-ZK-E4x" id="av1-kr-crz"/>
                         <outlet property="btnHybrid" destination="c2E-0K-t3n" id="kwh-GD-8gy"/>
-                        <outlet property="btnModeGolf" destination="rYG-ZK-E4x" id="Fty-H8-eBn"/>
                         <outlet property="btnMutedStandard" destination="WLf-GF-Dxx" id="NTN-NJ-cXK"/>
                         <outlet property="btnSatellite" destination="FEA-d2-Qlb" id="d4e-Uf-irG"/>
                         <outlet property="btnStandard" destination="k7p-Rg-3ju" id="QnZ-K1-C6f"/>

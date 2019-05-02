@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14460.31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14490.70" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14460.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14490.21"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -14,13 +14,15 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="MapAppWatch" customModuleProvider="target">
                     <items>
-                        <label width="123" height="115" alignment="center" verticalAlignment="center" text="no data" numberOfLines="2" id="ch3-C2-3y5">
+                        <label width="140" height="20" alignment="center" verticalAlignment="bottom" text="no data" id="ch3-C2-3y5">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="font" style="UICTFontTextStyleBody"/>
                         </label>
+                        <map width="180" height="130" alignment="center" verticalAlignment="center" id="oY7-fH-NhX"/>
                     </items>
                     <connections>
                         <outlet property="label" destination="ch3-C2-3y5" id="V9k-Pj-XIQ"/>
+                        <outlet property="mapView" destination="oY7-fH-NhX" id="abX-bz-ScT"/>
                     </connections>
                 </controller>
             </objects>
