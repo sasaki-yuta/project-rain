@@ -89,6 +89,9 @@ class InterfaceController:  WKInterfaceController,
         // 現在位置をクラスのメンバ変数に保持する
         locCord2D = (locations.last?.coordinate)!
         
+        // アノテーションを削除する
+        mapView.removeAllAnnotations()
+
         // iOSから緯度経度を受信している場合
         if dlon != 0 && dlat != 0 {
             // 現在位置とiOSから受信した緯度経度との距離(m)を算出する
@@ -101,8 +104,16 @@ class InterfaceController:  WKInterfaceController,
             let text = String(yardStr.description + "y")
             let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
             label.setAttributedText(attrStr)
+            
+            // ロングタッチポイントの緯度経度が有効であればアノテーションを設定する
+            let cordinate2D = CLLocationCoordinate2DMake(dlat, dlon)
+            mapView.addAnnotation(cordinate2D, with: .red)
         }
-
+        
+        // 現在位置のアノテーションを設定する
+        mapView.addAnnotation(locCord2D!, with: .green)
+        
+        // 地図の中心位置を現在位置に設定する
         let coordinate = (locations.last?.coordinate)!
         let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         let region = MKCoordinateRegion(center: coordinate, span: span)
@@ -148,7 +159,10 @@ class InterfaceController:  WKInterfaceController,
         // iOSから緯度経度を受信した時にも現在位置との距離を表示する
         if (nil != locCord2D) {
             var text = "no data"
-
+            
+            // 現在位置のアノテーションを設定する
+            mapView.addAnnotation(locCord2D!, with: .green)
+            
             if (0 != dlon) && (0 != dlat) {
                 // 現在位置とiOSから受信した緯度経度との距離(m)を算出する
                 let distance = calcDistance(locCord2D!)
