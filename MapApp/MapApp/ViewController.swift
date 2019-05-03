@@ -11,6 +11,12 @@ import MapKit
 import CoreLocation
 import WatchConnectivity
 
+// 国土地理院の標高取得WebAPIのOutputパラメータ
+struct JsonElevation : Codable{
+    var elevation : Double
+    var hsrc : String
+}
+
 class ViewController:   UIViewController,
                         CLLocationManagerDelegate,
                         UIGestureRecognizerDelegate,
@@ -19,7 +25,7 @@ class ViewController:   UIViewController,
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var longPressGesRec: UILongPressGestureRecognizer!
     @IBOutlet var mapViewTypeOver: UIButton!
-    
+
     var locManager: CLLocationManager!
     var pointAno: MKPointAnnotation = MKPointAnnotation()
     var mapViewType: UIButton!
@@ -27,6 +33,16 @@ class ViewController:   UIViewController,
     var dlon:Double! = 0
     var dlat:Double! = 0
     
+    // ロングタップした位置との標高差を表示するラベル
+    var lblCommandlevation: UILabel = UILabel()
+    var lblNowElevation: UILabel = UILabel()
+    var lblLongTapElevation: UILabel = UILabel()
+    var lblDiffElevation: UILabel = UILabel()
+
+    // ロングタップした位置との標高差を取得する変数
+    var currentElevation: Double = -100000.0
+    var longTapElevation: Double = -100000.0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -171,6 +187,39 @@ class ViewController:   UIViewController,
         scale.frame.origin.y = 45
         scale.legendAlignment = .leading
         self.view.addSubview(scale)
+        
+        // ロングタップした位置との標高差を取得するラベル
+        lblCommandlevation.frame = CGRect(x: width - 180, y: height - 180, width: 150, height: 30)
+        lblCommandlevation.font = UIFont.systemFont(ofSize: 15.0)
+        lblCommandlevation.textColor = .green
+        lblCommandlevation.backgroundColor = .black
+        lblCommandlevation.alpha = 0.7
+        lblCommandlevation.text = " > 現在位置との標高差"
+        self.view.addSubview(lblCommandlevation)
+        
+        lblDiffElevation.frame = CGRect(x: width - 180, y: height - 150, width: 150, height: 30)
+        lblDiffElevation.font = UIFont.systemFont(ofSize: 15.0)
+        lblDiffElevation.textColor = .green
+        lblDiffElevation.backgroundColor = .black
+        lblDiffElevation.alpha = 0.7
+        lblDiffElevation.text = " 標高差：- m"
+        self.view.addSubview(lblDiffElevation)
+
+        lblNowElevation.frame = CGRect(x: width - 180, y: height - 120, width: 150, height: 30)
+        lblNowElevation.font = UIFont.systemFont(ofSize: 15.0)
+        lblNowElevation.textColor = .green
+        lblNowElevation.backgroundColor = .black
+        lblNowElevation.alpha = 0.7
+        lblNowElevation.text = " 現在位置：- m"
+        self.view.addSubview(lblNowElevation)
+        
+        lblLongTapElevation.frame = CGRect(x: width - 180, y: height - 90, width: 150, height: 30)
+        lblLongTapElevation.font = UIFont.systemFont(ofSize: 15.0)
+        lblLongTapElevation.textColor = .green
+        lblLongTapElevation.backgroundColor = .black
+        lblLongTapElevation.alpha = 0.7
+        lblLongTapElevation.text = " 指定位置：- m"
+        self.view.addSubview(lblLongTapElevation)
     }
 
     // CLLocationManagerのdelegate：現在位置取得
@@ -182,6 +231,10 @@ class ViewController:   UIViewController,
         print("lat : " + latStr)
 
         if (true == isExistLongTapPoint()) {
+            // 標高
+//          let nowAlt = locations.last?.altitude
+//          print("今の標高 = " + (nowAlt?.description)!)
+
             // 現在位置とタッウプした位置の距離(m)を算出する
             let distance = calcDistance(mapView.userLocation.coordinate, pointAno.coordinate)
             
@@ -257,6 +310,7 @@ class ViewController:   UIViewController,
         // CLLocationオブジェクトを生成
         let aLoc: CLLocation = CLLocation(latitude: a.latitude, longitude: a.longitude)
         let bLoc: CLLocation = CLLocation(latitude: b.latitude, longitude: b.longitude)
+        
         // CLLocationオブジェクトのdistanceで2点間の距離(m)を算出
         let dist = bLoc.distance(from: aLoc)
         return dist
@@ -307,6 +361,86 @@ class ViewController:   UIViewController,
         dlat = 0
         // watchOSに緯度経度を送信
         sendMessageLonLat()
+    }
+    
+    // ロングタップした地点との標高差を表示する
+    func showElevation() {
+        // 初期値(無効値)を設定
+        currentElevation = -100000.0
+        longTapElevation = -100000.0
+
+        // 国土地理院のURL
+        let baseUrl = "http://cyberjapandata2.gsi.go.jp/general/dem/scripts/getelevation.php?"
+        
+        // ========================================================================
+        // 現在位置の標高を取得する
+        var lonUrl = "&lon=" + mapView.userLocation.coordinate.longitude.description
+        var latUrl = "&lat=" + mapView.userLocation.coordinate.latitude.description
+        let outtypeUrl = "&outtype=JSON"
+        
+        var listUrl = baseUrl + lonUrl + latUrl + outtypeUrl
+
+        // http:は「Info.plis」に「App Transport Security Settings」を設定しないとエラーになる
+        guard let url = URL(string: listUrl) else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+            
+            guard let data = data else { return }
+            
+            let json = try? JSONDecoder().decode(JsonElevation.self, from: data)
+            if nil != json {
+                // mainスレッドで処理する
+                DispatchQueue.main.async {
+                    self.currentElevation = (json?.elevation)!
+                    self.lblNowElevation.text = " 現在位置：" + self.currentElevation.description + " m"
+                    self.view.addSubview(self.lblNowElevation)
+                    
+                    // 指定位置が取得できていれば標高差を表示する
+                    if -100000.0 != self.longTapElevation {
+                        self.lblDiffElevation.text = " 標高差： " + (round(((self.longTapElevation - self.currentElevation)*10))/10).description + " m"
+                        self.view.addSubview(self.lblDiffElevation)
+                    }
+                }
+            }
+        }.resume()
+
+        // ========================================================================
+        // ロングタップ地点の標高を取得する
+        lonUrl = "&lon=" + pointAno.coordinate.longitude.description
+        latUrl = "&lat=" + pointAno.coordinate.latitude.description
+
+        listUrl = baseUrl + lonUrl + latUrl + outtypeUrl
+        
+        // http:は「Info.plis」に「App Transport Security Settings」を設定しないとエラーになる
+        guard let url2 = URL(string: listUrl) else { return }
+        
+        URLSession.shared.dataTask(with: url2) { (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+            
+            guard let data = data else { return }
+            
+            let json = try? JSONDecoder().decode(JsonElevation.self, from: data)
+            if nil != json {
+                // mainスレッドで処理する
+                DispatchQueue.main.async {
+                    self.longTapElevation = (json?.elevation)!
+                    self.lblLongTapElevation.text = " 指定位置：" + self.longTapElevation.description + " m"
+                    self.view.addSubview(self.lblLongTapElevation)
+                    
+                    // 現在位置が取得できていれば標高差を表示する
+                    if -100000.0 != self.currentElevation {
+                        // 少数第2位で四捨五入する
+                        self.lblDiffElevation.text = " 標高差： " + (round(((self.longTapElevation - self.currentElevation)*10))/10).description + " m"
+                        self.view.addSubview(self.lblDiffElevation)
+                    }
+                }
+            }
+        }.resume()
     }
     
     // watchOSに緯度経度を送信

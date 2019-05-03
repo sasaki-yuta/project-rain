@@ -17,6 +17,7 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var btnHybrid: UIButton!
     @IBOutlet weak var btnMutedStandard: UIButton!
     @IBOutlet weak var btnDelTapPoint: UIButton!
+    @IBOutlet weak var btnGetElevation: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,7 @@ class MenuViewController: UIViewController {
 
         // Voewのサイズを画面サイズに設定する
         let dispSize: CGSize = UIScreen.main.bounds.size
+        let width = Int(dispSize.width)
         let height = Int(dispSize.height)
         menuView.frame.size = CGSize(width: 150, height: height)
 
@@ -107,7 +109,16 @@ class MenuViewController: UIViewController {
             animations: {self.btnDelTapPoint.layer.position.x = btnDelTapPointPos.x},
             completion: {bool in}
         )
-
+        
+        let btnGetElevationPos = btnGetElevation.layer.position
+        btnGetElevation.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnGetElevation.layer.position.x = btnGetElevationPos.x},
+            completion: {bool in}
+        )
     }
     
     // メニューエリア以外タップ時の処理
@@ -188,6 +199,18 @@ class MenuViewController: UIViewController {
                         self.dismiss(animated: true, completion: nil)
                     }
                 )
+                
+                UIView.animate(
+                    withDuration: 0.2,
+                    delay: 0,
+                    options: .curveEaseIn,
+                    animations: {
+                        self.btnGetElevation.layer.position.x = -self.menuView.frame.width
+                    },
+                    completion: { bool in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                )
             }
         }
     }
@@ -242,6 +265,14 @@ class MenuViewController: UIViewController {
         updateBtn()
     }
     
+    // ロングタップした地点との標高差を取得する
+    @IBAction func btnGetElevationThouchDown(_ sender: Any) {
+        print("btnGetElevationThouchDown")
+        
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.viewController.showElevation()
+    }
+    
     // 地図タイプボタンのアクティブ状態を更新
     func updateBtn() {
         // カスタムの文字色で初期化
@@ -254,6 +285,7 @@ class MenuViewController: UIViewController {
         btnHybrid.setTitleColor(strColor, for: .normal)
         btnMutedStandard.setTitleColor(strColor, for: .normal)
         btnDelTapPoint.setTitleColor(strColor, for: .normal)
+        btnGetElevation.setTitleColor(strColor, for: .normal)
         
         // 選択されているボタンの文字をグレーにする
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -274,6 +306,7 @@ class MenuViewController: UIViewController {
         // ロングタップした地点がなければ文字をグレーにする
         if false == appDelegate.viewController.isExistLongTapPoint() {
             btnDelTapPoint.setTitleColor(UIColor.gray, for: .normal)
+            btnGetElevation.setTitleColor(UIColor.gray, for: .normal)
         }
         
         // ボタンの再描画
@@ -282,5 +315,6 @@ class MenuViewController: UIViewController {
         self.view.addSubview(btnHybrid)
         self.view.addSubview(btnMutedStandard)
         self.view.addSubview(btnDelTapPoint)
+        self.view.addSubview(btnGetElevation)
     }
 }

@@ -128,6 +128,17 @@
                                             <action selector="btnDelTapPointThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="b7l-TT-iba"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mj9-VF-cBn">
+                                        <rect key="frame" x="30" y="380" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="標高差取得">
+                                            <color key="titleColor" red="0.0" green="0.58039215686274503" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnGetElevationThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="ox3-NA-ocA"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -138,6 +149,7 @@
                     </view>
                     <connections>
                         <outlet property="btnDelTapPoint" destination="rYG-ZK-E4x" id="av1-kr-crz"/>
+                        <outlet property="btnGetElevation" destination="Mj9-VF-cBn" id="jpa-ZP-q2m"/>
                         <outlet property="btnHybrid" destination="c2E-0K-t3n" id="kwh-GD-8gy"/>
                         <outlet property="btnMutedStandard" destination="WLf-GF-Dxx" id="NTN-NJ-cXK"/>
                         <outlet property="btnSatellite" destination="FEA-d2-Qlb" id="d4e-Uf-irG"/>

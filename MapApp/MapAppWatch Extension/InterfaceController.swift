@@ -131,6 +131,8 @@ class InterfaceController:  WKInterfaceController,
         print("crownDidRotate rotationalDelta = " + rotationalDelta.description )
 
         var num: Double = 0
+        
+        // スケール変更量を微調整する
         if (0.01 > dSpanlat) || (0.01 > dSpanlon) {
             num = 0.0001
         }
@@ -147,6 +149,7 @@ class InterfaceController:  WKInterfaceController,
             num = 1.0
         }
 
+        // 上に回転すると正の値が取得されるため、上回転でスケールを拡大したいので符号を逆転させる
         if (0 > rotationalDelta) {
             dSpanlat += num
             dSpanlon += num
