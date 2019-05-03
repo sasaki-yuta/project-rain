@@ -13,12 +13,15 @@ import CoreLocation
 
 class InterfaceController:  WKInterfaceController,
                             WCSessionDelegate,
-                            CLLocationManagerDelegate {
+                            CLLocationManagerDelegate,
+                            WKCrownDelegate {
     var session:WCSession!
     var dlon:Double! = 0
     var dlat:Double! = 0
     var locationManager = CLLocationManager()
     var locCord2D:CLLocationCoordinate2D?
+    var dSpanlon:Double! = 0.005
+    var dSpanlat:Double! = 0.005
 
     @IBOutlet weak var label: WKInterfaceLabel!
     @IBOutlet var mapView: WKInterfaceMap!
@@ -45,6 +48,9 @@ class InterfaceController:  WKInterfaceController,
         }) { (error) -> Void in
             print(error)
         }
+        
+        // crownSequencerにフォーカスを当てる
+        crownSequencer.focus()
     }
     
     override func didDeactivate() {
@@ -77,9 +83,12 @@ class InterfaceController:  WKInterfaceController,
   
         // 地図の中心位置と縮尺を設定
         let coordinate = CLLocationCoordinate2DMake(37.331667, -122.030833)
-        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let span = MKCoordinateSpan(latitudeDelta: dSpanlat, longitudeDelta: dSpanlon)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         mapView.setRegion(region)
+        
+        // Digital Crownのデリゲートを設定
+        crownSequencer.delegate = self
     }
 
     // CLLocationManagerのdelegate：現在位置更新
@@ -114,8 +123,61 @@ class InterfaceController:  WKInterfaceController,
         mapView.addAnnotation(locCord2D!, with: .green)
         
         // 地図の中心位置を現在位置に設定する
-        let coordinate = (locations.last?.coordinate)!
-        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        updateCurrentLoc()
+    }
+    
+    // Digital Crownのデリゲート
+    func crownDidRotate(_ sequencer: WKCrownSequencer?, rotationalDelta: Double) {
+        print("crownDidRotate rotationalDelta = " + rotationalDelta.description )
+
+        var num: Double = 0
+        if (0.01 > dSpanlat) || (0.01 > dSpanlon) {
+            num = 0.0001
+        }
+        else if (0.1 > dSpanlat) || (0.1 > dSpanlon) {
+            num = 0.001
+        }
+        else if (1.0 > dSpanlat) || (1.0 > dSpanlon) {
+            num = 0.01
+        }
+        else if (10.0 > dSpanlat) || (1.0 > dSpanlon) {
+            num = 0.1
+        }
+        else {
+            num = 1.0
+        }
+
+        if (0 > rotationalDelta) {
+            dSpanlat += num
+            dSpanlon += num
+        }
+        else {
+            dSpanlat -= num
+            dSpanlon -= num
+        }
+
+        // 負の値になるとリセットするため最小値を設定
+        if (0 > dSpanlat) || (0 > dSpanlon) {
+            dSpanlat = 0.0
+            dSpanlon = 0.0
+        }
+        // 最大値のチェック
+        else if (36.0 <= dSpanlat) || (36.0 <= dSpanlon) {
+            dSpanlat = 36.0
+            dSpanlon = 36.0
+        }
+        else {
+            // そのままのスケールを使用する
+        }
+        
+        print("dSpanlat = " + dSpanlat.description, "dSpanlon = " + dSpanlat.description)
+        updateCurrentLoc()
+    }
+    
+    // 現在位置更新
+    func updateCurrentLoc() {
+        let coordinate = locCord2D!
+        let span = MKCoordinateSpan(latitudeDelta: dSpanlat, longitudeDelta: dSpanlon)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         mapView.setRegion(region)
     }
