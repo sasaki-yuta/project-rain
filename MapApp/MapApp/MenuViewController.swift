@@ -281,11 +281,17 @@ class MenuViewController: UIViewController {
         let strColor: UIColor = UIColor(red: 0, green: g, blue: b, alpha: 1.0)
 
         btnStandard.setTitleColor(strColor, for: .normal)
+        btnStandard.isEnabled = true
         btnSatellite.setTitleColor(strColor, for: .normal)
+        btnSatellite.isEnabled = true
         btnHybrid.setTitleColor(strColor, for: .normal)
+        btnHybrid.isEnabled = true
         btnMutedStandard.setTitleColor(strColor, for: .normal)
+        btnMutedStandard.isEnabled = true
         btnDelTapPoint.setTitleColor(strColor, for: .normal)
+        btnDelTapPoint.isEnabled = true
         btnGetElevation.setTitleColor(strColor, for: .normal)
+        btnGetElevation.isEnabled = true
         
         // 選択されているボタンの文字をグレーにする
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -293,12 +299,16 @@ class MenuViewController: UIViewController {
         switch appDelegate.viewController.mapView.mapType {
         case .standard:
             btnStandard.setTitleColor(UIColor.gray, for: .normal)
+            btnStandard.isEnabled = false
         case .satellite:
             btnSatellite.setTitleColor(UIColor.gray, for: .normal)
+            btnSatellite.isEnabled = false
         case .hybrid:
             btnHybrid.setTitleColor(UIColor.gray, for: .normal)
+            btnHybrid.isEnabled = false
         case .mutedStandard:
             btnMutedStandard.setTitleColor(UIColor.gray, for: .normal)
+            btnMutedStandard.isEnabled = false
         default:
             break;
         }
@@ -306,7 +316,9 @@ class MenuViewController: UIViewController {
         // ロングタップした地点がなければ文字をグレーにする
         if false == appDelegate.viewController.isExistLongTapPoint() {
             btnDelTapPoint.setTitleColor(UIColor.gray, for: .normal)
+            btnDelTapPoint.isEnabled = false
             btnGetElevation.setTitleColor(UIColor.gray, for: .normal)
+            btnGetElevation.isEnabled = false
         }
         
         // ボタンの再描画
