@@ -33,6 +33,15 @@ class AplAnnotation: NSObject, MKAnnotation {
     }
 }
 
+// MKPointAnnotation拡張用クラス
+class MapAnnotationSetting: MKPointAnnotation {
+    var pinColor: UIColor = .red
+    
+    func setPinColor(_ color: UIColor) {
+        pinColor = color
+    }
+}
+
 
 class ViewController:   UIViewController,
                         CLLocationManagerDelegate,
@@ -44,7 +53,7 @@ class ViewController:   UIViewController,
     @IBOutlet var mapViewTypeOver: UIButton!
 
     var locManager: CLLocationManager!
-    var pointAno: MKPointAnnotation = MKPointAnnotation()
+    var pointAno: MapAnnotationSetting = MapAnnotationSetting()
     var calcPointAno: AplAnnotation!
     var mapViewType: UIButton!
     var session: WCSession!
@@ -387,6 +396,22 @@ class ViewController:   UIViewController,
     // 地図の表示タイプを切り替える
     func setMapType(_ mapType: MKMapType) {
         mapView.mapType = mapType
+        
+        // ステータスバーのスタイル変更を促す
+        self.setNeedsStatusBarAppearanceUpdate();
+    }
+    
+    // ステータスバー文字色を更新
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        var ret = UIStatusBarStyle.default
+        
+        if nil != mapView {
+            if  (.standard != mapView.mapType) && (.mutedStandard != mapView.mapType) {
+                ret = UIStatusBarStyle.lightContent
+            }
+        }
+        
+        return ret
     }
     
     // ロングタップした地点が存在するか？
@@ -401,11 +426,11 @@ class ViewController:   UIViewController,
     // ロングタップした地点を削除する
     func delLongTapPoint() {
         mapView.removeAnnotation(pointAno)
+        dlon = 0
+        dlat = 0
         if nil != calcPointAno {
             mapView.removeAnnotation(calcPointAno)
         }
-        dlon = 0
-        dlat = 0
         
         // Infomationを更新する
         lblDestMeter.text = "距離：- m"
@@ -534,13 +559,27 @@ class ViewController:   UIViewController,
         if annotation is MKUserLocation {
             return nil
         }
+
+        
+        // MKPointAnnotationの場合の処理
+        let pinView = MKMarkerAnnotationView()
+        pinView.annotation = annotation
+        if let pin = annotation as? MapAnnotationSetting {
+            pinView.glyphTintColor = pin.pinColor
+            pinView.canShowCallout = true
+            return pinView
+        }
         
         // AplAnnotationに設定したパラメータで表示する
         // AplAnnotationを使用していない場合はデフォルトの設定でアノテーションを表示する
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier, for: annotation)
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier:
+                MKMapViewDefaultAnnotationViewReuseIdentifier, for: annotation)
         
         guard let markerAnnotationView = annotationView as? MKMarkerAnnotationView,
-            let aplAnnotation = annotation as? AplAnnotation else { return annotationView }
+                let aplAnnotation = annotation as? AplAnnotation else {
+            annotationView.tintColor = .red
+            return annotationView
+        }
         // 今はアノテーションをグルーピングしないためコメントアウトする
 //      markerAnnotationView.clusteringIdentifier = aplAnnotation.clusteringIdentifier
         markerAnnotationView.glyphText = aplAnnotation.glyphText

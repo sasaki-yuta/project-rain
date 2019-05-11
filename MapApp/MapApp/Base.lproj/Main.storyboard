@@ -155,6 +155,8 @@
                         <outlet property="btnMutedStandard" destination="WLf-GF-Dxx" id="NTN-NJ-cXK"/>
                         <outlet property="btnSatellite" destination="FEA-d2-Qlb" id="d4e-Uf-irG"/>
                         <outlet property="btnStandard" destination="k7p-Rg-3ju" id="QnZ-K1-C6f"/>
+                        <outlet property="lblFunk" destination="Oxm-ov-7tw" id="EG0-Vu-8wa"/>
+                        <outlet property="lblMapType" destination="mfV-up-oT2" id="zXT-IK-MbJ"/>
                         <outlet property="menuView" destination="0jL-7h-96e" id="XWS-U6-vZC"/>
                     </connections>
                 </viewController>

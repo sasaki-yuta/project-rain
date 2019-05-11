@@ -18,6 +18,8 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var btnMutedStandard: UIButton!
     @IBOutlet weak var btnDelTapPoint: UIButton!
     @IBOutlet weak var btnGetElevation: UIButton!
+    @IBOutlet weak var lblMapType: UILabel!
+    @IBOutlet weak var lblFunk: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +44,7 @@ class MenuViewController: UIViewController {
 
         // Voewのサイズを画面サイズに設定する
         let dispSize: CGSize = UIScreen.main.bounds.size
-        let width = Int(dispSize.width)
+//        let width = Int(dispSize.width)
         let height = Int(dispSize.height)
         menuView.frame.size = CGSize(width: 150, height: height)
 
@@ -221,7 +223,12 @@ class MenuViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.standard)
-        
+
+        // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+        menuView.backgroundColor = .white
+        lblMapType.textColor = .black
+        lblFunk.textColor = .black
+
         updateBtn()
     }
     
@@ -231,7 +238,12 @@ class MenuViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.satellite)
-        
+
+        // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+        menuView.backgroundColor = .black
+        lblMapType.textColor = .white
+        lblFunk.textColor = .white
+
         updateBtn()
     }
 
@@ -242,6 +254,11 @@ class MenuViewController: UIViewController {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.hybrid)
         
+        // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+        menuView.backgroundColor = .black
+        lblMapType.textColor = .white
+        lblFunk.textColor = .white
+
         updateBtn()
     }
 
@@ -252,6 +269,11 @@ class MenuViewController: UIViewController {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.mutedStandard)
         
+        // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+        menuView.backgroundColor = .white
+        lblMapType.textColor = .black
+        lblFunk.textColor = .black
+
         updateBtn()
     }
     
@@ -300,15 +322,31 @@ class MenuViewController: UIViewController {
         case .standard:
             btnStandard.setTitleColor(UIColor.gray, for: .normal)
             btnStandard.isEnabled = false
+            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+            menuView.backgroundColor = .white
+            lblMapType.textColor = .black
+            lblFunk.textColor = .black
         case .satellite:
             btnSatellite.setTitleColor(UIColor.gray, for: .normal)
             btnSatellite.isEnabled = false
+            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+            menuView.backgroundColor = .black
+            lblMapType.textColor = .white
+            lblFunk.textColor = .white
         case .hybrid:
             btnHybrid.setTitleColor(UIColor.gray, for: .normal)
             btnHybrid.isEnabled = false
+            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+            menuView.backgroundColor = .black
+            lblMapType.textColor = .white
+            lblFunk.textColor = .white
         case .mutedStandard:
             btnMutedStandard.setTitleColor(UIColor.gray, for: .normal)
             btnMutedStandard.isEnabled = false
+            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+            menuView.backgroundColor = .white
+            lblMapType.textColor = .black
+            lblFunk.textColor = .black
         default:
             break;
         }
