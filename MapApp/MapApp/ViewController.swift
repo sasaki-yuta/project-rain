@@ -17,22 +17,6 @@ struct JsonElevation : Codable{
     var hsrc : String
 }
 
-// アノテーション用クラス
-class AplAnnotation: NSObject, MKAnnotation {
-//  static let clusteringIdentifier = "Group Name" 今はグルーピングするアノテーションがないためデフォルトにする
-    let coordinate: CLLocationCoordinate2D
-    let glyphText: String
-    let glyphTintColor: UIColor
-    let markerTintColor: UIColor
-    
-    init(_ coordinate: CLLocationCoordinate2D, glyphText: String, glyphTintColor: UIColor, markerTintColor: UIColor) {
-        self.coordinate = coordinate
-        self.glyphText = glyphText
-        self.glyphTintColor = glyphTintColor
-        self.markerTintColor = markerTintColor
-    }
-}
-
 // MKPointAnnotation拡張用クラス
 class MapAnnotationSetting: MKPointAnnotation {
     var pinColor: UIColor = .red
@@ -54,20 +38,17 @@ class ViewController:   UIViewController,
 
     var locManager: CLLocationManager!
     var pointAno: MapAnnotationSetting = MapAnnotationSetting()
-    var calcPointAno: AplAnnotation!
+    var calcPointAno: MapAnnotationSetting = MapAnnotationSetting()
     var mapViewType: UIButton!
     var session: WCSession!
     var dlon:Double! = 0
     var dlat:Double! = 0
     
     // Infomationに表示するラベル
-    var lblInfoBarBack: UILabel = UILabel()
-    var lblNowElevation: UILabel = UILabel()
-    var lblLongTapElevation: UILabel = UILabel()
-    var lblDiffElevation: UILabel = UILabel()
-    var lblDestMeter: UILabel = UILabel()
-    var lblDestYard: UILabel = UILabel()
-
+    var lblNowElevation: String = String()
+    var lblLongTapElevation: String = String()
+    var lblDiffElevation: String = String()
+    
     // ロングタップした位置との標高差を取得する変数
     var currentElevation: Double = -100000.0
     var longTapElevation: Double = -100000.0
@@ -220,41 +201,7 @@ class ViewController:   UIViewController,
         scale.legendAlignment = .leading
         self.view.addSubview(scale)
         
-        // Infomationに表示するラベル
-        lblInfoBarBack.frame = CGRect(x: 0, y: height - 150, width: width, height: 90)
-        lblInfoBarBack.backgroundColor = .black
-        lblInfoBarBack.alpha = 0.5
-        self.view.addSubview(lblInfoBarBack)
-        
-        lblDiffElevation.frame = CGRect(x: width - 170, y: height - 150, width: 140, height: 30)
-        lblDiffElevation.font = UIFont.systemFont(ofSize: 15.0)
-        lblDiffElevation.textColor = .green
-        lblDiffElevation.text = "標高差：- m"
-        self.view.addSubview(lblDiffElevation)
-
-        lblNowElevation.frame = CGRect(x: width - 170, y: height - 120, width: 140, height: 30)
-        lblNowElevation.font = UIFont.systemFont(ofSize: 15.0)
-        lblNowElevation.textColor = .green
-        lblNowElevation.text = "現在位置：- m"
-        self.view.addSubview(lblNowElevation)
-        
-        lblLongTapElevation.frame = CGRect(x: width - 170, y: height - 90, width: 140, height: 30)
-        lblLongTapElevation.font = UIFont.systemFont(ofSize: 15.0)
-        lblLongTapElevation.textColor = .green
-        lblLongTapElevation.text = "指定位置：- m"
-        self.view.addSubview(lblLongTapElevation)
-
-        lblDestMeter.frame = CGRect(x: 30, y: height - 150, width: 120, height: 30)
-        lblDestMeter.font = UIFont.systemFont(ofSize: 15.0)
-        lblDestMeter.textColor = .green
-        lblDestMeter.text = "距離：- m"
-        self.view.addSubview(lblDestMeter)
-
-        lblDestYard.frame = CGRect(x: 30, y: height - 120, width: 120, height: 30)
-        lblDestYard.font = UIFont.systemFont(ofSize: 15.0)
-        lblDestYard.textColor = .green
-        lblDestYard.text = "距離：- y"
-        self.view.addSubview(lblDestYard)
+        lblLongTapElevation = "標高：- m"
     }
 
     // CLLocationManagerのdelegate：現在位置取得
@@ -265,32 +212,28 @@ class ViewController:   UIViewController,
         print("lon : " + lonStr)
         print("lat : " + latStr)
 
+        // ロングタップしたアノテーション情報を更新する
+        updateLongTapPointAno()
+    }
+    
+    // ロングタップしたアノテーション情報を更新する
+    func updateLongTapPointAno() {
         if (true == isExistLongTapPoint()) {
-            // 標高
-//          let nowAlt = locations.last?.altitude
-//          print("今の標高 = " + (nowAlt?.description)!)
-
             // 現在位置とタッウプした位置の距離(m)を算出する
             let distance = calcDistance(mapView.userLocation.coordinate, pointAno.coordinate)
             
             // ピンに設定する文字列を生成する
-            var str:String = Int(distance).description
+            var str:String = "現在地から\n" + Int(distance).description
             str = str + " m"
             
             // yard
             let yardStr = Int(distance * 1.09361)
-            str = str + " / " + yardStr.description + " y"
+            str = str + " / " + yardStr.description + " y" + "\n" + lblLongTapElevation.description
             
             if pointAno.title != str {
                 // ピンまでの距離に変化があればtitleを更新する
                 pointAno.title = str
                 mapView.addAnnotation(pointAno)
-                
-                // Infomationを更新する
-                lblDestMeter.text = "距離：" + Int(distance).description + " m"
-                self.view.addSubview(lblDestMeter)
-                lblDestYard.text = "距離：" + Int(distance * 1.09361).description + " y"
-                self.view.addSubview(lblDestYard)
             }
         }
     }
@@ -307,15 +250,11 @@ class ViewController:   UIViewController,
         // ロングタップ開始
         if sender.state == .began {
             // ロングタップ開始時に古いピンを削除する
+            lblLongTapElevation = "標高：- m"
+            mapView.removeAnnotation(calcPointAno)
             mapView.removeAnnotation(pointAno)
             dlon = 0
             dlat = 0
-            
-            // Infomationを更新する
-            lblDestMeter.text = "距離：- m"
-            self.view.addSubview(lblDestMeter)
-            lblDestYard.text = "距離：- y"
-            self.view.addSubview(lblDestYard)
         }
         // ロングタップ終了（手を離した）
         else if sender.state == .ended {
@@ -333,23 +272,17 @@ class ViewController:   UIViewController,
             print("distance : " + distance.description)
 
             // ピンに設定する文字列を生成する
-            var str:String = Int(distance).description
+            var str:String = "現在地から\n" + Int(distance).description
             str = str + " m"
 
             // yard
             let yardStr = Int(distance * 1.09361)
-            str = str + " / " + yardStr.description + " y"
+            str = str + " / " + yardStr.description + " y" + "\n" + lblLongTapElevation.description
             
             // ロングタップを検出した位置にピンを立てる
             pointAno.coordinate = center
             pointAno.title = str
             mapView.addAnnotation(pointAno)
-            
-            // Infomationを更新する
-            lblDestMeter.text = "距離：" + Int(distance).description + " m"
-            self.view.addSubview(lblDestMeter)
-            lblDestYard.text = "距離：" + Int(distance * 1.09361).description + " y"
-            self.view.addSubview(lblDestYard)
             
             // watchOSにロングタップしてピンを立てた地点の緯度経度を送信
             dlon = center.longitude
@@ -425,24 +358,10 @@ class ViewController:   UIViewController,
     
     // ロングタップした地点を削除する
     func delLongTapPoint() {
+        mapView.removeAnnotation(calcPointAno)
         mapView.removeAnnotation(pointAno)
         dlon = 0
         dlat = 0
-        if nil != calcPointAno {
-            mapView.removeAnnotation(calcPointAno)
-        }
-        
-        // Infomationを更新する
-        lblDestMeter.text = "距離：- m"
-        self.view.addSubview(lblDestMeter)
-        lblDestYard.text = "距離：- y"
-        self.view.addSubview(lblDestYard)
-        lblDiffElevation.text = "標高差：- m"
-        self.view.addSubview(lblDiffElevation)
-        lblNowElevation.text = "現在位置：- m"
-        self.view.addSubview(lblNowElevation)
-        lblLongTapElevation.text = "指定位置：- m"
-        self.view.addSubview(lblLongTapElevation)
         
         // watchOSに緯度経度を送信
         sendMessageLonLat()
@@ -466,20 +385,12 @@ class ViewController:   UIViewController,
         // http:は「Info.plis」に「App Transport Security Settings」を設定しないとエラーになる
         guard let url = URL(string: listUrl) else { return }
 
+        // 計測地点のアノテーションがあれば再表示のため削除する
+        mapView.removeAnnotation(calcPointAno)
+
         // 標高差の計測地点にアノテーションを設定する
-        if nil != calcPointAno {
-            // 計測地点のアノテーションがあれば再表示のため削除する
-            mapView.removeAnnotation(calcPointAno)
-        }
-        calcPointAno = AplAnnotation(
-                CLLocationCoordinate2D(
-                        latitude: mapView.userLocation.coordinate.latitude,
-                        longitude: mapView.userLocation.coordinate.longitude
-                    ),
-                glyphText: "計測地点",
-                glyphTintColor: .white,
-                markerTintColor: .green
-            )
+        calcPointAno.coordinate = mapView.userLocation.coordinate
+        calcPointAno.setPinColor(.green)
         mapView.addAnnotation(calcPointAno)
 
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -494,14 +405,13 @@ class ViewController:   UIViewController,
                 // mainスレッドで処理する
                 DispatchQueue.main.async {
                     self.currentElevation = (json?.elevation)!
-                    self.lblNowElevation.text = "現在位置：" + self.currentElevation.description + " m"
-                    self.view.addSubview(self.lblNowElevation)
+                    self.lblNowElevation = "標高計測位置：" + self.currentElevation.description + " m"
                     
                     // 指定位置が取得できていれば標高差を表示する
                     if -100000.0 != self.longTapElevation {
-                        self.lblDiffElevation.text = "標高差：" + (round(((self.longTapElevation - self.currentElevation)*10))/10).description + " m"
-                        self.view.addSubview(self.lblDiffElevation)
+                        self.lblDiffElevation = "標高差：" + (round(((self.longTapElevation - self.currentElevation)*10))/10).description + " m"
                     }
+                    self.setCalcPointAnoTitle()
                 }
             }
         }.resume()
@@ -528,15 +438,14 @@ class ViewController:   UIViewController,
                 // mainスレッドで処理する
                 DispatchQueue.main.async {
                     self.longTapElevation = (json?.elevation)!
-                    self.lblLongTapElevation.text = "指定位置：" + self.longTapElevation.description + " m"
-                    self.view.addSubview(self.lblLongTapElevation)
+                    self.lblLongTapElevation = "標高：" + self.longTapElevation.description + " m"
                     
                     // 現在位置が取得できていれば標高差を表示する
                     if -100000.0 != self.currentElevation {
                         // 少数第2位で四捨五入する
-                        self.lblDiffElevation.text = "標高差：" + (round(((self.longTapElevation - self.currentElevation)*10))/10).description + " m"
-                        self.view.addSubview(self.lblDiffElevation)
+                        self.lblDiffElevation = "標高差：" + (round(((self.longTapElevation - self.currentElevation)*10))/10).description + " m"
                     }
+                    self.setCalcPointAnoTitle()
                 }
             }
         }.resume()
@@ -559,34 +468,25 @@ class ViewController:   UIViewController,
         if annotation is MKUserLocation {
             return nil
         }
-
         
         // MKPointAnnotationの場合の処理
         let pinView = MKMarkerAnnotationView()
         pinView.annotation = annotation
         if let pin = annotation as? MapAnnotationSetting {
-            pinView.glyphTintColor = pin.pinColor
             pinView.canShowCallout = true
-            return pinView
+            pinView.markerTintColor = pin.pinColor
         }
+
+        return pinView
+    }
+    
+    // 標高差の計測情報をアノテーションのタイトルに設定する
+    func setCalcPointAnoTitle() {
+        calcPointAno.title = "\n" + lblNowElevation.description + "\n" + lblDiffElevation.description
+        mapView.addAnnotation(calcPointAno)
         
-        // AplAnnotationに設定したパラメータで表示する
-        // AplAnnotationを使用していない場合はデフォルトの設定でアノテーションを表示する
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier:
-                MKMapViewDefaultAnnotationViewReuseIdentifier, for: annotation)
-        
-        guard let markerAnnotationView = annotationView as? MKMarkerAnnotationView,
-                let aplAnnotation = annotation as? AplAnnotation else {
-            annotationView.tintColor = .red
-            return annotationView
-        }
-        // 今はアノテーションをグルーピングしないためコメントアウトする
-//      markerAnnotationView.clusteringIdentifier = aplAnnotation.clusteringIdentifier
-        markerAnnotationView.glyphText = aplAnnotation.glyphText
-        markerAnnotationView.glyphTintColor = aplAnnotation.glyphTintColor
-        markerAnnotationView.markerTintColor = aplAnnotation.markerTintColor
-        
-        return markerAnnotationView
+        // ロングタップしたアノテーション情報を更新する
+        updateLongTapPointAno()
     }
 }
 
