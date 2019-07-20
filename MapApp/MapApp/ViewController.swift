@@ -235,7 +235,7 @@ class ViewController:   UIViewController,
             let distance = calcDistance(mapView.userLocation.coordinate, pointAno.coordinate)
             
             // ピンに設定する文字列を生成する
-            var str:String = "現在地から\n" + Int(distance).description
+            var str:String = Int(distance).description
             str = str + " m"
             
             // yard
@@ -284,7 +284,7 @@ class ViewController:   UIViewController,
             print("distance : " + distance.description)
 
             // ピンに設定する文字列を生成する
-            var str:String = "現在地から\n" + Int(distance).description
+            var str:String = Int(distance).description
             str = str + " m"
 
             // yard
@@ -419,7 +419,7 @@ class ViewController:   UIViewController,
                 // mainスレッドで処理する
                 DispatchQueue.main.async {
                     self.currentElevation = (json?.elevation)!
-                    self.lblNowElevation = "標高計測位置：" + self.currentElevation.description + " m"
+                    self.lblNowElevation = "計測位置：" + self.currentElevation.description + " m"
                     
                     // 指定位置が取得できていれば高低差を表示する
                     if -100000.0 != self.longTapElevation {

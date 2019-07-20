@@ -27,7 +27,6 @@ class InterfaceController:  WKInterfaceController,
 
     @IBOutlet var mapView: WKInterfaceMap!
     @IBOutlet weak var label: WKInterfaceLabel!
-    @IBOutlet weak var button: WKInterfaceButton!
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -112,7 +111,7 @@ class InterfaceController:  WKInterfaceController,
             let yardStr = Int(distance * 1.09361)
             // 距離をラベルのテキストに設定する
             let fontSize = UIFont.systemFont(ofSize: 20)
-            let text = String(yardStr.description + "y") + "  " + sHeight.description
+            let text = String(Int(distance).description + " m / " + yardStr.description + " y")
             let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
             label.setAttributedText(attrStr)
             
@@ -243,8 +242,7 @@ class InterfaceController:  WKInterfaceController,
                     // mをyardに変換する
                     let yardStr = Int(distance * 1.09361)
                     // 距離をラベルのテキストに設定する
-                    //              text = String(Int(distance).description + "m" + "\n" + yardStr.description + "y")
-                    text = String(yardStr.description + "y") + "  " + sHeight.description
+                    text = String(Int(distance).description + " m / " + yardStr.description + " y")
                     
                     // 緯度経度が有効であればアノテーションを設定する
                     let cordinate2D = CLLocationCoordinate2DMake(dlat, dlon)

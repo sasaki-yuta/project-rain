@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapAppWatch Extension/InterfaceController.swift"
-            timestampString = "582946841.603804"
+            timestampString = "585300366.773954"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "willActivate()"
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -106,13 +106,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapAppWatch Extension/InterfaceController.swift"
-            timestampString = "582946841.604058"
+            timestampString = "585300366.774413"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "crownDidRotate(_:rotationalDelta:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -122,13 +122,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapAppWatch Extension/InterfaceController.swift"
-            timestampString = "582946841.60412"
+            timestampString = "585300366.776733"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "192"
+            endingLineNumber = "192"
+            landmarkName = "calcDistance(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -154,13 +154,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapAppWatch Extension/InterfaceController.swift"
-            timestampString = "582946841.604223"
+            timestampString = "585300366.777523"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "session(_:didReceiveMessage:replyHandler:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -170,13 +170,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapAppWatch Extension/InterfaceController.swift"
-            timestampString = "582946841.604269"
+            timestampString = "585300366.778289"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "273"
+            endingLineNumber = "273"
+            landmarkName = "btnGetElevationTouchDown()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -186,13 +186,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapAppWatch Extension/InterfaceController.swift"
-            timestampString = "582946841.604315"
+            timestampString = "585300366.779169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "209"
+            endingLineNumber = "209"
+            landmarkName = "session(_:didReceiveMessage:replyHandler:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -202,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapApp/ViewController.swift"
-            timestampString = "582946841.60436"
+            timestampString = "585300366.779907"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "119"
