@@ -49,7 +49,7 @@ class ViewController:   UIViewController,
     var lblLongTapElevation: String = String()
     var lblDiffElevation: String = String()
     
-    // ロングタップした位置との標高差を取得する変数
+    // ロングタップした位置との高低差を取得する変数
     var currentElevation: Double = -100000.0
     var longTapElevation: Double = -100000.0
 
@@ -116,7 +116,7 @@ class ViewController:   UIViewController,
     
     // watchOSからMessage受信
     public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Swift.Void){
-        print("receiveMessage::\(message)")
+        print("receiveMessage[iOS]::\(message)")
         replyHandler(["message" : "received message."])
 
         // String型以外は処理しない
@@ -128,6 +128,18 @@ class ViewController:   UIViewController,
         case "LONLAT":
             // watchOSにロングタップしてピンを立てた地点の緯度経度を送信
             sendMessageLonLat()
+        case "HEIGHT":
+            print("Height")
+            // Double型以外は処理しない
+            guard let getLon = message["lon"] as? Double else {
+                return
+            }
+            // Double型以外は処理しない
+            guard let getLat = message["lat"] as? Double else {
+                return
+            }
+            getWatchOSEElevation(getLon, getLat)
+
         default:
             print("not exist type.")
         }
@@ -362,12 +374,14 @@ class ViewController:   UIViewController,
         mapView.removeAnnotation(pointAno)
         dlon = 0
         dlat = 0
+        currentElevation = -100000.0
+        longTapElevation = -100000.0
         
         // watchOSに緯度経度を送信
         sendMessageLonLat()
     }
     
-    // ロングタップした地点との標高差を表示する
+    // ロングタップした地点との高低差を表示する
     func showElevation() {
         // 初期値(無効値)を設定
         currentElevation = -100000.0
@@ -388,7 +402,7 @@ class ViewController:   UIViewController,
         // 計測地点のアノテーションがあれば再表示のため削除する
         mapView.removeAnnotation(calcPointAno)
 
-        // 標高差の計測地点にアノテーションを設定する
+        // 高低差の計測地点にアノテーションを設定する
         calcPointAno.coordinate = mapView.userLocation.coordinate
         calcPointAno.setPinColor(.green)
         mapView.addAnnotation(calcPointAno)
@@ -407,9 +421,9 @@ class ViewController:   UIViewController,
                     self.currentElevation = (json?.elevation)!
                     self.lblNowElevation = "標高計測位置：" + self.currentElevation.description + " m"
                     
-                    // 指定位置が取得できていれば標高差を表示する
+                    // 指定位置が取得できていれば高低差を表示する
                     if -100000.0 != self.longTapElevation {
-                        self.lblDiffElevation = "標高差：" + (round(((self.longTapElevation - self.currentElevation)*10))/10).description + " m"
+                        self.lblDiffElevation = "高低差：" + (round(((self.longTapElevation - self.currentElevation)*10))/10).description + " m"
                     }
                     self.setCalcPointAnoTitle()
                 }
@@ -440,12 +454,56 @@ class ViewController:   UIViewController,
                     self.longTapElevation = (json?.elevation)!
                     self.lblLongTapElevation = "標高：" + self.longTapElevation.description + " m"
                     
-                    // 現在位置が取得できていれば標高差を表示する
+                    // 現在位置が取得できていれば高低差を表示する
                     if -100000.0 != self.currentElevation {
                         // 少数第2位で四捨五入する
-                        self.lblDiffElevation = "標高差：" + (round(((self.longTapElevation - self.currentElevation)*10))/10).description + " m"
+                        self.lblDiffElevation = "高低差：" + (round(((self.longTapElevation - self.currentElevation)*10))/10).description + " m"
                     }
                     self.setCalcPointAnoTitle()
+                }
+            }
+        }.resume()
+    }
+
+    // watchOSからの高低差取得要求を処理する
+    func getWatchOSEElevation(_ lon:Double, _ lat:Double) {
+        // 国土地理院のURL
+        let baseUrl = "http://cyberjapandata2.gsi.go.jp/general/dem/scripts/getelevation.php?"
+        
+        // 現在位置の標高を取得する
+        let lonUrl = "&lon=" + lon.description
+        let latUrl = "&lat=" + lat.description
+        let outtypeUrl = "&outtype=JSON"
+        let listUrl = baseUrl + lonUrl + latUrl + outtypeUrl
+        
+        // http:は「Info.plis」に「App Transport Security Settings」を設定しないとエラーになる
+        guard let url = URL(string: listUrl) else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+            
+            guard let data = data else { return }
+            
+            let json = try? JSONDecoder().decode(JsonElevation.self, from: data)
+            if nil != json {
+                // mainスレッドで処理する
+                DispatchQueue.main.async {
+                    let elevation = (json?.elevation)!
+                    // 指定位置が取得できていれば高低差を表示する
+                    if -100000.0 != self.longTapElevation {
+                        let sendMsg = "高低差：" + (round(((self.longTapElevation - elevation)*10))/10).description + " m"
+                        
+                        //watchOSにメッセージ送信する
+                        let contents =  ["RESP":"HEIGHT", "STR":sendMsg] as [String : Any]
+                        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+                            print ("receive from apple watch");
+                        }) { (error) -> Void in
+                            print(error)
+                        }
+                        
+                    }
                 }
             }
         }.resume()
@@ -453,8 +511,8 @@ class ViewController:   UIViewController,
     
     // watchOSに緯度経度を送信
     func sendMessageLonLat() {
-        let contents =  ["lon":dlon, "lat":dlat]
-        self.session.sendMessage(contents as [String : Any], replyHandler: { (replyMessage) -> Void in
+        let contents =  ["RESP":"LONLAT", "lon":dlon, "lat":dlat] as [String : Any]
+        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
             print ("receive from apple watch");
         }) { (error) -> Void in
             print(error)
@@ -480,9 +538,9 @@ class ViewController:   UIViewController,
         return pinView
     }
     
-    // 標高差の計測情報をアノテーションのタイトルに設定する
+    // 高低差の計測情報をアノテーションのタイトルに設定する
     func setCalcPointAnoTitle() {
-        calcPointAno.title = "\n" + lblNowElevation.description + "\n" + lblDiffElevation.description
+        calcPointAno.title = "\r \n \r \n" + lblNowElevation.description + "\n" + lblDiffElevation.description
         mapView.addAnnotation(calcPointAno)
         
         // ロングタップしたアノテーション情報を更新する

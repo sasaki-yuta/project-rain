@@ -16,16 +16,19 @@ class InterfaceController:  WKInterfaceController,
                             CLLocationManagerDelegate,
                             WKCrownDelegate {
     var session:WCSession!
-    var dlon:Double! = 0
-    var dlat:Double! = 0
+    var dlon:Double! = 0    // iOS側でロングタップした地点の経度
+    var dlat:Double! = 0    // iOS側でロングタップした地点の緯度
     var locationManager = CLLocationManager()
-    var locCord2D:CLLocationCoordinate2D?
+    var locCord2D:CLLocationCoordinate2D?   // watchOS側の現在位置
+    var calcCord2D:CLLocationCoordinate2D?  // watchOS側の標高計測
     var dSpanlon:Double! = 0.005
     var dSpanlat:Double! = 0.005
+    var sHeight:String! = "高低差：-"
 
-    @IBOutlet weak var label: WKInterfaceLabel!
     @IBOutlet var mapView: WKInterfaceMap!
-    
+    @IBOutlet weak var label: WKInterfaceLabel!
+    @IBOutlet weak var button: WKInterfaceButton!
+
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
@@ -109,8 +112,7 @@ class InterfaceController:  WKInterfaceController,
             let yardStr = Int(distance * 1.09361)
             // 距離をラベルのテキストに設定する
             let fontSize = UIFont.systemFont(ofSize: 20)
-//          let text = String(Int(distance).description + "m" + "\n" + yardStr.description + "y")
-            let text = String(yardStr.description + "y")
+            let text = String(yardStr.description + "y") + "  " + sHeight.description
             let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
             label.setAttributedText(attrStr)
             
@@ -120,7 +122,7 @@ class InterfaceController:  WKInterfaceController,
         }
         
         // 現在位置のアノテーションを設定する
-        mapView.addAnnotation(locCord2D!, with: .green)
+        mapView.addAnnotation(locCord2D!, with: .purple)
         
         // 地図の中心位置を現在位置に設定する
         updateCurrentLoc()
@@ -204,47 +206,79 @@ class InterfaceController:  WKInterfaceController,
     
     // iPhoneからMessage受信
     public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Swift.Void){
-        print("receiveMessage::\(message)")
-        
-        guard let lon = message["lon"] as? Double else {
+
+        print("receiveMessage[watchOS]::\(message)")
+        // String型以外は処理しない
+        guard let resp_type = message["RESP"] as? String else {
             return
         }
-
-        guard let lat = message["lat"] as? Double else {
-            return
-        }
-
-        // iOSからsendMessageで送信された緯度経度を変数に設定
-        dlon = lon
-        dlat = lat
         
-        // アノテーションを削除する
-        mapView.removeAllAnnotations()
-
-        // iOSから緯度経度を受信した時にも現在位置との距離を表示する
-        if (nil != locCord2D) {
-            var text = "no data"
+        switch resp_type {
+        case "LONLAT":
+            print("lonlat")
+            guard let lon = message["lon"] as? Double else {
+                return
+            }
+            guard let lat = message["lat"] as? Double else {
+                return
+            }
             
-            // 現在位置のアノテーションを設定する
-            mapView.addAnnotation(locCord2D!, with: .green)
+            // iOSからsendMessageで送信された緯度経度を変数に設定
+            dlon = lon
+            dlat = lat
             
-            if (0 != dlon) && (0 != dlat) {
-                // 現在位置とiOSから受信した緯度経度との距離(m)を算出する
-                let distance = calcDistance(locCord2D!)
-                // mをyardに変換する
-                let yardStr = Int(distance * 1.09361)
-                // 距離をラベルのテキストに設定する
-//              text = String(Int(distance).description + "m" + "\n" + yardStr.description + "y")
-                text = String(yardStr.description + "y")
-
-                // 緯度経度が有効であればアノテーションを設定する
-                let cordinate2D = CLLocationCoordinate2DMake(dlat, dlon)
-                mapView.addAnnotation(cordinate2D, with: .red)
+            // アノテーションを削除する
+            mapView.removeAllAnnotations()
+            
+            // iOSから緯度経度を受信した時にも現在位置との距離を表示する
+            if (nil != locCord2D) {
+                var text = "no data"
+                
+                // 現在位置のアノテーションを設定する
+                mapView.addAnnotation(locCord2D!, with: .purple)
+                
+                if (0 != dlon) && (0 != dlat) {
+                    // 現在位置とiOSから受信した緯度経度との距離(m)を算出する
+                    let distance = calcDistance(locCord2D!)
+                    // mをyardに変換する
+                    let yardStr = Int(distance * 1.09361)
+                    // 距離をラベルのテキストに設定する
+                    //              text = String(Int(distance).description + "m" + "\n" + yardStr.description + "y")
+                    text = String(yardStr.description + "y") + "  " + sHeight.description
+                    
+                    // 緯度経度が有効であればアノテーションを設定する
+                    let cordinate2D = CLLocationCoordinate2DMake(dlat, dlon)
+                    mapView.addAnnotation(cordinate2D, with: .red)
+                }
+                
+                let fontSize = UIFont.systemFont(ofSize: 20)
+                let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
+                label.setAttributedText(attrStr)
             }
 
-            let fontSize = UIFont.systemFont(ofSize: 20)
-            let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
-            label.setAttributedText(attrStr)
+        case "HEIGHT":
+            print("height")
+            guard let str = message["STR"] as? String else {
+                return
+            }
+            sHeight = str
+            
+        default:
+            break
+        }
+
+    }
+    
+    // 高低差計測ボタンタッチダウン
+    @IBAction func btnGetElevationTouchDown() {
+        // 画面描画時(アクティブになった時)にiOSのアプリにデータ送信を要求する
+        let lon:Double = locCord2D!.longitude
+        let lat:Double = locCord2D!.latitude
+        let contents =  ["GET":"HEIGHT", "lon":lon, "lat":lat] as [String : Any]
+        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+            print (replyMessage);
+        }) { (error) -> Void in
+            print(error)
         }
     }
 }

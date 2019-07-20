@@ -14,13 +14,20 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="MapAppWatch" customModuleProvider="target">
                     <items>
-                        <label alignment="left" verticalAlignment="bottom" text="no data" id="ch3-C2-3y5">
+                        <map height="93" alignment="center" id="oY7-fH-NhX"/>
+                        <label alignment="left" verticalAlignment="center" text="no data" id="ch3-C2-3y5">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="font" style="UICTFontTextStyleBody"/>
                         </label>
-                        <map height="130" alignment="left" id="oY7-fH-NhX"/>
+                        <button width="1" height="30" alignment="center" verticalAlignment="bottom" title="高低差計測" id="dzw-B7-x5e">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                            <connections>
+                                <action selector="btnGetElevationTouchDown" destination="AgC-eL-Hgc" id="uH0-w1-hqe"/>
+                            </connections>
+                        </button>
                     </items>
                     <connections>
+                        <outlet property="button" destination="dzw-B7-x5e" id="N0F-8v-PR3"/>
                         <outlet property="label" destination="ch3-C2-3y5" id="V9k-Pj-XIQ"/>
                         <outlet property="mapView" destination="oY7-fH-NhX" id="abX-bz-ScT"/>
                     </connections>
