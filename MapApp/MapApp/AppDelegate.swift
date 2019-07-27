@@ -9,13 +9,19 @@
 import UIKit
 import CoreData
 
+enum MapMode:Int {
+    case MODE_GOLF
+    case MODE_CYCLE
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    // View共通のインスタンスをここで管理
     var window: UIWindow?
     var viewController: ViewController!
-
-
+    var nowMapMode: MapMode! = .MODE_GOLF    // 選択中のMapMode(初期値=ゴルフ)
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true

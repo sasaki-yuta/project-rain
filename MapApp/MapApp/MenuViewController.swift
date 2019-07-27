@@ -18,7 +18,10 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var btnMutedStandard: UIButton!
     @IBOutlet weak var btnDelTapPoint: UIButton!
     @IBOutlet weak var btnGetElevation: UIButton!
+    @IBOutlet weak var btnGolfMode: UIButton!
+    @IBOutlet weak var btnCycleMode: UIButton!
     @IBOutlet weak var lblMapType: UILabel!
+    @IBOutlet weak var lblMapMode: UILabel!
     @IBOutlet weak var lblFunk: UILabel!
 
     override func viewDidLoad() {
@@ -121,6 +124,26 @@ class MenuViewController: UIViewController {
             animations: {self.btnGetElevation.layer.position.x = btnGetElevationPos.x},
             completion: {bool in}
         )
+
+        let btnGolfModePos = btnGolfMode.layer.position
+        btnGolfMode.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnGolfMode.layer.position.x = btnGolfModePos.x},
+            completion: {bool in}
+        )
+
+        let btnCycleModePos = btnCycleMode.layer.position
+        btnCycleMode.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnCycleMode.layer.position.x = btnCycleModePos.x},
+            completion: {bool in}
+        )
     }
     
     // メニューエリア以外タップ時の処理
@@ -213,6 +236,31 @@ class MenuViewController: UIViewController {
                         self.dismiss(animated: true, completion: nil)
                     }
                 )
+                
+                UIView.animate(
+                    withDuration: 0.2,
+                    delay: 0,
+                    options: .curveEaseIn,
+                    animations: {
+                        self.btnGolfMode.layer.position.x = -self.menuView.frame.width
+                    },
+                    completion: { bool in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                )
+
+                UIView.animate(
+                    withDuration: 0.2,
+                    delay: 0,
+                    options: .curveEaseIn,
+                    animations: {
+                        self.btnCycleMode.layer.position.x = -self.menuView.frame.width
+                    },
+                    completion: { bool in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                )
+                
             }
         }
     }
@@ -227,6 +275,7 @@ class MenuViewController: UIViewController {
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .white
         lblMapType.textColor = .black
+        lblMapMode.textColor = .black
         lblFunk.textColor = .black
 
         updateBtn()
@@ -242,6 +291,7 @@ class MenuViewController: UIViewController {
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .black
         lblMapType.textColor = .white
+        lblMapMode.textColor = .white
         lblFunk.textColor = .white
 
         updateBtn()
@@ -257,6 +307,7 @@ class MenuViewController: UIViewController {
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .black
         lblMapType.textColor = .white
+        lblMapMode.textColor = .white
         lblFunk.textColor = .white
 
         updateBtn()
@@ -272,6 +323,7 @@ class MenuViewController: UIViewController {
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .white
         lblMapType.textColor = .black
+        lblMapMode.textColor = .black
         lblFunk.textColor = .black
 
         updateBtn()
@@ -295,6 +347,15 @@ class MenuViewController: UIViewController {
         appDelegate.viewController.showElevation()
     }
     
+    // MapMode（ゴルフ）を押下した時の処理
+    @IBAction func btnGolfModeThouchDown(_ sender: Any) {
+    }
+    
+    // MapMode（サイクル）を押下した時の処理
+    @IBAction func btnCycleModeThouchDown(_ sender: Any) {
+    }
+
+    
     // 地図タイプボタンのアクティブ状態を更新
     func updateBtn() {
         // カスタムの文字色で初期化
@@ -314,10 +375,14 @@ class MenuViewController: UIViewController {
         btnDelTapPoint.isEnabled = true
         btnGetElevation.setTitleColor(strColor, for: .normal)
         btnGetElevation.isEnabled = true
-        
-        // 選択されているボタンの文字をグレーにする
+        btnGolfMode.setTitleColor(strColor, for: .normal)
+        btnGolfMode.isEnabled = true
+        btnCycleMode.setTitleColor(strColor, for: .normal)
+        btnCycleMode.isEnabled = true
+
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
+        // 選択されているMapTypeボタンの文字をグレーにする
         switch appDelegate.viewController.mapView.mapType {
         case .standard:
             btnStandard.setTitleColor(UIColor.gray, for: .normal)
@@ -325,6 +390,7 @@ class MenuViewController: UIViewController {
             // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
             menuView.backgroundColor = .white
             lblMapType.textColor = .black
+            lblMapMode.textColor = .black
             lblFunk.textColor = .black
         case .satellite:
             btnSatellite.setTitleColor(UIColor.gray, for: .normal)
@@ -332,6 +398,7 @@ class MenuViewController: UIViewController {
             // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
             menuView.backgroundColor = .black
             lblMapType.textColor = .white
+            lblMapMode.textColor = .white
             lblFunk.textColor = .white
         case .hybrid:
             btnHybrid.setTitleColor(UIColor.gray, for: .normal)
@@ -339,6 +406,7 @@ class MenuViewController: UIViewController {
             // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
             menuView.backgroundColor = .black
             lblMapType.textColor = .white
+            lblMapMode.textColor = .white
             lblFunk.textColor = .white
         case .mutedStandard:
             btnMutedStandard.setTitleColor(UIColor.gray, for: .normal)
@@ -346,8 +414,21 @@ class MenuViewController: UIViewController {
             // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
             menuView.backgroundColor = .white
             lblMapType.textColor = .black
+            lblMapMode.textColor = .black
             lblFunk.textColor = .black
         default:
+            break;
+        }
+        
+        // 選択されているMapTypeボタンの文字をグレーにする
+        switch appDelegate.nowMapMode {
+        case .MODE_GOLF?:
+            btnGolfMode.setTitleColor(UIColor.gray, for: .normal)
+            btnGolfMode.isEnabled = false
+        case .MODE_CYCLE?:
+            btnCycleMode.setTitleColor(UIColor.gray, for: .normal)
+            btnCycleMode.isEnabled = false
+        case .none:
             break;
         }
         
@@ -366,5 +447,7 @@ class MenuViewController: UIViewController {
         self.view.addSubview(btnMutedStandard)
         self.view.addSubview(btnDelTapPoint)
         self.view.addSubview(btnGetElevation)
+        self.view.addSubview(btnGolfMode)
+        self.view.addSubview(btnCycleMode)
     }
 }
