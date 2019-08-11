@@ -28,6 +28,10 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        // AppDelegateに追加したMenuViewControllerに自身を設定
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.menuViewController = self
+        
         updateBtn()
     }
     
@@ -151,116 +155,26 @@ class MenuViewController: UIViewController {
         super.touchesEnded(touches, with: event)
         for touch in touches {
             if touch.view?.tag == 1 {
-                // Viewのアニメーション
+                // View、ボタンのアニメーション
                 UIView.animate(
                     withDuration: 0.2,
                     delay: 0,
                     options: .curveEaseIn,
                     animations: {
                         self.menuView.layer.position.x = -self.menuView.frame.width
-                    },
-                    completion: { bool in
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                )
-                
-                // ボタンのアニメーション
-                UIView.animate(
-                    withDuration: 0.2,
-                    delay: 0,
-                    options: .curveEaseIn,
-                    animations: {
                         self.btnStandard.layer.position.x = -self.menuView.frame.width
-                    },
-                    completion: { bool in
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                )
-                
-                UIView.animate(
-                    withDuration: 0.2,
-                    delay: 0,
-                    options: .curveEaseIn,
-                    animations: {
                         self.btnSatellite.layer.position.x = -self.menuView.frame.width
-                    },
-                    completion: { bool in
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                )
-                
-                UIView.animate(
-                    withDuration: 0.2,
-                    delay: 0,
-                    options: .curveEaseIn,
-                    animations: {
                         self.btnHybrid.layer.position.x = -self.menuView.frame.width
-                    },
-                    completion: { bool in
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                )
-                
-                UIView.animate(
-                    withDuration: 0.2,
-                    delay: 0,
-                    options: .curveEaseIn,
-                    animations: {
                         self.btnMutedStandard.layer.position.x = -self.menuView.frame.width
-                    },
-                    completion: { bool in
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                )
-                
-                UIView.animate(
-                    withDuration: 0.2,
-                    delay: 0,
-                    options: .curveEaseIn,
-                    animations: {
                         self.btnDelTapPoint.layer.position.x = -self.menuView.frame.width
-                    },
-                    completion: { bool in
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                )
-                
-                UIView.animate(
-                    withDuration: 0.2,
-                    delay: 0,
-                    options: .curveEaseIn,
-                    animations: {
                         self.btnGetElevation.layer.position.x = -self.menuView.frame.width
-                    },
-                    completion: { bool in
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                )
-                
-                UIView.animate(
-                    withDuration: 0.2,
-                    delay: 0,
-                    options: .curveEaseIn,
-                    animations: {
                         self.btnGolfMode.layer.position.x = -self.menuView.frame.width
-                    },
-                    completion: { bool in
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                )
-
-                UIView.animate(
-                    withDuration: 0.2,
-                    delay: 0,
-                    options: .curveEaseIn,
-                    animations: {
                         self.btnCycleMode.layer.position.x = -self.menuView.frame.width
                     },
                     completion: { bool in
                         self.dismiss(animated: true, completion: nil)
                     }
                 )
-                
             }
         }
     }
@@ -349,10 +263,17 @@ class MenuViewController: UIViewController {
     
     // MapMode（ゴルフ）を押下した時の処理
     @IBAction func btnGolfModeThouchDown(_ sender: Any) {
+        // GolfModeのメニューなので押せない
     }
     
     // MapMode（サイクル）を押下した時の処理
     @IBAction func btnCycleModeThouchDown(_ sender: Any) {
+        // Menu画面の消去
+        self.dismiss(animated: true, completion: nil)
+        // MapModeを更新して、viewController画面を消去
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.nowMapMode = .MODE_CYCLE
+        appDelegate.viewController.toCycleView()
     }
 
     

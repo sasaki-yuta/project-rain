@@ -546,6 +546,12 @@ class ViewController:   UIViewController,
         // ロングタップしたアノテーション情報を更新する
         updateLongTapPointAno()
     }
+    
+    // CycleViewに遷移する
+    func toCycleView() {
+        // CycleViewControllerを表示する
+        self.performSegue(withIdentifier: "toCycleView", sender: nil)
+    }
 }
 
 // MKMapViewDelegate

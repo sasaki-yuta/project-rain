@@ -41,6 +41,7 @@
                         <outlet property="longPressGesRec" destination="7M3-eP-f7Q" id="X58-0C-EQc"/>
                         <outlet property="mapView" destination="blC-OF-Rwu" id="gub-nJ-bG6"/>
                         <outlet property="mapViewTypeOver" destination="wZ8-dj-6AQ" id="stT-ol-AnH"/>
+                        <segue destination="6Pg-YZ-Fts" kind="presentation" identifier="toCycleView" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="0NO-hH-99i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -64,16 +65,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="150" height="812"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FEA-d2-Qlb">
-                                        <rect key="frame" x="30" y="150" width="90" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="航空写真">
-                                            <color key="titleColor" red="0.0" green="0.57843422889709473" blue="0.99782758951187134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btnSatelliteThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="MlP-Lz-Vgz"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfV-up-oT2">
                                         <rect key="frame" x="30" y="70" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -89,6 +80,16 @@
                                         </state>
                                         <connections>
                                             <action selector="btnStandardThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="2g3-95-KYG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FEA-d2-Qlb">
+                                        <rect key="frame" x="30" y="150" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="航空写真">
+                                            <color key="titleColor" red="0.0" green="0.57843422889709473" blue="0.99782758951187134" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnSatelliteThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="MlP-Lz-Vgz"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2E-0K-t3n">
@@ -111,8 +112,32 @@
                                             <action selector="btnMutedStandardThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="Tfk-Df-qvH"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ntG-hj-qxX">
+                                        <rect key="frame" x="30" y="280" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZU-rp-PJY" userLabel="Btn Golf">
+                                        <rect key="frame" x="30" y="320" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="ゴルフ">
+                                            <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2DW-lm-EQA" userLabel="Btn Cycle">
+                                        <rect key="frame" x="30" y="360" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="サイクル">
+                                            <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnCycleModeThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="9zC-Jn-y6t"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Function" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxm-ov-7tw">
-                                        <rect key="frame" x="30" y="410" width="109" height="30"/>
+                                        <rect key="frame" x="30" y="410" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -138,33 +163,6 @@
                                         </state>
                                         <connections>
                                             <action selector="btnGetElevationThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="ox3-NA-ocA"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ntG-hj-qxX">
-                                        <rect key="frame" x="30" y="280" width="90" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZU-rp-PJY" userLabel="Btn Golf">
-                                        <rect key="frame" x="30" y="320" width="90" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="ゴルフ">
-                                            <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="ESw-8X-L1Q"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2DW-lm-EQA" userLabel="Btn Cycle">
-                                        <rect key="frame" x="30" y="360" width="90" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="サイクル">
-                                            <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="6Pg-YZ-Fts" kind="show" id="d6u-fD-zbV"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -197,7 +195,7 @@
         <!--Cycle Mode-->
         <scene sceneID="TQt-WA-Qpk">
             <objects>
-                <viewController id="6Pg-YZ-Fts" userLabel="Cycle Mode" customClass="CycleViewController" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="cycleView" id="6Pg-YZ-Fts" userLabel="Cycle Mode" customClass="CycleViewController" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aHe-IX-xaL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -210,7 +208,7 @@
                                 <rect key="frame" x="299" y="67" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="FkO-fM-cuu" kind="show" id="ISf-gY-t7p"/>
+                                    <segue destination="XDJ-3x-kia" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="nw8-nW-www"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="累計走行時間" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvr-ng-luE">
@@ -351,6 +349,7 @@
                         <outlet property="totalAvgSpeed" destination="3S3-vq-JfE" id="ovu-GK-WBK"/>
                         <outlet property="totalDrivingDist" destination="kJE-WN-LAP" id="qjY-YV-zjm"/>
                         <outlet property="totalDrivingTime" destination="4Cn-Vy-47T" id="y0R-Mo-zMK"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toGolfView" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="5kP-ks-otw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dON-fa-QGQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -358,27 +357,146 @@
             <point key="canvasLocation" x="40.799999999999997" y="780.29556650246309"/>
         </scene>
         <!--Menu Cycle View Controller-->
-        <scene sceneID="xVq-Er-pW6">
+        <scene sceneID="kI9-k7-rLa">
             <objects>
-                <viewController modalPresentationStyle="overCurrentContext" id="FkO-fM-cuu" customClass="MenuCycleViewController" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" tag="1" contentMode="scaleToFill" id="9Q2-i7-ZMz">
+                <viewController id="XDJ-3x-kia" customClass="MenuCycleViewController" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" tag="1" contentMode="scaleToFill" id="uMQ-gv-0aB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vFS-uh-frh" userLabel="Menu View">
+                            <view alpha="0.59999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ueF-Zh-PQn">
                                 <rect key="frame" x="0.0" y="0.0" width="150" height="812"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6QG-Pa-aQo">
+                                        <rect key="frame" x="30" y="70" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wt8-bW-7yY">
+                                        <rect key="frame" x="30" y="110" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="標準">
+                                            <color key="titleColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnStandardThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="flt-kZ-xQ1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xZZ-7c-j0V">
+                                        <rect key="frame" x="30" y="150" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="航空写真">
+                                            <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnSatelliteThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="NZd-ie-nnS"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Trc-Uc-TwY">
+                                        <rect key="frame" x="30" y="190" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="標準 + 航空">
+                                            <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnHybridThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="jj1-Gq-xeJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Drn-nR-mNU">
+                                        <rect key="frame" x="30" y="230" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="データ強調">
+                                            <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnMutedStandardThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="xtt-cN-Ako"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yjg-FR-s2G">
+                                        <rect key="frame" x="30" y="280" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sby-4G-Wns" userLabel="Btn Golf">
+                                        <rect key="frame" x="30" y="320" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="ゴルフ">
+                                            <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnGolfModeThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="oBh-on-G9g"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XcS-HP-xxX" userLabel="Btn Cycle">
+                                        <rect key="frame" x="30" y="360" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="サイクル">
+                                            <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Function" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pH-22-mWy">
+                                        <rect key="frame" x="30" y="410" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7H-bd-Luh">
+                                        <rect key="frame" x="30" y="450" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="計測開始">
+                                            <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lV7-MO-cLk">
+                                        <rect key="frame" x="30" y="490" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="計測終了">
+                                            <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuV-uX-UBe">
+                                        <rect key="frame" x="30" y="530" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="データ消去">
+                                            <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="b7S-Z6-OsC"/>
+                        <viewLayoutGuide key="safeArea" id="w7C-hf-Hn9"/>
                     </view>
+                    <connections>
+                        <outlet property="btnCycleMode" destination="XcS-HP-xxX" id="pA6-bx-thz"/>
+                        <outlet property="btnDelete" destination="nuV-uX-UBe" id="e1m-BB-Udu"/>
+                        <outlet property="btnEnd" destination="lV7-MO-cLk" id="MOI-MU-9ZV"/>
+                        <outlet property="btnGolfMode" destination="Sby-4G-Wns" id="yot-Tb-ExW"/>
+                        <outlet property="btnHybrid" destination="Trc-Uc-TwY" id="Tsr-5J-Yuh"/>
+                        <outlet property="btnMutedStandard" destination="Drn-nR-mNU" id="dwO-Ct-grj"/>
+                        <outlet property="btnSatellite" destination="xZZ-7c-j0V" id="3uL-78-R9A"/>
+                        <outlet property="btnStandard" destination="wt8-bW-7yY" id="YR6-0M-GNb"/>
+                        <outlet property="btnStart" destination="T7H-bd-Luh" id="Bii-Fz-PHN"/>
+                        <outlet property="lblFunk" destination="7pH-22-mWy" id="bOT-bP-VNA"/>
+                        <outlet property="lblMapMode" destination="Yjg-FR-s2G" id="C3n-Fp-2tE"/>
+                        <outlet property="lblMapType" destination="6QG-Pa-aQo" id="cxH-U2-t0c"/>
+                        <outlet property="menuView" destination="ueF-Zh-PQn" id="Oif-j7-eUB"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="K7c-gr-OCS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hFp-gl-5LU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="901.60000000000002" y="779.55665024630548"/>
+            <point key="canvasLocation" x="918" y="771"/>
         </scene>
     </scenes>
 </document>

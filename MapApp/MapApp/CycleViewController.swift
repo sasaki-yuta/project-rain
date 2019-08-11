@@ -48,7 +48,10 @@ class CycleViewController:  UIViewController,
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        // AppDelegateに追加したCycleViewControllerに自身を設定
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.cycleViewController = self
+
         // MapViewのdelegateを登録する
         mapView.delegate = self
     
@@ -198,6 +201,19 @@ class CycleViewController:  UIViewController,
         
     }
 
+    // 地図の表示タイプを切り替える
+    func setMapType(_ mapType: MKMapType) {
+        mapView.mapType = mapType
+        
+        // ステータスバーのスタイル変更を促す
+        self.setNeedsStatusBarAppearanceUpdate();
+    }
+    
+    // ViewControllerに遷移する
+    func toCycleView() {
+        // CycleViewControllerを表示する
+        self.performSegue(withIdentifier: "toGolfView", sender: nil)
+    }
 }
 
 // MKMapViewDelegate

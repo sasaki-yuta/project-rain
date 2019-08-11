@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // View共通のインスタンスをここで管理
     var window: UIWindow?
     var viewController: ViewController!
+    var menuViewController: MenuViewController!
+    var cycleViewController: CycleViewController!
+    var menuCycleViewController: MenuCycleViewController!
     var nowMapMode: MapMode! = .MODE_GOLF    // 選択中のMapMode(初期値=ゴルフ)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
