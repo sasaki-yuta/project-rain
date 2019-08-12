@@ -453,22 +453,42 @@
                                         <state key="normal" title="計測開始">
                                             <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnCycleStartThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="g8O-MU-bJJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8mF-BX-VPd">
+                                        <rect key="frame" x="30" y="490" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="計測中断">
+                                            <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnCycleStopThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="rvz-eg-q1L"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lV7-MO-cLk">
-                                        <rect key="frame" x="30" y="490" width="90" height="30"/>
+                                        <rect key="frame" x="30" y="530" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="計測終了">
                                             <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnCycleEndThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="cVB-gy-JFz"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuV-uX-UBe">
-                                        <rect key="frame" x="30" y="530" width="90" height="30"/>
+                                        <rect key="frame" x="30" y="570" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="データ消去">
                                             <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnCycleDeleteThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="2qj-0G-RXI"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -488,6 +508,7 @@
                         <outlet property="btnSatellite" destination="xZZ-7c-j0V" id="3uL-78-R9A"/>
                         <outlet property="btnStandard" destination="wt8-bW-7yY" id="YR6-0M-GNb"/>
                         <outlet property="btnStart" destination="T7H-bd-Luh" id="Bii-Fz-PHN"/>
+                        <outlet property="btnStop" destination="8mF-BX-VPd" id="d8x-gJ-KYs"/>
                         <outlet property="lblFunk" destination="7pH-22-mWy" id="bOT-bP-VNA"/>
                         <outlet property="lblMapMode" destination="Yjg-FR-s2G" id="C3n-Fp-2tE"/>
                         <outlet property="lblMapType" destination="6QG-Pa-aQo" id="cxH-U2-t0c"/>

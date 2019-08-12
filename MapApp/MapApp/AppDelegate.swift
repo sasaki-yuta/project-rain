@@ -14,6 +14,12 @@ enum MapMode:Int {
     case MODE_CYCLE
 }
 
+enum CycleState:Int {
+    case STATE_CLOSING
+    case STATE_STARTING
+    case STATE_SUSPENDED
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -24,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var cycleViewController: CycleViewController!
     var menuCycleViewController: MenuCycleViewController!
     var nowMapMode: MapMode! = .MODE_GOLF    // 選択中のMapMode(初期値=ゴルフ)
+    var nowCycleState: CycleState! = .STATE_CLOSING // サイクル計測状態(初期値=終了)
+
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

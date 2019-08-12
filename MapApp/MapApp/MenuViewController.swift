@@ -338,7 +338,7 @@ class MenuViewController: UIViewController {
             lblMapMode.textColor = .black
             lblFunk.textColor = .black
         default:
-            break;
+            break
         }
         
         // 選択されているMapTypeボタンの文字をグレーにする
@@ -350,7 +350,7 @@ class MenuViewController: UIViewController {
             btnCycleMode.setTitleColor(UIColor.gray, for: .normal)
             btnCycleMode.isEnabled = false
         case .none:
-            break;
+            break
         }
         
         // ロングタップした地点がなければ文字をグレーにする

@@ -25,6 +25,7 @@ class MenuCycleViewController: UIViewController {
 
     @IBOutlet weak var lblFunk: UILabel!
     @IBOutlet weak var btnStart: UIButton!
+    @IBOutlet weak var btnStop: UIButton!
     @IBOutlet weak var btnEnd: UIButton!
     @IBOutlet weak var btnDelete: UIButton!
 
@@ -145,6 +146,16 @@ class MenuCycleViewController: UIViewController {
             completion: {bool in}
         )
         
+        let btnStopPos = btnStop.layer.position
+        btnStop.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnStop.layer.position.x = btnStopPos.x},
+            completion: {bool in}
+        )
+        
         let btnEndPos = btnEnd.layer.position
         btnEnd.layer.position.x = -self.menuView.frame.width
         UIView.animate(
@@ -186,6 +197,7 @@ class MenuCycleViewController: UIViewController {
                         self.btnGolfMode.layer.position.x = -self.menuView.frame.width
                         self.btnCycleMode.layer.position.x = -self.menuView.frame.width
                         self.btnStart.layer.position.x = -self.menuView.frame.width
+                        self.btnStop.layer.position.x = -self.menuView.frame.width
                         self.btnEnd.layer.position.x = -self.menuView.frame.width
                         self.btnDelete.layer.position.x = -self.menuView.frame.width
                     },
@@ -275,6 +287,42 @@ class MenuCycleViewController: UIViewController {
     @IBAction func btnCycleModeThouchDown(_ sender: Any) {
         // CycleModeのメニューなので押せない
     }
+    
+    // 計測開始を押下した時の処理
+    @IBAction func btnCycleStartThouchDown(_ sender: Any) {
+        // 計測状態を更新する
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.nowCycleState = .STATE_STARTING
+        // ボタン状態の更新
+        updateBtn()
+
+    }
+    
+    // 計測中断を押下した時の処理
+    @IBAction func btnCycleStopThouchDown(_ sender: Any) {
+        // 計測状態を更新する
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.nowCycleState = .STATE_SUSPENDED
+        // ボタン状態の更新
+        updateBtn()
+
+    }
+    
+    // 計測終了を押下した時の処理
+    @IBAction func btnCycleEndThouchDown(_ sender: Any) {
+        // 計測状態を更新する
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.nowCycleState = .STATE_CLOSING
+        // ボタン状態の更新
+        updateBtn()
+
+    }
+    
+    // データ消去を押下した時の処理
+    @IBAction func btnCycleDeleteThouchDown(_ sender: Any) {
+        
+    }
+    
     // 地図タイプボタンのアクティブ状態を更新
     func updateBtn() {
         // カスタムの文字色で初期化
@@ -299,6 +347,8 @@ class MenuCycleViewController: UIViewController {
         // Func
         btnStart.setTitleColor(strColor, for: .normal)
         btnStart.isEnabled = true
+        btnStop.setTitleColor(strColor, for: .normal)
+        btnStop.isEnabled = true
         btnEnd.setTitleColor(strColor, for: .normal)
         btnEnd.isEnabled = true
         btnDelete.setTitleColor(strColor, for: .normal)
@@ -306,7 +356,7 @@ class MenuCycleViewController: UIViewController {
 
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        // 選択されているMapTypeボタンの文字をグレーにする
+        // 選択されているMapTypeボタンの状態を変更する
         switch appDelegate.cycleViewController.mapView.mapType {
         case .standard:
             btnStandard.setTitleColor(UIColor.gray, for: .normal)
@@ -341,10 +391,10 @@ class MenuCycleViewController: UIViewController {
             lblMapMode.textColor = .black
             lblFunk.textColor = .black
         default:
-            break;
+            break
         }
         
-        // 選択されているMapTypeボタンの文字をグレーにする
+        // 選択されているMapTypeボタンの状態を変更する
         switch appDelegate.nowMapMode {
         case .MODE_GOLF?:
             btnGolfMode.setTitleColor(UIColor.gray, for: .normal)
@@ -353,7 +403,22 @@ class MenuCycleViewController: UIViewController {
             btnCycleMode.setTitleColor(UIColor.gray, for: .normal)
             btnCycleMode.isEnabled = false
         case .none:
-            break;
+            break
+        }
+        
+        // 計測状態によりFuncボタンの状態を変更する
+        switch appDelegate.nowCycleState {
+        case .STATE_CLOSING?:
+            btnEnd.setTitleColor(UIColor.gray, for: .normal)
+            btnEnd.isEnabled = false
+        case .STATE_STARTING?:
+            btnStart.setTitleColor(UIColor.gray, for: .normal)
+            btnStart.isEnabled = false
+        case .STATE_SUSPENDED?:
+            btnStop.setTitleColor(UIColor.gray, for: .normal)
+            btnStop.isEnabled = false
+        default:
+            break
         }
 
         // MapType
@@ -366,6 +431,7 @@ class MenuCycleViewController: UIViewController {
         self.view.addSubview(btnCycleMode)
         // Func
         self.view.addSubview(btnStart)
+        self.view.addSubview(btnStop)
         self.view.addSubview(btnEnd)
         self.view.addSubview(btnDelete)
     }

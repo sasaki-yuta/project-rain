@@ -39,6 +39,7 @@ class CycleViewController:  UIViewController,
     @IBOutlet var speed: UILabel!
     @IBOutlet var lblSpeed: UILabel!
     // MAX速度
+    var dMaxSpeed: Double! = 0.0
     @IBOutlet var maxSpeed: UILabel!
     @IBOutlet var lblMaxSpeed: UILabel!
 
@@ -196,9 +197,19 @@ class CycleViewController:  UIViewController,
         let lonStr = (locations.last?.coordinate.longitude.description)!
         let latStr = (locations.last?.coordinate.latitude.description)!
         
-        print("lon : " + lonStr)
-        print("lat : " + latStr)
-        
+        // 時速表示
+        let speed: Double = floor((locations.last!.speed * 3.6)*100)/100
+        if (0.0 < speed) {
+            self.speed.text = speed.description
+        }
+        else {
+            self.speed.text = "0"
+        }
+        // 過去最高速度の更新
+        if speed > dMaxSpeed {
+            dMaxSpeed = speed
+            maxSpeed.text = dMaxSpeed.description
+        }
     }
 
     // 地図の表示タイプを切り替える
