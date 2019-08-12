@@ -16,17 +16,25 @@ class CycleViewController:  UIViewController,
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapViewTypeOver: UIButton!
     var locManager: CLLocationManager!
+    var mapViewType: UIButton!
 
     // 走行時間
+    var beforSinRef: Double! = 0.0
+    var dDrivingTime: Double! = 0.0
     @IBOutlet var drivingTime: UILabel!
     @IBOutlet var lblDrivingTime: UILabel!
     // 累計走行時間
+    var dTotalDrivingTime: Double! = 0.0
     @IBOutlet var totalDrivingTime: UILabel!
     @IBOutlet var lblTotalDrivingTime: UILabel!
     // 走行距離
+    var beforLon: Double! = 0.00
+    var beforLat: Double! = 0.00
+    var iDrivingDist: Int! = 0
     @IBOutlet var drivingDist: UILabel!
     @IBOutlet var lblDrivingDist: UILabel!
     // 累計走行距離
+    var iTotalDrivingDist: Int! = 0
     @IBOutlet var totalDrivingDist: UILabel!
     @IBOutlet var lblTotalDrivingDist: UILabel!
     // 平均速度
@@ -42,8 +50,6 @@ class CycleViewController:  UIViewController,
     var dMaxSpeed: Double! = 0.0
     @IBOutlet var maxSpeed: UILabel!
     @IBOutlet var lblMaxSpeed: UILabel!
-
-    var mapViewType: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -194,21 +200,100 @@ class CycleViewController:  UIViewController,
 
     // CLLocationManagerのdelegate：現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        let lonStr = (locations.last?.coordinate.longitude.description)!
-        let latStr = (locations.last?.coordinate.latitude.description)!
-        
-        // 時速表示
+        print(locations.last!.timestamp.timeIntervalSinceNow.description)
+        // 秒速を少数第2位の時速に変換
         let speed: Double = floor((locations.last!.speed * 3.6)*100)/100
         if (0.0 < speed) {
+            //=============================================================
+            // 速度
+            //=============================================================
+            // 現在の速度の更新
             self.speed.text = speed.description
+            
+            // 過去最高速度の更新
+            if speed > dMaxSpeed {
+                dMaxSpeed = speed
+                maxSpeed.text = dMaxSpeed.description
+            }
+            
+            //=============================================================
+            // 走行時間
+            //=============================================================
+            // 速度を検出している間の走行時間の更新
+            if (0 < self.beforSinRef) { // 走行時間の前回値がある場合(初回でない場合)
+                // 現在の走行時間の更新
+                let dTime = locations.last!.timestamp.timeIntervalSinceReferenceDate - self.beforSinRef
+                self.dDrivingTime += dTime
+                var hour = Int(self.dDrivingTime) / 3600
+                var min = (Int(self.dDrivingTime) - (hour * 3600)) / 60
+                var sec = Int(self.dDrivingTime) - ((hour * 3600) + (min * 60))
+                self.drivingTime.text = String(format: "%02d", hour) + ":" +  String(format: "%02d", min) + ":" +  String(format: "%02d", sec)
+                
+                // 累計の走行時間の更新
+                self.dTotalDrivingTime += dTime
+                hour = Int(self.dTotalDrivingTime) / 3600
+                min = (Int(self.dTotalDrivingTime) - (hour * 3600)) / 60
+                sec = Int(self.dTotalDrivingTime) - ((hour * 3600) + (min * 60))
+                self.totalDrivingTime.text = String(format: "%02d", hour) + ":" +  String(format: "%02d", min) + ":" +  String(format: "%02d", sec)
+
+                // 前回値を保存
+                self.beforSinRef = locations.last!.timestamp.timeIntervalSinceReferenceDate
+            }
+            else {
+                // 前回値がない(初回)場合、前回値だけ保持して、次回時間を計測する
+                self.beforSinRef = locations.last!.timestamp.timeIntervalSinceReferenceDate
+            }
+
+            //=============================================================
+            // 走行距離
+            //=============================================================
+            if (0.0 != self.beforLon && 0.0 != self.beforLat) {
+                // 走行距離の更新
+                let aLoc: CLLocation = CLLocation(latitude: self.beforLat, longitude: self.beforLon)
+                let dlon: Double! = locations.last?.coordinate.longitude
+                let dlat: Double! = locations.last?.coordinate.latitude
+                let bLoc: CLLocation = CLLocation(latitude: dlat, longitude: dlon)
+                let dist = bLoc.distance(from: aLoc)
+                self.iDrivingDist += Int(dist)
+                self.drivingDist.text = self.iDrivingDist.description
+
+                // 累計走行距離の更新
+                self.iTotalDrivingDist += Int(dist)
+                self.totalDrivingDist.text = self.iDrivingDist.description
+
+                // 前回値を保存
+                self.beforLon = locations.last?.coordinate.longitude
+                self.beforLat = locations.last?.coordinate.latitude
+            }
+            else {
+                // 前回値がない(初回)場合、前回値だけ保持して、次回時間を計測する
+                self.beforLon = locations.last?.coordinate.longitude
+                self.beforLat = locations.last?.coordinate.latitude
+            }
+            
+            //=============================================================
+            // 平均速度
+            //=============================================================
+            // 平均速度の更新
+            if (0 != self.iDrivingDist && 0.0 != self.dDrivingTime) {
+                let tmpSpeed: Double! = Double(self.iDrivingDist) / self.dDrivingTime
+                let aveSpeed: Double = floor((tmpSpeed * 3.6)*100)/100
+                self.avgSpeed.text = aveSpeed.description
+            }
+            // 累計平均速度の更新
+            if (0 != iTotalDrivingDist && 0.0 != dTotalDrivingTime) {
+                let tmpSpeed: Double! = Double(self.iTotalDrivingDist) / self.dTotalDrivingTime
+                let aveSpeed: Double = floor((tmpSpeed * 3.6)*100)/100
+                self.totalAvgSpeed.text = aveSpeed.description
+            }
         }
         else {
+            // 走行速度の更新
             self.speed.text = "0"
-        }
-        // 過去最高速度の更新
-        if speed > dMaxSpeed {
-            dMaxSpeed = speed
-            maxSpeed.text = dMaxSpeed.description
+            // 前回値として2001年1月1日の00:00:00 UTCと現在の日時の間の秒間隔:ex 587280439.457562)を保持
+            self.beforSinRef = locations.last!.timestamp.timeIntervalSinceReferenceDate
+            self.beforLon = locations.last?.coordinate.longitude
+            self.beforLat = locations.last?.coordinate.latitude
         }
     }
 
