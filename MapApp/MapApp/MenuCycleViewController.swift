@@ -290,12 +290,21 @@ class MenuCycleViewController: UIViewController {
     
     // 計測開始を押下した時の処理
     @IBAction func btnCycleStartThouchDown(_ sender: Any) {
-        // 計測状態を更新する
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        if .STATE_SUSPENDED == appDelegate.nowCycleState {
+            // 計測再開
+            appDelegate.cycleViewController.cycleReStart()
+        }
+        else {
+            // 計測開始
+            appDelegate.cycleViewController.cycleStart()
+        }
+
+        // 計測状態を更新する
         appDelegate.nowCycleState = .STATE_STARTING
         // ボタン状態の更新
         updateBtn()
-
     }
     
     // 計測中断を押下した時の処理
@@ -306,6 +315,8 @@ class MenuCycleViewController: UIViewController {
         // ボタン状態の更新
         updateBtn()
 
+        // 計測を中断する
+        appDelegate.cycleViewController.cycleStop()
     }
     
     // 計測終了を押下した時の処理
@@ -316,6 +327,8 @@ class MenuCycleViewController: UIViewController {
         // ボタン状態の更新
         updateBtn()
 
+        // 計測を終了する
+        appDelegate.cycleViewController.cycleEnd()
     }
     
     // データ消去を押下した時の処理
@@ -411,12 +424,18 @@ class MenuCycleViewController: UIViewController {
         case .STATE_CLOSING?:
             btnEnd.setTitleColor(UIColor.gray, for: .normal)
             btnEnd.isEnabled = false
+            btnStop.setTitleColor(UIColor.gray, for: .normal)
+            btnStop.isEnabled = false
         case .STATE_STARTING?:
             btnStart.setTitleColor(UIColor.gray, for: .normal)
             btnStart.isEnabled = false
+            btnDelete.setTitleColor(UIColor.gray, for: .normal)
+            btnDelete.isEnabled = false
         case .STATE_SUSPENDED?:
             btnStop.setTitleColor(UIColor.gray, for: .normal)
             btnStop.isEnabled = false
+            btnDelete.setTitleColor(UIColor.gray, for: .normal)
+            btnDelete.isEnabled = false
         default:
             break
         }

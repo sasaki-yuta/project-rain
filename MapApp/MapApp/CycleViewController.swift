@@ -17,39 +17,42 @@ class CycleViewController:  UIViewController,
     @IBOutlet var mapViewTypeOver: UIButton!
     var locManager: CLLocationManager!
     var mapViewType: UIButton!
+    var isStarting: Bool! = false
 
+    // 速度
+    @IBOutlet var speed: UILabel!
+    @IBOutlet var lblSpeed: UILabel!
+    // 平均速度
+    @IBOutlet var avgSpeed: UILabel!
+    @IBOutlet var lblAvgSpeed: UILabel!
+    // 走行距離
+    var beforLon: Double! = 0.0
+    var beforLat: Double! = 0.0
+    var dDrivingDist: Double! = 0.0
+    @IBOutlet var drivingDist: UILabel!
+    @IBOutlet var lblDrivingDist: UILabel!
     // 走行時間
     var beforSinRef: Double! = 0.0
     var dDrivingTime: Double! = 0.0
     @IBOutlet var drivingTime: UILabel!
     @IBOutlet var lblDrivingTime: UILabel!
-    // 累計走行時間
-    var dTotalDrivingTime: Double! = 0.0
-    @IBOutlet var totalDrivingTime: UILabel!
-    @IBOutlet var lblTotalDrivingTime: UILabel!
-    // 走行距離
-    var beforLon: Double! = 0.00
-    var beforLat: Double! = 0.00
-    var iDrivingDist: Int! = 0
-    @IBOutlet var drivingDist: UILabel!
-    @IBOutlet var lblDrivingDist: UILabel!
-    // 累計走行距離
-    var iTotalDrivingDist: Int! = 0
-    @IBOutlet var totalDrivingDist: UILabel!
-    @IBOutlet var lblTotalDrivingDist: UILabel!
-    // 平均速度
-    @IBOutlet var avgSpeed: UILabel!
-    @IBOutlet var lblAvgSpeed: UILabel!
-    // 累計平均速度
-    @IBOutlet var totalAvgSpeed: UILabel!
-    @IBOutlet var lblTotalAvgSpeed: UILabel!
-    // 速度
-    @IBOutlet var speed: UILabel!
-    @IBOutlet var lblSpeed: UILabel!
+
     // MAX速度
     var dMaxSpeed: Double! = 0.0
     @IBOutlet var maxSpeed: UILabel!
     @IBOutlet var lblMaxSpeed: UILabel!
+    // 累計MAX速度
+    var dTotalMaxSpeed: Double! = 0.0
+    @IBOutlet var totalMaxSpeed: UILabel!
+    @IBOutlet var lblTotalMaxSpeed: UILabel!
+    // 累計走行距離
+    var dTotalDrivingDist: Double! = 0.0
+    @IBOutlet var totalDrivingDist: UILabel!
+    @IBOutlet var lblTotalDrivingDist: UILabel!
+    // 累計走行時間
+    var dTotalDrivingTime: Double! = 0.0
+    @IBOutlet var totalDrivingTime: UILabel!
+    @IBOutlet var lblTotalDrivingTime: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,47 +148,53 @@ class CycleViewController:  UIViewController,
         scale.frame.origin.y = 45
         scale.legendAlignment = .leading
         self.view.addSubview(scale)
-        
-        // 走行時間
-        drivingTime.frame = CGRect(x: 190, y: height-50, width: 190, height: 40)
-        self.view.addSubview(drivingTime)
-        lblDrivingTime.frame = CGRect(x: 190, y: height-70, width: 190, height: 20)
-        self.view.addSubview(lblDrivingTime)
-        // 累計走行時間
-        totalDrivingTime.frame = CGRect(x: 0, y: height-50, width: 190, height: 40)
-        self.view.addSubview(totalDrivingTime)
-        lblTotalDrivingTime.frame = CGRect(x: 0, y: height-70, width: 190, height: 20)
-        self.view.addSubview(lblTotalDrivingTime)
+
+        // 速度
+        speed.frame = CGRect(x: 190, y: height-230, width: 190, height: 40)
+        speed.text = "-"
+        self.view.addSubview(speed)
+        lblSpeed.frame = CGRect(x: 190, y: height-250, width: 190, height: 20)
+        self.view.addSubview(lblSpeed)
+        // 平均速度
+        avgSpeed.frame = CGRect(x: 190, y: height-170, width: 190, height: 40)
+        avgSpeed.text = "-"
+        self.view.addSubview(avgSpeed)
+        lblAvgSpeed.frame = CGRect(x: 190, y: height-190, width: 190, height: 20)
+        self.view.addSubview(lblAvgSpeed)
         // 走行距離
         drivingDist.frame = CGRect(x: 190, y: height-110, width: 190, height: 40)
+        drivingDist.text = "-"
         self.view.addSubview(drivingDist)
         lblDrivingDist.frame = CGRect(x: 190, y: height-130, width: 190, height: 20)
         self.view.addSubview(lblDrivingDist)
+        // 走行時間
+        drivingTime.frame = CGRect(x: 190, y: height-50, width: 190, height: 40)
+        drivingTime.text = "-"
+        self.view.addSubview(drivingTime)
+        lblDrivingTime.frame = CGRect(x: 190, y: height-70, width: 190, height: 20)
+        self.view.addSubview(lblDrivingTime)
+        
+        // MAX速度
+        maxSpeed.frame = CGRect(x: 0, y: height-230, width: 190, height: 40)
+        maxSpeed.text = "-"
+        self.view.addSubview(maxSpeed)
+        lblMaxSpeed.frame = CGRect(x: 0, y: height-250, width: 190, height: 20)
+        self.view.addSubview(lblMaxSpeed)
+        // 累計MAX速度
+        totalMaxSpeed.frame = CGRect(x: 0, y: height-170, width: 190, height: 40)
+        self.view.addSubview(totalMaxSpeed)
+        lblTotalMaxSpeed.frame = CGRect(x: 0, y: height-190, width: 190, height: 20)
+        self.view.addSubview(lblTotalMaxSpeed)
         // 累計走行距離
         totalDrivingDist.frame = CGRect(x: 0, y: height-110, width: 190, height: 40)
         self.view.addSubview(totalDrivingDist)
         lblTotalDrivingDist.frame = CGRect(x: 0, y: height-130, width: 190, height: 20)
         self.view.addSubview(lblTotalDrivingDist)
-        // 平均速度
-        avgSpeed.frame = CGRect(x: 190, y: height-170, width: 190, height: 40)
-        self.view.addSubview(avgSpeed)
-        lblAvgSpeed.frame = CGRect(x: 190, y: height-190, width: 190, height: 20)
-        self.view.addSubview(lblAvgSpeed)
-        // 累計平均速度
-        totalAvgSpeed.frame = CGRect(x: 0, y: height-170, width: 190, height: 40)
-        self.view.addSubview(totalAvgSpeed)
-        lblTotalAvgSpeed.frame = CGRect(x: 0, y: height-190, width: 190, height: 20)
-        self.view.addSubview(lblTotalAvgSpeed)
-        // 速度
-        speed.frame = CGRect(x: 190, y: height-230, width: 190, height: 40)
-        self.view.addSubview(speed)
-        lblSpeed.frame = CGRect(x: 190, y: height-250, width: 190, height: 20)
-        self.view.addSubview(lblSpeed)
-        // MAX速度
-        maxSpeed.frame = CGRect(x: 0, y: height-230, width: 190, height: 40)
-        self.view.addSubview(maxSpeed)
-        lblMaxSpeed.frame = CGRect(x: 0, y: height-250, width: 190, height: 20)
-        self.view.addSubview(lblTotalAvgSpeed)
+        // 累計走行時間
+        totalDrivingTime.frame = CGRect(x: 0, y: height-50, width: 190, height: 40)
+        self.view.addSubview(totalDrivingTime)
+        lblTotalDrivingTime.frame = CGRect(x: 0, y: height-70, width: 190, height: 20)
+        self.view.addSubview(lblTotalDrivingTime)
     }
 
     /*
@@ -200,6 +209,11 @@ class CycleViewController:  UIViewController,
 
     // CLLocationManagerのdelegate：現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
+        // 計測開始していなければreturnする
+        if (false == isStarting) {
+            return
+        }
+        
         print(locations.last!.timestamp.timeIntervalSinceNow.description)
         // 秒速を少数第2位の時速に変換
         let speed: Double = floor((locations.last!.speed * 3.6)*100)/100
@@ -210,10 +224,16 @@ class CycleViewController:  UIViewController,
             // 現在の速度の更新
             self.speed.text = speed.description
             
-            // 過去最高速度の更新
+            // 今回のCycleでの最高速度
             if speed > dMaxSpeed {
                 dMaxSpeed = speed
                 maxSpeed.text = dMaxSpeed.description
+            }
+            
+            // 累計最高速度
+            if speed > dTotalMaxSpeed {
+                dTotalMaxSpeed = speed
+                totalMaxSpeed.text = dTotalMaxSpeed.description
             }
             
             //=============================================================
@@ -254,12 +274,14 @@ class CycleViewController:  UIViewController,
                 let dlat: Double! = locations.last?.coordinate.latitude
                 let bLoc: CLLocation = CLLocation(latitude: dlat, longitude: dlon)
                 let dist = bLoc.distance(from: aLoc)
-                self.iDrivingDist += Int(dist)
-                self.drivingDist.text = self.iDrivingDist.description
+                self.dDrivingDist += dist
+                var tmpDist = floor((self.dDrivingDist / 1000) * 100) / 100
+                self.drivingDist.text = tmpDist.description
 
                 // 累計走行距離の更新
-                self.iTotalDrivingDist += Int(dist)
-                self.totalDrivingDist.text = self.iDrivingDist.description
+                self.dTotalDrivingDist += dist
+                tmpDist = floor((self.dTotalDrivingDist / 1000) * 100) / 100
+                self.totalDrivingDist.text = tmpDist.description
 
                 // 前回値を保存
                 self.beforLon = locations.last?.coordinate.longitude
@@ -275,16 +297,10 @@ class CycleViewController:  UIViewController,
             // 平均速度
             //=============================================================
             // 平均速度の更新
-            if (0 != self.iDrivingDist && 0.0 != self.dDrivingTime) {
-                let tmpSpeed: Double! = Double(self.iDrivingDist) / self.dDrivingTime
+            if (0.0 != self.dDrivingDist && 0.0 != self.dDrivingTime) {
+                let tmpSpeed: Double! = self.dDrivingDist / self.dDrivingTime
                 let aveSpeed: Double = floor((tmpSpeed * 3.6)*100)/100
                 self.avgSpeed.text = aveSpeed.description
-            }
-            // 累計平均速度の更新
-            if (0 != iTotalDrivingDist && 0.0 != dTotalDrivingTime) {
-                let tmpSpeed: Double! = Double(self.iTotalDrivingDist) / self.dTotalDrivingTime
-                let aveSpeed: Double = floor((tmpSpeed * 3.6)*100)/100
-                self.totalAvgSpeed.text = aveSpeed.description
             }
         }
         else {
@@ -309,6 +325,47 @@ class CycleViewController:  UIViewController,
     func toCycleView() {
         // CycleViewControllerを表示する
         self.performSegue(withIdentifier: "toGolfView", sender: nil)
+    }
+    
+    // 計測を開始する
+    func cycleStart() {
+        // 走行距離
+        self.beforLon = 0.0
+        self.beforLat = 0.0
+        self.dDrivingDist = 0.0
+        // 走行時間
+        self.beforSinRef = 0.0
+        self.dDrivingTime = 0.0
+        // MAX速度
+        self.dMaxSpeed = 0.0
+
+        // 速度
+        speed.text = "-"
+        // 平均速度
+        avgSpeed.text = "-"
+        // 走行距離
+        drivingDist.text = "-"
+        // 走行時間
+        drivingTime.text = "-"
+        // MAX速度
+        maxSpeed.text = "-"
+
+        self.isStarting = true
+    }
+    
+    // 計測を再開する
+    func cycleReStart() {
+        self.isStarting = true
+    }
+    
+    // 計測を中断する
+    func cycleStop() {
+        self.isStarting = false
+    }
+
+    // 計測を終了する
+    func cycleEnd() {
+        self.isStarting = false
     }
 }
 
