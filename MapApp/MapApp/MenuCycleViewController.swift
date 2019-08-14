@@ -333,7 +333,8 @@ class MenuCycleViewController: UIViewController {
     
     // データ消去を押下した時の処理
     @IBAction func btnCycleDeleteThouchDown(_ sender: Any) {
-        
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.cycleViewController.deleteData()
     }
     
     // 地図タイプボタンのアクティブ状態を更新
