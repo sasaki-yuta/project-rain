@@ -20,7 +20,7 @@ class CycleViewController:  UIViewController,
     var isStarting: Bool! = false
     
     // UserDefaults(データバックアップ用)オブジェクト
-    var userDataManager:UserDataManager = UserDataManager()
+    var userDataManager:UserDataManager!
     
     // 速度
     @IBOutlet var speed: UILabel!
@@ -67,6 +67,9 @@ class CycleViewController:  UIViewController,
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.cycleViewController = self
 
+        // UserDefaults(データバックアップ用)オブジェクト
+        userDataManager = appDelegate.userDataManager
+        
         // MapViewのdelegateを登録する
         mapView.delegate = self
     
@@ -347,6 +350,8 @@ class CycleViewController:  UIViewController,
     func toCycleView() {
         // CycleViewControllerを表示する
         self.performSegue(withIdentifier: "toGolfView", sender: nil)
+        // 累計データを画面遷移時に保存する
+        userDataManager.saveCycleData()
     }
     
     // 累計データを消去する
@@ -397,11 +402,17 @@ class CycleViewController:  UIViewController,
     // 計測を中断する
     func cycleStop() {
         self.isStarting = false
+        
+        // 累計データを画面遷移時に保存する
+        userDataManager.saveCycleData()
     }
 
     // 計測を終了する
     func cycleEnd() {
         self.isStarting = false
+        
+        // 累計データを画面遷移時に保存する
+        userDataManager.saveCycleData()
     }
 }
 

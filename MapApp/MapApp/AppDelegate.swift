@@ -29,8 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var menuViewController: MenuViewController!
     var cycleViewController: CycleViewController!
     var menuCycleViewController: MenuCycleViewController!
-    var nowMapMode: MapMode! = .MODE_GOLF    // 選択中のMapMode(初期値=ゴルフ)
-    var nowCycleState: CycleState! = .STATE_CLOSING // サイクル計測状態(初期値=終了)
+    // 選択中のMapMode(初期値=ゴルフ)
+    var nowMapMode: MapMode! = .MODE_GOLF
+    // サイクル計測状態(初期値=終了)
+    var nowCycleState: CycleState! = .STATE_CLOSING
+    // UserDefaults(データバックアップ用)オブジェクト
+    var userDataManager:UserDataManager = UserDataManager()
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -94,6 +98,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data Saving support
 
     func saveContext () {
+        // UserDataを保存する
+        userDataManager.saveData()
+        
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {

@@ -15,6 +15,10 @@ class UserDataManager: NSObject {
     var totalMaxSpeed: Double = 0.0
     var totalDrivingDist: Double = 0.0
     var totalDrivingTime: Double = 0.0
+    // UserDataに変化があるか判断するための変数
+    var isMSpeed: Double = 0.0
+    var isTDist: Double = 0.0
+    var isTTime: Double = 0.0
 
     // クラスの初期化
     override init() {
@@ -23,17 +27,20 @@ class UserDataManager: NSObject {
         userDefaults.register(defaults: ["totalDrivingTime": 0.0])
     }
     
-    // クラスの破棄
-    deinit {
-        userDefaults.set(totalMaxSpeed, forKey: "totalMaxSpeed")
-        userDefaults.synchronize()
-    }
-
-    // データ読み込み
+    // 全データ読み込み
     func roadData() {
         totalMaxSpeed = userDefaults.object(forKey: "totalMaxSpeed") as! Double
+        isMSpeed = totalMaxSpeed
         totalDrivingDist = userDefaults.object(forKey: "totalDrivingDist") as! Double
+        isTDist = totalDrivingDist
         totalDrivingTime = userDefaults.object(forKey: "totalDrivingTime") as! Double
+        isTTime = totalDrivingTime
+    }
+    
+    // 全データ保存
+    func saveData() {
+        // Cycleデータ保存
+        saveCycleData()
     }
     
     // 累計最高速度の取得
@@ -68,10 +75,25 @@ class UserDataManager: NSObject {
 
     // Cycleデータ保存
     func saveCycleData() {
-        userDefaults.set(totalMaxSpeed, forKey: "totalMaxSpeed")
-        userDefaults.set(totalDrivingDist, forKey: "totalDrivingDist")
-        userDefaults.set(totalDrivingTime, forKey: "totalDrivingTime")
-        userDefaults.synchronize()
+        var isSync = false
+        if isMSpeed != totalMaxSpeed {
+            userDefaults.set(totalMaxSpeed, forKey: "totalMaxSpeed")
+            isMSpeed = totalMaxSpeed
+            isSync = true
+        }
+        if isTDist != totalDrivingDist {
+            userDefaults.set(totalDrivingDist, forKey: "totalDrivingDist")
+            isTDist = totalDrivingDist
+            isSync = true
+        }
+        if isTTime != totalDrivingTime {
+            userDefaults.set(totalDrivingTime, forKey: "totalDrivingTime")
+            isTTime = totalDrivingTime
+            isSync = true
+        }
+        if true == isSync {
+            userDefaults.synchronize()
+        }
     }
     
     // Cycleデータ消去
