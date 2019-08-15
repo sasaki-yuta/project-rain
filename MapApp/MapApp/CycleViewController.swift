@@ -236,7 +236,22 @@ class CycleViewController:  UIViewController,
             return
         }
         
-        print(locations.last!.timestamp.timeIntervalSinceNow.description)
+        // 精度の悪い位置情報を捨てる
+        print("timeIntervalSinceNow = " + abs(locations.last!.timestamp.timeIntervalSinceNow).description)
+        print("horizontalAccuracy = " + locations.last!.horizontalAccuracy.description)
+        if 5.0 <= abs(locations.last!.timestamp.timeIntervalSinceNow) {
+            // 5以上経過した位置情報
+            return
+        }
+        if 0 > locations.last!.horizontalAccuracy {
+            // GPS取得の諸条件のどれかが致命的に悪い場合
+            return
+        }
+        if 20 < locations.last!.horizontalAccuracy {
+            // 20m以上の誤差
+            return
+        }
+
         // 秒速を少数第2位の時速に変換
         let speed: Double = floor((locations.last!.speed * 3.6)*100)/100
         
