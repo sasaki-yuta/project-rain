@@ -418,6 +418,12 @@ class CycleViewController:  UIViewController,
     
     // 計測を中断する
     func cycleStop() {
+        // 再開した時に/終了した地点からの距離と時間を計測してしまうため初期化する
+        beforLon = 0.0
+        beforLat = 0.0
+        beforSinRef = 0.0
+        
+        // 計測中状態を更新
         self.isStarting = false
         
         // 累計データを画面遷移時に保存する
@@ -426,6 +432,12 @@ class CycleViewController:  UIViewController,
 
     // 計測を終了する
     func cycleEnd() {
+        // 再開した時に/終了した地点からの距離と時間を計測してしまうため初期化する
+        beforLon = 0.0
+        beforLat = 0.0
+        beforSinRef = 0.0
+
+        // 計測中状態を更新
         self.isStarting = false
         
         // 累計データを画面遷移時に保存する

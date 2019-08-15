@@ -428,6 +428,8 @@ class MenuCycleViewController: UIViewController {
             btnStop.setTitleColor(UIColor.gray, for: .normal)
             btnStop.isEnabled = false
         case .STATE_STARTING?:
+            btnGolfMode.setTitleColor(UIColor.gray, for: .normal)
+            btnGolfMode.isEnabled = false
             btnStart.setTitleColor(UIColor.gray, for: .normal)
             btnStart.isEnabled = false
             btnDelete.setTitleColor(UIColor.gray, for: .normal)
