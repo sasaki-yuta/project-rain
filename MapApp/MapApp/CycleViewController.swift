@@ -237,6 +237,8 @@ class CycleViewController:  UIViewController,
         }
         
         // 精度の悪い位置情報を捨てる
+        let debugSpeed = floor((locations.last!.speed * 3.6)*100)/100
+        print("speed = " + debugSpeed.description)
         print("timeIntervalSinceNow = " + abs(locations.last!.timestamp.timeIntervalSinceNow).description)
         print("horizontalAccuracy = " + locations.last!.horizontalAccuracy.description)
         if 5.0 <= abs(locations.last!.timestamp.timeIntervalSinceNow) {
@@ -396,15 +398,15 @@ class CycleViewController:  UIViewController,
         self.dMaxSpeed = 0.0
 
         // 速度
-        speed.text = "-"
+        speed.text = "0.0"
         // 平均速度
-        avgSpeed.text = "-"
+        avgSpeed.text = "0.0"
         // 走行距離
-        drivingDist.text = "-"
+        drivingDist.text = "0.0"
         // 走行時間
-        drivingTime.text = "-"
+        drivingTime.text = "00:00:00"
         // MAX速度
-        maxSpeed.text = "-"
+        maxSpeed.text = "0.0"
 
         self.isStarting = true
     }
