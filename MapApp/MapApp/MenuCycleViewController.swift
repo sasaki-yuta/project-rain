@@ -215,7 +215,9 @@ class MenuCycleViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.cycleViewController.setMapType(.standard)
-        
+        // 地図TypeをUserDataに保存する
+        appDelegate.userDataManager.saveCycleMapType(.standard)
+
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .white
         lblMapType.textColor = .black
@@ -231,7 +233,9 @@ class MenuCycleViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.cycleViewController.setMapType(.satellite)
-        
+        // 地図TypeをUserDataに保存する
+        appDelegate.userDataManager.saveCycleMapType(.satellite)
+
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .black
         lblMapType.textColor = .white
@@ -247,6 +251,8 @@ class MenuCycleViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.cycleViewController.setMapType(.hybrid)
+        // 地図TypeをUserDataに保存する
+        appDelegate.userDataManager.saveCycleMapType(.hybrid)
         
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .black
@@ -263,6 +269,8 @@ class MenuCycleViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.cycleViewController.setMapType(.mutedStandard)
+        // 地図TypeをUserDataに保存する
+        appDelegate.userDataManager.saveCycleMapType(.mutedStandard)
         
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .white

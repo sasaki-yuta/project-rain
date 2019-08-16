@@ -96,6 +96,18 @@ class CycleViewController:  UIViewController,
     
     // 地図の初期化
     func initMap() {
+        // UserDefaultsの初期化
+        userDataManager.roadData()
+        dTotalMaxSpeed = userDataManager.getTotalMaxSpeed()
+        dTotalDrivingDist = userDataManager.getTotalDrivingDist()
+        dTotalDrivingTime = userDataManager.getTotalDrivingTime()
+        
+        // 計測中断、終了したデータをViewを切り替えても表示できる様にLoradする
+        loadCulcData()
+        
+        // 全開のMapTypeをUserDataから取得してMapViewに設定する
+        setMapType(userDataManager.getCycleMapType())
+        
         // 縮尺を設定
         var region:MKCoordinateRegion = mapView.region
         region.span.latitudeDelta = 0.02
@@ -157,15 +169,6 @@ class CycleViewController:  UIViewController,
         scale.legendAlignment = .leading
         self.view.addSubview(scale)
 
-        // UserDefaultsの初期化
-        userDataManager.roadData()
-        dTotalMaxSpeed = userDataManager.getTotalMaxSpeed()
-        dTotalDrivingDist = userDataManager.getTotalDrivingDist()
-        dTotalDrivingTime = userDataManager.getTotalDrivingTime()
-        
-        // 計測中断、終了したデータをViewを切り替えても表示できる様にLoradする
-        loadCulcData()
-        
         // 速度
         speed.frame = CGRect(x: 190, y: height-230, width: 190, height: 40)
         speed.text = "-"

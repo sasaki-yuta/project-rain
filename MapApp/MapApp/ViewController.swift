@@ -36,6 +36,9 @@ class ViewController:   UIViewController,
     @IBOutlet var longPressGesRec: UILongPressGestureRecognizer!
     @IBOutlet var mapViewTypeOver: UIButton!
 
+    // UserDefaults(データバックアップ用)オブジェクト
+    var userDataManager:UserDataManager!
+    
     var locManager: CLLocationManager!
     var pointAno: MapAnnotationSetting = MapAnnotationSetting()
     var calcPointAno: MapAnnotationSetting = MapAnnotationSetting()
@@ -60,6 +63,9 @@ class ViewController:   UIViewController,
         // AppDelegateに追加したviewControllerに自身を設定
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController = self
+        
+        // UserDefaults(データバックアップ用)オブジェクト
+        userDataManager = appDelegate.userDataManager
         
         // セッションをアクティブにする
         if (WCSession.isSupported()) {
@@ -151,6 +157,12 @@ class ViewController:   UIViewController,
 
     // 地図の初期化
     func initMap() {
+        // UserDefaultsの初期化
+        userDataManager.roadData()
+
+        // 全開のMapTypeをUserDataから取得してMapViewに設定する
+        setMapType(userDataManager.getGolfMapType())
+        
         // 縮尺を設定
         var region:MKCoordinateRegion = mapView.region
         region.span.latitudeDelta = 0.02

@@ -8,9 +8,22 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 class UserDataManager: NSObject {
-    // UserDefaults(データバックアップ用)
+    //=======================================================
+    // Golfeモード変数
+    //=======================================================
+    // MapType
+    var golfMapType: UInt = MKMapType.standard.rawValue
+
+    //=======================================================
+    // Cycleモード変数
+    //=======================================================
+    // MapType(データバックアップ用：即時書き込み(saveのみでsetメソッドはない))
+    var cycleMapType: UInt = MKMapType.standard.rawValue
+    
+    // UserDefaults(データバックアップ用:特定タイミングで書き込み)
     let userDefaults = UserDefaults.standard
     var totalMaxSpeed: Double = 0.0
     var totalDrivingDist: Double = 0.0
@@ -31,9 +44,15 @@ class UserDataManager: NSObject {
     // MAX速度
     var dMaxSpeed: Double! = 0.0
 
-
+    //=======================================================
+    // 共通メソッド
+    //=======================================================
     // クラスの初期化
     override init() {
+        // Golfモード
+        userDefaults.register(defaults: ["golfMapType": MKMapType.standard.rawValue])
+        // Cycleモード
+        userDefaults.register(defaults: ["cycleMapType": MKMapType.standard.rawValue])
         userDefaults.register(defaults: ["totalMaxSpeed": 0.0])
         userDefaults.register(defaults: ["totalDrivingDist": 0.0])
         userDefaults.register(defaults: ["totalDrivingTime": 0.0])
@@ -41,6 +60,10 @@ class UserDataManager: NSObject {
     
     // 全データ読み込み
     func roadData() {
+        // Golfモード
+        golfMapType = userDefaults.object(forKey: "golfMapType") as! UInt
+        // Cycleモード
+        cycleMapType = userDefaults.object(forKey: "cycleMapType") as! UInt
         totalMaxSpeed = userDefaults.object(forKey: "totalMaxSpeed") as! Double
         isMSpeed = totalMaxSpeed
         totalDrivingDist = userDefaults.object(forKey: "totalDrivingDist") as! Double
@@ -58,6 +81,36 @@ class UserDataManager: NSObject {
     // 累計最高速度の取得
     func getTotalMaxSpeed() -> Double {
         return totalMaxSpeed
+    }
+
+    //=======================================================
+    // Golfモードメソッド
+    //=======================================================
+    // Golfモードの地図Typeを保存
+    func saveGolfMapType(_ type: MKMapType) {
+        golfMapType = type.rawValue
+        userDefaults.set(golfMapType, forKey: "golfMapType")
+        userDefaults.synchronize()
+    }
+    
+    // Golfモードの地図Typeを取得
+    func getGolfMapType() -> MKMapType {
+        return MKMapType.init(rawValue: golfMapType)!
+    }
+    
+    //=======================================================
+    // Cycleモードメソッド
+    //=======================================================
+    // Cycleモードの地図Typeを保存
+    func saveCycleMapType(_ type: MKMapType) {
+        cycleMapType = type.rawValue
+        userDefaults.set(cycleMapType, forKey: "cycleMapType")
+        userDefaults.synchronize()
+    }
+    
+    // Cycleモードの地図Typeを取得
+    func getCycleMapType() -> MKMapType {
+        return MKMapType.init(rawValue: cycleMapType)!
     }
     
     // 累計最高速度の設定
@@ -119,9 +172,7 @@ class UserDataManager: NSObject {
         userDefaults.synchronize()
     }
     
-    //============================================================
     // 計測中断、終了したデータを一時的に保存する
-    //============================================================
     // 平均速度設定
     func setAvgSumSpeed(_ speed: Double, _ count: Int) {
         avgSumSpeed = speed

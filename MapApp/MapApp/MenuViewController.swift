@@ -185,6 +185,8 @@ class MenuViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.standard)
+        // 地図TypeをUserDataに保存する
+        appDelegate.userDataManager.saveGolfMapType(.standard)
 
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .white
@@ -201,6 +203,8 @@ class MenuViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.satellite)
+        // 地図TypeをUserDataに保存する
+        appDelegate.userDataManager.saveGolfMapType(.satellite)
 
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .black
@@ -217,6 +221,8 @@ class MenuViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.hybrid)
+        // 地図TypeをUserDataに保存する
+        appDelegate.userDataManager.saveGolfMapType(.hybrid)
         
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .black
@@ -233,7 +239,9 @@ class MenuViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.viewController.setMapType(.mutedStandard)
-        
+        // 地図TypeをUserDataに保存する
+        appDelegate.userDataManager.saveGolfMapType(.mutedStandard)
+
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .white
         lblMapType.textColor = .black
