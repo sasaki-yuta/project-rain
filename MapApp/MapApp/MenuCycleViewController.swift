@@ -27,7 +27,7 @@ class MenuCycleViewController: UIViewController {
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var btnStop: UIButton!
     @IBOutlet weak var btnEnd: UIButton!
-    @IBOutlet weak var btnDelete: UIButton!
+    @IBOutlet weak var btnSetting: UIButton!
 
 
     override func viewDidLoad() {
@@ -166,13 +166,13 @@ class MenuCycleViewController: UIViewController {
             completion: {bool in}
         )
 
-        let btnDelPos = btnDelete.layer.position
-        btnDelete.layer.position.x = -self.menuView.frame.width
+        let btnDelPos = btnSetting.layer.position
+        btnSetting.layer.position.x = -self.menuView.frame.width
         UIView.animate(
             withDuration: 0.5,
             delay: 0,
             options: .curveEaseOut,
-            animations: {self.btnDelete.layer.position.x = btnDelPos.x},
+            animations: {self.btnSetting.layer.position.x = btnDelPos.x},
             completion: {bool in}
         )
 
@@ -199,7 +199,7 @@ class MenuCycleViewController: UIViewController {
                         self.btnStart.layer.position.x = -self.menuView.frame.width
                         self.btnStop.layer.position.x = -self.menuView.frame.width
                         self.btnEnd.layer.position.x = -self.menuView.frame.width
-                        self.btnDelete.layer.position.x = -self.menuView.frame.width
+                        self.btnSetting.layer.position.x = -self.menuView.frame.width
                     },
                     completion: {
                         bool in
@@ -288,7 +288,7 @@ class MenuCycleViewController: UIViewController {
         // MapModeを更新して、viewController画面を消去
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.nowMapMode = .MODE_GOLF
-        appDelegate.cycleViewController.toCycleView()
+        appDelegate.cycleViewController.toGolfView()
     }
     
     // MapMode（サイクル）を押下した時の処理
@@ -338,11 +338,14 @@ class MenuCycleViewController: UIViewController {
         // 計測を終了する
         appDelegate.cycleViewController.cycleEnd()
     }
-    
-    // データ消去を押下した時の処理
-    @IBAction func btnCycleDeleteThouchDown(_ sender: Any) {
+        
+    // MenuCycleViewControllerに遷移する
+    @IBAction func btnCycleSettingThouchDown(_ sender: Any) {
+        // Menu画面の消去
+        self.dismiss(animated: true, completion: nil)
+        // MenuCycleViewController画面を消去
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.cycleViewController.deleteData()
+        appDelegate.cycleViewController.toCycleSettingViewController()
     }
     
     // 地図タイプボタンのアクティブ状態を更新
@@ -373,8 +376,8 @@ class MenuCycleViewController: UIViewController {
         btnStop.isEnabled = true
         btnEnd.setTitleColor(strColor, for: .normal)
         btnEnd.isEnabled = true
-        btnDelete.setTitleColor(strColor, for: .normal)
-        btnDelete.isEnabled = true
+        btnSetting.setTitleColor(strColor, for: .normal)
+        btnSetting.isEnabled = true
 
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         
@@ -440,13 +443,11 @@ class MenuCycleViewController: UIViewController {
             btnGolfMode.isEnabled = false
             btnStart.setTitleColor(UIColor.gray, for: .normal)
             btnStart.isEnabled = false
-            btnDelete.setTitleColor(UIColor.gray, for: .normal)
-            btnDelete.isEnabled = false
+            btnSetting.setTitleColor(UIColor.gray, for: .normal)
+            btnSetting.isEnabled = false
         case .STATE_SUSPENDED?:
             btnStop.setTitleColor(UIColor.gray, for: .normal)
             btnStop.isEnabled = false
-            btnDelete.setTitleColor(UIColor.gray, for: .normal)
-            btnDelete.isEnabled = false
         default:
             break
         }
@@ -463,7 +464,7 @@ class MenuCycleViewController: UIViewController {
         self.view.addSubview(btnStart)
         self.view.addSubview(btnStop)
         self.view.addSubview(btnEnd)
-        self.view.addSubview(btnDelete)
+        self.view.addSubview(btnSetting)
     }
 }
 

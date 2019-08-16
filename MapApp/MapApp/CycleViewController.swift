@@ -192,7 +192,7 @@ class CycleViewController:  UIViewController,
         // 走行距離
         drivingDist.frame = CGRect(x: 190, y: height-110, width: 190, height: 40)
         if 0.0 != dDrivingDist {
-            var tmpDist = floor((dDrivingDist / 1000) * 100) / 100
+            let tmpDist = floor((dDrivingDist / 1000) * 100) / 100
             drivingDist.text = tmpDist.description
         }
         else {
@@ -205,9 +205,9 @@ class CycleViewController:  UIViewController,
         // 走行時間
         drivingTime.frame = CGRect(x: 190, y: height-50, width: 190, height: 40)
         if 0.0 != dDrivingTime {
-            var hour = Int(dDrivingTime) / 3600
-            var min = (Int(dDrivingTime) - (hour * 3600)) / 60
-            var sec = Int(dDrivingTime) - ((hour * 3600) + (min * 60))
+            let hour = Int(dDrivingTime) / 3600
+            let min = (Int(dDrivingTime) - (hour * 3600)) / 60
+            let sec = Int(dDrivingTime) - ((hour * 3600) + (min * 60))
             drivingTime.text = String(format: "%02d", hour) + ":" +  String(format: "%02d", min) + ":" +  String(format: "%02d", sec)
         }
         else {
@@ -401,11 +401,17 @@ class CycleViewController:  UIViewController,
     }
     
     // ViewControllerに遷移する
-    func toCycleView() {
-        // CycleViewControllerを表示する
+    func toGolfView() {
+        // ViewControllerを表示する
         self.performSegue(withIdentifier: "toGolfView", sender: nil)
     }
-    
+
+    // CycleSettingViewControllerに遷移する
+    func toCycleSettingViewController() {
+        // CycleSettingViewControllerを表示する
+        self.performSegue(withIdentifier: "toCycleSetting", sender: nil)
+    }
+
     // 累計データを消去する
     func deleteData() {
         self.userDataManager.deleteCycleData()

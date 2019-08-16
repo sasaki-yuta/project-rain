@@ -16,6 +16,7 @@
 		9B107B812217D74C006971FF /* MapAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B107B802217D74C006971FF /* MapAppTests.swift */; };
 		9B107B8C2217D74C006971FF /* MapAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B107B8B2217D74C006971FF /* MapAppUITests.swift */; };
 		9B1103932244A33C00798283 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1103922244A33C00798283 /* MenuViewController.swift */; };
+		9BAB8C2623069B5B0013BE62 /* CycleSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAB8C2523069B5B0013BE62 /* CycleSettingViewController.swift */; };
 		9BC59CF4230387AC00128586 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC59CF3230387AC00128586 /* UserDataManager.swift */; };
 		9BD1933722E42E2C00A44FD6 /* CycleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD1933622E42E2C00A44FD6 /* CycleViewController.swift */; };
 		9BE20C2B22338A7800ABA8ED /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE20C2922338A7800ABA8ED /* Interface.storyboard */; };
@@ -101,6 +102,7 @@
 		9B107B8B2217D74C006971FF /* MapAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAppUITests.swift; sourceTree = "<group>"; };
 		9B107B8D2217D74C006971FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B1103922244A33C00798283 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		9BAB8C2523069B5B0013BE62 /* CycleSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleSettingViewController.swift; sourceTree = "<group>"; };
 		9BC59CF3230387AC00128586 /* UserDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		9BD1933622E42E2C00A44FD6 /* CycleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleViewController.swift; sourceTree = "<group>"; };
 		9BE20C2722338A7800ABA8ED /* MapAppWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapAppWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,6 +184,7 @@
 				9BD1933622E42E2C00A44FD6 /* CycleViewController.swift */,
 				9B1103922244A33C00798283 /* MenuViewController.swift */,
 				9BE836CA22FFE6B0005CE3C8 /* MenuCycleViewController.swift */,
+				9BAB8C2523069B5B0013BE62 /* CycleSettingViewController.swift */,
 				9B107B6C2217D74A006971FF /* Main.storyboard */,
 				9B107B722217D74C006971FF /* Assets.xcassets */,
 				9B107B742217D74C006971FF /* LaunchScreen.storyboard */,
@@ -436,6 +439,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BAB8C2623069B5B0013BE62 /* CycleSettingViewController.swift in Sources */,
 				9BC59CF4230387AC00128586 /* UserDataManager.swift in Sources */,
 				9B107B712217D74A006971FF /* MapApp.xcdatamodeld in Sources */,
 				9BD1933722E42E2C00A44FD6 /* CycleViewController.swift in Sources */,
