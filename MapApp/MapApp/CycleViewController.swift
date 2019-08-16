@@ -163,43 +163,76 @@ class CycleViewController:  UIViewController,
         dTotalDrivingDist = userDataManager.getTotalDrivingDist()
         dTotalDrivingTime = userDataManager.getTotalDrivingTime()
         
+        // 計測中断、終了したデータをViewを切り替えても表示できる様にLoradする
+        loadCulcData()
+        
         // 速度
         speed.frame = CGRect(x: 190, y: height-230, width: 190, height: 40)
         speed.text = "-"
         self.view.addSubview(speed)
         lblSpeed.frame = CGRect(x: 190, y: height-250, width: 190, height: 20)
         self.view.addSubview(lblSpeed)
+        
         // 平均速度
         avgSpeed.frame = CGRect(x: 190, y: height-170, width: 190, height: 40)
-        avgSpeed.text = "-"
+        if (0.0 != avgSumSpeed) && (0 != avgSumCount) {
+            let tmpAvgSpeed = floor(((avgSumSpeed / Double(avgSumCount)) * 3.6)*100)/100
+            avgSpeed.text = tmpAvgSpeed.description
+        }
+        else {
+            avgSpeed.text = "-"
+        }
         self.view.addSubview(avgSpeed)
         lblAvgSpeed.frame = CGRect(x: 190, y: height-190, width: 190, height: 20)
         self.view.addSubview(lblAvgSpeed)
+        
         // 走行距離
         drivingDist.frame = CGRect(x: 190, y: height-110, width: 190, height: 40)
-        drivingDist.text = "-"
+        if 0.0 != dDrivingDist {
+            var tmpDist = floor((dDrivingDist / 1000) * 100) / 100
+            drivingDist.text = tmpDist.description
+        }
+        else {
+            drivingDist.text = "-"
+        }
         self.view.addSubview(drivingDist)
         lblDrivingDist.frame = CGRect(x: 190, y: height-130, width: 190, height: 20)
         self.view.addSubview(lblDrivingDist)
+        
         // 走行時間
         drivingTime.frame = CGRect(x: 190, y: height-50, width: 190, height: 40)
-        drivingTime.text = "-"
+        if 0.0 != dDrivingTime {
+            var hour = Int(dDrivingTime) / 3600
+            var min = (Int(dDrivingTime) - (hour * 3600)) / 60
+            var sec = Int(dDrivingTime) - ((hour * 3600) + (min * 60))
+            drivingTime.text = String(format: "%02d", hour) + ":" +  String(format: "%02d", min) + ":" +  String(format: "%02d", sec)
+        }
+        else {
+            drivingTime.text = "-"
+        }
         self.view.addSubview(drivingTime)
         lblDrivingTime.frame = CGRect(x: 190, y: height-70, width: 190, height: 20)
         self.view.addSubview(lblDrivingTime)
         
         // MAX速度
         maxSpeed.frame = CGRect(x: 0, y: height-230, width: 190, height: 40)
-        maxSpeed.text = "-"
+        if 0.0 != dMaxSpeed {
+            maxSpeed.text = dMaxSpeed.description
+        }
+        else {
+            maxSpeed.text = "-"
+        }
         self.view.addSubview(maxSpeed)
         lblMaxSpeed.frame = CGRect(x: 0, y: height-250, width: 190, height: 20)
         self.view.addSubview(lblMaxSpeed)
+        
         // 累計MAX速度
         totalMaxSpeed.frame = CGRect(x: 0, y: height-170, width: 190, height: 40)
         totalMaxSpeed.text = dTotalMaxSpeed.description
         self.view.addSubview(totalMaxSpeed)
         lblTotalMaxSpeed.frame = CGRect(x: 0, y: height-190, width: 190, height: 20)
         self.view.addSubview(lblTotalMaxSpeed)
+        
         // 累計走行距離
         totalDrivingDist.frame = CGRect(x: 0, y: height-110, width: 190, height: 40)
         let tmpDist = floor((self.dTotalDrivingDist / 1000) * 100) / 100
@@ -207,6 +240,7 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(totalDrivingDist)
         lblTotalDrivingDist.frame = CGRect(x: 0, y: height-130, width: 190, height: 20)
         self.view.addSubview(lblTotalDrivingDist)
+        
         // 累計走行時間
         totalDrivingTime.frame = CGRect(x: 0, y: height-50, width: 190, height: 40)
         let hour = Int(dTotalDrivingTime) / 3600
@@ -347,7 +381,7 @@ class CycleViewController:  UIViewController,
         }
         else {
             // 走行速度の更新
-            self.speed.text = "0"
+            self.speed.text = "0.0"
             // 前回値として2001年1月1日の00:00:00 UTCと現在の日時の間の秒間隔:ex 587280439.457562)を保持
             self.beforSinRef = locations.last!.timestamp.timeIntervalSinceReferenceDate
             self.beforLon = locations.last?.coordinate.longitude
@@ -367,8 +401,6 @@ class CycleViewController:  UIViewController,
     func toCycleView() {
         // CycleViewControllerを表示する
         self.performSegue(withIdentifier: "toGolfView", sender: nil)
-        // 累計データを画面遷移時に保存する
-        userDataManager.saveCycleData()
     }
     
     // 累計データを消去する
@@ -426,8 +458,10 @@ class CycleViewController:  UIViewController,
         // 計測中状態を更新
         self.isStarting = false
         
-        // 累計データを画面遷移時に保存する
+        // 累計データを保存する
         userDataManager.saveCycleData()
+        // 中断、終了したデータを保存する
+        saveCulcData()
     }
 
     // 計測を終了する
@@ -440,8 +474,29 @@ class CycleViewController:  UIViewController,
         // 計測中状態を更新
         self.isStarting = false
         
-        // 累計データを画面遷移時に保存する
+        // 累計データを保存する
         userDataManager.saveCycleData()
+        // 中断、終了したデータを保存する
+        saveCulcData()
+    }
+    
+    // 計測中断、終了したデータをViewを切り替えても表示できる様に保存する
+    func saveCulcData() {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.userDataManager.setAvgSumSpeed(avgSumSpeed, avgSumCount)
+        appDelegate.userDataManager.setDrivingDist(dDrivingDist)
+        appDelegate.userDataManager.setDrivingTime(dDrivingTime)
+        appDelegate.userDataManager.setMaxSpeed(dMaxSpeed)
+    }
+
+    // 計測中断、終了したデータをViewを切り替えても表示できる様にLoradする
+    func loadCulcData() {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        avgSumSpeed = appDelegate.userDataManager.getAvgSumSpeed()
+        avgSumCount = appDelegate.userDataManager.getAvgSumCount()
+        dDrivingDist = appDelegate.userDataManager.getDrivingDist()
+        dDrivingTime = appDelegate.userDataManager.getDrivingTime()
+        dMaxSpeed = appDelegate.userDataManager.getMaxSpeed()
     }
 }
 

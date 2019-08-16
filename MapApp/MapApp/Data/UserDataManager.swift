@@ -20,6 +20,18 @@ class UserDataManager: NSObject {
     var isTDist: Double = 0.0
     var isTTime: Double = 0.0
 
+    // 計測中のデータをアプリ起動中は保持する
+    // 平均速度
+    var avgSumSpeed: Double! = 0.0
+    var avgSumCount: Int! = 0
+    // 走行距離
+    var dDrivingDist: Double! = 0.0
+    // 走行時間
+    var dDrivingTime: Double! = 0.0
+    // MAX速度
+    var dMaxSpeed: Double! = 0.0
+
+
     // クラスの初期化
     override init() {
         userDefaults.register(defaults: ["totalMaxSpeed": 0.0])
@@ -106,5 +118,49 @@ class UserDataManager: NSObject {
         userDefaults.set(0.0, forKey: "totalDrivingTime")
         userDefaults.synchronize()
     }
+    
+    //============================================================
+    // 計測中断、終了したデータを一時的に保存する
+    //============================================================
+    // 平均速度設定
+    func setAvgSumSpeed(_ speed: Double, _ count: Int) {
+        avgSumSpeed = speed
+        avgSumCount = count
+    }
+    // 平均速度取得
+    func getAvgSumSpeed() -> Double {
+        return avgSumSpeed
+    }
+    func getAvgSumCount() -> Int {
+        return avgSumCount
+    }
+    
+    // 走行距離設定
+    func setDrivingDist(_ dist: Double) {
+        dDrivingDist = dist
+    }
+    // 走行距離取得
+    func getDrivingDist() -> Double {
+        return dDrivingDist
+    }
+    
+    // 走行時間設定
+    func setDrivingTime(_ time: Double) {
+        dDrivingTime = time
+    }
+    // 走行時間取得
+    func getDrivingTime() -> Double {
+        return dDrivingTime
+    }
+    
+    // Max速度の設定
+    func setMaxSpeed(_ speed: Double) {
+    dMaxSpeed = speed
+    }
+    // MAX速度の取得
+    func getMaxSpeed() -> Double {
+    return dMaxSpeed
+    }
+    
 }
 
