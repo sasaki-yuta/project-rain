@@ -48,17 +48,17 @@ class CycleViewController:  UIViewController,
     @IBOutlet var lblMaxSpeed: UILabel!
     // 累計MAX速度
     var dTotalMaxSpeed: Double! = 0.0
-    @IBOutlet var totalMaxSpeed: UILabel!
-    @IBOutlet var lblTotalMaxSpeed: UILabel!
     // 累計走行距離
     var dTotalDrivingDist: Double! = 0.0
-    @IBOutlet var totalDrivingDist: UILabel!
-    @IBOutlet var lblTotalDrivingDist: UILabel!
     // 累計走行時間
     var dTotalDrivingTime: Double! = 0.0
-    @IBOutlet var totalDrivingTime: UILabel!
-    @IBOutlet var lblTotalDrivingTime: UILabel!
 
+    // bar
+    @IBOutlet var lbar1: UILabel!
+    @IBOutlet var lbar2: UILabel!
+    @IBOutlet var lbar3: UILabel!
+    @IBOutlet var lbar4: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -125,7 +125,7 @@ class CycleViewController:  UIViewController,
         let height = Int(dispSize.height)
         
         // 地図のサイズを画面サイズに設定する
-        mapView.frame.size = CGSize(width: width, height: height-270)
+        mapView.frame.size = CGSize(width: width, height: height/2)
 
         // 地図表示タイプを切り替えるボタン
         mapViewType = UIButton(type: UIButton.ButtonType.detailDisclosure)
@@ -170,14 +170,37 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(scale)
 
         // 速度
-        speed.frame = CGRect(x: 190, y: height-230, width: 190, height: 40)
+        let labelHeight = height/2/4/2
+        lblSpeed.frame = CGRect(x: 0, y: height/2, width: width, height: labelHeight-20)
+        self.view.addSubview(lblSpeed)
+        speed.frame = CGRect(x: 0, y: (height/2)+(labelHeight)-20, width: width, height: labelHeight+20)
         speed.text = "-"
         self.view.addSubview(speed)
-        lblSpeed.frame = CGRect(x: 190, y: height-250, width: 190, height: 20)
-        self.view.addSubview(lblSpeed)
         
+        // bar1
+        lbar1.frame = CGRect(x: 0, y: (height/2)+(labelHeight*2), width: width, height: 2)
+        self.view.addSubview(lbar1)
+        
+        // MAX速度
+        lblMaxSpeed.frame = CGRect(x: 0, y: (height/2)+(labelHeight*2), width: width/2, height: labelHeight-20)
+        self.view.addSubview(lblMaxSpeed)
+        maxSpeed.frame = CGRect(x: 0, y: (height/2)+(labelHeight*3)-20, width: width/2, height: labelHeight+20)
+        if 0.0 != dMaxSpeed {
+            maxSpeed.text = dMaxSpeed.description
+        }
+        else {
+            maxSpeed.text = "-"
+        }
+        self.view.addSubview(maxSpeed)
+
+        // bar4
+        lbar4.frame = CGRect(x: width/2, y: (height/2)+(labelHeight*2), width: 2, height: labelHeight*2)
+        self.view.addSubview(lbar4)
+
         // 平均速度
-        avgSpeed.frame = CGRect(x: 190, y: height-170, width: 190, height: 40)
+        lblAvgSpeed.frame = CGRect(x: width/2, y: (height/2)+(labelHeight*2), width: width/2, height: labelHeight-20)
+        self.view.addSubview(lblAvgSpeed)
+        avgSpeed.frame = CGRect(x: width/2, y: (height/2)+(labelHeight*3)-20, width: width/2, height: labelHeight+20)
         if (0.0 != avgSumSpeed) && (0 != avgSumCount) {
             let tmpAvgSpeed = floor(((avgSumSpeed / Double(avgSumCount)) * 3.6)*100)/100
             avgSpeed.text = tmpAvgSpeed.description
@@ -186,11 +209,15 @@ class CycleViewController:  UIViewController,
             avgSpeed.text = "-"
         }
         self.view.addSubview(avgSpeed)
-        lblAvgSpeed.frame = CGRect(x: 190, y: height-190, width: 190, height: 20)
-        self.view.addSubview(lblAvgSpeed)
-        
+
+        // bar2
+        lbar2.frame = CGRect(x: 0, y: (height/2)+(labelHeight*4), width: width, height: 2)
+        self.view.addSubview(lbar2)
+
         // 走行距離
-        drivingDist.frame = CGRect(x: 190, y: height-110, width: 190, height: 40)
+        lblDrivingDist.frame = CGRect(x: 0, y: (height/2)+(labelHeight*4), width: width, height: labelHeight-20)
+        self.view.addSubview(lblDrivingDist)
+        drivingDist.frame = CGRect(x: 0, y: (height/2)+(labelHeight*5)-20, width: width, height: labelHeight+20)
         if 0.0 != dDrivingDist {
             let tmpDist = floor((dDrivingDist / 1000) * 100) / 100
             drivingDist.text = tmpDist.description
@@ -199,11 +226,15 @@ class CycleViewController:  UIViewController,
             drivingDist.text = "-"
         }
         self.view.addSubview(drivingDist)
-        lblDrivingDist.frame = CGRect(x: 190, y: height-130, width: 190, height: 20)
-        self.view.addSubview(lblDrivingDist)
         
+        // bar3
+        lbar3.frame = CGRect(x: 0, y: (height/2)+(labelHeight*6), width: width, height: 2)
+        self.view.addSubview(lbar3)
+
         // 走行時間
-        drivingTime.frame = CGRect(x: 190, y: height-50, width: 190, height: 40)
+        lblDrivingTime.frame = CGRect(x: 0, y: (height/2)+(labelHeight*6), width: width, height: labelHeight-20)
+        self.view.addSubview(lblDrivingTime)
+        drivingTime.frame = CGRect(x: 0, y: (height/2)+(labelHeight*7)-20, width: width, height: labelHeight+20)
         if 0.0 != dDrivingTime {
             let hour = Int(dDrivingTime) / 3600
             let min = (Int(dDrivingTime) - (hour * 3600)) / 60
@@ -214,46 +245,6 @@ class CycleViewController:  UIViewController,
             drivingTime.text = "-"
         }
         self.view.addSubview(drivingTime)
-        lblDrivingTime.frame = CGRect(x: 190, y: height-70, width: 190, height: 20)
-        self.view.addSubview(lblDrivingTime)
-        
-        // MAX速度
-        maxSpeed.frame = CGRect(x: 0, y: height-230, width: 190, height: 40)
-        if 0.0 != dMaxSpeed {
-            maxSpeed.text = dMaxSpeed.description
-        }
-        else {
-            maxSpeed.text = "-"
-        }
-        self.view.addSubview(maxSpeed)
-        lblMaxSpeed.frame = CGRect(x: 0, y: height-250, width: 190, height: 20)
-        self.view.addSubview(lblMaxSpeed)
-        
-        // 累計MAX速度
-        totalMaxSpeed.frame = CGRect(x: 0, y: height-170, width: 190, height: 40)
-        totalMaxSpeed.text = dTotalMaxSpeed.description
-        self.view.addSubview(totalMaxSpeed)
-        lblTotalMaxSpeed.frame = CGRect(x: 0, y: height-190, width: 190, height: 20)
-        self.view.addSubview(lblTotalMaxSpeed)
-        
-        // 累計走行距離
-        totalDrivingDist.frame = CGRect(x: 0, y: height-110, width: 190, height: 40)
-        let tmpDist = floor((self.dTotalDrivingDist / 1000) * 100) / 100
-        totalDrivingDist.text = tmpDist.description
-        self.view.addSubview(totalDrivingDist)
-        lblTotalDrivingDist.frame = CGRect(x: 0, y: height-130, width: 190, height: 20)
-        self.view.addSubview(lblTotalDrivingDist)
-        
-        // 累計走行時間
-        totalDrivingTime.frame = CGRect(x: 0, y: height-50, width: 190, height: 40)
-        let hour = Int(dTotalDrivingTime) / 3600
-        let min = (Int(dTotalDrivingTime) - (hour * 3600)) / 60
-        let sec = Int(dTotalDrivingTime) - ((hour * 3600) + (min * 60))
-        totalDrivingTime.text = String(format: "%02d", hour) + ":" +  String(format: "%02d", min) + ":" +  String(format: "%02d", sec)
-
-        self.view.addSubview(totalDrivingTime)
-        lblTotalDrivingTime.frame = CGRect(x: 0, y: height-70, width: 190, height: 20)
-        self.view.addSubview(lblTotalDrivingTime)
     }
 
     /*
@@ -316,7 +307,6 @@ class CycleViewController:  UIViewController,
             // 累計最高速度
             if speed > dTotalMaxSpeed {
                 dTotalMaxSpeed = speed
-                totalMaxSpeed.text = dTotalMaxSpeed.description
                 // UserDefaultsにバックアップする
                 userDataManager.setTotalMaxSpeed(dTotalMaxSpeed)
             }
@@ -336,10 +326,6 @@ class CycleViewController:  UIViewController,
                 
                 // 累計の走行時間の更新
                 self.dTotalDrivingTime += dTime
-                hour = Int(self.dTotalDrivingTime) / 3600
-                min = (Int(self.dTotalDrivingTime) - (hour * 3600)) / 60
-                sec = Int(self.dTotalDrivingTime) - ((hour * 3600) + (min * 60))
-                self.totalDrivingTime.text = String(format: "%02d", hour) + ":" +  String(format: "%02d", min) + ":" +  String(format: "%02d", sec)
                 // UserDefaultsにバックアップする
                 userDataManager.setTotalDrivingTime(dTotalDrivingTime)
                 
@@ -362,13 +348,11 @@ class CycleViewController:  UIViewController,
                 let bLoc: CLLocation = CLLocation(latitude: dlat, longitude: dlon)
                 let dist = bLoc.distance(from: aLoc)
                 self.dDrivingDist += dist
-                var tmpDist = floor((self.dDrivingDist / 1000) * 100) / 100
+                let tmpDist = floor((self.dDrivingDist / 1000) * 100) / 100
                 self.drivingDist.text = tmpDist.description
 
                 // 累計走行距離の更新
                 self.dTotalDrivingDist += dist
-                tmpDist = floor((self.dTotalDrivingDist / 1000) * 100) / 100
-                self.totalDrivingDist.text = tmpDist.description
                 // UserDefaultsにバックアップする
                 userDataManager.setTotalDrivingDist(dTotalDrivingDist)
 
@@ -418,9 +402,6 @@ class CycleViewController:  UIViewController,
         dTotalMaxSpeed = 0.0
         dTotalDrivingDist = 0.0
         dTotalDrivingTime = 0.0
-        totalMaxSpeed.text = "0.0"
-        totalDrivingDist.text = "0.0"
-        totalDrivingTime.text = "00:00:00"
     }
     
     // 計測を開始する
