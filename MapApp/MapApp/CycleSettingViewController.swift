@@ -12,9 +12,20 @@ class CycleSettingViewController: UIViewController {
 
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnDataInit: UIButton!
+    @IBOutlet weak var btnEditInit: UIButton!
     @IBOutlet weak var maxSpeed: UILabel!
     @IBOutlet weak var totalDist: UILabel!
     @IBOutlet weak var totalTime: UILabel!
+    
+    @IBOutlet weak var lblTotalData: UILabel!
+    @IBOutlet weak var lblMaxSpeed: UILabel!
+    @IBOutlet weak var lblTotalDist: UILabel!
+    @IBOutlet weak var lblTotalTime: UILabel!
+    
+    @IBOutlet weak var lblEditData: UILabel!
+    @IBOutlet weak var lblTimestamp: UILabel!
+    @IBOutlet weak var lblAccuracy: UILabel!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +35,24 @@ class CycleSettingViewController: UIViewController {
     }
     
     func initView() {
+        // デバイスの画面サイズを取得する
+        let dispSize: CGSize = UIScreen.main.bounds.size
+        let width = Int(dispSize.width)
+
+        // オブジェクトの表示位置設定
+        btnDataInit.frame = CGRect(x: width-100, y: 80, width: 100, height: 40)
+        self.view.addSubview(btnDataInit)
+        btnEditInit.frame = CGRect(x: width-100, y: 300, width: 100, height: 40)
+        self.view.addSubview(btnEditInit)
+        lblTotalData.frame = CGRect(x: 0, y: 80, width: width, height: 40)
+        self.view.addSubview(lblTotalData)
+        lblEditData.frame = CGRect(x: 0, y: 300, width: width, height: 40)
+        self.view.addSubview(lblEditData)
+        
+        
+        
+        
+        // 累計データ表示
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         // 累計最高速度
         let speed = appDelegate.userDataManager.getTotalMaxSpeed()
