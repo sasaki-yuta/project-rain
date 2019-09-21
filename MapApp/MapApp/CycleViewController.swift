@@ -125,7 +125,7 @@ class CycleViewController:  UIViewController,
         let height = Int(dispSize.height)
         
         // 地図のサイズを画面サイズに設定する
-        mapView.frame.size = CGSize(width: width, height: height/2)
+        mapView.frame.size = CGSize(width: width, height: (height/3)*2) // 高さ2/3を地図にする
 
         // 地図表示タイプを切り替えるボタン
         mapViewType = UIButton(type: UIButton.ButtonType.detailDisclosure)
@@ -170,21 +170,27 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(scale)
 
         // 速度
-        let labelHeight = height/2/4/2
-        lblSpeed.frame = CGRect(x: 0, y: height/2, width: width, height: labelHeight-20)
+        let labelHeight = ((height/3)*1)/2/2 // 画面の1/3を情報表示エリアにする
+        let infoTopPos = (height/3)*2
+        
+        lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight-20)
+            //CGRect(x: 0, y: height/2, width: width, height: labelHeight-20)
         self.view.addSubview(lblSpeed)
-        speed.frame = CGRect(x: 0, y: (height/2)+(labelHeight)-20, width: width, height: labelHeight+20)
+        speed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-20, width: width/2, height: labelHeight+20)
+            //CGRect(x: 0, y: infoTopPos+(labelHeight)-20, width: width, height: labelHeight+20)
         speed.text = "-"
         self.view.addSubview(speed)
         
         // bar1
-        lbar1.frame = CGRect(x: 0, y: (height/2)+(labelHeight*2), width: width, height: 2)
+        lbar1.frame = CGRect(x: 0, y: infoTopPos, width: width, height: 2)
         self.view.addSubview(lbar1)
         
         // MAX速度
-        lblMaxSpeed.frame = CGRect(x: 0, y: (height/2)+(labelHeight*2), width: width/2, height: labelHeight-20)
+        lblMaxSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight-20)
+            //CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width/2, height: labelHeight-20)
         self.view.addSubview(lblMaxSpeed)
-        maxSpeed.frame = CGRect(x: 0, y: (height/2)+(labelHeight*3)-20, width: width/2, height: labelHeight+20)
+        maxSpeed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-20, width: width/2, height: labelHeight+20)
+            //CGRect(x: 0, y: infoTopPos+(labelHeight*3)-20, width: width/2, height: labelHeight+20)
         if 0.0 != dMaxSpeed {
             maxSpeed.text = dMaxSpeed.description
         }
@@ -194,13 +200,13 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(maxSpeed)
 
         // bar4
-        lbar4.frame = CGRect(x: width/2, y: (height/2)+(labelHeight*2), width: 2, height: labelHeight*2)
+        lbar4.frame = CGRect(x: width/2, y: infoTopPos, width: 2, height: labelHeight*2)
         self.view.addSubview(lbar4)
 
         // 平均速度
-        lblAvgSpeed.frame = CGRect(x: width/2, y: (height/2)+(labelHeight*2), width: width/2, height: labelHeight-20)
+        lblAvgSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight-20)
         self.view.addSubview(lblAvgSpeed)
-        avgSpeed.frame = CGRect(x: width/2, y: (height/2)+(labelHeight*3)-20, width: width/2, height: labelHeight+20)
+        avgSpeed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-20, width: width/2, height: labelHeight+20)
         if (0.0 != avgSumSpeed) && (0 != avgSumCount) {
             let tmpAvgSpeed = floor(((avgSumSpeed / Double(avgSumCount)) * 3.6)*100)/100
             avgSpeed.text = tmpAvgSpeed.description
@@ -211,13 +217,15 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(avgSpeed)
 
         // bar2
-        lbar2.frame = CGRect(x: 0, y: (height/2)+(labelHeight*4), width: width, height: 2)
+        lbar2.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: 2)
         self.view.addSubview(lbar2)
 
         // 走行距離
-        lblDrivingDist.frame = CGRect(x: 0, y: (height/2)+(labelHeight*4), width: width, height: labelHeight-20)
+        lblDrivingDist.frame = CGRect(x: 0, y: infoTopPos, width: width/2, height: labelHeight-20)
+            //CGRect(x: 0, y: infoTopPos+(labelHeight*4), width: width, height: labelHeight-20)
         self.view.addSubview(lblDrivingDist)
-        drivingDist.frame = CGRect(x: 0, y: (height/2)+(labelHeight*5)-20, width: width, height: labelHeight+20)
+        drivingDist.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*1)-20, width: width/2, height: labelHeight+20)
+            //CGRect(x: 0, y: infoTopPos+(labelHeight*5)-20, width: width, height: labelHeight+20)
         if 0.0 != dDrivingDist {
             let tmpDist = floor((dDrivingDist / 1000) * 100) / 100
             drivingDist.text = tmpDist.description
@@ -228,13 +236,15 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(drivingDist)
         
         // bar3
-        lbar3.frame = CGRect(x: 0, y: (height/2)+(labelHeight*6), width: width, height: 2)
+        lbar3.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*5), width: width, height: 2)
         self.view.addSubview(lbar3)
 
         // 走行時間
-        lblDrivingTime.frame = CGRect(x: 0, y: (height/2)+(labelHeight*6), width: width, height: labelHeight-20)
+        lblDrivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: labelHeight-20)
+            //CGRect(x: 0, y: infoTopPos+(labelHeight*6), width: width, height: labelHeight-20)
         self.view.addSubview(lblDrivingTime)
-        drivingTime.frame = CGRect(x: 0, y: (height/2)+(labelHeight*7)-20, width: width, height: labelHeight+20)
+        drivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*3)-20, width: width, height: labelHeight+20)
+            //CGRect(x: 0, y: infoTopPos+(labelHeight*7)-20, width: width, height: labelHeight+20)
         if 0.0 != dDrivingTime {
             let hour = Int(dDrivingTime) / 3600
             let min = (Int(dDrivingTime) - (hour * 3600)) / 60

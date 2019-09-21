@@ -225,7 +225,7 @@ class ViewController:   UIViewController,
         scale.legendAlignment = .leading
         self.view.addSubview(scale)
         
-        lblLongTapElevation = "標高：- m"
+        lblLongTapElevation = ""
     }
 
     // CLLocationManagerのdelegate：現在位置取得
@@ -274,7 +274,7 @@ class ViewController:   UIViewController,
         // ロングタップ開始
         if sender.state == .began {
             // ロングタップ開始時に古いピンを削除する
-            lblLongTapElevation = "標高：- m"
+            lblLongTapElevation = ""
             mapView.removeAnnotation(calcPointAno)
             mapView.removeAnnotation(pointAno)
             dlon = 0

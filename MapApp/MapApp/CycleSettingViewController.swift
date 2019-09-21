@@ -49,9 +49,6 @@ class CycleSettingViewController: UIViewController {
         lblEditData.frame = CGRect(x: 0, y: 300, width: width, height: 40)
         self.view.addSubview(lblEditData)
         
-        
-        
-        
         // 累計データ表示
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         // 累計最高速度
