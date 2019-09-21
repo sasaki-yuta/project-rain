@@ -56,7 +56,6 @@ class CycleViewController:  UIViewController,
     // bar
     @IBOutlet var lbar1: UILabel!
     @IBOutlet var lbar2: UILabel!
-    @IBOutlet var lbar3: UILabel!
     @IBOutlet var lbar4: UILabel!
     
     override func viewDidLoad() {
@@ -174,10 +173,8 @@ class CycleViewController:  UIViewController,
         let infoTopPos = (height/3)*2
         
         lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight-20)
-            //CGRect(x: 0, y: height/2, width: width, height: labelHeight-20)
         self.view.addSubview(lblSpeed)
         speed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-20, width: width/2, height: labelHeight+20)
-            //CGRect(x: 0, y: infoTopPos+(labelHeight)-20, width: width, height: labelHeight+20)
         speed.text = "-"
         self.view.addSubview(speed)
         
@@ -187,10 +184,8 @@ class CycleViewController:  UIViewController,
         
         // MAX速度
         lblMaxSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight-20)
-            //CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width/2, height: labelHeight-20)
         self.view.addSubview(lblMaxSpeed)
         maxSpeed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-20, width: width/2, height: labelHeight+20)
-            //CGRect(x: 0, y: infoTopPos+(labelHeight*3)-20, width: width/2, height: labelHeight+20)
         if 0.0 != dMaxSpeed {
             maxSpeed.text = dMaxSpeed.description
         }
@@ -222,10 +217,8 @@ class CycleViewController:  UIViewController,
 
         // 走行距離
         lblDrivingDist.frame = CGRect(x: 0, y: infoTopPos, width: width/2, height: labelHeight-20)
-            //CGRect(x: 0, y: infoTopPos+(labelHeight*4), width: width, height: labelHeight-20)
         self.view.addSubview(lblDrivingDist)
         drivingDist.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*1)-20, width: width/2, height: labelHeight+20)
-            //CGRect(x: 0, y: infoTopPos+(labelHeight*5)-20, width: width, height: labelHeight+20)
         if 0.0 != dDrivingDist {
             let tmpDist = floor((dDrivingDist / 1000) * 100) / 100
             drivingDist.text = tmpDist.description
@@ -235,16 +228,10 @@ class CycleViewController:  UIViewController,
         }
         self.view.addSubview(drivingDist)
         
-        // bar3
-        lbar3.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*5), width: width, height: 2)
-        self.view.addSubview(lbar3)
-
         // 走行時間
         lblDrivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: labelHeight-20)
-            //CGRect(x: 0, y: infoTopPos+(labelHeight*6), width: width, height: labelHeight-20)
         self.view.addSubview(lblDrivingTime)
         drivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*3)-20, width: width, height: labelHeight+20)
-            //CGRect(x: 0, y: infoTopPos+(labelHeight*7)-20, width: width, height: labelHeight+20)
         if 0.0 != dDrivingTime {
             let hour = Int(dDrivingTime) / 3600
             let min = (Int(dDrivingTime) - (hour * 3600)) / 60
