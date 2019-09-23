@@ -30,22 +30,26 @@ class CycleViewController:  UIViewController,
     var avgSumCount: Int! = 0
     @IBOutlet var avgSpeed: UILabel!
     @IBOutlet var lblAvgSpeed: UILabel!
-    // 走行距離
-    var beforLon: Double! = 0.0
-    var beforLat: Double! = 0.0
-    var dDrivingDist: Double! = 0.0
-    @IBOutlet var drivingDist: UILabel!
-    @IBOutlet var lblDrivingDist: UILabel!
+    // MAX速度
+    var dMaxSpeed: Double! = 0.0
+    @IBOutlet var maxSpeed: UILabel!
+    @IBOutlet var lblMaxSpeed: UILabel!
+    // 速度表示切り替えボタン
+    @IBOutlet var speedDispChange: UIButton!
+    
     // 走行時間
     var beforSinRef: Double! = 0.0
     var dDrivingTime: Double! = 0.0
     @IBOutlet var drivingTime: UILabel!
     @IBOutlet var lblDrivingTime: UILabel!
 
-    // MAX速度
-    var dMaxSpeed: Double! = 0.0
-    @IBOutlet var maxSpeed: UILabel!
-    @IBOutlet var lblMaxSpeed: UILabel!
+    // 走行距離
+    var beforLon: Double! = 0.0
+    var beforLat: Double! = 0.0
+    var dDrivingDist: Double! = 0.0
+    @IBOutlet var drivingDist: UILabel!
+    @IBOutlet var lblDrivingDist: UILabel!
+
     // 累計MAX速度
     var dTotalMaxSpeed: Double! = 0.0
     // 累計走行距離
@@ -168,13 +172,14 @@ class CycleViewController:  UIViewController,
         scale.legendAlignment = .leading
         self.view.addSubview(scale)
 
-        // 速度
-        let labelHeight = ((height/3)*1)/2/2 // 画面の1/3を情報表示エリアにする
+        // 各種情報表示位置の係数
         let infoTopPos = (height/3)*2
+        let labelHeight = ((height/3)*1)/2/2 // 画面の1/3を情報表示エリアにする
         
-        lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight-20)
+        // 速度
+        lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
         self.view.addSubview(lblSpeed)
-        speed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-20, width: width/2, height: labelHeight+20)
+        speed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-(labelHeight/2), width: width/2, height: labelHeight+(labelHeight/3)) // /2ではなく、/3で高さの表示位置を微調整した
         speed.text = "-"
         self.view.addSubview(speed)
         
@@ -183,15 +188,17 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(lbar1)
         
         // MAX速度
-        lblMaxSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight-20)
+        lblMaxSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
+        lblMaxSpeed.isHidden = true
         self.view.addSubview(lblMaxSpeed)
-        maxSpeed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-20, width: width/2, height: labelHeight+20)
+        maxSpeed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-(labelHeight/2), width: width/2, height: labelHeight+(labelHeight/3)) // /2ではなく、/3で高さの表示位置を微調整した
         if 0.0 != dMaxSpeed {
             maxSpeed.text = dMaxSpeed.description
         }
         else {
             maxSpeed.text = "-"
         }
+        maxSpeed.isHidden = true
         self.view.addSubview(maxSpeed)
 
         // bar4
@@ -199,9 +206,10 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(lbar4)
 
         // 平均速度
-        lblAvgSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight-20)
+        lblAvgSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
+        lblAvgSpeed.isHidden = true
         self.view.addSubview(lblAvgSpeed)
-        avgSpeed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-20, width: width/2, height: labelHeight+20)
+        avgSpeed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-(labelHeight/2), width: width/2, height: labelHeight+(labelHeight/3)) // /2ではなく、/3で高さの表示位置を微調整した
         if (0.0 != avgSumSpeed) && (0 != avgSumCount) {
             let tmpAvgSpeed = floor(((avgSumSpeed / Double(avgSumCount)) * 3.6)*100)/100
             avgSpeed.text = tmpAvgSpeed.description
@@ -209,16 +217,21 @@ class CycleViewController:  UIViewController,
         else {
             avgSpeed.text = "-"
         }
+        avgSpeed.isHidden = true
         self.view.addSubview(avgSpeed)
 
         // bar2
         lbar2.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: 2)
         self.view.addSubview(lbar2)
 
+        // 速度表示切り替えボタン
+        speedDispChange.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight*2)
+        self.view.addSubview(speedDispChange)
+
         // 走行距離
-        lblDrivingDist.frame = CGRect(x: 0, y: infoTopPos, width: width/2, height: labelHeight-20)
+        lblDrivingDist.frame = CGRect(x: 0, y: infoTopPos, width: width/2, height: labelHeight/2)
         self.view.addSubview(lblDrivingDist)
-        drivingDist.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*1)-20, width: width/2, height: labelHeight+20)
+        drivingDist.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*1)-(labelHeight/2), width: width/2, height: labelHeight+(labelHeight/3)) // /2ではなく、/3で高さの表示位置を微調整した
         if 0.0 != dDrivingDist {
             let tmpDist = floor((dDrivingDist / 1000) * 100) / 100
             drivingDist.text = tmpDist.description
@@ -229,9 +242,9 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(drivingDist)
         
         // 走行時間
-        lblDrivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: labelHeight-20)
+        lblDrivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: labelHeight/2)
         self.view.addSubview(lblDrivingTime)
-        drivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*3)-20, width: width, height: labelHeight+20)
+        drivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*3)-(labelHeight/2), width: width, height: labelHeight/*+(labelHeight/2)*/)
         if 0.0 != dDrivingTime {
             let hour = Int(dDrivingTime) / 3600
             let min = (Int(dDrivingTime) - (hour * 3600)) / 60
@@ -484,6 +497,31 @@ class CycleViewController:  UIViewController,
         dDrivingDist = appDelegate.userDataManager.getDrivingDist()
         dDrivingTime = appDelegate.userDataManager.getDrivingTime()
         dMaxSpeed = appDelegate.userDataManager.getMaxSpeed()
+    }
+    
+    // Speed表示切り替えを押下した時の処理
+    @IBAction func btnSpeedChangeThouchDown(_ sender: Any) {
+        if (false == speed.isHidden) {
+            // 速度を消して平均速度を表示する
+            speed.isHidden = true
+            lblSpeed.isHidden = true
+            avgSpeed.isHidden = false
+            lblAvgSpeed.isHidden = false
+        }
+        else if (false == avgSpeed.isHidden) {
+            // 平均速度を消して最高速度を表示する
+            avgSpeed.isHidden = true
+            lblAvgSpeed.isHidden = true
+            maxSpeed.isHidden = false
+            lblMaxSpeed.isHidden = false
+        }
+        else {
+            //最高速度を消して速度を表示する
+            maxSpeed.isHidden = true
+            lblMaxSpeed.isHidden = true
+            speed.isHidden = false
+            lblSpeed.isHidden = false
+        }
     }
 }
 

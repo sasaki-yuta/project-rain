@@ -40,14 +40,14 @@ class CycleSettingViewController: UIViewController {
         let width = Int(dispSize.width)
 
         // オブジェクトの表示位置設定
-        btnDataInit.frame = CGRect(x: width-100, y: 80, width: 100, height: 40)
-        self.view.addSubview(btnDataInit)
-        btnEditInit.frame = CGRect(x: width-100, y: 300, width: 100, height: 40)
-        self.view.addSubview(btnEditInit)
         lblTotalData.frame = CGRect(x: 0, y: 80, width: width, height: 40)
         self.view.addSubview(lblTotalData)
         lblEditData.frame = CGRect(x: 0, y: 300, width: width, height: 40)
         self.view.addSubview(lblEditData)
+        btnDataInit.frame = CGRect(x: width-100, y: 80, width: 100, height: 40)
+        self.view.addSubview(btnDataInit)
+        btnEditInit.frame = CGRect(x: width-100, y: 300, width: 100, height: 40)
+        self.view.addSubview(btnEditInit)
         
         // 累計データ表示
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
