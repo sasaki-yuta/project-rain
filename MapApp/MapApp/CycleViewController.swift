@@ -183,10 +183,6 @@ class CycleViewController:  UIViewController,
         speed.text = "-"
         self.view.addSubview(speed)
         
-        // bar1
-        lbar1.frame = CGRect(x: 0, y: infoTopPos, width: width, height: 2)
-        self.view.addSubview(lbar1)
-        
         // MAX速度
         lblMaxSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
         lblMaxSpeed.isHidden = true
@@ -200,10 +196,6 @@ class CycleViewController:  UIViewController,
         }
         maxSpeed.isHidden = true
         self.view.addSubview(maxSpeed)
-
-        // bar4
-        lbar4.frame = CGRect(x: width/2, y: infoTopPos, width: 2, height: labelHeight*2)
-        self.view.addSubview(lbar4)
 
         // 平均速度
         lblAvgSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
@@ -219,10 +211,6 @@ class CycleViewController:  UIViewController,
         }
         avgSpeed.isHidden = true
         self.view.addSubview(avgSpeed)
-
-        // bar2
-        lbar2.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: 2)
-        self.view.addSubview(lbar2)
 
         // 速度表示切り替えボタン
         speedDispChange.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight*2)
@@ -255,6 +243,20 @@ class CycleViewController:  UIViewController,
             drivingTime.text = "-"
         }
         self.view.addSubview(drivingTime)
+
+        
+        // bar1
+        lbar1.frame = CGRect(x: 0, y: infoTopPos, width: width, height: 2)
+        self.view.addSubview(lbar1)
+        
+        // bar2
+        lbar2.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: 2)
+        self.view.addSubview(lbar2)
+
+        // bar4
+        lbar4.frame = CGRect(x: width/2, y: infoTopPos, width: 2, height: labelHeight*2)
+        self.view.addSubview(lbar4)
+
     }
 
     /*
@@ -497,6 +499,74 @@ class CycleViewController:  UIViewController,
         dDrivingDist = appDelegate.userDataManager.getDrivingDist()
         dDrivingTime = appDelegate.userDataManager.getDrivingTime()
         dMaxSpeed = appDelegate.userDataManager.getMaxSpeed()
+    }
+    
+    // メニューで地図Typeを変えた場合
+    func changeMapType() {
+        var isBlack:Bool = false
+
+        switch mapView.mapType {
+        case .standard:         // 標準の地図
+            break
+        case .mutedStandard:    // 地図よりもデータを強調
+            break
+        case .satellite:        // 航空写真
+            isBlack = true
+            break
+        case .hybrid:           // 標準の地図＋航空写真
+            isBlack = true
+            break
+        default:
+            break
+        }
+        
+        // サイクルデータの色を地図に合わせて変更する
+        if false == isBlack {
+            speed.backgroundColor = .white
+            speed.textColor = .black
+            lblSpeed.backgroundColor = .white
+            lblSpeed.textColor = .black
+            avgSpeed.backgroundColor = .white
+            avgSpeed.textColor = .black
+            lblAvgSpeed.backgroundColor = .white
+            lblAvgSpeed.textColor = .black
+            maxSpeed.backgroundColor = .white
+            maxSpeed.textColor = .black
+            lblMaxSpeed.backgroundColor = .white
+            lblMaxSpeed.textColor = .black
+            drivingTime.backgroundColor = .white
+            drivingTime.textColor = .black
+            lblDrivingTime.backgroundColor = .white
+            lblDrivingTime.textColor = .black
+            drivingDist.backgroundColor = .white
+            drivingDist.textColor = .black
+            lblDrivingDist.backgroundColor = .white
+            lblDrivingDist.textColor = .black
+            view.backgroundColor = .white
+        }
+        else {
+            speed.backgroundColor = .black
+            speed.textColor = .white
+            lblSpeed.backgroundColor = .black
+            lblSpeed.textColor = .white
+            avgSpeed.backgroundColor = .black
+            avgSpeed.textColor = .white
+            lblAvgSpeed.backgroundColor = .black
+            lblAvgSpeed.textColor = .white
+            maxSpeed.backgroundColor = .black
+            maxSpeed.textColor = .white
+            lblMaxSpeed.backgroundColor = .black
+            lblMaxSpeed.textColor = .white
+            drivingTime.backgroundColor = .black
+            drivingTime.textColor = .white
+            lblDrivingTime.backgroundColor = .black
+            lblDrivingTime.textColor = .white
+            drivingDist.backgroundColor = .black
+            drivingDist.textColor = .white
+            lblDrivingDist.backgroundColor = .black
+            lblDrivingDist.textColor = .white
+            view.backgroundColor = .black
+        }
     }
     
     // Speed表示切り替えを押下した時の処理

@@ -215,6 +215,7 @@ class MenuCycleViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.cycleViewController.setMapType(.standard)
+        appDelegate.cycleViewController.changeMapType()
         // 地図TypeをUserDataに保存する
         appDelegate.userDataManager.saveCycleMapType(.standard)
 
@@ -233,6 +234,7 @@ class MenuCycleViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.cycleViewController.setMapType(.satellite)
+        appDelegate.cycleViewController.changeMapType()
         // 地図TypeをUserDataに保存する
         appDelegate.userDataManager.saveCycleMapType(.satellite)
 
@@ -251,6 +253,7 @@ class MenuCycleViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.cycleViewController.setMapType(.hybrid)
+        appDelegate.cycleViewController.changeMapType()
         // 地図TypeをUserDataに保存する
         appDelegate.userDataManager.saveCycleMapType(.hybrid)
         
@@ -269,6 +272,7 @@ class MenuCycleViewController: UIViewController {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.cycleViewController.setMapType(.mutedStandard)
+        appDelegate.cycleViewController.changeMapType()
         // 地図TypeをUserDataに保存する
         appDelegate.userDataManager.saveCycleMapType(.mutedStandard)
         
