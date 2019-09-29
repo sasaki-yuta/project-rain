@@ -257,6 +257,8 @@ class CycleViewController:  UIViewController,
         lbar4.frame = CGRect(x: width/2, y: infoTopPos, width: 2, height: labelHeight*2)
         self.view.addSubview(lbar4)
 
+        // 地図Typeに合わせて情報の色を変更する
+        changeMapType()
     }
 
     /*
@@ -367,7 +369,16 @@ class CycleViewController:  UIViewController,
                 self.dTotalDrivingDist += dist
                 // UserDefaultsにバックアップする
                 userDataManager.setTotalDrivingDist(dTotalDrivingDist)
-
+                
+                //=============================================================
+                // 前回と今回の位置に線を引く
+                //=============================================================
+                let coordinate_1 = CLLocationCoordinate2D(latitude: self.beforLat, longitude: self.beforLon)
+                let coordinate_2 = CLLocationCoordinate2D(latitude: dlat, longitude: dlon)
+                var coordinates = [coordinate_1, coordinate_2]
+                let myPolyLine: MKPolyline = MKPolyline(coordinates: &coordinates, count: coordinates.count)
+                self.mapView.addOverlay(myPolyLine)
+                
                 // 前回値を保存
                 self.beforLon = locations.last?.coordinate.longitude
                 self.beforLat = locations.last?.coordinate.latitude
@@ -605,5 +616,19 @@ extension CycleViewController : MKMapViewDelegate {
     // 読み込み終了時
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         print("map load ended")
+    }
+    
+    // addOverlayした際に呼ばれるデリゲートメソッド
+    func mapView(_ mapView: MKMapView!, rendererFor overlay: MKOverlay!) -> MKOverlayRenderer! {
+        // rendererを生成.
+        let myPolyLineRendere: MKPolylineRenderer = MKPolylineRenderer(overlay: overlay)
+        
+        // 線の太さを指定.
+        myPolyLineRendere.lineWidth = 5
+        
+        // 線の色を指定.
+        myPolyLineRendere.strokeColor = UIColor.blue
+        
+        return myPolyLineRendere
     }
 }
