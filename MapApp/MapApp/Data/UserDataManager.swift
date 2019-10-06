@@ -28,10 +28,15 @@ class UserDataManager: NSObject {
     var totalMaxSpeed: Double = 0.0
     var totalDrivingDist: Double = 0.0
     var totalDrivingTime: Double = 0.0
+    var timeInterval: Int = 5   // 初期値5秒
+    var accuracy: Int = 20      // 初期値20m
+
     // UserDataに変化があるか判断するための変数
     var isMSpeed: Double = 0.0
     var isTDist: Double = 0.0
     var isTTime: Double = 0.0
+    var isTimeInterval: Int = 5 // 初期値5秒
+    var isAccuracy: Int = 20    // 初期値20m
 
     // 計測中のデータをアプリ起動中は保持する
     // 平均速度
@@ -43,6 +48,7 @@ class UserDataManager: NSObject {
     var dDrivingTime: Double! = 0.0
     // MAX速度
     var dMaxSpeed: Double! = 0.0
+    
 
     //=======================================================
     // 共通メソッド
@@ -56,6 +62,8 @@ class UserDataManager: NSObject {
         userDefaults.register(defaults: ["totalMaxSpeed": 0.0])
         userDefaults.register(defaults: ["totalDrivingDist": 0.0])
         userDefaults.register(defaults: ["totalDrivingTime": 0.0])
+        userDefaults.register(defaults: ["timeInterval": 5])
+        userDefaults.register(defaults: ["accuracy": 20])
     }
     
     // 全データ読み込み
@@ -70,6 +78,10 @@ class UserDataManager: NSObject {
         isTDist = totalDrivingDist
         totalDrivingTime = userDefaults.object(forKey: "totalDrivingTime") as! Double
         isTTime = totalDrivingTime
+        timeInterval = userDefaults.object(forKey: "timeInterval") as! Int
+        isTimeInterval = timeInterval
+        accuracy = userDefaults.object(forKey: "accuracy") as! Int
+        isAccuracy = accuracy
     }
     
     // 全データ保存
@@ -138,6 +150,26 @@ class UserDataManager: NSObject {
         totalDrivingTime = time
     }
 
+    // 累計走行時間の取得
+    func getTimeInterval() -> Int {
+        return timeInterval
+    }
+    
+    // 累計走行時間の設定
+    func setTimeInterval(_ Interval: Int) {
+        timeInterval = Interval
+    }
+
+    // 累計走行時間の取得
+    func getAccuracy() -> Int {
+        return accuracy
+    }
+    
+    // 累計走行時間の設定
+    func setAccuracy(_ acr: Int) {
+        accuracy = acr
+    }
+
     // Cycleデータ保存
     func saveCycleData() {
         var isSync = false
@@ -156,6 +188,16 @@ class UserDataManager: NSObject {
             isTTime = totalDrivingTime
             isSync = true
         }
+        if isTimeInterval != timeInterval {
+            userDefaults.set(timeInterval, forKey: "timeInterval")
+            isTimeInterval = timeInterval
+            isSync = true
+        }
+        if isAccuracy != accuracy {
+            userDefaults.set(accuracy, forKey: "accuracy")
+            isAccuracy = accuracy
+            isSync = true
+        }
         if true == isSync {
             userDefaults.synchronize()
         }
@@ -171,7 +213,15 @@ class UserDataManager: NSObject {
         userDefaults.set(0.0, forKey: "totalDrivingTime")
         userDefaults.synchronize()
     }
-    
+    // Cycleデータ消去
+    func deleteCycleSetupData() {
+        timeInterval = 5
+        accuracy = 20
+        userDefaults.set(5, forKey: "timeInterval")
+        userDefaults.set(20, forKey: "accuracy")
+        userDefaults.synchronize()
+    }
+
     // 計測中断、終了したデータを一時的に保存する
     // 平均速度設定
     func setAvgSumSpeed(_ speed: Double, _ count: Int) {

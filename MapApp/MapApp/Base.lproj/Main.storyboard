@@ -593,30 +593,33 @@
                                 <rect key="frame" x="280" y="300" width="100" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="初期化"/>
+                                <connections>
+                                    <action selector="btnCycleDeleteSetupThouchDown:" destination="nfm-ch-Uh5" eventType="touchDown" id="xeK-sA-hAg"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GPS受信鮮度" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgS-Xl-T8o">
-                                <rect key="frame" x="15" y="340" width="126" height="60"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GPS受信鮮度" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgS-Xl-T8o">
+                                <rect key="frame" x="0.0" y="340" width="190" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="秒以内" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lch-qJ-kaE">
-                                <rect key="frame" x="271" y="340" width="52" height="60"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="秒以内" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lch-qJ-kaE">
+                                <rect key="frame" x="0.0" y="500" width="190" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GPS水平誤差" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUI-rS-X8T">
-                                <rect key="frame" x="15" y="400" width="126" height="60"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GPS平面誤差" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUI-rS-X8T">
+                                <rect key="frame" x="190" y="340" width="190" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="m以内" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jzU-Dj-5h1">
-                                <rect key="frame" x="271" y="400" width="50" height="60"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="m以内" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jzU-Dj-5h1">
+                                <rect key="frame" x="190" y="500" width="190" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -639,27 +642,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnr-8b-GJL" userLabel="bar3">
-                                <rect key="frame" x="0.0" y="400" width="380" height="2"/>
+                                <rect key="frame" x="0.0" y="560" width="380" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qm6-hk-P7D" userLabel="bar4">
-                                <rect key="frame" x="0.0" y="460" width="380" height="2"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ktm-L5-H8v">
-                                <rect key="frame" x="130" y="340" width="100" height="60"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NlF-R5-1sF">
-                                <rect key="frame" x="130" y="400" width="100" height="60"/>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hf2-WN-LNn">
+                                <rect key="frame" x="0.0" y="400" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                         </subviews>
@@ -670,9 +661,14 @@
                         <outlet property="btnBack" destination="66Y-x4-5Cv" id="cEj-qx-sdm"/>
                         <outlet property="btnDataInit" destination="d5q-W4-u4Q" id="7Up-jb-4vP"/>
                         <outlet property="btnEditInit" destination="og8-fe-p2U" id="ELy-QB-1hk"/>
+                        <outlet property="lblAccuracy" destination="EUI-rS-X8T" id="Xyf-T3-MVy"/>
+                        <outlet property="lblAccuracy2" destination="jzU-Dj-5h1" id="Drw-J1-6gg"/>
                         <outlet property="lblEditData" destination="rH8-zf-4vS" id="JP3-xv-XU7"/>
+                        <outlet property="lblTimeInterval" destination="kgS-Xl-T8o" id="hz3-cU-PC2"/>
+                        <outlet property="lblTimeInterval2" destination="Lch-qJ-kaE" id="hYe-Ts-PdE"/>
                         <outlet property="lblTotalData" destination="SSb-Yi-TQj" id="D30-MO-pYy"/>
                         <outlet property="maxSpeed" destination="fXv-eG-2fe" id="O3E-tc-XmK"/>
+                        <outlet property="pickerTimeInterval" destination="Hf2-WN-LNn" id="qGY-ji-FP0"/>
                         <outlet property="totalDist" destination="e5I-Yw-odT" id="th1-aG-r8Y"/>
                         <outlet property="totalTime" destination="ryg-Sh-ZWx" id="u2y-7v-Riq"/>
                         <segue destination="6Pg-YZ-Fts" kind="presentation" identifier="toCycleView" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="qzy-np-p9Q"/>
@@ -684,7 +680,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KNn-Zj-7yF"/>
         <segue reference="qzy-np-p9Q"/>
     </inferredMetricsTieBreakers>
 </document>

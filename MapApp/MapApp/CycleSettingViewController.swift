@@ -8,8 +8,10 @@
 
 import UIKit
 
-class CycleSettingViewController: UIViewController {
-
+class CycleSettingViewController:   UIViewController,
+                                    UIPickerViewDelegate,
+                                    UIPickerViewDataSource{
+    
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnDataInit: UIButton!
     @IBOutlet weak var btnEditInit: UIButton!
@@ -18,23 +20,29 @@ class CycleSettingViewController: UIViewController {
     @IBOutlet weak var totalTime: UILabel!
     
     @IBOutlet weak var lblTotalData: UILabel!
-    @IBOutlet weak var lblMaxSpeed: UILabel!
-    @IBOutlet weak var lblTotalDist: UILabel!
-    @IBOutlet weak var lblTotalTime: UILabel!
-    
-    @IBOutlet weak var lblEditData: UILabel!
-    @IBOutlet weak var lblTimestamp: UILabel!
+    @IBOutlet weak var lblTimeInterval: UILabel!
+    @IBOutlet weak var lblTimeInterval2: UILabel!
     @IBOutlet weak var lblAccuracy: UILabel!
+    @IBOutlet weak var lblAccuracy2: UILabel!
 
+    @IBOutlet weak var lblEditData: UILabel!
+
+    @IBOutlet weak var pickerTimeInterval:UIPickerView!
+    let lstTimeInterval = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    let lstAccuracy = ["5", "10", "15", "20", "25", "30", "35", "40"]
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         initView()
     }
     
-    func initView() {
+    func initView()
+    {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         // デバイスの画面サイズを取得する
         let dispSize: CGSize = UIScreen.main.bounds.size
         let width = Int(dispSize.width)
@@ -48,9 +56,21 @@ class CycleSettingViewController: UIViewController {
         self.view.addSubview(btnDataInit)
         btnEditInit.frame = CGRect(x: width-100, y: 300, width: 100, height: 40)
         self.view.addSubview(btnEditInit)
+        lblTimeInterval.frame = CGRect(x: 0, y:340 , width: width/2, height: 60)
+        self.view.addSubview(lblTimeInterval)
+        lblAccuracy.frame = CGRect(x: width/2, y:340 , width: width/2, height: 60)
+        self.view.addSubview(lblAccuracy)
+        lblTimeInterval2.frame = CGRect(x: 0, y:500 , width: width/2, height: 60)
+        self.view.addSubview(lblTimeInterval2)
+        lblAccuracy2.frame = CGRect(x: width/2, y:500 , width: width/2, height: 60)
+        self.view.addSubview(lblAccuracy2)
+        pickerTimeInterval.frame = CGRect(x: 0, y:400 , width: width, height: 100)
+        pickerTimeInterval.delegate = self
+        pickerTimeInterval.dataSource = self
         
-        // 累計データ表示
-        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        // GPS補正ピッカーの表示
+        viewPicker()
+        
         // 累計最高速度
         let speed = appDelegate.userDataManager.getTotalMaxSpeed()
         maxSpeed.text = speed.description
@@ -66,14 +86,47 @@ class CycleSettingViewController: UIViewController {
         totalTime.text = String(format: "%02d", hour) + ":" +  String(format: "%02d", min) + ":" +  String(format: "%02d", sec)
     }
 
+    // GPS補正ピッカーの表示
+    func viewPicker()
+    {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        let interval = appDelegate.userDataManager.getTimeInterval()
+        var cnt_num = 0
+        for cnt in 0 ..< lstTimeInterval.count
+        {
+            if interval == Int(lstTimeInterval[cnt])
+            {
+                cnt_num = cnt
+                break
+            }
+        }
+        pickerTimeInterval.selectRow(cnt_num, inComponent: 0, animated: true)
+        
+        let interval2 = appDelegate.userDataManager.getAccuracy()
+        var cnt_num2 = 0
+        for cnt in 0 ..< lstAccuracy.count
+        {
+            if interval2 == Int(lstAccuracy[cnt])
+            {
+                cnt_num2 = cnt
+                break
+            }
+        }
+        pickerTimeInterval.selectRow(cnt_num2, inComponent: 1, animated: true)
+        self.view.addSubview(pickerTimeInterval)
+    }
+    
     // 戻るボタンを押下した時の処理
-    @IBAction func btnBackThouchDown(_ sender: Any) {
+    @IBAction func btnBackThouchDown(_ sender: Any)
+    {
         // CycleViewControllerを表示する
         self.performSegue(withIdentifier: "toCycleView", sender: nil)
     }
 
     // データ消去を押下した時の処理
-    @IBAction func btnCycleDeleteThouchDown(_ sender: Any) {
+    @IBAction func btnCycleDeleteThouchDown(_ sender: Any)
+    {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.cycleViewController.deleteData()
         maxSpeed.text = "0.0"
@@ -81,14 +134,72 @@ class CycleSettingViewController: UIViewController {
         totalTime.text = "00:00:00"
     }
     
+    // 計測制度データ消去を押下した時の処理
+    @IBAction func btnCycleDeleteSetupThouchDown(_ sender: Any)
+    {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.userDataManager.deleteCycleSetupData()
+        viewPicker()
+    }
+    
     /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+     {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
     */
 
+    func numberOfComponents(in pickerView: UIPickerView) -> Int
+    {
+        // // 表示する列数
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    {
+        if component == 0
+        {
+            return lstTimeInterval.count
+        }
+        else
+        {
+            return lstAccuracy.count
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+        // 表示する文字列を返す
+        if component == 0
+        {
+            // 1個目のピッカーの設定
+            return lstTimeInterval[row]
+        }
+        else
+        {
+            return lstAccuracy[row]
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        // 選択時の処理
+        if component == 0
+        {
+            // 1個目のピッカーの設定
+            let interval:Int! = Int(lstTimeInterval[row])
+            appDelegate.userDataManager.setTimeInterval(interval)
+        }
+        else
+        {
+            let accuracy:Int! = Int(lstAccuracy[row])
+            appDelegate.userDataManager.setAccuracy(accuracy)
+        }
+        appDelegate.userDataManager.saveCycleData()
+    }
 }

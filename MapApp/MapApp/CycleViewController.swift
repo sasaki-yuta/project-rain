@@ -62,6 +62,11 @@ class CycleViewController:  UIViewController,
     @IBOutlet var lbar2: UILabel!
     @IBOutlet var lbar4: UILabel!
     
+    // GPS誤差補正
+    var timeInterval: Int = 0
+    var accuracy: Int = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -257,6 +262,11 @@ class CycleViewController:  UIViewController,
         lbar4.frame = CGRect(x: width/2, y: infoTopPos, width: 2, height: labelHeight*2)
         self.view.addSubview(lbar4)
 
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        // GPS誤差補正
+        timeInterval = appDelegate.userDataManager.getTimeInterval()
+        accuracy = appDelegate.userDataManager.getAccuracy()
+        
         // 地図Typeに合わせて情報の色を変更する
         changeMapType()
     }
@@ -283,7 +293,8 @@ class CycleViewController:  UIViewController,
         print("speed = " + debugSpeed.description)
         print("timeIntervalSinceNow = " + abs(locations.last!.timestamp.timeIntervalSinceNow).description)
         print("horizontalAccuracy = " + locations.last!.horizontalAccuracy.description)
-        if 5.0 <= abs(locations.last!.timestamp.timeIntervalSinceNow) {
+
+        if timeInterval <= Int(abs(locations.last!.timestamp.timeIntervalSinceNow)) {
             // 5以上経過した位置情報
             return
         }
@@ -291,7 +302,7 @@ class CycleViewController:  UIViewController,
             // GPS取得の諸条件のどれかが致命的に悪い場合
             return
         }
-        if 20 < locations.last!.horizontalAccuracy {
+        if accuracy < Int(locations.last!.horizontalAccuracy) {
             // 20m以上の誤差
             return
         }
