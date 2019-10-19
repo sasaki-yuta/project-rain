@@ -615,6 +615,7 @@ class CycleViewController:  UIViewController,
             lblSpeed.isHidden = false
         }
     }
+    
 }
 
 // MKMapViewDelegate

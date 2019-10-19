@@ -254,6 +254,9 @@ class ViewController:   UIViewController,
             let yardStr = Int(distance * 1.09361)
             str = str + " / " + yardStr.description + " y" + "\n" + lblLongTapElevation.description
             
+            // 高低差
+            str = str + "\n" + lblDiffElevation.description
+            
             if pointAno.title != str {
                 // ピンまでの距離に変化があればtitleを更新する
                 pointAno.title = str
@@ -275,6 +278,7 @@ class ViewController:   UIViewController,
         if sender.state == .began {
             // ロングタップ開始時に古いピンを削除する
             lblLongTapElevation = ""
+            lblDiffElevation = ""
             mapView.removeAnnotation(calcPointAno)
             mapView.removeAnnotation(pointAno)
             dlon = 0
@@ -382,6 +386,7 @@ class ViewController:   UIViewController,
     
     // ロングタップした地点を削除する
     func delLongTapPoint() {
+        lblDiffElevation = ""
         mapView.removeAnnotation(calcPointAno)
         mapView.removeAnnotation(pointAno)
         dlon = 0
@@ -412,6 +417,7 @@ class ViewController:   UIViewController,
         guard let url = URL(string: listUrl) else { return }
 
         // 計測地点のアノテーションがあれば再表示のため削除する
+        lblDiffElevation = ""
         mapView.removeAnnotation(calcPointAno)
 
         // 高低差の計測地点にアノテーションを設定する
