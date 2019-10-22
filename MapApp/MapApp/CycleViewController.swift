@@ -86,20 +86,46 @@ class CycleViewController:  UIViewController,
         locManager.delegate = self
         
         // 位置情報の使用の許可を得る
-        locManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            switch CLLocationManager.authorizationStatus() {
-            case .authorizedWhenInUse:
-                // 現在位置の更新を開始
+        let status = CLLocationManager.authorizationStatus()
+        if status == CLAuthorizationStatus.restricted || status == CLAuthorizationStatus.denied
+        {
+            print("authorizationStatus = " + status.rawValue.description)
+        }
+        else {
+            // CLLocationManagerのdelegateを登録する
+            locManager = CLLocationManager()
+            locManager.delegate = self
+
+            if status == CLAuthorizationStatus.notDetermined
+            {
+                locManager.requestWhenInUseAuthorization()
+            }
+            else
+            {
                 locManager.startUpdatingLocation()
-                break
-            default:
-                break
             }
         }
-        
+
         // 地図の初期化
         initMap()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
+    {
+        if (status == .restricted) {
+            print("機能制限している");
+        }
+        else if (status == .denied) {
+            print("許可していない");
+        }
+        else if (status == .authorizedWhenInUse) {
+            print("このアプリ使用中のみ許可している");
+            locManager.startUpdatingLocation();
+        }
+        else if (status == .authorizedAlways) {
+            print("常に許可している");
+            locManager.startUpdatingLocation();
+        }
     }
     
     // 地図の初期化

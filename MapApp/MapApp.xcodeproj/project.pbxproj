@@ -341,6 +341,9 @@
 		9B107B5D2217D74A006971FF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "rain-00-00-09";

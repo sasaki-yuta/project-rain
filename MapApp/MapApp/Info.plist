@@ -27,8 +27,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>位置情報を使用して良いですか</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>位置情報を使用して良いですか</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>位置情報を使用して良いですか？</string>
+	<string>位置情報を使用して良いですか</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

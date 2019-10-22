@@ -168,9 +168,9 @@
             timestampString = "592042489.942462"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "session(_:didReceiveMessage:replyHandler:)"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "session(_:activationDidCompleteWith:error:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -266,8 +266,8 @@
             timestampString = "592045348.4443541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -283,8 +283,8 @@
             timestampString = "592045348.444415"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -300,8 +300,8 @@
             timestampString = "592045348.444471"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
+            startingLineNumber = "397"
+            endingLineNumber = "397"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -317,8 +317,8 @@
             timestampString = "592045348.444525"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -337,23 +337,6 @@
             startingLineNumber = "66"
             endingLineNumber = "66"
             landmarkName = "applicationWillTerminate(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "79666420-2A45-4410-AD5A-62FF20B94C58"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MapApp/CycleViewController.swift"
-            timestampString = "592045348.444622"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -419,8 +402,8 @@
             timestampString = "592045348.444813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
+            startingLineNumber = "321"
+            endingLineNumber = "321"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -453,10 +436,10 @@
             timestampString = "592045348.44488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "initMap()"
-            landmarkType = "7">
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "CycleViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -470,9 +453,9 @@
             timestampString = "592045348.4449331"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "477"
-            endingLineNumber = "477"
-            landmarkName = "cycleStop()"
+            startingLineNumber = "499"
+            endingLineNumber = "499"
+            landmarkName = "cycleReStart()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -487,9 +470,9 @@
             timestampString = "592045348.444985"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "472"
-            endingLineNumber = "472"
-            landmarkName = "cycleReStart()"
+            startingLineNumber = "494"
+            endingLineNumber = "494"
+            landmarkName = "cycleStart()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -504,8 +487,8 @@
             timestampString = "592045348.445037"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -521,8 +504,8 @@
             timestampString = "592045348.445087"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "307"
-            endingLineNumber = "307"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -538,8 +521,8 @@
             timestampString = "592045348.445138"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "initMap()"
             landmarkType = "7">
             <Locations>
@@ -589,9 +572,9 @@
             timestampString = "592045348.445188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "596"
-            endingLineNumber = "596"
-            landmarkName = "btnSpeedChangeThouchDown(_:)"
+            startingLineNumber = "618"
+            endingLineNumber = "618"
+            landmarkName = "changeMapType()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -606,9 +589,9 @@
             timestampString = "592045348.445238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
-            landmarkName = "changeMapType()"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
+            landmarkName = "loadCulcData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -623,8 +606,8 @@
             timestampString = "592045348.4452929"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "387"
-            endingLineNumber = "387"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -640,10 +623,10 @@
             timestampString = "592045348.445344"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "636"
-            endingLineNumber = "636"
-            landmarkName = "mapView(_:rendererFor:)"
-            landmarkType = "7">
+            startingLineNumber = "658"
+            endingLineNumber = "658"
+            landmarkName = "CycleViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -657,10 +640,10 @@
             timestampString = "592045348.445393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "637"
-            endingLineNumber = "637"
-            landmarkName = "mapView(_:rendererFor:)"
-            landmarkType = "7">
+            startingLineNumber = "659"
+            endingLineNumber = "659"
+            landmarkName = "CycleViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -674,8 +657,8 @@
             timestampString = "592045348.445443"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -691,8 +674,8 @@
             timestampString = "592045348.4454941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -759,8 +742,8 @@
             timestampString = "592045410.0457309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -768,32 +751,112 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "56F264CF-88BA-4975-9DE7-5E69976EAA1E"
+            uuid = "ABBAB1D8-0E6A-4F68-BCAA-DA62E5C7A35D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapApp/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
-            landmarkName = "updateLongTapPointAno()"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
+            landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "ABBAB1D8-0E6A-4F68-BCAA-DA62E5C7A35D"
+            uuid = "E16736BA-5DD7-4A43-B376-64F40AE2B060"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapApp/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
-            landmarkName = "updateLongTapPointAno()"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4F62AB26-0F67-461F-AA3D-A33F9EF84FD3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E799035F-F373-4665-AED1-65AF4E9E6E2F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "locationManager(_:didChangeAuthorization:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "470AFDDA-C1EF-48CC-87C5-417F70BE4CE8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "83AB5F36-6700-4DC4-97A5-0B5258436BC7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "locationManager(_:didChangeAuthorization:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F8A1DBF2-7581-4365-B40A-BED79727D1BC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/CycleViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "locationManager(_:didChangeAuthorization:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
