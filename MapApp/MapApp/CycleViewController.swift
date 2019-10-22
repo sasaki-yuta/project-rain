@@ -295,7 +295,7 @@ class CycleViewController:  UIViewController,
         print("horizontalAccuracy = " + locations.last!.horizontalAccuracy.description)
 
         if timeInterval <= Int(abs(locations.last!.timestamp.timeIntervalSinceNow)) {
-            // 5以上経過した位置情報
+            // GPS時間鮮度
             return
         }
         if 0 > locations.last!.horizontalAccuracy {
@@ -303,7 +303,7 @@ class CycleViewController:  UIViewController,
             return
         }
         if accuracy < Int(locations.last!.horizontalAccuracy) {
-            // 20m以上の誤差
+            // m誤差
             return
         }
 
