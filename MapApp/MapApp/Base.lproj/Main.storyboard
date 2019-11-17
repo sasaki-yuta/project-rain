@@ -11,7 +11,7 @@
         <!--Golf Mode-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="Golf Mode" customClass="ViewController" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="Golf Mode" customClass="ViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,7 +54,7 @@
         <!--Menu View Controller-->
         <scene sceneID="9QP-iq-hrk">
             <objects>
-                <viewController modalPresentationStyle="overCurrentContext" id="e3M-bM-kPo" customClass="MenuViewController" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overCurrentContext" id="e3M-bM-kPo" customClass="MenuViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="1" contentMode="scaleToFill" id="Zhh-y2-bh8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -193,7 +193,7 @@
         <!--Cycle Mode-->
         <scene sceneID="TQt-WA-Qpk">
             <objects>
-                <viewController storyboardIdentifier="cycleView" id="6Pg-YZ-Fts" userLabel="Cycle Mode" customClass="CycleViewController" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="cycleView" id="6Pg-YZ-Fts" userLabel="Cycle Mode" customClass="CycleViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aHe-IX-xaL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -310,6 +310,13 @@
                                     <action selector="btnSpeedChangeThouchDown:" destination="6Pg-YZ-Fts" eventType="touchDown" id="fVQ-IG-dxa"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frY-Zv-PQf">
+                                <rect key="frame" x="42" y="286" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="MSU-hZ-qSW"/>
@@ -321,6 +328,7 @@
                         <outlet property="avgSpeed" destination="6YK-kz-koC" id="9dk-Yh-flg"/>
                         <outlet property="drivingDist" destination="0WH-EY-HZy" id="bbP-35-8ue"/>
                         <outlet property="drivingTime" destination="kON-wn-vs6" id="sqt-RD-FX6"/>
+                        <outlet property="lDebugGps" destination="frY-Zv-PQf" id="xqY-za-fz9"/>
                         <outlet property="lbar1" destination="mLs-LD-6QT" id="Pfe-5K-4p4"/>
                         <outlet property="lbar2" destination="rqx-Mo-5gV" id="cok-bh-b8g"/>
                         <outlet property="lbar4" destination="QjI-CV-PXc" id="7zi-2J-Po3"/>
@@ -345,7 +353,7 @@
         <!--Menu Cycle View Controller-->
         <scene sceneID="kI9-k7-rLa">
             <objects>
-                <viewController id="XDJ-3x-kia" customClass="MenuCycleViewController" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XDJ-3x-kia" customClass="MenuCycleViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="1" contentMode="scaleToFill" id="uMQ-gv-0aB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -508,7 +516,7 @@
         <!--Cycle Setting View Controller-->
         <scene sceneID="cQa-gJ-ylN">
             <objects>
-                <viewController id="nfm-ch-Uh5" customClass="CycleSettingViewController" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nfm-ch-Uh5" customClass="CycleSettingViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uRc-Xk-xfV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -678,7 +686,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KNn-Zj-7yF"/>
         <segue reference="qzy-np-p9Q"/>
     </inferredMetricsTieBreakers>
 </document>

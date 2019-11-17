@@ -66,6 +66,10 @@ class CycleViewController:  UIViewController,
     var timeInterval: Int = 0
     var accuracy: Int = 0
     
+    // スリープ時のGPS受信デバッグ用
+    @IBOutlet var lDebugGps: UILabel!
+    var iDebugGps: Int = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +87,7 @@ class CycleViewController:  UIViewController,
     
         // CLLocationManagerのdelegateを登録する
         locManager = CLLocationManager()
+        locManager.allowsBackgroundLocationUpdates = true
         locManager.delegate = self
         
         // 位置情報の使用の許可を得る
@@ -314,27 +319,39 @@ class CycleViewController:  UIViewController,
             return
         }
         
-        // 精度の悪い位置情報を捨てる
-        let debugSpeed = floor((locations.last!.speed * 3.6)*100)/100
-        print("speed = " + debugSpeed.description)
+        iDebugGps = iDebugGps + 1
+        lDebugGps.text = iDebugGps.description
+        
+        // 秒速を少数第2位の時速に変換
+        let speed: Double = floor((locations.last!.speed * 3.6)*100)/100
+        print("speed = " + speed.description)
         print("timeIntervalSinceNow = " + abs(locations.last!.timestamp.timeIntervalSinceNow).description)
         print("horizontalAccuracy = " + locations.last!.horizontalAccuracy.description)
 
+        // 精度の悪い位置情報を捨てる
+        var isBreak:Bool = false
         if timeInterval <= Int(abs(locations.last!.timestamp.timeIntervalSinceNow)) {
             // GPS時間鮮度
-            return
+            isBreak = true
         }
         if 0 > locations.last!.horizontalAccuracy {
             // GPS取得の諸条件のどれかが致命的に悪い場合
-            return
+            isBreak = true
         }
         if accuracy < Int(locations.last!.horizontalAccuracy) {
             // m誤差
+            isBreak = true
+        }
+        
+        if (isBreak) {
+            // GPSが精度が許容範囲外なら表示速度を0、前回の計測位置を初期化する
+            self.speed.text = "0.0"
+            self.beforLon = 0
+            self.beforLat = 0
+            // 中断していないので走行時間だけは加算するため初期化しない
+//            self.beforSinRef = 0
             return
         }
-
-        // 秒速を少数第2位の時速に変換
-        let speed: Double = floor((locations.last!.speed * 3.6)*100)/100
         
         if (0.0 < speed) {
             //=============================================================
@@ -370,9 +387,9 @@ class CycleViewController:  UIViewController,
                 // 現在の走行時間の更新
                 let dTime = locations.last!.timestamp.timeIntervalSinceReferenceDate - self.beforSinRef
                 self.dDrivingTime += dTime
-                var hour = Int(self.dDrivingTime) / 3600
-                var min = (Int(self.dDrivingTime) - (hour * 3600)) / 60
-                var sec = Int(self.dDrivingTime) - ((hour * 3600) + (min * 60))
+                let hour = Int(self.dDrivingTime) / 3600
+                let min = (Int(self.dDrivingTime) - (hour * 3600)) / 60
+                let sec = Int(self.dDrivingTime) - ((hour * 3600) + (min * 60))
                 self.drivingTime.text = String(format: "%02d", hour) + ":" +  String(format: "%02d", min) + ":" +  String(format: "%02d", sec)
                 
                 // 累計の走行時間の更新
@@ -407,9 +424,7 @@ class CycleViewController:  UIViewController,
                 // UserDefaultsにバックアップする
                 userDataManager.setTotalDrivingDist(dTotalDrivingDist)
                 
-                //=============================================================
                 // 前回と今回の位置に線を引く
-                //=============================================================
                 let coordinate_1 = CLLocationCoordinate2D(latitude: self.beforLat, longitude: self.beforLon)
                 let coordinate_2 = CLLocationCoordinate2D(latitude: dlat, longitude: dlon)
                 var coordinates = [coordinate_1, coordinate_2]

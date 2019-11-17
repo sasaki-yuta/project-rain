@@ -87,7 +87,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9B107B652217D74A006971FF /* MapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B107B652217D74A006971FF /* マップdeモード.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "マップdeモード.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B107B682217D74A006971FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B107B6A2217D74A006971FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9B107B6D2217D74A006971FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 		9B107B662217D74A006971FF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9B107B652217D74A006971FF /* MapApp.app */,
+				9B107B652217D74A006971FF /* マップdeモード.app */,
 				9B107B7C2217D74C006971FF /* MapAppTests.xctest */,
 				9B107B872217D74C006971FF /* MapAppUITests.xctest */,
 				9BE20C2722338A7800ABA8ED /* MapAppWatch.app */,
@@ -262,7 +262,7 @@
 			);
 			name = MapApp;
 			productName = MapApp;
-			productReference = 9B107B652217D74A006971FF /* MapApp.app */;
+			productReference = 9B107B652217D74A006971FF /* マップdeモード.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9B107B7B2217D74C006971FF /* MapAppTests */ = {
@@ -661,7 +661,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pf2017app.MapApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "マップdeモード";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -680,7 +680,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pf2017app.MapApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "マップdeモード";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
