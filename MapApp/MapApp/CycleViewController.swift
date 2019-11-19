@@ -88,6 +88,7 @@ class CycleViewController:  UIViewController,
         // CLLocationManagerのdelegateを登録する
         locManager = CLLocationManager()
         locManager.allowsBackgroundLocationUpdates = true
+        locManager.pausesLocationUpdatesAutomatically = false
         locManager.delegate = self
         
         // 位置情報の使用の許可を得る
@@ -98,12 +99,12 @@ class CycleViewController:  UIViewController,
         }
         else {
             // CLLocationManagerのdelegateを登録する
-            locManager = CLLocationManager()
             locManager.delegate = self
 
             if status == CLAuthorizationStatus.notDetermined
             {
                 locManager.requestWhenInUseAuthorization()
+                //locManager.requestAlwaysAuthorization()
             }
             else
             {

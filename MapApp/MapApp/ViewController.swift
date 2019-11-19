@@ -91,6 +91,7 @@ class ViewController:   UIViewController,
             if status == CLAuthorizationStatus.notDetermined
             {
                 locManager.requestWhenInUseAuthorization()
+                //locManager.requestAlwaysAuthorization()
             }
             else
             {
