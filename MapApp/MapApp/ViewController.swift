@@ -86,12 +86,12 @@ class ViewController:   UIViewController,
         else {
             // CLLocationManagerのdelegateを登録する
             locManager = CLLocationManager()
+            locManager.distanceFilter = 1
             locManager.delegate = self
 
             if status == CLAuthorizationStatus.notDetermined
             {
                 locManager.requestWhenInUseAuthorization()
-                //locManager.requestAlwaysAuthorization()
             }
             else
             {
