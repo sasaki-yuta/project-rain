@@ -9,15 +9,18 @@
 import UIKit
 import MapKit
 import CoreLocation
+import WatchConnectivity
 
 class CycleViewController:  UIViewController,
-                            CLLocationManagerDelegate {
+                            CLLocationManagerDelegate,
+                            WCSessionDelegate {
 
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapViewTypeOver: UIButton!
     var locManager: CLLocationManager!
     var mapViewType: UIButton!
     var isStarting: Bool! = false
+    var session: WCSession!
     
     // UserDefaults(データバックアップ用)オブジェクト
     var userDataManager:UserDataManager!
@@ -82,6 +85,13 @@ class CycleViewController:  UIViewController,
         // UserDefaults(データバックアップ用)オブジェクト
         userDataManager = appDelegate.userDataManager
         
+        // セッションをアクティブにする
+        if (WCSession.isSupported()) {
+            self.session = WCSession.default
+            self.session.delegate = self
+            self.session.activate()
+        }
+        
         // MapViewのdelegateを登録する
         mapView.delegate = self
     
@@ -114,6 +124,9 @@ class CycleViewController:  UIViewController,
 
         // 地図の初期化
         initMap()
+        
+        // WatchOSにモードを通知する
+        sendMessageMode()
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
@@ -658,6 +671,44 @@ class CycleViewController:  UIViewController,
         }
     }
     
+    //==================================================================
+    // WatchOSとのデータ通信
+    //==================================================================
+    // WCSessionDelegateを継承した場合に定義しないととエラーになる
+    public func session(_ session: WCSession, activationDidCompleteWith activationState:    WCSessionActivationState, error: Error?){
+        switch activationState {
+        case .activated:
+            print("セッションアクティブ")
+        case .inactive:
+            print("セッションはアクティブでデータ受信できる可能性はあるが、相手にはデータ送信できない")
+        case .notActivated:
+            print("セッション非アクティブで通信できない状態")
+            let errStr = error?.localizedDescription.description
+            print("error: " + (errStr?.description)!)
+        default:
+            break
+        }
+    }
+    
+    // WCSessionDelegateを継承した場合に定義しないととエラーになる
+    public func sessionDidBecomeInactive(_ session: WCSession){
+        print("sessionDidBecomeInactive")
+    }
+    
+    // WCSessionDelegateを継承した場合に定義しないととエラーになる
+    public func sessionDidDeactivate(_ session: WCSession){
+        print("sessionDidDeactivate")
+    }
+    
+    // watchOSにモードを送信する
+    func sendMessageMode() {
+        let contents =  ["RESP":"MODE", "title":"サイクルモード"] as [String : Any]
+        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+            print ("receive from apple watch");
+        }) { (error) -> Void in
+            print(error)
+        }
+    }
 }
 
 // MKMapViewDelegate

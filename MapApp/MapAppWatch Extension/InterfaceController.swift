@@ -27,6 +27,7 @@ class InterfaceController:  WKInterfaceController,
 
     @IBOutlet var mapView: WKInterfaceMap!
     @IBOutlet weak var label: WKInterfaceLabel!
+    @IBOutlet weak var modeLabel: WKInterfaceLabel!
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -213,6 +214,7 @@ class InterfaceController:  WKInterfaceController,
         }
         
         switch resp_type {
+        // ゴルフモード 距離
         case "LONLAT":
             print("lonlat")
             guard let lon = message["lon"] as? Double else {
@@ -250,16 +252,34 @@ class InterfaceController:  WKInterfaceController,
                 }
                 
                 let fontSize = UIFont.systemFont(ofSize: 20)
+                // モードタイトルを更新
+                let attrStrTitle = NSAttributedString(string: "ゴルフモード", attributes:[NSAttributedString.Key.font:fontSize])
+                modeLabel.setAttributedText(attrStrTitle)
+
+                // タップした距離を表示
                 let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
                 label.setAttributedText(attrStr)
             }
 
+        // ゴルフモード 高低差
         case "HEIGHT":
             print("height")
             guard let str = message["STR"] as? String else {
                 return
             }
             sHeight = str
+
+        // ゴルフモード 高低差
+        case "MODE":
+            print("mode")
+            guard let str = message["title"] as? String else {
+                return
+            }
+
+            // モードタイトルを更新
+            let fontSize = UIFont.systemFont(ofSize: 20)
+            let attrStrTitle = NSAttributedString(string: str, attributes:[NSAttributedString.Key.font:fontSize])
+            modeLabel.setAttributedText(attrStrTitle)
             
         default:
             break

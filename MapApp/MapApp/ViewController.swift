@@ -101,6 +101,9 @@ class ViewController:   UIViewController,
         
         // 地図の初期化
         initMap()
+        
+        // watchOSにゴルフモードを送信する
+        sendMessageMode()
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
@@ -374,6 +377,8 @@ class ViewController:   UIViewController,
         case .mutedStandard:    // 地図よりもデータを強調
             mapView.mapType = .standard
             break
+        default:
+            break
         }
     }
     
@@ -553,6 +558,16 @@ class ViewController:   UIViewController,
     // watchOSに緯度経度を送信
     func sendMessageLonLat() {
         let contents =  ["RESP":"LONLAT", "lon":dlon, "lat":dlat] as [String : Any]
+        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+            print ("receive from apple watch");
+        }) { (error) -> Void in
+            print(error)
+        }
+    }
+    
+    // watchOSにモードを送信する
+    func sendMessageMode() {
+        let contents =  ["RESP":"MODE", "title":"ゴルフモード"] as [String : Any]
         self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
             print ("receive from apple watch");
         }) { (error) -> Void in
