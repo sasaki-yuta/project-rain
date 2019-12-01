@@ -719,12 +719,16 @@
                                 <rect key="frame" x="20" y="266" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="経路探索"/>
+                                <connections>
+                                    <action selector="btnRouteSearch:" destination="6mh-EC-2RU" eventType="touchDown" id="OtT-pb-4bw"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="tCl-H5-gnt"/>
                     </view>
                     <connections>
+                        <outlet property="btnRoute" destination="xLo-bR-0p0" id="GA9-Pi-4bQ"/>
                         <outlet property="lblDistance" destination="2Ib-R5-hbO" id="cfG-FK-brq"/>
                         <outlet property="lblStreetAddr" destination="0dH-SH-PIE" id="Pxi-mv-hmT"/>
                     </connections>
@@ -735,7 +739,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KNn-Zj-7yF"/>
         <segue reference="qzy-np-p9Q"/>
     </inferredMetricsTieBreakers>
 </document>

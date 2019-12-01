@@ -85,9 +85,10 @@ class CycleViewController:  UIViewController,
     // アノテーション
     var pointAno: MapAnnotationCycle = MapAnnotationCycle()
     
-    // ロングタツぷした住所
-    var tapStreetAddr: String!
-    var tapDistance: CLLocationDistance!
+    // ロングタップした地点の情報
+    var tapStreetAddr: String!                  // 住所
+    var tapDistance: CLLocationDistance!        // 距離
+    var tapRoutePoint: CLLocationCoordinate2D!  // ルート探索用のタッチポイント
     
         
     override func viewDidLoad() {
@@ -698,6 +699,7 @@ class CycleViewController:  UIViewController,
             // タップした位置（CGPoint）を指定してMkMapView上の緯度経度を取得する
             let tapPoint = sender.location(in: view)
             let center = mapView.convert(tapPoint, toCoordinateFrom: mapView)
+            tapRoutePoint = mapView.convert(tapPoint, toCoordinateFrom: mapView)
 
             let location = CLLocation(latitude: center.latitude, longitude: center.longitude)
 
@@ -761,13 +763,41 @@ class CycleViewController:  UIViewController,
             retVal = dist.description + " m"
         }
         else {
-            let dDist: Double = floor((Double(dist) / 100)*100)/100
+            let dDist: Double = floor((Double(dist)/1000)*100)/100
             retVal = dDist.description + " km"
         }
         
         return retVal
     }
-
+    
+    // ルート探索
+    public func routeSearch() {
+        let sourcePlaceMark = MKPlacemark(coordinate: mapView.userLocation.coordinate)
+        let destinationPlaceMark = MKPlacemark(coordinate: tapRoutePoint)
+        
+        let directionRequest = MKDirections.Request()
+        directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
+        directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
+        directionRequest.transportType = .automobile
+        
+        let directions = MKDirections(request: directionRequest)
+        directions.calculate { (response, error) in
+            guard let directionResonse = response else {
+                if let error = error {
+                    print("we have error getting directions==\(error.localizedDescription)")
+                }
+                return
+            }
+            //　ルートを追加
+            let route = directionResonse.routes[0]
+            self.mapView.addOverlay(route.polyline, level: .aboveRoads)
+            //　縮尺を設定
+            let rect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+        }
+    }
+    
+    
     //==================================================================
     // WatchOSとのデータ通信
     //==================================================================

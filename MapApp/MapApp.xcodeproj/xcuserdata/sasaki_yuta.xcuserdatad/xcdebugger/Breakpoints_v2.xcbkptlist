@@ -23,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D6FE2D16-BB00-4153-BE3F-E0BD6831F438"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MapApp/CycleViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "A3B3E70B-111D-437D-8854-8D6912A3595D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -103,16 +87,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8BAB1DE0-9E64-44E1-B012-67E73D76AE9E"
-            shouldBeEnabled = "No"
+            uuid = "F22EE0B0-2196-4CDC-B137-39A6C560AEB7"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapApp/CycleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "699"
-            endingLineNumber = "699"
-            landmarkName = "mapViewDidLongPress(_:)"
+            startingLineNumber = "792"
+            endingLineNumber = "792"
+            landmarkName = "routeSearch()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

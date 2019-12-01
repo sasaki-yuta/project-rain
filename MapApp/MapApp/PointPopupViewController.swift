@@ -12,6 +12,7 @@ class PointPopupViewController: UIViewController {
     
     @IBOutlet weak var lblDistance: UILabel!
     @IBOutlet weak var lblStreetAddr: UILabel!
+    @IBOutlet weak var btnRoute: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,11 +34,26 @@ class PointPopupViewController: UIViewController {
 
     // Viewの初期化
     func initView() {
+        // カスタムの文字色で初期化
+        let g = CGFloat(0x94) / 255
+        let b = CGFloat(0xFE) / 255
+        let strColor: UIColor = UIColor(red: 0, green: g, blue: b, alpha: 1.0)
+        btnRoute.setTitleColor(strColor, for: .normal)
+        self.view.addSubview(btnRoute)
+        
+        // 距離、住所を表示する
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         lblDistance.text = appDelegate.cycleViewController.getTapDistance().description
         self.view.addSubview(lblDistance)
 
         lblStreetAddr.text = "住所 \n" + appDelegate.cycleViewController.getTapStreetAddr().description
         self.view.addSubview(lblStreetAddr)
+    }
+    
+    // 探索ボタンを押下した時の処理
+    @IBAction func btnRouteSearch(_ sender: Any)
+    {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.cycleViewController.routeSearch()
     }
 }
