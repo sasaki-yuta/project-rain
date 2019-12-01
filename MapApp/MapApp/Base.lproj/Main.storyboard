@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -201,6 +201,10 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wdn-Yc-GeB">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="406"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="3Zi-WM-2oF" appends="YES" id="F3C-Wf-HbH"/>
+                                </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96M-3Y-TnH">
                                 <rect key="frame" x="299" y="67" width="30" height="30"/>
@@ -310,8 +314,8 @@
                                     <action selector="btnSpeedChangeThouchDown:" destination="6Pg-YZ-Fts" eventType="touchDown" id="fVQ-IG-dxa"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frY-Zv-PQf">
-                                <rect key="frame" x="42" y="286" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WuF-rc-Pfn">
+                                <rect key="frame" x="53" y="76" width="276" height="297"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -326,9 +330,9 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="avgSpeed" destination="6YK-kz-koC" id="9dk-Yh-flg"/>
+                        <outlet property="debugLbl" destination="WuF-rc-Pfn" id="90p-wj-9Y6"/>
                         <outlet property="drivingDist" destination="0WH-EY-HZy" id="bbP-35-8ue"/>
                         <outlet property="drivingTime" destination="kON-wn-vs6" id="sqt-RD-FX6"/>
-                        <outlet property="lDebugGps" destination="frY-Zv-PQf" id="xqY-za-fz9"/>
                         <outlet property="lbar1" destination="mLs-LD-6QT" id="Pfe-5K-4p4"/>
                         <outlet property="lbar2" destination="rqx-Mo-5gV" id="cok-bh-b8g"/>
                         <outlet property="lbar4" destination="QjI-CV-PXc" id="7zi-2J-Po3"/>
@@ -337,6 +341,7 @@
                         <outlet property="lblDrivingTime" destination="dfi-UJ-5hc" id="cEZ-ny-9hJ"/>
                         <outlet property="lblMaxSpeed" destination="W3C-jd-g5f" id="dpJ-Uz-IPh"/>
                         <outlet property="lblSpeed" destination="0nq-Ge-6Pr" id="noM-SZ-0LT"/>
+                        <outlet property="longPressGesRec" destination="3Zi-WM-2oF" id="Eu5-aa-rac"/>
                         <outlet property="mapView" destination="wdn-Yc-GeB" id="WaA-0e-VAk"/>
                         <outlet property="mapViewTypeOver" destination="96M-3Y-TnH" id="Yhg-zW-55z"/>
                         <outlet property="maxSpeed" destination="Y9K-8G-Ijo" id="3AY-oC-JgO"/>
@@ -347,6 +352,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dON-fa-QGQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="3Zi-WM-2oF">
+                    <connections>
+                        <action selector="mapViewDidLongPress:" destination="6Pg-YZ-Fts" id="aWg-EQ-BC6"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="40.799999999999997" y="780.29556650246309"/>
         </scene>
@@ -683,6 +693,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TKg-f4-NmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1852" y="779.55665024630548"/>
+        </scene>
+        <!--Point Popup View Controller-->
+        <scene sceneID="MTj-OQ-eUG">
+            <objects>
+                <viewController id="6mh-EC-2RU" customClass="PointPopupViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1ds-V3-odd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="tCl-H5-gnt"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dF4-oc-d48" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2726" y="779"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

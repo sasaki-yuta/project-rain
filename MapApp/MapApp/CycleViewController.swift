@@ -11,12 +11,25 @@ import MapKit
 import CoreLocation
 import WatchConnectivity
 
+
+// MKPointAnnotation拡張用クラス
+class MapAnnotationCycle: MKPointAnnotation {
+    var pinColor: UIColor = .red
+    
+    func setPinColor(_ color: UIColor) {
+        pinColor = color
+    }
+}
+
 class CycleViewController:  UIViewController,
                             CLLocationManagerDelegate,
-                            WCSessionDelegate {
+                            WCSessionDelegate,
+                            UIGestureRecognizerDelegate {
 
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapViewTypeOver: UIButton!
+    @IBOutlet var longPressGesRec: UILongPressGestureRecognizer!
+    
     var locManager: CLLocationManager!
     var mapViewType: UIButton!
     var isStarting: Bool! = false
@@ -69,11 +82,12 @@ class CycleViewController:  UIViewController,
     var timeInterval: Int = 0
     var accuracy: Int = 0
     
-    // スリープ時のGPS受信デバッグ用
-    @IBOutlet var lDebugGps: UILabel!
-    var iDebugGps: Int = 0
+    // アノテーション
+    var pointAno: MapAnnotationCycle = MapAnnotationCycle()
     
-    
+    // デバッグ
+    @IBOutlet var debugLbl: UILabel!
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -332,10 +346,7 @@ class CycleViewController:  UIViewController,
         if (false == isStarting) {
             return
         }
-        
-        iDebugGps = iDebugGps + 1
-        lDebugGps.text = iDebugGps.description
-        
+                
         // 秒速を少数第2位の時速に変換
         let speed: Double = floor((locations.last!.speed * 3.6)*100)/100
         print("speed = " + speed.description)
@@ -670,7 +681,44 @@ class CycleViewController:  UIViewController,
             lblSpeed.isHidden = false
         }
     }
-    
+
+   //==================================================================
+   // ロングタップ
+   //==================================================================
+   // UILongPressGestureRecognizerのdelegate：ロングタップを検出する
+   @IBAction func mapViewDidLongPress(_ sender: UILongPressGestureRecognizer) {
+        // ロングタップ開始
+        if sender.state == .began {
+            // タップした位置（CGPoint）を指定してMkMapView上の緯度経度を取得する
+            let tapPoint = sender.location(in: view)
+            let center = mapView.convert(tapPoint, toCoordinateFrom: mapView)
+
+            let location = CLLocation(latitude: center.latitude, longitude: center.longitude)
+
+            // ロングタップした位置にピンを立てる
+            mapView.removeAnnotation(pointAno)
+            pointAno.coordinate = center
+            mapView.addAnnotation(pointAno)
+
+            // タップした地点の住所を取得する
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+                if let placemarks = placemarks {
+                    if let pm = placemarks.first {
+                        self.debugLbl.text = "〒\(pm.postalCode ?? "") \n \(pm.administrativeArea ?? "") \(pm.locality ?? "") \n \(pm.name ?? "") \n "
+                        // ピンのタイトルを設定する
+                        self.pointAno.title = pm.name
+                    }
+                }
+            }
+
+        }
+        // ロングタップ終了（手を離した）
+        else if sender.state == .ended {
+
+        }
+    }
+
     //==================================================================
     // WatchOSとのデータ通信
     //==================================================================

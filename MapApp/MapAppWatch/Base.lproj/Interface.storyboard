@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="15504" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="15505" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="15501"/>
     </dependencies>
     <scenes>
@@ -17,7 +17,7 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="font" style="UICTFontTextStyleBody"/>
                         </label>
-                        <map height="103" alignment="center" id="oY7-fH-NhX"/>
+                        <map height="98" alignment="center" id="oY7-fH-NhX"/>
                     </items>
                     <connections>
                         <outlet property="label" destination="ch3-C2-3y5" id="V9k-Pj-XIQ"/>

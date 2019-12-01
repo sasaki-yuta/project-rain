@@ -269,7 +269,7 @@ class InterfaceController:  WKInterfaceController,
             }
             sHeight = str
 
-        // ゴルフモード 高低差
+        // モード
         case "MODE":
             print("mode")
             guard let str = message["title"] as? String else {
