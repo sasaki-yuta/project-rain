@@ -314,13 +314,6 @@
                                     <action selector="btnSpeedChangeThouchDown:" destination="6Pg-YZ-Fts" eventType="touchDown" id="fVQ-IG-dxa"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WuF-rc-Pfn">
-                                <rect key="frame" x="53" y="76" width="276" height="297"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="MSU-hZ-qSW"/>
@@ -330,7 +323,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="avgSpeed" destination="6YK-kz-koC" id="9dk-Yh-flg"/>
-                        <outlet property="debugLbl" destination="WuF-rc-Pfn" id="90p-wj-9Y6"/>
                         <outlet property="drivingDist" destination="0WH-EY-HZy" id="bbP-35-8ue"/>
                         <outlet property="drivingTime" destination="kON-wn-vs6" id="sqt-RD-FX6"/>
                         <outlet property="lbar1" destination="mLs-LD-6QT" id="Pfe-5K-4p4"/>
@@ -697,20 +689,53 @@
         <!--Point Popup View Controller-->
         <scene sceneID="MTj-OQ-eUG">
             <objects>
-                <viewController id="6mh-EC-2RU" customClass="PointPopupViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1ds-V3-odd">
+                <viewController storyboardIdentifier="PointPopupViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6mh-EC-2RU" customClass="PointPopupViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" alpha="0.90000000000000002" contentMode="scaleToFill" id="1ds-V3-odd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="タップした地点" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dls-pD-6Gg">
+                                <rect key="frame" x="20" y="60" width="143" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ib-R5-hbO">
+                                <rect key="frame" x="20" y="100" width="128" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="住所" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dH-SH-PIE">
+                                <rect key="frame" x="20" y="130" width="322" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLo-bR-0p0">
+                                <rect key="frame" x="20" y="266" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="経路探索"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="tCl-H5-gnt"/>
                     </view>
+                    <connections>
+                        <outlet property="lblDistance" destination="2Ib-R5-hbO" id="cfG-FK-brq"/>
+                        <outlet property="lblStreetAddr" destination="0dH-SH-PIE" id="Pxi-mv-hmT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dF4-oc-d48" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2726" y="779"/>
+            <point key="canvasLocation" x="2725.5999999999999" y="778.81773399014787"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="KNn-Zj-7yF"/>
         <segue reference="qzy-np-p9Q"/>
     </inferredMetricsTieBreakers>
 </document>

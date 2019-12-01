@@ -9,13 +9,17 @@
 import UIKit
 
 class PointPopupViewController: UIViewController {
-
+    
+    @IBOutlet weak var lblDistance: UILabel!
+    @IBOutlet weak var lblStreetAddr: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        initView()
     }
-    
 
     /*
     // MARK: - Navigation
@@ -27,4 +31,13 @@ class PointPopupViewController: UIViewController {
     }
     */
 
+    // Viewの初期化
+    func initView() {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        lblDistance.text = appDelegate.cycleViewController.getTapDistance().description
+        self.view.addSubview(lblDistance)
+
+        lblStreetAddr.text = "住所 \n" + appDelegate.cycleViewController.getTapStreetAddr().description
+        self.view.addSubview(lblStreetAddr)
+    }
 }

@@ -321,7 +321,7 @@ class ViewController:   UIViewController,
             print("lon : " + lonStr)
             print("lat : " + latStr)
             
-            // 現在位置とタッウプした位置の距離(m)を算出する
+            // 現在位置とタップした位置の距離(m)を算出する
             let distance = calcDistance(mapView.userLocation.coordinate, center)
             print("distance : " + distance.description)
 

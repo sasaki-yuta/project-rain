@@ -85,8 +85,10 @@ class CycleViewController:  UIViewController,
     // アノテーション
     var pointAno: MapAnnotationCycle = MapAnnotationCycle()
     
-    // デバッグ
-    @IBOutlet var debugLbl: UILabel!
+    // ロングタツぷした住所
+    var tapStreetAddr: String!
+    var tapDistance: CLLocationDistance!
+    
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -689,6 +691,10 @@ class CycleViewController:  UIViewController,
    @IBAction func mapViewDidLongPress(_ sender: UILongPressGestureRecognizer) {
         // ロングタップ開始
         if sender.state == .began {
+            // ロングタップした住所と距離の初期化
+            tapStreetAddr = ""
+            tapDistance = 0
+            
             // タップした位置（CGPoint）を指定してMkMapView上の緯度経度を取得する
             let tapPoint = sender.location(in: view)
             let center = mapView.convert(tapPoint, toCoordinateFrom: mapView)
@@ -699,24 +705,67 @@ class CycleViewController:  UIViewController,
             mapView.removeAnnotation(pointAno)
             pointAno.coordinate = center
             mapView.addAnnotation(pointAno)
-
+            
+            // 現在位置とタップした位置の距離(m)を算出する
+            tapDistance = calcDistance(mapView.userLocation.coordinate, center)
+            
             // タップした地点の住所を取得する
             let geocoder = CLGeocoder()
             geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
                 if let placemarks = placemarks {
                     if let pm = placemarks.first {
-                        self.debugLbl.text = "〒\(pm.postalCode ?? "") \n \(pm.administrativeArea ?? "") \(pm.locality ?? "") \n \(pm.name ?? "") \n "
+                        self.tapStreetAddr = "〒\(pm.postalCode ?? "")\n\(pm.administrativeArea ?? "")\(pm.locality ?? "") \n\(pm.name ?? "")"
                         // ピンのタイトルを設定する
                         self.pointAno.title = pm.name
+                        
+                        // mainスレッドで処理する
+                        DispatchQueue.main.async {
+                            // ViewをPopUp表示する
+                            let storyboard: UIStoryboard = self.storyboard!
+                            let second = storyboard.instantiateViewController(withIdentifier: "PointPopupViewController")
+                            // modalPresentationStyleを指定する
+                            second.modalPresentationStyle = .popover
+                            self.present(second, animated: true, completion: nil)
+                        }
                     }
                 }
             }
-
         }
         // ロングタップ終了（手を離した）
         else if sender.state == .ended {
 
         }
+    }
+    
+    // 2点間の距離(m)を算出する
+    func calcDistance(_ a: CLLocationCoordinate2D, _ b: CLLocationCoordinate2D) -> CLLocationDistance {
+        // CLLocationオブジェクトを生成
+        let aLoc: CLLocation = CLLocation(latitude: a.latitude, longitude: a.longitude)
+        let bLoc: CLLocation = CLLocation(latitude: b.latitude, longitude: b.longitude)
+        
+        // CLLocationオブジェクトのdistanceで2点間の距離(m)を算出
+        let dist = bLoc.distance(from: aLoc)
+        return dist
+    }
+    
+    // ロングタップした住所を取得する
+    public func getTapStreetAddr() -> String {
+        return tapStreetAddr
+    }
+    
+    // ロングタップした位置までの距離を取得する
+    public func getTapDistance() -> String {
+        var retVal: String!
+        let dist = Int(tapDistance)
+        if (1000 > dist) {
+            retVal = dist.description + " m"
+        }
+        else {
+            let dDist: Double = floor((Double(dist) / 100)*100)/100
+            retVal = dDist.description + " km"
+        }
+        
+        return retVal
     }
 
     //==================================================================
