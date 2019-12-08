@@ -48,6 +48,8 @@ class UserDataManager: NSObject {
     var dDrivingTime: Double! = 0.0
     // MAX速度
     var dMaxSpeed: Double! = 0.0
+    // 走行履歴
+    var runOverlays: [MKOverlay] = []
     
 
     //=======================================================
@@ -256,12 +258,20 @@ class UserDataManager: NSObject {
     
     // Max速度の設定
     func setMaxSpeed(_ speed: Double) {
-    dMaxSpeed = speed
+        dMaxSpeed = speed
     }
     // MAX速度の取得
     func getMaxSpeed() -> Double {
-    return dMaxSpeed
+        return dMaxSpeed
     }
     
+    //走行履歴の保存
+    func setOverlays(_ overlays: [MKOverlay]) {
+        runOverlays = overlays
+    }
+    //走行履歴の取得
+    func getOverlays() -> [MKOverlay] {
+        return runOverlays
+    }
 }
 

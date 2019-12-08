@@ -90,6 +90,8 @@ class CycleViewController:  UIViewController,
     var tapDistance: CLLocationDistance!        // 距離
     var tapRoutePoint: CLLocationCoordinate2D!  // ルート探索用のタッチポイント
     
+    // 表示したルート
+    var routePolyLine: MKPolyline!
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -457,6 +459,7 @@ class CycleViewController:  UIViewController,
                 let coordinate_2 = CLLocationCoordinate2D(latitude: dlat, longitude: dlon)
                 var coordinates = [coordinate_1, coordinate_2]
                 let myPolyLine: MKPolyline = MKPolyline(coordinates: &coordinates, count: coordinates.count)
+                myPolyLine.subtitle = "run"
                 self.mapView.addOverlay(myPolyLine)
                 
                 // 前回値を保存
@@ -534,6 +537,9 @@ class CycleViewController:  UIViewController,
         maxSpeed.text = "0.0"
 
         self.isStarting = true
+        
+        // オーバーレイを全て削除する
+        mapView.removeOverlays(mapView.overlays)
     }
     
     // 計測を再開する
@@ -580,6 +586,8 @@ class CycleViewController:  UIViewController,
         appDelegate.userDataManager.setDrivingDist(dDrivingDist)
         appDelegate.userDataManager.setDrivingTime(dDrivingTime)
         appDelegate.userDataManager.setMaxSpeed(dMaxSpeed)
+        // 走行履歴を保存する
+        saveMapOverlays()
     }
 
     // 計測中断、終了したデータをViewを切り替えても表示できる様にLoradする
@@ -590,6 +598,8 @@ class CycleViewController:  UIViewController,
         dDrivingDist = appDelegate.userDataManager.getDrivingDist()
         dDrivingTime = appDelegate.userDataManager.getDrivingTime()
         dMaxSpeed = appDelegate.userDataManager.getMaxSpeed()
+        // 走行履歴をロードする
+        loadMapOverlays()
     }
     
     // メニューで地図Typeを変えた場合
@@ -685,11 +695,32 @@ class CycleViewController:  UIViewController,
         }
     }
 
-   //==================================================================
-   // ロングタップ
-   //==================================================================
-   // UILongPressGestureRecognizerのdelegate：ロングタップを検出する
-   @IBAction func mapViewDidLongPress(_ sender: UILongPressGestureRecognizer) {
+    // 走行履歴を保存する
+    func saveMapOverlays() {
+        // ルートを削除する
+        if nil != self.routePolyLine {
+            self.mapView.removeOverlay(self.routePolyLine)
+        }
+        // 走行履歴を保存する
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.userDataManager.setOverlays(self.mapView.overlays)
+    }
+    
+    // 走行履歴をロードする
+    func loadMapOverlays() {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let overlays = appDelegate.userDataManager.getOverlays()
+        let count = overlays.count
+        if 0 != count {
+            mapView.addOverlays(overlays)
+        }
+    }
+    
+    //==================================================================
+    // ロングタップ
+    //==================================================================
+    // UILongPressGestureRecognizerのdelegate：ロングタップを検出する
+    @IBAction func mapViewDidLongPress(_ sender: UILongPressGestureRecognizer) {
         // ロングタップ開始
         if sender.state == .began {
             // ロングタップした住所と距離の初期化
@@ -708,13 +739,6 @@ class CycleViewController:  UIViewController,
             pointAno.coordinate = center
             mapView.addAnnotation(pointAno)
             
-            //ピンを作成してマップビューに登録する。
-//            let annotation = MKPointAnnotation()
-//            annotation.coordinate = center
-//            annotation.title = "目的地候補"
-//            annotation.subtitle = "ボタンタップで経路を表示"
-//            mapView.addAnnotation(annotation)
-            
             // 現在位置とタップした位置の距離(m)を算出する
             tapDistance = calcDistance(mapView.userLocation.coordinate, center)
             
@@ -729,12 +753,8 @@ class CycleViewController:  UIViewController,
                         
                         // mainスレッドで処理する
                         DispatchQueue.main.async {
-                            // ViewをPopUp表示する
-                            let storyboard: UIStoryboard = self.storyboard!
-                            let second = storyboard.instantiateViewController(withIdentifier: "PointPopupViewController")
-                            // modalPresentationStyleを指定する
-                            second.modalPresentationStyle = .popover
-                            self.present(second, animated: true, completion: nil)
+                            // ロングタップした地点のViewをPopup表示する
+                            self.showPointPopupView()
                         }
                     }
                 }
@@ -795,13 +815,30 @@ class CycleViewController:  UIViewController,
                 }
                 return
             }
-            //　ルートを追加
+
+            // 地図上のオーバーレイを削除
+            if nil != self.routePolyLine {
+                self.mapView.removeOverlay(self.routePolyLine)
+            }
+            // ルートを表示
             let route = directionResonse.routes[0]
-            self.mapView.addOverlay(route.polyline, level: .aboveRoads)
+            self.routePolyLine = route.polyline
+            self.routePolyLine.subtitle = "route"
+            self.mapView.addOverlay(self.routePolyLine)//, level: .aboveRoads)
             //　縮尺を設定
             let rect = route.polyline.boundingMapRect
             self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
         }
+    }
+    
+    // ロングタップした地点のViewをPopup表示する
+    func showPointPopupView() {
+        // ViewをPopUp表示する
+        let storyboard: UIStoryboard = self.storyboard!
+        let second = storyboard.instantiateViewController(withIdentifier: "PointPopupViewController")
+        // modalPresentationStyleを指定する
+        second.modalPresentationStyle = .popover
+        self.present(second, animated: true, completion: nil)
     }
     
 
@@ -845,6 +882,7 @@ class CycleViewController:  UIViewController,
     }
 }
 
+
 // MKMapViewDelegate
 extension CycleViewController : MKMapViewDelegate {
     // 読み込み開始
@@ -862,13 +900,24 @@ extension CycleViewController : MKMapViewDelegate {
         // rendererを生成.
         let myPolyLineRendere: MKPolylineRenderer = MKPolylineRenderer(overlay: overlay)
         
-        // 線の太さを指定.
-        myPolyLineRendere.lineWidth = 5
-        
-        // 線の色を指定.
-        myPolyLineRendere.strokeColor = UIColor.blue
-        
+        if ("route" == overlay.subtitle) {
+            // 線の太さを指定.
+            myPolyLineRendere.lineWidth = 10
+            // 線の色を指定.
+            myPolyLineRendere.strokeColor = UIColor.green
+        }
+        else {
+            // 線の太さを指定.
+            myPolyLineRendere.lineWidth = 5
+            // 線の色を指定.
+            myPolyLineRendere.strokeColor = UIColor.blue
+        }
         return myPolyLineRendere
+    }
+    
+    // アノテーションを選択した際に呼ばれるデリゲート
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        showPointPopupView()
     }
     
     // ロングタップしてアノテーションを設定した時、アノテーションビューを返すメソッド
@@ -897,5 +946,4 @@ extension CycleViewController : MKMapViewDelegate {
         
         return testView
     }
-
 }
