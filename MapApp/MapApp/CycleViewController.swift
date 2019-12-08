@@ -708,6 +708,13 @@ class CycleViewController:  UIViewController,
             pointAno.coordinate = center
             mapView.addAnnotation(pointAno)
             
+            //ピンを作成してマップビューに登録する。
+//            let annotation = MKPointAnnotation()
+//            annotation.coordinate = center
+//            annotation.title = "目的地候補"
+//            annotation.subtitle = "ボタンタップで経路を表示"
+//            mapView.addAnnotation(annotation)
+            
             // 現在位置とタップした位置の距離(m)を算出する
             tapDistance = calcDistance(mapView.userLocation.coordinate, center)
             
@@ -778,7 +785,7 @@ class CycleViewController:  UIViewController,
         let directionRequest = MKDirections.Request()
         directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
         directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
-        directionRequest.transportType = .automobile
+        directionRequest.transportType = .walking
         
         let directions = MKDirections(request: directionRequest)
         directions.calculate { (response, error) in
@@ -797,7 +804,7 @@ class CycleViewController:  UIViewController,
         }
     }
     
-    
+
     //==================================================================
     // WatchOSとのデータ通信
     //==================================================================
@@ -851,7 +858,7 @@ extension CycleViewController : MKMapViewDelegate {
     }
     
     // addOverlayした際に呼ばれるデリゲートメソッド
-    func mapView(_ mapView: MKMapView!, rendererFor overlay: MKOverlay!) -> MKOverlayRenderer! {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         // rendererを生成.
         let myPolyLineRendere: MKPolylineRenderer = MKPolylineRenderer(overlay: overlay)
         
@@ -863,4 +870,32 @@ extension CycleViewController : MKMapViewDelegate {
         
         return myPolyLineRendere
     }
+    
+    // ロングタップしてアノテーションを設定した時、アノテーションビューを返すメソッド
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        // 現在位置の点滅がピンにならないように、アノテーションがUserLocationの場合は何もしないようにする。
+        if( annotation is MKUserLocation ) {
+            return nil
+        }
+
+        // ボタンや画像など独自のピンを作成する場合は、下記を有効にして更新する
+        return nil
+                
+        // アノテーションビューを生成する。
+        let testView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        // 吹き出しを表示可能にする。
+        testView.canShowCallout = true
+
+        // 経路ボタンをアノテーションビューに追加する。
+        let button = UIButton()
+        button.frame = CGRect(x: 0,y: 0,width: 40,height: 30)
+        button.setTitle("経路", for: .normal)
+        button.backgroundColor = UIColor.blue
+        button.setTitleColor(UIColor.white, for:.highlighted)
+        testView.rightCalloutAccessoryView = button
+        
+        return testView
+    }
+
 }
