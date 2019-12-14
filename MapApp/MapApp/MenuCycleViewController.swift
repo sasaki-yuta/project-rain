@@ -28,6 +28,7 @@ class MenuCycleViewController: UIViewController {
     @IBOutlet weak var btnStop: UIButton!
     @IBOutlet weak var btnEnd: UIButton!
     @IBOutlet weak var btnSetting: UIButton!
+    @IBOutlet weak var btnDelPnt: UIButton!
 
 
     override func viewDidLoad() {
@@ -166,13 +167,23 @@ class MenuCycleViewController: UIViewController {
             completion: {bool in}
         )
 
-        let btnDelPos = btnSetting.layer.position
+        let btnSetPst = btnSetting.layer.position
         btnSetting.layer.position.x = -self.menuView.frame.width
         UIView.animate(
             withDuration: 0.5,
             delay: 0,
             options: .curveEaseOut,
-            animations: {self.btnSetting.layer.position.x = btnDelPos.x},
+            animations: {self.btnSetting.layer.position.x = btnSetPst.x},
+            completion: {bool in}
+        )
+        
+        let btnDelPst = btnDelPnt.layer.position
+        btnDelPnt.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnDelPnt.layer.position.x = btnDelPst.x},
             completion: {bool in}
         )
 
@@ -200,6 +211,7 @@ class MenuCycleViewController: UIViewController {
                         self.btnStop.layer.position.x = -self.menuView.frame.width
                         self.btnEnd.layer.position.x = -self.menuView.frame.width
                         self.btnSetting.layer.position.x = -self.menuView.frame.width
+                        self.btnDelPnt.layer.position.x = -self.menuView.frame.width
                     },
                     completion: {
                         bool in
@@ -342,6 +354,14 @@ class MenuCycleViewController: UIViewController {
         // 計測を終了する
         appDelegate.cycleViewController.cycleEnd()
     }
+    
+    // 地点削除を押下した時の処理
+    @IBAction func btnDelPointThouchDown(_ sender: Any) {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.cycleViewController.deletePoint()
+        // ボタン状態の更新
+        updateBtn()
+    }
         
     // MenuCycleViewControllerに遷移する
     @IBAction func btnCycleSettingThouchDown(_ sender: Any) {
@@ -382,6 +402,8 @@ class MenuCycleViewController: UIViewController {
         btnEnd.isEnabled = true
         btnSetting.setTitleColor(strColor, for: .normal)
         btnSetting.isEnabled = true
+        btnDelPnt.setTitleColor(strColor, for: .normal)
+        btnDelPnt.isEnabled = true
 
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         
@@ -455,6 +477,11 @@ class MenuCycleViewController: UIViewController {
         default:
             break
         }
+        
+        if !appDelegate.cycleViewController.isExistPoint() {
+            btnDelPnt.setTitleColor(UIColor.gray, for: .normal)
+            btnDelPnt.isEnabled = false
+        }
 
         // MapType
         self.view.addSubview(btnStandard)
@@ -469,6 +496,7 @@ class MenuCycleViewController: UIViewController {
         self.view.addSubview(btnStop)
         self.view.addSubview(btnEnd)
         self.view.addSubview(btnSetting)
+        self.view.addSubview(btnDelPnt)
     }
 }
 

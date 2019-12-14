@@ -540,6 +540,10 @@ class CycleViewController:  UIViewController,
         
         // オーバーレイを全て削除する
         mapView.removeOverlays(mapView.overlays)
+        // ルートがあれば再描画する
+        if nil != self.routePolyLine {
+            self.mapView.addOverlay(self.routePolyLine)
+        }
     }
     
     // 計測を再開する
@@ -700,6 +704,7 @@ class CycleViewController:  UIViewController,
         // ルートを削除する
         if nil != self.routePolyLine {
             self.mapView.removeOverlay(self.routePolyLine)
+            self.routePolyLine = nil
         }
         // 走行履歴を保存する
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -714,6 +719,27 @@ class CycleViewController:  UIViewController,
         if 0 != count {
             mapView.addOverlays(overlays)
         }
+    }
+    
+    // 地点の有無を確認する
+    func isExistPoint() -> Bool {
+        var retVal: Bool = false
+        if (0 != pointAno.coordinate.latitude) && (0 != pointAno.coordinate.longitude) {
+            retVal = true
+        }
+        return retVal
+    }
+    
+    // 地点を削除する
+    func deletePoint() {
+        // 地図上のオーバーレイを削除
+        if nil != self.routePolyLine {
+            self.mapView.removeOverlay(self.routePolyLine)
+            self.routePolyLine = nil
+        }
+        mapView.removeAnnotation(pointAno)
+        pointAno.coordinate.longitude = 0
+        pointAno.coordinate.latitude = 0
     }
     
     //==================================================================
@@ -824,7 +850,7 @@ class CycleViewController:  UIViewController,
             let route = directionResonse.routes[0]
             self.routePolyLine = route.polyline
             self.routePolyLine.subtitle = "route"
-            self.mapView.addOverlay(self.routePolyLine)//, level: .aboveRoads)
+            self.mapView.addOverlay(self.routePolyLine)
             //　縮尺を設定
             let rect = route.polyline.boundingMapRect
             self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
@@ -902,7 +928,7 @@ extension CycleViewController : MKMapViewDelegate {
         
         if ("route" == overlay.subtitle) {
             // 線の太さを指定.
-            myPolyLineRendere.lineWidth = 10
+            myPolyLineRendere.lineWidth = 7
             // 線の色を指定.
             myPolyLineRendere.strokeColor = UIColor.green
         }

@@ -486,6 +486,16 @@
                                             <action selector="btnCycleSettingThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="jAd-Px-s6U"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nq8-Kn-qGP">
+                                        <rect key="frame" x="30" y="570" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="地点削除">
+                                            <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnDelPointThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="LgH-ds-xHx"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -496,6 +506,7 @@
                     </view>
                     <connections>
                         <outlet property="btnCycleMode" destination="XcS-HP-xxX" id="pA6-bx-thz"/>
+                        <outlet property="btnDelPnt" destination="Nq8-Kn-qGP" id="iEU-cX-1FE"/>
                         <outlet property="btnEnd" destination="lV7-MO-cLk" id="MOI-MU-9ZV"/>
                         <outlet property="btnGolfMode" destination="Sby-4G-Wns" id="yot-Tb-ExW"/>
                         <outlet property="btnHybrid" destination="Trc-Uc-TwY" id="Tsr-5J-Yuh"/>
