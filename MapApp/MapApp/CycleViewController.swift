@@ -701,14 +701,19 @@ class CycleViewController:  UIViewController,
 
     // 走行履歴を保存する
     func saveMapOverlays() {
-        // ルートを削除する
+        // 画面表示時にルートも復帰されるため、setOverlaysにルートを保存しない様に一時的に削除する
         if nil != self.routePolyLine {
             self.mapView.removeOverlay(self.routePolyLine)
-            self.routePolyLine = nil
         }
+        
         // 走行履歴を保存する
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.userDataManager.setOverlays(self.mapView.overlays)
+        
+        // ルートを復活する
+        if nil != self.routePolyLine {
+            self.mapView.addOverlay(self.routePolyLine)
+        }
     }
     
     // 走行履歴をロードする
