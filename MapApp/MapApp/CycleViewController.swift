@@ -24,7 +24,8 @@ class MapAnnotationCycle: MKPointAnnotation {
 class CycleViewController:  UIViewController,
                             CLLocationManagerDelegate,
                             WCSessionDelegate,
-                            UIGestureRecognizerDelegate {
+                            UIGestureRecognizerDelegate,
+                            UITextFieldDelegate {
 
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapViewTypeOver: UIButton!
@@ -37,6 +38,9 @@ class CycleViewController:  UIViewController,
     
     // UserDefaults(データバックアップ用)オブジェクト
     var userDataManager:UserDataManager!
+    
+    // キーボード
+    @IBOutlet var searchTextField: UITextField!
     
     // 速度
     @IBOutlet var speed: UILabel!
@@ -140,7 +144,16 @@ class CycleViewController:  UIViewController,
                 locManager.startUpdatingLocation()
             }
         }
-
+        
+        // KeyBordのdelegateを登録する
+        searchTextField.delegate = self
+        
+        // KeyBordの表示、非表示を受け取る設定
+        let notification = NotificationCenter.default
+        notification.addObserver(self, selector: #selector(keyboardWillShow(_:)),
+                                 name: UIResponder.keyboardWillShowNotification, object: nil)
+        notification.addObserver(self, selector: #selector(keyboardWillHide(_:)),
+                                 name: UIResponder.keyboardWillHideNotification, object: nil)
         // 地図の初期化
         initMap()
         
@@ -213,12 +226,11 @@ class CycleViewController:  UIViewController,
         
         mapViewTypeOver.frame = CGRect(x:width - 50, y:58, width:40, height:40)
         self.view.addSubview(mapViewTypeOver)
-
+        
         // トラッキングボタン表示
         let trakingBtn = MKUserTrackingButton(mapView: mapView)
         trakingBtn.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
         trakingBtn.frame = CGRect(x:width - 50, y:100, width:40, height:40)
-        trakingBtn.layer.shadowColor = UIColor.black.cgColor
         trakingBtn.layer.shadowColor = UIColor.black.cgColor
         trakingBtn.layer.shadowOffset = CGSize(width: 2, height: 2)
         trakingBtn.layer.shadowOpacity = 0.2
@@ -244,6 +256,10 @@ class CycleViewController:  UIViewController,
         // 各種情報表示位置の係数
         let infoTopPos = (height/3)*2
         let labelHeight = ((height/3)*1)/2/2 // 画面の1/3を情報表示エリアにする
+        
+        // 検索フィールドの位置
+        searchTextField.frame = CGRect(x: 0, y: infoTopPos-30, width: width, height: 30)
+        self.view.addSubview(searchTextField)
         
         // 速度
         lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
@@ -748,6 +764,41 @@ class CycleViewController:  UIViewController,
     }
     
     //==================================================================
+    // テキストフィールド
+    //==================================================================
+    // テキストフィールドをタップ後、入力状態になる前
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+
+    // キーボードでEnterを押した時
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // キーボードを戻す
+        searchTextField.resignFirstResponder()
+        return true
+    }
+    
+    // キーボードが表示された時
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let rect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
+        UIView.animate(withDuration: duration) {
+            let transform = CGAffineTransform(translationX: 0, y: -(rect.size.height))
+            self.view.transform = transform
+        }
+
+    }
+
+    // キーボードが消去された時
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? TimeInterval else { return }
+        UIView.animate(withDuration: duration) {
+            self.view.transform = CGAffineTransform.identity
+        }
+    }
+
+    
+    //==================================================================
     // ロングタップ
     //==================================================================
     // UILongPressGestureRecognizerのdelegate：ロングタップを検出する
@@ -765,6 +816,13 @@ class CycleViewController:  UIViewController,
 
             let location = CLLocation(latitude: center.latitude, longitude: center.longitude)
 
+
+            // 地図上のルートを削除
+            if nil != self.routePolyLine {
+                self.mapView.removeOverlay(self.routePolyLine)
+                self.routePolyLine = nil
+            }
+            
             // ロングタップした位置にピンを立てる
             mapView.removeAnnotation(pointAno)
             pointAno.coordinate = center

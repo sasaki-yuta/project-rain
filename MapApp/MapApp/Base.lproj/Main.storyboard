@@ -314,6 +314,12 @@
                                     <action selector="btnSpeedChangeThouchDown:" destination="6Pg-YZ-Fts" eventType="touchDown" id="fVQ-IG-dxa"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fXc-H3-xp3">
+                                <rect key="frame" x="0.0" y="372" width="380" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="MSU-hZ-qSW"/>
@@ -337,6 +343,7 @@
                         <outlet property="mapView" destination="wdn-Yc-GeB" id="WaA-0e-VAk"/>
                         <outlet property="mapViewTypeOver" destination="96M-3Y-TnH" id="Yhg-zW-55z"/>
                         <outlet property="maxSpeed" destination="Y9K-8G-Ijo" id="3AY-oC-JgO"/>
+                        <outlet property="searchTextField" destination="fXc-H3-xp3" id="VFC-EK-wCT"/>
                         <outlet property="speed" destination="TUc-6g-1L7" id="AdX-wh-XqF"/>
                         <outlet property="speedDispChange" destination="fNS-6L-1jj" id="tP5-jM-NZ4"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="toGolfView" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="5kP-ks-otw"/>
