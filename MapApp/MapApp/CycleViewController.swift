@@ -25,7 +25,7 @@ class CycleViewController:  UIViewController,
                             CLLocationManagerDelegate,
                             WCSessionDelegate,
                             UIGestureRecognizerDelegate,
-                            UITextFieldDelegate {
+                            UISearchBarDelegate {
 
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapViewTypeOver: UIButton!
@@ -40,7 +40,8 @@ class CycleViewController:  UIViewController,
     var userDataManager:UserDataManager!
     
     // キーボード
-    @IBOutlet var searchTextField: UITextField!
+    @IBOutlet var searchBar: UISearchBar!
+    var annotationList = [MapAnnotationCycle]()
     
     // 速度
     @IBOutlet var speed: UILabel!
@@ -146,7 +147,7 @@ class CycleViewController:  UIViewController,
         }
         
         // KeyBordのdelegateを登録する
-        searchTextField.delegate = self
+        searchBar.delegate = self
         
         // KeyBordの表示、非表示を受け取る設定
         let notification = NotificationCenter.default
@@ -258,8 +259,8 @@ class CycleViewController:  UIViewController,
         let labelHeight = ((height/3)*1)/2/2 // 画面の1/3を情報表示エリアにする
         
         // 検索フィールドの位置
-        searchTextField.frame = CGRect(x: 0, y: infoTopPos-30, width: width, height: 30)
-        self.view.addSubview(searchTextField)
+        searchBar.frame = CGRect(x: 0, y: infoTopPos-50, width: width, height: 50)
+        self.view.addSubview(searchBar)
         
         // 速度
         lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
@@ -771,13 +772,49 @@ class CycleViewController:  UIViewController,
         return true
     }
 
-    // キーボードでEnterを押した時
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    //検索ボタン押下時の呼び出しメソッド
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // キーボードを戻す
-        searchTextField.resignFirstResponder()
-        return true
+        searchBar.resignFirstResponder()
+        
+        
+        if "" == searchBar.text {
+            return
+        }
+        
+        if 0 < annotationList.count {
+            // 前回検索したアノテーションを削除する
+            mapView.removeAnnotations(annotationList)
+        }
+
+        //検索条件を作成する。
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchBar.text
+        
+        //検索範囲はマップビューと同じにする。
+        request.region = mapView.region
+        
+        //ローカル検索を実行する。
+        let localSearch:MKLocalSearch = MKLocalSearch(request: request)
+        localSearch.start(completionHandler: {(result, error) in
+            for placemark in (result?.mapItems)! {
+                if(error == nil) {
+                    //検索された場所にピンを刺す。
+                    let annotation = MapAnnotationCycle()
+                    annotation.coordinate =     CLLocationCoordinate2DMake(placemark.placemark.coordinate.latitude, placemark.placemark.coordinate.longitude)
+                    annotation.title = placemark.placemark.name
+                    annotation.subtitle = placemark.placemark.title
+                    self.annotationList.append(annotation)
+                    self.mapView.addAnnotation(annotation)
+                }
+                else {
+                    //エラー
+                    print(error.debugDescription)
+                }
+            }
+        })
     }
-    
+
     // キーボードが表示された時
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let rect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
@@ -991,7 +1028,7 @@ extension CycleViewController : MKMapViewDelegate {
         
         if ("route" == overlay.subtitle) {
             // 線の太さを指定.
-            myPolyLineRendere.lineWidth = 7
+            myPolyLineRendere.lineWidth = 6
             // 線の色を指定.
             myPolyLineRendere.strokeColor = UIColor.green
         }

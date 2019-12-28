@@ -433,7 +433,7 @@ class ViewController:   UIViewController,
         longTapElevation = -100000.0
 
         // 国土地理院のURL
-        let baseUrl = "http://cyberjapandata2.gsi.go.jp/general/dem/scripts/getelevation.php?"
+        let baseUrl = "https://cyberjapandata2.gsi.go.jp/general/dem/scripts/getelevation.php?"
         
         // 現在位置の標高を取得する
         var lonUrl = "&lon=" + mapView.userLocation.coordinate.longitude.description
@@ -514,7 +514,7 @@ class ViewController:   UIViewController,
     // watchOSからの高低差取得要求を処理する
     func getWatchOSEElevation(_ lon:Double, _ lat:Double) {
         // 国土地理院のURL
-        let baseUrl = "http://cyberjapandata2.gsi.go.jp/general/dem/scripts/getelevation.php?"
+        let baseUrl = "https://cyberjapandata2.gsi.go.jp/general/dem/scripts/getelevation.php?"
         
         // 現在位置の標高を取得する
         let lonUrl = "&lon=" + lon.description
