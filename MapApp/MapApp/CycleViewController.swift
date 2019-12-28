@@ -91,8 +91,8 @@ class CycleViewController:  UIViewController,
     var pointAno: MapAnnotationCycle = MapAnnotationCycle()
     
     // ロングタップした地点の情報
-    var tapStreetAddr: String!                  // 住所
-    var tapDistance: CLLocationDistance!        // 距離
+    var tapStreetAddr: String! = ""                  // 住所
+    var tapDistance: CLLocationDistance! = 0        // 距離
     var tapRoutePoint: CLLocationCoordinate2D!  // ルート探索用のタッチポイント
     
     // 表示したルート
@@ -1043,6 +1043,16 @@ extension CycleViewController : MKMapViewDelegate {
     
     // アノテーションを選択した際に呼ばれるデリゲート
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        // 現在位置とタップした位置の距離(m)を算出する
+        let annotation = view.annotation
+        // POP UP画面に表示する住所
+        tapStreetAddr = annotation?.subtitle ?? "" //+ "\n" + annotation?.subtitle ?? ""
+        // POP UP画面に表示する距離
+        let coordinate = CLLocationCoordinate2D(latitude: (annotation?.coordinate.latitude)!, longitude: (annotation?.coordinate.longitude)!)
+        tapDistance = calcDistance(mapView.userLocation.coordinate, coordinate)
+        // POP UP画面で探索する地点
+        tapRoutePoint = coordinate
+
         showPointPopupView()
     }
     
