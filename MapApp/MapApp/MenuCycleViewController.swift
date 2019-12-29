@@ -233,6 +233,7 @@ class MenuCycleViewController: UIViewController {
             }
         }
     }
+    
     // 地図の表示タイプを切り替える（標準）
     @IBAction func btnStandardThouchDown(_ sender: Any) {
         print("btnSatelliteBtnThouchDown")

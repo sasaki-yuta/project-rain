@@ -382,6 +382,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcK-g2-kpj">
                                 <rect key="frame" x="299" y="67" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="PQu-wF-bHb" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="TGc-XU-6pe"/>
+                                </connections>
                             </button>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="cU6-e8-2As">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -394,11 +397,146 @@
                     <connections>
                         <outlet property="mapView" destination="cU6-e8-2As" id="Gd8-2i-HX9"/>
                         <outlet property="mapViewTypeOver" destination="pcK-g2-kpj" id="28S-EA-uhP"/>
+                        <segue destination="6Pg-YZ-Fts" kind="presentation" identifier="toCycleViewFromWalk" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="bG3-3c-3h4"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toGolfViewFromWalk" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="1bs-VB-7UU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jpa-90-wqP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="40.799999999999997" y="1503.6945812807883"/>
+        </scene>
+        <!--Menu Walk View Controller-->
+        <scene sceneID="hgr-0U-Sv5">
+            <objects>
+                <viewController id="PQu-wF-bHb" customClass="MenuWalkViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" tag="1" contentMode="scaleToFill" id="7o8-Z8-qKA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.59999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AGK-0T-38h">
+                                <rect key="frame" x="0.0" y="0.0" width="150" height="812"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exx-Be-mqU">
+                                <rect key="frame" x="30" y="250" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9PA-Co-FhQ">
+                                <rect key="frame" x="30" y="90" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="標準">
+                                    <color key="titleColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnStandardThouchDown:" destination="PQu-wF-bHb" eventType="touchDown" id="sft-0e-GMC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5t-IB-gVN">
+                                <rect key="frame" x="30" y="130" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="航空写真">
+                                    <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnSatelliteThouchDown:" destination="PQu-wF-bHb" eventType="touchDown" id="Pej-3E-1QO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TdV-Py-tk9">
+                                <rect key="frame" x="30" y="170" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="標準 + 航空">
+                                    <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnHybridThouchDown:" destination="PQu-wF-bHb" eventType="touchDown" id="Mg5-p5-Zi2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Llg-fh-GtE">
+                                <rect key="frame" x="30" y="210" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="データ強調">
+                                    <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnMutedStandardThouchDown:" destination="PQu-wF-bHb" eventType="touchDown" id="RqP-l5-ZOP"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Function" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfj-8U-U2k">
+                                <rect key="frame" x="30" y="410" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sFB-hG-UXD" userLabel="Btn Golf">
+                                <rect key="frame" x="30" y="290" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="ゴルフ">
+                                    <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnGolfModeThouchDown:" destination="PQu-wF-bHb" eventType="touchDown" id="wvh-FE-6Pf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UhB-2E-cGI" userLabel="Btn Cycle">
+                                <rect key="frame" x="30" y="330" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="サイクル">
+                                    <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnCycleModeThouchDown:" destination="PQu-wF-bHb" eventType="touchDown" id="Chj-bV-qws"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9u-Eb-eXr">
+                                <rect key="frame" x="30" y="370" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="ウォーク">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Zj-WW-WLe">
+                                <rect key="frame" x="30" y="50" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRp-rf-laN">
+                                <rect key="frame" x="30" y="450" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="地点削除">
+                                    <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.50428082191780821" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="2HZ-55-dVJ"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnCycleMode" destination="UhB-2E-cGI" id="wbd-38-EsQ"/>
+                        <outlet property="btnDelPnt" destination="jRp-rf-laN" id="9a1-OZ-Jr9"/>
+                        <outlet property="btnGolfMode" destination="sFB-hG-UXD" id="sIT-CI-wPB"/>
+                        <outlet property="btnHybrid" destination="TdV-Py-tk9" id="zZu-W0-WaX"/>
+                        <outlet property="btnMutedStandard" destination="Llg-fh-GtE" id="Hvy-hJ-uJV"/>
+                        <outlet property="btnSatellite" destination="k5t-IB-gVN" id="woy-lG-TYc"/>
+                        <outlet property="btnStandard" destination="9PA-Co-FhQ" id="qYd-sA-M7R"/>
+                        <outlet property="btnWalkMode" destination="z9u-Eb-eXr" id="Jch-Lz-Xdg"/>
+                        <outlet property="lblFunk" destination="xfj-8U-U2k" id="pdp-v2-zLQ"/>
+                        <outlet property="lblMapMode" destination="Exx-Be-mqU" id="8oa-Ld-gdG"/>
+                        <outlet property="lblMapType" destination="9Zj-WW-WLe" id="ArE-xt-Dme"/>
+                        <outlet property="menuView" destination="AGK-0T-38h" id="JtH-CI-FMB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dwH-h1-IMW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="902" y="1504"/>
         </scene>
         <!--Menu Cycle View Controller-->
         <scene sceneID="kI9-k7-rLa">
@@ -754,7 +892,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TKg-f4-NmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1852" y="779.55665024630548"/>
+            <point key="canvasLocation" x="1854" y="780"/>
         </scene>
         <!--Point Popup View Controller-->
         <scene sceneID="MTj-OQ-eUG">
@@ -806,11 +944,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dF4-oc-d48" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2725.5999999999999" y="778.81773399014787"/>
+            <point key="canvasLocation" x="2726" y="780"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Uz6-gb-i5J"/>
-        <segue reference="0NO-hH-99i"/>
+        <segue reference="ZTp-PD-svD"/>
+        <segue reference="bG3-3c-3h4"/>
+        <segue reference="1bs-VB-7UU"/>
     </inferredMetricsTieBreakers>
 </document>

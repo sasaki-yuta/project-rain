@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var cycleViewController: CycleViewController!
     var menuCycleViewController: MenuCycleViewController!
     var walkViewController: WalkViewController!
+    var menuWalkViewController: MenuWalkViewController!
     
     // 選択中のMapMode(初期値=ゴルフ)
     var nowMapMode: MapMode! = .MODE_GOLF

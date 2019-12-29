@@ -152,6 +152,9 @@ class WalkViewController:   UIViewController,
         scale.frame.origin.y = 45
         scale.legendAlignment = .leading
         self.view.addSubview(scale)
+        
+        // 地図Typeに合わせて情報の色を変更する
+        changeMapType()
     }
 
 
@@ -165,6 +168,54 @@ class WalkViewController:   UIViewController,
     }
     */
     
+    
+    // 地図の表示タイプを切り替える
+    func setMapType(_ mapType: MKMapType) {
+        mapView.mapType = mapType
+        
+        // ステータスバーのスタイル変更を促す
+        self.setNeedsStatusBarAppearanceUpdate();
+    }
+    
+    // メニューで地図Typeを変えた場合
+    func changeMapType() {
+        var isBlack:Bool = false
+
+        switch mapView.mapType {
+        case .standard:         // 標準の地図
+            break
+        case .mutedStandard:    // 地図よりもデータを強調
+            break
+        case .satellite:        // 航空写真
+            isBlack = true
+            break
+        case .hybrid:           // 標準の地図＋航空写真
+            isBlack = true
+            break
+        default:
+            break
+        }
+        
+        // サイクルデータの色を地図に合わせて変更する
+        if false == isBlack {
+            view.backgroundColor = .white
+        }
+        else {
+            view.backgroundColor = .black
+        }
+    }
+
+    // ViewControllerに遷移する
+    func toGolfView() {
+        // ViewControllerを表示する
+        self.performSegue(withIdentifier: "toGolfViewFromWalk", sender: nil)
+    }
+    
+    // WalkViewに遷移する
+    func toCycleView() {
+        // CycleViewControllerを表示する
+        self.performSegue(withIdentifier: "toCycleViewFromWalk", sender: nil)
+    }
     
     //==================================================================
     // MKMapViewDelegate
