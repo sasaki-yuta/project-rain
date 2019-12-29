@@ -608,6 +608,12 @@ class ViewController:   UIViewController,
         // CycleViewControllerを表示する
         self.performSegue(withIdentifier: "toCycleView", sender: nil)
     }
+    
+    // WalkViewに遷移する
+    func toWalkView() {
+        // WalkViewControllerを表示する
+        self.performSegue(withIdentifier: "toWalkView", sender: nil)
+    }
 }
 
 // MKMapViewDelegate

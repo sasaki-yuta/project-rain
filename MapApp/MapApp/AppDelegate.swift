@@ -12,6 +12,7 @@ import CoreData
 enum MapMode:Int {
     case MODE_GOLF
     case MODE_CYCLE
+    case MODE_WALK
 }
 
 enum CycleState:Int {
@@ -29,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var menuViewController: MenuViewController!
     var cycleViewController: CycleViewController!
     var menuCycleViewController: MenuCycleViewController!
+    var walkViewController: WalkViewController!
+    
     // 選択中のMapMode(初期値=ゴルフ)
     var nowMapMode: MapMode! = .MODE_GOLF
     // サイクル計測状態(初期値=終了)

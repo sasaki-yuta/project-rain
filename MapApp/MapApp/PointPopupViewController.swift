@@ -32,17 +32,13 @@ class PointPopupViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     // Viewの初期化
     func initView() {
-        // デバイスの画面サイズを取得する
-        let dispSize: CGSize = UIScreen.main.bounds.size
-        let height = Int(dispSize.height)
-        
-        // Viewの表示位置をしたにずらす　→ずれなかったので検討
-        let transform = CGAffineTransform(translationX: 0, y: CGFloat(height/2))
-        self.view.transform = transform
-
         // カスタムの文字色で初期化
         let g = CGFloat(0x94) / 255
         let b = CGFloat(0xFE) / 255

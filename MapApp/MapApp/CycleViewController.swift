@@ -134,9 +134,6 @@ class CycleViewController:  UIViewController,
             print("authorizationStatus = " + status.rawValue.description)
         }
         else {
-            // CLLocationManagerのdelegateを登録する
-            locManager.delegate = self
-
             if status == CLAuthorizationStatus.notDetermined
             {
                 locManager.requestWhenInUseAuthorization()
@@ -512,6 +509,12 @@ class CycleViewController:  UIViewController,
     func toGolfView() {
         // ViewControllerを表示する
         self.performSegue(withIdentifier: "toGolfView", sender: nil)
+    }
+    
+    // WalkViewに遷移する
+    func toWalkView() {
+        // WalkViewControllerを表示する
+        self.performSegue(withIdentifier: "toWalkViewFromCycle", sender: nil)
     }
 
     // CycleSettingViewControllerに遷移する

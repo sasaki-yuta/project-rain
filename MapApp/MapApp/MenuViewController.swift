@@ -20,6 +20,7 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var btnGetElevation: UIButton!
     @IBOutlet weak var btnGolfMode: UIButton!
     @IBOutlet weak var btnCycleMode: UIButton!
+    @IBOutlet weak var btnWalkMode: UIButton!
     @IBOutlet weak var lblMapType: UILabel!
     @IBOutlet weak var lblMapMode: UILabel!
     @IBOutlet weak var lblFunk: UILabel!
@@ -148,6 +149,16 @@ class MenuViewController: UIViewController {
             animations: {self.btnCycleMode.layer.position.x = btnCycleModePos.x},
             completion: {bool in}
         )
+        
+        let btnWalkModePos = btnWalkMode.layer.position
+        btnWalkMode.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnWalkMode.layer.position.x = btnWalkModePos.x},
+            completion: {bool in}
+        )
     }
     
     // メニューエリア以外タップ時の処理
@@ -170,6 +181,7 @@ class MenuViewController: UIViewController {
                         self.btnGetElevation.layer.position.x = -self.menuView.frame.width
                         self.btnGolfMode.layer.position.x = -self.menuView.frame.width
                         self.btnCycleMode.layer.position.x = -self.menuView.frame.width
+                        self.btnWalkMode.layer.position.x = -self.menuView.frame.width
                     },
                     completion: { bool in
                         self.dismiss(animated: true, completion: nil)
@@ -283,8 +295,17 @@ class MenuViewController: UIViewController {
         appDelegate.nowMapMode = .MODE_CYCLE
         appDelegate.viewController.toCycleView()
     }
-
     
+    // MapMode（ウォーク）を押下した時の処理
+    @IBAction func btnWalkModeThouchDown(_ sender: Any) {
+        // Menu画面の消去
+        self.dismiss(animated: true, completion: nil)
+        // MapModeを更新して、viewController画面を消去
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.nowMapMode = .MODE_WALK
+        appDelegate.viewController.toWalkView()
+    }
+
     // 地図タイプボタンのアクティブ状態を更新
     func updateBtn() {
         // カスタムの文字色で初期化
@@ -308,6 +329,8 @@ class MenuViewController: UIViewController {
         btnGolfMode.isEnabled = true
         btnCycleMode.setTitleColor(strColor, for: .normal)
         btnCycleMode.isEnabled = true
+        btnWalkMode.setTitleColor(strColor, for: .normal)
+        btnWalkMode.isEnabled = true
 
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
@@ -357,6 +380,9 @@ class MenuViewController: UIViewController {
         case .MODE_CYCLE?:
             btnCycleMode.setTitleColor(UIColor.gray, for: .normal)
             btnCycleMode.isEnabled = false
+        case .MODE_WALK?:
+            btnWalkMode.setTitleColor(UIColor.gray, for: .normal)
+            btnWalkMode.isEnabled = false
         case .none:
             break
         }
@@ -378,5 +404,6 @@ class MenuViewController: UIViewController {
         self.view.addSubview(btnGetElevation)
         self.view.addSubview(btnGolfMode)
         self.view.addSubview(btnCycleMode)
+        self.view.addSubview(btnWalkMode)
     }
 }

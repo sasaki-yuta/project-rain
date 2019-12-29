@@ -22,6 +22,7 @@ class MenuCycleViewController: UIViewController {
     @IBOutlet weak var lblMapMode: UILabel!
     @IBOutlet weak var btnGolfMode: UIButton!
     @IBOutlet weak var btnCycleMode: UIButton!
+    @IBOutlet weak var btnWalkMode: UIButton!
 
     @IBOutlet weak var lblFunk: UILabel!
     @IBOutlet weak var btnStart: UIButton!
@@ -137,6 +138,16 @@ class MenuCycleViewController: UIViewController {
             completion: {bool in}
         )
         
+        let btnWalkModePos = btnWalkMode.layer.position
+        btnWalkMode.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnWalkMode.layer.position.x = btnWalkModePos.x},
+            completion: {bool in}
+        )
+        
         let btnStartPos = btnStart.layer.position
         btnStart.layer.position.x = -self.menuView.frame.width
         UIView.animate(
@@ -207,6 +218,7 @@ class MenuCycleViewController: UIViewController {
                         self.btnMutedStandard.layer.position.x = -self.menuView.frame.width
                         self.btnGolfMode.layer.position.x = -self.menuView.frame.width
                         self.btnCycleMode.layer.position.x = -self.menuView.frame.width
+                        self.btnWalkMode.layer.position.x = -self.menuView.frame.width
                         self.btnStart.layer.position.x = -self.menuView.frame.width
                         self.btnStop.layer.position.x = -self.menuView.frame.width
                         self.btnEnd.layer.position.x = -self.menuView.frame.width
@@ -312,6 +324,16 @@ class MenuCycleViewController: UIViewController {
         // CycleModeのメニューなので押せない
     }
     
+    // MapMode（ウォーク）を押下した時の処理
+    @IBAction func btnWalkModeThouchDown(_ sender: Any) {
+        // Menu画面の消去
+        self.dismiss(animated: true, completion: nil)
+        // MapModeを更新して、viewController画面を消去
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.nowMapMode = .MODE_WALK
+        appDelegate.cycleViewController.toWalkView()
+    }
+    
     // 計測開始を押下した時の処理
     @IBAction func btnCycleStartThouchDown(_ sender: Any) {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -393,6 +415,8 @@ class MenuCycleViewController: UIViewController {
         btnGolfMode.isEnabled = true
         btnCycleMode.setTitleColor(strColor, for: .normal)
         btnCycleMode.isEnabled = true
+        btnWalkMode.setTitleColor(strColor, for: .normal)
+        btnWalkMode.isEnabled = true
         // Func
         btnStart.setTitleColor(strColor, for: .normal)
         btnStart.isEnabled = true
@@ -453,6 +477,9 @@ class MenuCycleViewController: UIViewController {
         case .MODE_CYCLE?:
             btnCycleMode.setTitleColor(UIColor.gray, for: .normal)
             btnCycleMode.isEnabled = false
+        case .MODE_WALK?:
+            btnWalkMode.setTitleColor(UIColor.gray, for: .normal)
+            btnWalkMode.isEnabled = false
         case .none:
             break
         }
@@ -491,6 +518,7 @@ class MenuCycleViewController: UIViewController {
         // MapMode
         self.view.addSubview(btnGolfMode)
         self.view.addSubview(btnCycleMode)
+        self.view.addSubview(btnWalkMode)
         // Func
         self.view.addSubview(btnStart)
         self.view.addSubview(btnStop)
