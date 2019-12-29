@@ -12,6 +12,7 @@ class PointPopupViewController: UIViewController {
     
     @IBOutlet weak var lblDistance: UILabel!
     @IBOutlet weak var lblStreetAddr: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var btnRoute: UIButton!
     
     override func viewDidLoad() {
@@ -48,9 +49,13 @@ class PointPopupViewController: UIViewController {
         let strColor: UIColor = UIColor(red: 0, green: g, blue: b, alpha: 1.0)
         btnRoute.setTitleColor(strColor, for: .normal)
         self.view.addSubview(btnRoute)
-        
-        // 距離、住所を表示する
+
+        // タップした地点の名称を表示する
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        lblTitle.text = appDelegate.cycleViewController.getTapPointTitle().description
+        self.view.addSubview(lblTitle)
+
+        // 距離、住所を表示する
         lblDistance.text = appDelegate.cycleViewController.getTapDistance().description
         self.view.addSubview(lblDistance)
 

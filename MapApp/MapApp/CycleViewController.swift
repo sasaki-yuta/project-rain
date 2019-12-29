@@ -90,10 +90,11 @@ class CycleViewController:  UIViewController,
     // アノテーション
     var pointAno: MapAnnotationCycle = MapAnnotationCycle()
     
-    // ロングタップした地点の情報
-    var tapStreetAddr: String! = ""                  // 住所
+    // タップした地点の情報
+    var tapPointTitle: String! = ""                 // タップした地点のタイトル
+    var tapStreetAddr: String! = ""                 // 住所
     var tapDistance: CLLocationDistance! = 0        // 距離
-    var tapRoutePoint: CLLocationCoordinate2D!  // ルート探索用のタッチポイント
+    var tapRoutePoint: CLLocationCoordinate2D!      // ルート探索用のタッチポイント
     
     // 表示したルート
     var routePolyLine: MKPolyline!
@@ -777,14 +778,13 @@ class CycleViewController:  UIViewController,
         // キーボードを戻す
         searchBar.resignFirstResponder()
         
-        
-        if "" == searchBar.text {
-            return
-        }
-        
         if 0 < annotationList.count {
             // 前回検索したアノテーションを削除する
             mapView.removeAnnotations(annotationList)
+        }
+
+        if "" == searchBar.text {
+            return
         }
 
         //検索条件を作成する。
@@ -843,6 +843,7 @@ class CycleViewController:  UIViewController,
         // ロングタップ開始
         if sender.state == .began {
             // ロングタップした住所と距離の初期化
+            tapPointTitle = ""
             tapStreetAddr = ""
             tapDistance = 0
             
@@ -873,6 +874,7 @@ class CycleViewController:  UIViewController,
             geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
                 if let placemarks = placemarks {
                     if let pm = placemarks.first {
+                        self.tapPointTitle = "タップした地点"
                         self.tapStreetAddr = "〒\(pm.postalCode ?? "")\n\(pm.administrativeArea ?? "")\(pm.locality ?? "") \n\(pm.name ?? "")"
                         // ピンのタイトルを設定する
                         self.pointAno.title = pm.name
@@ -901,6 +903,11 @@ class CycleViewController:  UIViewController,
         // CLLocationオブジェクトのdistanceで2点間の距離(m)を算出
         let dist = bLoc.distance(from: aLoc)
         return dist
+    }
+    
+    // タップした地点の名称を取得する
+    public func getTapPointTitle() -> String {
+        return tapPointTitle
     }
     
     // ロングタップした住所を取得する
@@ -1045,8 +1052,16 @@ extension CycleViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         // 現在位置とタップした位置の距離(m)を算出する
         let annotation = view.annotation
-        // POP UP画面に表示する住所
-        tapStreetAddr = annotation?.subtitle ?? "" //+ "\n" + annotation?.subtitle ?? ""
+        
+        if (nil == annotation?.subtitle!) {
+            tapPointTitle = "タップした地点"
+            tapStreetAddr = annotation?.title ?? ""
+        }
+        else {
+            // POP UP画面に表示する住所
+            tapPointTitle = annotation?.title ?? ""
+            tapStreetAddr = annotation?.subtitle ?? ""
+        }
         // POP UP画面に表示する距離
         let coordinate = CLLocationCoordinate2D(latitude: (annotation?.coordinate.latitude)!, longitude: (annotation?.coordinate.longitude)!)
         tapDistance = calcDistance(mapView.userLocation.coordinate, coordinate)

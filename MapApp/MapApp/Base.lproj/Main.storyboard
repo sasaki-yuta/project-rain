@@ -748,6 +748,7 @@
                         <outlet property="btnRoute" destination="xLo-bR-0p0" id="GA9-Pi-4bQ"/>
                         <outlet property="lblDistance" destination="2Ib-R5-hbO" id="cfG-FK-brq"/>
                         <outlet property="lblStreetAddr" destination="0dH-SH-PIE" id="Pxi-mv-hmT"/>
+                        <outlet property="lblTitle" destination="Dls-pD-6Gg" id="Qhc-yo-ihP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dF4-oc-d48" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -756,7 +757,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KNn-Zj-7yF"/>
         <segue reference="qzy-np-p9Q"/>
     </inferredMetricsTieBreakers>
 </document>
