@@ -122,7 +122,7 @@ class CycleViewController:  UIViewController,
     
         // CLLocationManagerのdelegateを登録する
         locManager = CLLocationManager()
-        locManager.allowsBackgroundLocationUpdates = true
+        locManager.allowsBackgroundLocationUpdates = false
         locManager.pausesLocationUpdatesAutomatically = false
         locManager.distanceFilter = 3
         locManager.delegate = self
@@ -533,6 +533,9 @@ class CycleViewController:  UIViewController,
     
     // 計測を開始する
     func cycleStart() {
+        // 計測中にだけバックグラウンドでの位置情報更新を許可する
+        locManager.allowsBackgroundLocationUpdates = true
+        
         // 平均速度
         self.avgSumSpeed = 0.0
         self.avgSumCount = 0
@@ -569,11 +572,17 @@ class CycleViewController:  UIViewController,
     
     // 計測を再開する
     func cycleReStart() {
+        // 計測中にだけバックグラウンドでの位置情報更新を許可する
+        locManager.allowsBackgroundLocationUpdates = true
+        
         self.isStarting = true
     }
     
     // 計測を中断する
     func cycleStop() {
+        // 計測中にだけバックグラウンドでの位置情報更新を許可する
+        locManager.allowsBackgroundLocationUpdates = false
+        
         // 再開した時に/終了した地点からの距離と時間を計測してしまうため初期化する
         beforLon = 0.0
         beforLat = 0.0
@@ -590,6 +599,9 @@ class CycleViewController:  UIViewController,
 
     // 計測を終了する
     func cycleEnd() {
+        // 計測中にだけバックグラウンドでの位置情報更新を許可する
+        locManager.allowsBackgroundLocationUpdates = false
+
         // 再開した時に/終了した地点からの距離と時間を計測してしまうため初期化する
         beforLon = 0.0
         beforLat = 0.0
@@ -846,7 +858,7 @@ class CycleViewController:  UIViewController,
         // ロングタップ開始
         if sender.state == .began {
             // ロングタップした住所と距離の初期化
-            tapPointTitle = ""
+            tapPointTitle = "タップした地点"
             tapStreetAddr = ""
             tapDistance = 0
             
@@ -877,13 +889,12 @@ class CycleViewController:  UIViewController,
             geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
                 if let placemarks = placemarks {
                     if let pm = placemarks.first {
-                        self.tapPointTitle = "タップした地点"
-                        self.tapStreetAddr = "〒\(pm.postalCode ?? "")\n\(pm.administrativeArea ?? "")\(pm.locality ?? "") \n\(pm.name ?? "")"
-                        // ピンのタイトルを設定する
-                        self.pointAno.title = pm.name
-                        
                         // mainスレッドで処理する
                         DispatchQueue.main.async {
+                            self.tapStreetAddr = "〒\(pm.postalCode ?? "")\n\(pm.administrativeArea ?? "")\(pm.locality ?? "") \n\(pm.name ?? "")"
+                            // ピンのタイトルを設定する
+                            self.pointAno.title = pm.name
+                            
                             // ロングタップした地点のViewをPopup表示する
                             self.showPointPopupView()
                         }
