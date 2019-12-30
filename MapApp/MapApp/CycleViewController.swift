@@ -771,9 +771,9 @@ class CycleViewController:  UIViewController,
     // 地点を削除する
     func deletePoint() {
         // 地図上のオーバーレイを削除
-        if nil != self.routePolyLine {
-            self.mapView.removeOverlay(self.routePolyLine)
-            self.routePolyLine = nil
+        if nil != routePolyLine {
+            mapView.removeOverlay(self.routePolyLine)
+            routePolyLine = nil
         }
         mapView.removeAnnotation(pointAno)
         pointAno.coordinate.longitude = 0

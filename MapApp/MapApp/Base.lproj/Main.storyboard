@@ -522,6 +522,9 @@
                                 <state key="normal" title="地点削除">
                                     <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnDelPointThouchDown:" destination="PQu-wF-bHb" eventType="touchDown" id="kMM-64-gum"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>

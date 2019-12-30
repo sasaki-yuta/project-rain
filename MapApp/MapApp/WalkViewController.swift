@@ -446,6 +446,28 @@ class WalkViewController:   UIViewController,
         }
     }
     
+    // 地点の有無を確認する
+    func isExistPoint() -> Bool {
+        var retVal: Bool = false
+        if (0 != pointAno.coordinate.latitude) && (0 != pointAno.coordinate.longitude) {
+            retVal = true
+        }
+        return retVal
+    }
+    
+    // 地点を削除する
+    func deletePoint() {
+        // 地図上のオーバーレイを削除
+        if nil != routePolyLine {
+            mapView.removeOverlay(self.routePolyLine)
+            routePolyLine = nil
+        }
+        mapView.removeAnnotation(pointAno)
+        pointAno.coordinate.longitude = 0
+        pointAno.coordinate.latitude = 0
+    }
+
+    
     //==================================================================
     // WatchOSとのデータ通信
     //==================================================================
