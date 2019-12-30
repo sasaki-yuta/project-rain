@@ -1095,20 +1095,5 @@ extension CycleViewController : MKMapViewDelegate {
 
         // ボタンや画像など独自のピンを作成する場合は、下記を有効にして更新する
         return nil
-                
-        // アノテーションビューを生成する。
-        let testView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
-        // 吹き出しを表示可能にする。
-        testView.canShowCallout = true
-
-        // 経路ボタンをアノテーションビューに追加する。
-        let button = UIButton()
-        button.frame = CGRect(x: 0,y: 0,width: 40,height: 30)
-        button.setTitle("経路", for: .normal)
-        button.backgroundColor = UIColor.blue
-        button.setTitleColor(UIColor.white, for:.highlighted)
-        testView.rightCalloutAccessoryView = button
-        
-        return testView
     }
 }

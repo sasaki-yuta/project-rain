@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -389,12 +388,17 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="cU6-e8-2As">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="1jO-vb-Btv" appends="YES" id="bvF-GW-M4M"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ELB-hu-3oX"/>
                     </view>
                     <connections>
+                        <outlet property="longPressGesRec" destination="1jO-vb-Btv" id="4A1-ai-SuE"/>
                         <outlet property="mapView" destination="cU6-e8-2As" id="Gd8-2i-HX9"/>
                         <outlet property="mapViewTypeOver" destination="pcK-g2-kpj" id="28S-EA-uhP"/>
                         <segue destination="6Pg-YZ-Fts" kind="presentation" identifier="toCycleViewFromWalk" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="bG3-3c-3h4"/>
@@ -402,6 +406,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jpa-90-wqP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="1jO-vb-Btv">
+                    <connections>
+                        <action selector="mapViewDidLongPress:" destination="2XO-JZ-fI6" id="9EB-xF-x8v"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="40.799999999999997" y="1503.6945812807883"/>
         </scene>
@@ -537,21 +546,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dwH-h1-IMW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="902" y="1504"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="EHo-49-9LI">
-            <objects>
-                <viewController id="Ks2-mO-dL0" sceneMemberID="viewController">
-                    <view key="view" alpha="0.90000000000000002" contentMode="scaleToFill" id="cwK-fW-p6H">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="2Ws-FY-FDq"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aEI-LP-KVk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2726" y="1504"/>
         </scene>
         <!--Menu Cycle View Controller-->
         <scene sceneID="kI9-k7-rLa">
@@ -959,11 +953,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dF4-oc-d48" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2726" y="780"/>
+            <point key="canvasLocation" x="2742" y="1168"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ZTp-PD-svD"/>
+        <segue reference="Uz6-gb-i5J"/>
         <segue reference="bG3-3c-3h4"/>
         <segue reference="1bs-VB-7UU"/>
     </inferredMetricsTieBreakers>

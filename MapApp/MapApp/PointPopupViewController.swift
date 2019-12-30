@@ -48,14 +48,24 @@ class PointPopupViewController: UIViewController {
 
         // タップした地点の名称を表示する
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        lblTitle.text = appDelegate.cycleViewController.getTapPointTitle().description
+        if .MODE_CYCLE == appDelegate.nowMapMode {
+            lblTitle.text = appDelegate.cycleViewController.getTapPointTitle().description
+            lblDistance.text = appDelegate.cycleViewController.getTapDistance().description
+            lblStreetAddr.text = "住所 \n" + appDelegate.cycleViewController.getTapStreetAddr().description
+        }
+        else if .MODE_WALK == appDelegate.nowMapMode {
+            lblTitle.text = appDelegate.walkViewController.getTapPointTitle().description
+            lblDistance.text = appDelegate.walkViewController.getTapDistance().description
+            lblStreetAddr.text = "住所 \n" + appDelegate.walkViewController.getTapStreetAddr().description
+        }
+        else {
+            lblTitle.text = "地点"
+            lblDistance.text = "距離 - "
+            lblStreetAddr.text = "住所 \n"
+        }
+        
         self.view.addSubview(lblTitle)
-
-        // 距離、住所を表示する
-        lblDistance.text = appDelegate.cycleViewController.getTapDistance().description
         self.view.addSubview(lblDistance)
-
-        lblStreetAddr.text = "住所 \n" + appDelegate.cycleViewController.getTapStreetAddr().description
         self.view.addSubview(lblStreetAddr)
     }
     
@@ -63,6 +73,14 @@ class PointPopupViewController: UIViewController {
     @IBAction func btnRouteSearch(_ sender: Any)
     {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.cycleViewController.routeSearch()
+        if .MODE_CYCLE == appDelegate.nowMapMode {
+            appDelegate.cycleViewController.routeSearch()
+        }
+        else if .MODE_WALK == appDelegate.nowMapMode {
+            appDelegate.walkViewController.routeSearch()
+        }
+        else {
+            // 処理なし
+        }
     }
 }
