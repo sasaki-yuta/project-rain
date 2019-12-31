@@ -393,6 +393,11 @@
                                     <outletCollection property="gestureRecognizers" destination="1jO-vb-Btv" appends="YES" id="bvF-GW-M4M"/>
                                 </connections>
                             </mapView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ahZ-cT-1zn">
+                                <rect key="frame" x="0.0" y="718" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ELB-hu-3oX"/>
@@ -401,6 +406,7 @@
                         <outlet property="longPressGesRec" destination="1jO-vb-Btv" id="4A1-ai-SuE"/>
                         <outlet property="mapView" destination="cU6-e8-2As" id="Gd8-2i-HX9"/>
                         <outlet property="mapViewTypeOver" destination="pcK-g2-kpj" id="28S-EA-uhP"/>
+                        <outlet property="searchBar" destination="ahZ-cT-1zn" id="Tdc-zN-frP"/>
                         <segue destination="6Pg-YZ-Fts" kind="presentation" identifier="toCycleViewFromWalk" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="bG3-3c-3h4"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="toGolfViewFromWalk" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="1bs-VB-7UU"/>
                     </connections>

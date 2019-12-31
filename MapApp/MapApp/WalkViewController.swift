@@ -23,11 +23,13 @@ class MapAnnotationWalk: MKPointAnnotation {
 class WalkViewController:   UIViewController,
                             CLLocationManagerDelegate,
                             MKMapViewDelegate,
-                            UIGestureRecognizerDelegate {
+                            UIGestureRecognizerDelegate,
+                            UISearchBarDelegate {
 
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapViewTypeOver: UIButton!
     @IBOutlet var longPressGesRec: UILongPressGestureRecognizer!
+    
     var mapViewType: UIButton!              // mapViewTypeOverのボタン本体
     var userDataManager:UserDataManager!    // UserDefaults(データバックアップ用)オブジェクト
     var locManager: CLLocationManager!      // 位置情報
@@ -44,6 +46,9 @@ class WalkViewController:   UIViewController,
     // 表示したルート
     var routePolyLine: MKPolyline!
 
+    // 検索
+    @IBOutlet var searchBar: UISearchBar!
+    var annotationList = [MapAnnotationCycle]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +88,17 @@ class WalkViewController:   UIViewController,
                 locManager.startUpdatingLocation()
             }
         }
+        
+        // KeyBordのdelegateを登録する
+        searchBar.delegate = self
+        
+        // KeyBordの表示、非表示を受け取る設定
+        let notification = NotificationCenter.default
+        notification.addObserver(self, selector: #selector(keyboardWillShow(_:)),
+                                 name: UIResponder.keyboardWillShowNotification, object: nil)
+        notification.addObserver(self, selector: #selector(keyboardWillHide(_:)),
+                                 name: UIResponder.keyboardWillHideNotification, object: nil)
+
         
         initMap()
     }
@@ -176,6 +192,10 @@ class WalkViewController:   UIViewController,
         scale.frame.origin.y = 45
         scale.legendAlignment = .leading
         self.view.addSubview(scale)
+        
+        // 検索フィールドの位置
+        searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
+        self.view.addSubview(searchBar)
         
         // 地図Typeに合わせて情報の色を変更する
         changeMapType()
@@ -465,6 +485,75 @@ class WalkViewController:   UIViewController,
         mapView.removeAnnotation(pointAno)
         pointAno.coordinate.longitude = 0
         pointAno.coordinate.latitude = 0
+    }
+
+    
+    //==================================================================
+    // テキストフィールド
+    //==================================================================
+    // テキストフィールドをタップ後、入力状態になる前
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+
+    //検索ボタン押下時の呼び出しメソッド
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // キーボードを戻す
+        searchBar.resignFirstResponder()
+        
+        if 0 < annotationList.count {
+            // 前回検索したアノテーションを削除する
+            mapView.removeAnnotations(annotationList)
+        }
+
+        if "" == searchBar.text {
+            return
+        }
+
+        //検索条件を作成する。
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchBar.text
+        
+        //検索範囲はマップビューと同じにする。
+        request.region = mapView.region
+        
+        //ローカル検索を実行する。
+        let localSearch:MKLocalSearch = MKLocalSearch(request: request)
+        localSearch.start(completionHandler: {(result, error) in
+            for placemark in (result?.mapItems)! {
+                if(error == nil) {
+                    //検索された場所にピンを刺す。
+                    let annotation = MapAnnotationCycle()
+                    annotation.coordinate =     CLLocationCoordinate2DMake(placemark.placemark.coordinate.latitude, placemark.placemark.coordinate.longitude)
+                    annotation.title = placemark.placemark.name
+                    annotation.subtitle = placemark.placemark.title
+                    self.annotationList.append(annotation)
+                    self.mapView.addAnnotation(annotation)
+                }
+                else {
+                    //エラー
+                    print(error.debugDescription)
+                }
+            }
+        })
+    }
+
+    // キーボードが表示された時
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let rect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
+        UIView.animate(withDuration: duration) {
+            let transform = CGAffineTransform(translationX: 0, y: -(rect.size.height))
+            self.view.transform = transform
+        }
+    }
+
+    // キーボードが消去された時
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? TimeInterval else { return }
+        UIView.animate(withDuration: duration) {
+            self.view.transform = CGAffineTransform.identity
+        }
     }
 
     
