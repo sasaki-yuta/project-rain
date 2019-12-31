@@ -520,19 +520,21 @@ class WalkViewController:   UIViewController,
         //ローカル検索を実行する。
         let localSearch:MKLocalSearch = MKLocalSearch(request: request)
         localSearch.start(completionHandler: {(result, error) in
-            for placemark in (result?.mapItems)! {
-                if(error == nil) {
-                    //検索された場所にピンを刺す。
-                    let annotation = MapAnnotationCycle()
-                    annotation.coordinate =     CLLocationCoordinate2DMake(placemark.placemark.coordinate.latitude, placemark.placemark.coordinate.longitude)
-                    annotation.title = placemark.placemark.name
-                    annotation.subtitle = placemark.placemark.title
-                    self.annotationList.append(annotation)
-                    self.mapView.addAnnotation(annotation)
-                }
-                else {
-                    //エラー
-                    print(error.debugDescription)
+            if nil != result {
+                for placemark in (result?.mapItems)! {
+                    if(error == nil) {
+                        //検索された場所にピンを刺す。
+                        let annotation = MapAnnotationCycle()
+                        annotation.coordinate =     CLLocationCoordinate2DMake(placemark.placemark.coordinate.latitude, placemark.placemark.coordinate.longitude)
+                        annotation.title = placemark.placemark.name
+                        annotation.subtitle = placemark.placemark.title
+                        self.annotationList.append(annotation)
+                        self.mapView.addAnnotation(annotation)
+                    }
+                    else {
+                        //エラー
+                        print(error.debugDescription)
+                    }
                 }
             }
         })
