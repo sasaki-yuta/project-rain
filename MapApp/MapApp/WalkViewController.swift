@@ -129,7 +129,7 @@ class WalkViewController:   UIViewController,
         userDataManager.roadData()
         
         // 前回のMapTypeをUserDataから取得してMapViewに設定する
-///        setMapType(userDataManager.getCycleMapType())
+        setMapType(userDataManager.getWalkMapType())
 
         // デバイスの画面サイズを取得する
         let dispSize: CGSize = UIScreen.main.bounds.size

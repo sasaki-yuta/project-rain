@@ -327,7 +327,7 @@ class MenuWalkViewController: UIViewController {
         appDelegate.walkViewController.setMapType(.standard)
         appDelegate.walkViewController.changeMapType()
         // 地図TypeをUserDataに保存する
-///        appDelegate.userDataManager.saveWalkMapType(.standard)
+        appDelegate.userDataManager.saveWalkMapType(.standard)
 
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .white
@@ -346,7 +346,7 @@ class MenuWalkViewController: UIViewController {
         appDelegate.walkViewController.setMapType(.satellite)
         appDelegate.walkViewController.changeMapType()
         // 地図TypeをUserDataに保存する
-///        appDelegate.userDataManager.saveWalkMapType(.satellite)
+        appDelegate.userDataManager.saveWalkMapType(.satellite)
 
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .black
@@ -365,7 +365,7 @@ class MenuWalkViewController: UIViewController {
         appDelegate.walkViewController.setMapType(.hybrid)
         appDelegate.walkViewController.changeMapType()
         // 地図TypeをUserDataに保存する
-///        appDelegate.userDataManager.saveWalkMapType(.hybrid)
+        appDelegate.userDataManager.saveWalkMapType(.hybrid)
         
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .black
@@ -384,7 +384,7 @@ class MenuWalkViewController: UIViewController {
         appDelegate.walkViewController.setMapType(.mutedStandard)
         appDelegate.walkViewController.changeMapType()
         // 地図TypeをUserDataに保存する
-///        appDelegate.userDataManager.saveWalkMapType(.mutedStandard)
+        appDelegate.userDataManager.saveWalkMapType(.mutedStandard)
         
         // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
         menuView.backgroundColor = .white

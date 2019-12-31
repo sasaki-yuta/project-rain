@@ -51,7 +51,14 @@ class UserDataManager: NSObject {
     // 走行履歴
     var runOverlays: [MKOverlay] = []
     
-
+    
+    //=======================================================
+    // Walkモード変数
+    //=======================================================
+    // MapType(データバックアップ用：即時書き込み(saveのみでsetメソッドはない))
+    var walkMapType: UInt = MKMapType.standard.rawValue
+    
+    
     //=======================================================
     // 共通メソッド
     //=======================================================
@@ -66,6 +73,8 @@ class UserDataManager: NSObject {
         userDefaults.register(defaults: ["totalDrivingTime": 0.0])
         userDefaults.register(defaults: ["timeInterval": 5])
         userDefaults.register(defaults: ["accuracy": 20])
+        // Walkモード
+        userDefaults.register(defaults: ["walkMapType": MKMapType.standard.rawValue])
     }
     
     // 全データ読み込み
@@ -84,6 +93,8 @@ class UserDataManager: NSObject {
         isTimeInterval = timeInterval
         accuracy = userDefaults.object(forKey: "accuracy") as! Int
         isAccuracy = accuracy
+        // Walkモード
+        walkMapType = userDefaults.object(forKey: "walkMapType") as! UInt
     }
     
     // 全データ保存
@@ -273,5 +284,22 @@ class UserDataManager: NSObject {
     func getOverlays() -> [MKOverlay] {
         return runOverlays
     }
+    
+    
+    //=======================================================
+    // Walkモードメソッド
+    //=======================================================
+    // Walkモードの地図Typeを保存
+    func saveWalkMapType(_ type: MKMapType) {
+        walkMapType = type.rawValue
+        userDefaults.set(walkMapType, forKey: "walkMapType")
+        userDefaults.synchronize()
+    }
+    
+    // Walkモードの地図Typeを取得
+    func getWalkMapType() -> MKMapType {
+        return MKMapType.init(rawValue: walkMapType)!
+    }
+    
 }
 
