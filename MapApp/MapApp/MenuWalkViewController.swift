@@ -174,6 +174,17 @@ class MenuWalkViewController: UIViewController {
         )
         
         // ボタンのアニメーション
+        let lblMapTypePos = lblMapType.layer.position
+        lblMapType.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.lblMapType.layer.position.x = lblMapTypePos.x},
+            completion: {bool in}
+        )
+        
+        // ボタンのアニメーション
         let btnStaPos = btnStandard.layer.position
         btnStandard.layer.position.x = -self.menuView.frame.width
         UIView.animate(
@@ -214,6 +225,16 @@ class MenuWalkViewController: UIViewController {
             completion: {bool in}
         )
 
+        let lblMapModePos = lblMapMode.layer.position
+        lblMapMode.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.lblMapMode.layer.position.x = lblMapModePos.x},
+            completion: {bool in}
+        )
+
         let btnGolfModePos = btnGolfMode.layer.position
         btnGolfMode.layer.position.x = -self.menuView.frame.width
         UIView.animate(
@@ -243,7 +264,17 @@ class MenuWalkViewController: UIViewController {
             animations: {self.btnWalkMode.layer.position.x = btnWalkModePos.x},
             completion: {bool in}
         )
-                
+        
+        let lblFunkPos = lblFunk.layer.position
+        lblFunk.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.lblFunk.layer.position.x = lblFunkPos.x},
+            completion: {bool in}
+        )
+        
         let btnDelPst = btnDelPnt.layer.position
         btnDelPnt.layer.position.x = -self.menuView.frame.width
         UIView.animate(
@@ -267,13 +298,16 @@ class MenuWalkViewController: UIViewController {
                     options: .curveEaseIn,
                     animations: {
                         self.menuView.layer.position.x = -self.menuView.frame.width
+                        self.lblMapType.layer.position.x = -self.menuView.frame.width
                         self.btnStandard.layer.position.x = -self.menuView.frame.width
                         self.btnSatellite.layer.position.x = -self.menuView.frame.width
                         self.btnHybrid.layer.position.x = -self.menuView.frame.width
                         self.btnMutedStandard.layer.position.x = -self.menuView.frame.width
+                        self.lblMapMode.layer.position.x = -self.menuView.frame.width
                         self.btnGolfMode.layer.position.x = -self.menuView.frame.width
                         self.btnCycleMode.layer.position.x = -self.menuView.frame.width
                         self.btnWalkMode.layer.position.x = -self.menuView.frame.width
+                        self.lblFunk.layer.position.x = -self.menuView.frame.width
                         self.btnDelPnt.layer.position.x = -self.menuView.frame.width
                     },
                     completion: {
