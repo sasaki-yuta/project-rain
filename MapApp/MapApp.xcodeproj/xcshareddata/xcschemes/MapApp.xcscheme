@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9B107B642217D74A006971FF"
-               BuildableName = "&#x30de;&#x30c3;&#x30d5;&#x309a;de&#x30e2;&#x30fc;&#x30c8;&#x3099;.app"
+               BuildableName = "Map Mode.app"
                BlueprintName = "MapApp"
                ReferencedContainer = "container:MapApp.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B107B642217D74A006971FF"
-            BuildableName = "&#x30de;&#x30c3;&#x30d5;&#x309a;de&#x30e2;&#x30fc;&#x30c8;&#x3099;.app"
+            BuildableName = "Map Mode.app"
             BlueprintName = "MapApp"
             ReferencedContainer = "container:MapApp.xcodeproj">
          </BuildableReference>
@@ -82,7 +82,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B107B642217D74A006971FF"
-            BuildableName = "&#x30de;&#x30c3;&#x30d5;&#x309a;de&#x30e2;&#x30fc;&#x30c8;&#x3099;.app"
+            BuildableName = "Map Mode.app"
             BlueprintName = "MapApp"
             ReferencedContainer = "container:MapApp.xcodeproj">
          </BuildableReference>

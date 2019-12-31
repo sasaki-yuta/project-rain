@@ -540,10 +540,19 @@ class WalkViewController:   UIViewController,
 
     // キーボードが表示された時
     @objc private func keyboardWillShow(_ notification: Notification) {
-        guard let rect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
-            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
+        guard let userInfo = notification.userInfo as? [String: Any] else {
+            return
+        }
+        guard let keyboardInfo = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
+            return
+        }
+        let keyboardSize = keyboardInfo.cgRectValue.size
+
         UIView.animate(withDuration: duration) {
-            let transform = CGAffineTransform(translationX: 0, y: -(rect.size.height))
+            let transform = CGAffineTransform(translationX: 0, y: -(keyboardSize.height))
             self.view.transform = transform
         }
     }

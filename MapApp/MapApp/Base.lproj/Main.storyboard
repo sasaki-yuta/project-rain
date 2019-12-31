@@ -10,7 +10,7 @@
         <!--Golf Mode-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="Golf Mode" customClass="ViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="Golf Mode" customClass="ViewController" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,7 +54,7 @@
         <!--Menu View Controller-->
         <scene sceneID="9QP-iq-hrk">
             <objects>
-                <viewController modalPresentationStyle="overCurrentContext" id="e3M-bM-kPo" customClass="MenuViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overCurrentContext" id="e3M-bM-kPo" customClass="MenuViewController" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="1" contentMode="scaleToFill" id="Zhh-y2-bh8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -204,7 +204,7 @@
         <!--Cycle Mode-->
         <scene sceneID="TQt-WA-Qpk">
             <objects>
-                <viewController storyboardIdentifier="cycleView" id="6Pg-YZ-Fts" userLabel="Cycle Mode" customClass="CycleViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="cycleView" id="6Pg-YZ-Fts" userLabel="Cycle Mode" customClass="CycleViewController" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aHe-IX-xaL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -373,7 +373,7 @@
         <!--Walk View Controller-->
         <scene sceneID="xh3-vk-gAg">
             <objects>
-                <viewController id="2XO-JZ-fI6" customClass="WalkViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2XO-JZ-fI6" customClass="WalkViewController" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l88-zJ-F8K">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -423,7 +423,7 @@
         <!--Menu Walk View Controller-->
         <scene sceneID="hgr-0U-Sv5">
             <objects>
-                <viewController id="PQu-wF-bHb" customClass="MenuWalkViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="PQu-wF-bHb" customClass="MenuWalkViewController" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="1" contentMode="scaleToFill" id="7o8-Z8-qKA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -559,7 +559,7 @@
         <!--Menu Cycle View Controller-->
         <scene sceneID="kI9-k7-rLa">
             <objects>
-                <viewController id="XDJ-3x-kia" customClass="MenuCycleViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XDJ-3x-kia" customClass="MenuCycleViewController" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="1" contentMode="scaleToFill" id="uMQ-gv-0aB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -744,7 +744,7 @@
         <!--Cycle Setting View Controller-->
         <scene sceneID="cQa-gJ-ylN">
             <objects>
-                <viewController id="nfm-ch-Uh5" customClass="CycleSettingViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nfm-ch-Uh5" customClass="CycleSettingViewController" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uRc-Xk-xfV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -915,7 +915,7 @@
         <!--Point Popup View Controller-->
         <scene sceneID="MTj-OQ-eUG">
             <objects>
-                <viewController storyboardIdentifier="PointPopupViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6mh-EC-2RU" customClass="PointPopupViewController" customModule="マップdeモード" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PointPopupViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6mh-EC-2RU" customClass="PointPopupViewController" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" alpha="0.90000000000000002" contentMode="scaleToFill" id="1ds-V3-odd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
