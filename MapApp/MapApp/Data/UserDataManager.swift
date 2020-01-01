@@ -482,7 +482,7 @@ class UserDataManager: NSObject {
     }
     
     // Max速度の設定
-    func seWalktMaxSpeed(_ speed: Double) {
+    func setWalktMaxSpeed(_ speed: Double) {
         dWalkMaxSpeed = speed
     }
     // MAX速度の取得

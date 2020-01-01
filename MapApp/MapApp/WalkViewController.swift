@@ -50,6 +50,56 @@ class WalkViewController:   UIViewController,
     @IBOutlet var searchBar: UISearchBar!
     var annotationList = [MapAnnotationCycle]()
     
+    //========================================================================
+    // 計測
+    //========================================================================
+    // 計測中？
+    var isStarting: Bool! = false
+    // 速度
+    @IBOutlet var speed: UILabel!
+    @IBOutlet var lblSpeed: UILabel!
+    // 平均速度
+    var avgSumSpeed: Double! = 0.0
+    var avgSumCount: Int! = 0
+    @IBOutlet var avgSpeed: UILabel!
+    @IBOutlet var lblAvgSpeed: UILabel!
+    // MAX速度
+    var dMaxSpeed: Double! = 0.0
+    @IBOutlet var maxSpeed: UILabel!
+    @IBOutlet var lblMaxSpeed: UILabel!
+    // 速度表示切り替えボタン
+    @IBOutlet var speedDispChange: UIButton!
+    
+    // 走行時間
+    var beforSinRef: Double! = 0.0
+    var dDrivingTime: Double! = 0.0
+    @IBOutlet var drivingTime: UILabel!
+    @IBOutlet var lblDrivingTime: UILabel!
+
+    // 走行距離
+    var beforLon: Double! = 0.0
+    var beforLat: Double! = 0.0
+    var dDrivingDist: Double! = 0.0
+    @IBOutlet var drivingDist: UILabel!
+    @IBOutlet var lblDrivingDist: UILabel!
+
+    // 累計MAX速度
+    var dTotalMaxSpeed: Double! = 0.0
+    // 累計走行距離
+    var dTotalDrivingDist: Double! = 0.0
+    // 累計走行時間
+    var dTotalDrivingTime: Double! = 0.0
+
+    // bar
+    @IBOutlet var lbar1: UILabel!
+    @IBOutlet var lbar2: UILabel!
+    @IBOutlet var lbar4: UILabel!
+    
+    // GPS誤差補正
+    var timeInterval: Int = 0
+    var accuracy: Int = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -267,22 +317,51 @@ class WalkViewController:   UIViewController,
         self.performSegue(withIdentifier: "toCycleSettingFromWalk", sender: nil)
     }
     
-/// 未実装↓
     // 累計データを消去する
     func deleteData() {
         self.userDataManager.deleteWalkData()
-
-
-
+        dTotalMaxSpeed = 0.0
+        dTotalDrivingDist = 0.0
+        dTotalDrivingTime = 0.0
     }
     
     // 計測を開始する
     func walkStart() {
         // 計測中にだけバックグラウンドでの位置情報更新を許可する
         locManager.allowsBackgroundLocationUpdates = true
+                
+        // 平均速度
+        avgSumSpeed = 0.0
+        avgSumCount = 0
+        // 走行距離
+        beforLon = 0.0
+        beforLat = 0.0
+        dDrivingDist = 0.0
+        // 走行時間
+        beforSinRef = 0.0
+        dDrivingTime = 0.0
+        // MAX速度
+        dMaxSpeed = 0.0
+
+        // 速度
+        speed.text = "0.0"
+        // 平均速度
+        avgSpeed.text = "0.0"
+        // 走行距離
+        drivingDist.text = "0.0"
+        // 走行時間
+        drivingTime.text = "00:00:00"
+        // MAX速度
+        maxSpeed.text = "0.0"
+
+        isStarting = true
         
-        
-        
+        // オーバーレイを全て削除する
+        mapView.removeOverlays(mapView.overlays)
+        // ルートがあれば再描画する
+        if nil != routePolyLine {
+            mapView.addOverlay(routePolyLine)
+        }
     }
     
     // 計測を再開する
@@ -290,7 +369,7 @@ class WalkViewController:   UIViewController,
         // 計測中にだけバックグラウンドでの位置情報更新を許可する
         locManager.allowsBackgroundLocationUpdates = true
         
-        
+        self.isStarting = true
     }
     
     // 計測を中断する
@@ -298,7 +377,46 @@ class WalkViewController:   UIViewController,
         // 計測中にだけバックグラウンドでの位置情報更新を許可する
         locManager.allowsBackgroundLocationUpdates = false
         
+        // 再開した時に/終了した地点からの距離と時間を計測してしまうため初期化する
+        beforLon = 0.0
+        beforLat = 0.0
+        beforSinRef = 0.0
         
+        // 計測中状態を更新
+        isStarting = false
+        
+        // 累計データを保存する
+        userDataManager.saveWalkData()
+        // 中断、終了したデータを保存する
+        saveWalkData()
+    }
+    
+    // 計測中断、終了したデータをViewを切り替えても表示できる様に保存する
+    func saveWalkData() {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.userDataManager.setAvgWalkSumSpeed(avgSumSpeed, avgSumCount)
+        appDelegate.userDataManager.setWalkDrivingDist(dDrivingDist)
+        appDelegate.userDataManager.setWalkDrivingTime(dDrivingTime)
+        appDelegate.userDataManager.setWalktMaxSpeed(dMaxSpeed)
+        // 走行履歴を保存する
+        saveMapOverlays()
+    }
+    
+    // 走行履歴を保存する
+    func saveMapOverlays() {
+        // 画面表示時にルートも復帰されるため、setOverlaysにルートを保存しない様に一時的に削除する
+        if nil != routePolyLine {
+            mapView.removeOverlay(routePolyLine)
+        }
+        
+        // 走行履歴を保存する
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.userDataManager.setWalkOverlays(mapView.overlays)
+        
+        // ルートを復活する
+        if nil != routePolyLine {
+            mapView.addOverlay(routePolyLine)
+        }
     }
 
     // 計測を終了する
@@ -306,9 +424,19 @@ class WalkViewController:   UIViewController,
         // 計測中にだけバックグラウンドでの位置情報更新を許可する
         locManager.allowsBackgroundLocationUpdates = false
 
+        // 再開した時に/終了した地点からの距離と時間を計測してしまうため初期化する
+        beforLon = 0.0
+        beforLat = 0.0
+        beforSinRef = 0.0
+
+        // 計測中状態を更新
+        isStarting = false
         
+        // 累計データを保存する
+        userDataManager.saveWalkData()
+        // 中断、終了したデータを保存する
+        saveWalkData()
     }
-/// 未実装↑
 
     
     //==================================================================

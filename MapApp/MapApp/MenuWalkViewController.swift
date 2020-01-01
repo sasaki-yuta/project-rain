@@ -560,5 +560,4 @@ class MenuWalkViewController: UIViewController {
         // 計測を終了する
         appDelegate.walkViewController.walkEnd()
     }
-
 }
