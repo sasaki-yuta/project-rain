@@ -11,6 +11,9 @@ import UIKit
 import MapKit
 
 class UserDataManager: NSObject {
+    // UserDefaults(データバックアップ用:特定タイミングで書き込み)
+    let userDefaults = UserDefaults.standard
+
     //=======================================================
     // Golfeモード変数
     //=======================================================
@@ -23,8 +26,6 @@ class UserDataManager: NSObject {
     // MapType(データバックアップ用：即時書き込み(saveのみでsetメソッドはない))
     var cycleMapType: UInt = MKMapType.standard.rawValue
     
-    // UserDefaults(データバックアップ用:特定タイミングで書き込み)
-    let userDefaults = UserDefaults.standard
     var totalMaxSpeed: Double = 0.0
     var totalDrivingDist: Double = 0.0
     var totalDrivingTime: Double = 0.0
@@ -58,6 +59,32 @@ class UserDataManager: NSObject {
     // MapType(データバックアップ用：即時書き込み(saveのみでsetメソッドはない))
     var walkMapType: UInt = MKMapType.standard.rawValue
     
+    var totalWalkMaxSpeed: Double = 0.0
+    var totalWalkDrivingDist: Double = 0.0
+    var totalWalkDrivingTime: Double = 0.0
+    var timeWalkInterval: Int = 5   // 初期値5秒
+    var accuracyWalk: Int = 20      // 初期値20m
+
+    // UserDataに変化があるか判断するための変数
+    var isWalkMSpeed: Double = 0.0
+    var isWalkTDist: Double = 0.0
+    var isWalkTTime: Double = 0.0
+    var isWalkTimeInterval: Int = 5 // 初期値5秒
+    var isWalkAccuracy: Int = 20    // 初期値20m
+
+    // 計測中のデータをアプリ起動中は保持する
+    // 平均速度
+    var avgWalkSumSpeed: Double! = 0.0
+    var avgWalkSumCount: Int! = 0
+    // 走行距離
+    var dWalkDrivingDist: Double! = 0.0
+    // 走行時間
+    var dWalkDrivingTime: Double! = 0.0
+    // MAX速度
+    var dWalkMaxSpeed: Double! = 0.0
+    // 走行履歴
+    var runWalkOverlays: [MKOverlay] = []
+    
     
     //=======================================================
     // 共通メソッド
@@ -75,6 +102,11 @@ class UserDataManager: NSObject {
         userDefaults.register(defaults: ["accuracy": 20])
         // Walkモード
         userDefaults.register(defaults: ["walkMapType": MKMapType.standard.rawValue])
+        userDefaults.register(defaults: ["totalWalkMaxSpeed": 0.0])
+        userDefaults.register(defaults: ["totalWalkDrivingDist": 0.0])
+        userDefaults.register(defaults: ["totalWalkDrivingTime": 0.0])
+        userDefaults.register(defaults: ["timeWalkInterval": 5])
+        userDefaults.register(defaults: ["accuracyWalk": 20])
     }
     
     // 全データ読み込み
@@ -95,18 +127,26 @@ class UserDataManager: NSObject {
         isAccuracy = accuracy
         // Walkモード
         walkMapType = userDefaults.object(forKey: "walkMapType") as! UInt
+        totalWalkMaxSpeed = userDefaults.object(forKey: "totalWalkMaxSpeed") as! Double
+        isWalkMSpeed = totalWalkMaxSpeed
+        totalWalkDrivingDist = userDefaults.object(forKey: "totalWalkDrivingDist") as! Double
+        isWalkTDist = totalWalkDrivingDist
+        totalWalkDrivingTime = userDefaults.object(forKey: "totalWalkDrivingTime") as! Double
+        isWalkTTime = totalWalkDrivingTime
+        timeWalkInterval = userDefaults.object(forKey: "timeWalkInterval") as! Int
+        isWalkTimeInterval = timeWalkInterval
+        accuracyWalk = userDefaults.object(forKey: "accuracyWalk") as! Int
+        isWalkAccuracy = accuracyWalk
     }
     
     // 全データ保存
     func saveData() {
         // Cycleデータ保存
         saveCycleData()
+        // Walkデータ保存
+        saveWalkData()
     }
-    
-    // 累計最高速度の取得
-    func getTotalMaxSpeed() -> Double {
-        return totalMaxSpeed
-    }
+
 
     //=======================================================
     // Golfモードメソッド
@@ -123,6 +163,7 @@ class UserDataManager: NSObject {
         return MKMapType.init(rawValue: golfMapType)!
     }
     
+    
     //=======================================================
     // Cycleモードメソッド
     //=======================================================
@@ -136,6 +177,11 @@ class UserDataManager: NSObject {
     // Cycleモードの地図Typeを取得
     func getCycleMapType() -> MKMapType {
         return MKMapType.init(rawValue: cycleMapType)!
+    }
+    
+    // 累計最高速度の取得
+    func getTotalMaxSpeed() -> Double {
+        return totalMaxSpeed
     }
     
     // 累計最高速度の設定
@@ -300,6 +346,157 @@ class UserDataManager: NSObject {
     func getWalkMapType() -> MKMapType {
         return MKMapType.init(rawValue: walkMapType)!
     }
+
+    // 累計最高速度の取得
+    func getTotalWalkMaxSpeed() -> Double {
+        return totalWalkMaxSpeed
+    }
     
+    // 累計最高速度の設定
+    func setTotalWalkMaxSpeed(_ speed: Double) {
+        totalWalkMaxSpeed = speed
+    }
+    
+    // 累計走行距離の取得
+    func getTotalWalkDrivingDist() -> Double {
+        return totalWalkDrivingDist
+    }
+    
+    // 累計走行距離の設定
+    func setTotalWalkDrivingDist(_ dist: Double) {
+        totalWalkDrivingDist = dist
+    }
+    
+    // 累計走行時間の取得
+    func getTotalWalkDrivingTime() -> Double {
+        return totalWalkDrivingTime
+    }
+    
+    // 累計走行時間の設定
+    func setTotalWalkDrivingTime(_ time: Double) {
+        totalWalkDrivingTime = time
+    }
+
+    // 累計走行時間の取得
+    func getTimeWalkInterval() -> Int {
+        return timeWalkInterval
+    }
+    
+    // 累計走行時間の設定
+    func setTimeWalkInterval(_ Interval: Int) {
+        timeWalkInterval = Interval
+    }
+
+    // 累計走行時間の取得
+    func getAccuracyWalk() -> Int {
+        return accuracyWalk
+    }
+    
+    // 累計走行時間の設定
+    func setAccuracyWalk(_ acr: Int) {
+        accuracyWalk = acr
+    }
+
+    // Cycleデータ保存
+    func saveWalkData() {
+        var isSync = false
+        if isWalkMSpeed != totalWalkMaxSpeed {
+            userDefaults.set(totalWalkMaxSpeed, forKey: "totalWalkMaxSpeed")
+            isWalkMSpeed = totalWalkMaxSpeed
+            isSync = true
+        }
+        if isWalkTDist != totalWalkDrivingDist {
+            userDefaults.set(totalWalkDrivingDist, forKey: "totalWalkDrivingDist")
+            isWalkTDist = totalWalkDrivingDist
+            isSync = true
+        }
+        if isWalkTTime != totalWalkDrivingTime {
+            userDefaults.set(totalWalkDrivingTime, forKey: "totalWalkDrivingTime")
+            isWalkTTime = totalWalkDrivingTime
+            isSync = true
+        }
+        if isWalkTimeInterval != timeWalkInterval {
+            userDefaults.set(timeWalkInterval, forKey: "timeWalkInterval")
+            isWalkTimeInterval = timeWalkInterval
+            isSync = true
+        }
+        if isWalkAccuracy != accuracyWalk {
+            userDefaults.set(accuracyWalk, forKey: "accuracyWalk")
+            isWalkAccuracy = accuracyWalk
+            isSync = true
+        }
+        if true == isSync {
+            userDefaults.synchronize()
+        }
+    }
+    
+    // Cycleデータ消去
+    func deleteWalkData() {
+        totalWalkMaxSpeed = 0.0
+        totalWalkDrivingDist = 0.0
+        totalWalkDrivingTime = 0.0
+        userDefaults.set(0.0, forKey: "totalWalkMaxSpeed")
+        userDefaults.set(0.0, forKey: "totalWalkDrivingDist")
+        userDefaults.set(0.0, forKey: "totalWalkDrivingTime")
+        userDefaults.synchronize()
+    }
+    // Cycleデータ消去
+    func deleteWalkSetupData() {
+        timeWalkInterval = 5
+        accuracyWalk = 20
+        userDefaults.set(5, forKey: "timeWalkInterval")
+        userDefaults.set(20, forKey: "accuracyWalk")
+        userDefaults.synchronize()
+    }
+
+    // 計測中断、終了したデータを一時的に保存する
+    // 平均速度設定
+    func setAvgWalkSumSpeed(_ speed: Double, _ count: Int) {
+        avgWalkSumSpeed = speed
+        avgWalkSumCount = count
+    }
+    // 平均速度取得
+    func getAvgWalkSumSpeed() -> Double {
+        return avgWalkSumSpeed
+    }
+    func getAvgWalkSumCount() -> Int {
+        return avgWalkSumCount
+    }
+    
+    // 走行距離設定
+    func setWalkDrivingDist(_ dist: Double) {
+        dWalkDrivingDist = dist
+    }
+    // 走行距離取得
+    func getWalkDrivingDist() -> Double {
+        return dWalkDrivingDist
+    }
+    
+    // 走行時間設定
+    func setWalkDrivingTime(_ time: Double) {
+        dWalkDrivingTime = time
+    }
+    // 走行時間取得
+    func getWalkDrivingTime() -> Double {
+        return dWalkDrivingTime
+    }
+    
+    // Max速度の設定
+    func seWalktMaxSpeed(_ speed: Double) {
+        dWalkMaxSpeed = speed
+    }
+    // MAX速度の取得
+    func getWalkMaxSpeed() -> Double {
+        return dWalkMaxSpeed
+    }
+    
+    //走行履歴の保存
+    func setWalkOverlays(_ overlays: [MKOverlay]) {
+        runWalkOverlays = overlays
+    }
+    //走行履歴の取得
+    func getWalkOverlays() -> [MKOverlay] {
+        return runWalkOverlays
+    }
 }
 

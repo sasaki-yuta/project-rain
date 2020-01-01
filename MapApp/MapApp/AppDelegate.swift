@@ -15,7 +15,7 @@ enum MapMode:Int {
     case MODE_WALK
 }
 
-enum CycleState:Int {
+enum RunState:Int {
     case STATE_CLOSING
     case STATE_STARTING
     case STATE_SUSPENDED
@@ -36,10 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // 選択中のMapMode(初期値=ゴルフ)
     var nowMapMode: MapMode! = .MODE_GOLF
     // サイクル計測状態(初期値=終了)
-    var nowCycleState: CycleState! = .STATE_CLOSING
+    var nowCycleState: RunState! = .STATE_CLOSING
+    // ウォーキング計測状態(初期値=終了)
+    var nowWalkState: RunState! = .STATE_CLOSING
     // UserDefaults(データバックアップ用)オブジェクト
     var userDataManager:UserDataManager = UserDataManager()
-
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

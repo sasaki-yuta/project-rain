@@ -25,11 +25,11 @@ class MenuCycleViewController: UIViewController {
     @IBOutlet weak var btnWalkMode: UIButton!
 
     @IBOutlet weak var lblFunk: UILabel!
+    @IBOutlet weak var btnDelPnt: UIButton!
+    @IBOutlet weak var btnSetting: UIButton!
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var btnStop: UIButton!
     @IBOutlet weak var btnEnd: UIButton!
-    @IBOutlet weak var btnSetting: UIButton!
-    @IBOutlet weak var btnDelPnt: UIButton!
 
 
     override func viewDidLoad() {
@@ -197,7 +197,6 @@ class MenuCycleViewController: UIViewController {
             animations: {self.btnDelPnt.layer.position.x = btnDelPst.x},
             completion: {bool in}
         )
-
     }
     
     // メニューエリア以外タップ時の処理

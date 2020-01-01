@@ -71,15 +71,32 @@ class CycleSettingViewController:   UIViewController,
         // GPS補正ピッカーの表示
         viewPicker()
         
-        // 累計最高速度
-        let speed = appDelegate.userDataManager.getTotalMaxSpeed()
+        var speed: Double! = 0.0
+        var dist: Double! = 0.0
+        var time: Double! = 0.0
+        
+        // ゴルフモード
+        if .MODE_CYCLE == appDelegate.nowMapMode {
+            // 累計最高速度
+            speed = appDelegate.userDataManager.getTotalMaxSpeed()
+            // 累計走行距離
+            dist = appDelegate.userDataManager.getTotalDrivingDist()
+            // 累計走行時間
+            time = appDelegate.userDataManager.getTotalDrivingTime()
+        }
+        // ウォークモード
+        else {
+            // 累計最高速度
+            speed = appDelegate.userDataManager.getTotalWalkMaxSpeed()
+            // 累計走行距離
+            dist = appDelegate.userDataManager.getTotalWalkDrivingDist()
+            // 累計走行時間
+            time = appDelegate.userDataManager.getTotalWalkDrivingTime()
+        }
+        
         maxSpeed.text = speed.description
-        // 累計走行距離
-        let dist = appDelegate.userDataManager.getTotalDrivingDist()
         let tmpDist = floor((dist / 1000) * 100) / 100
         totalDist.text = tmpDist.description
-        // 累計走行時間
-        let time = appDelegate.userDataManager.getTotalDrivingTime()
         let hour = Int(time) / 3600
         let min = (Int(time) - (hour * 3600)) / 60
         let sec = Int(time) - ((hour * 3600) + (min * 60))
@@ -91,7 +108,20 @@ class CycleSettingViewController:   UIViewController,
     {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
-        let interval = appDelegate.userDataManager.getTimeInterval()
+        var interval: Int = 0
+        var interval2: Int = 0
+        
+        // ゴルフモード
+        if .MODE_CYCLE == appDelegate.nowMapMode {
+            interval = appDelegate.userDataManager.getTimeInterval()
+            interval2 = appDelegate.userDataManager.getAccuracy()
+        }
+        // ウォークモード
+        else {
+            interval = appDelegate.userDataManager.getTimeWalkInterval()
+            interval2 = appDelegate.userDataManager.getAccuracyWalk()
+        }
+
         var cnt_num = 0
         for cnt in 0 ..< lstTimeInterval.count
         {
@@ -103,7 +133,6 @@ class CycleSettingViewController:   UIViewController,
         }
         pickerTimeInterval.selectRow(cnt_num, inComponent: 0, animated: true)
         
-        let interval2 = appDelegate.userDataManager.getAccuracy()
         var cnt_num2 = 0
         for cnt in 0 ..< lstAccuracy.count
         {
@@ -120,15 +149,32 @@ class CycleSettingViewController:   UIViewController,
     // 戻るボタンを押下した時の処理
     @IBAction func btnBackThouchDown(_ sender: Any)
     {
-        // CycleViewControllerを表示する
-        self.performSegue(withIdentifier: "toCycleView", sender: nil)
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        // ゴルフモード
+        if .MODE_CYCLE == appDelegate.nowMapMode {
+            // CycleViewControllerを表示する
+            self.performSegue(withIdentifier: "toCycleView", sender: nil)
+        }
+        // ウォークモード
+        else {
+            // WalkViewControllerを表示する
+            self.performSegue(withIdentifier: "toWalkViewFromSetting", sender: nil)
+        }
     }
 
     // データ消去を押下した時の処理
     @IBAction func btnCycleDeleteThouchDown(_ sender: Any)
     {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.cycleViewController.deleteData()
+        // ゴルフモード
+        if .MODE_CYCLE == appDelegate.nowMapMode {
+            appDelegate.cycleViewController.deleteData()
+        }
+        // ウォークモード
+        else {
+            appDelegate.walkViewController.deleteData()
+        }
+
         maxSpeed.text = "0.0"
         totalDist.text = "0.0"
         totalTime.text = "00:00:00"
@@ -138,7 +184,14 @@ class CycleSettingViewController:   UIViewController,
     @IBAction func btnCycleDeleteSetupThouchDown(_ sender: Any)
     {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.userDataManager.deleteCycleSetupData()
+        // ゴルフモード
+        if .MODE_CYCLE == appDelegate.nowMapMode {
+            appDelegate.userDataManager.deleteCycleSetupData()
+        }
+        // ウォークモード
+        else {
+            appDelegate.userDataManager.deleteWalkSetupData()
+        }
         viewPicker()
     }
     
@@ -176,7 +229,6 @@ class CycleSettingViewController:   UIViewController,
         // 表示する文字列を返す
         if component == 0
         {
-            // 1個目のピッカーの設定
             return lstTimeInterval[row]
         }
         else
@@ -191,15 +243,36 @@ class CycleSettingViewController:   UIViewController,
         // 選択時の処理
         if component == 0
         {
-            // 1個目のピッカーの設定
             let interval:Int! = Int(lstTimeInterval[row])
-            appDelegate.userDataManager.setTimeInterval(interval)
+            // ゴルフモード
+            if .MODE_CYCLE == appDelegate.nowMapMode {
+                appDelegate.userDataManager.setTimeInterval(interval)
+            }
+            // ウォークモード
+            else {
+                appDelegate.userDataManager.setTimeWalkInterval(interval)
+            }
         }
         else
         {
             let accuracy:Int! = Int(lstAccuracy[row])
-            appDelegate.userDataManager.setAccuracy(accuracy)
+            // ゴルフモード
+            if .MODE_CYCLE == appDelegate.nowMapMode {
+                appDelegate.userDataManager.setAccuracy(accuracy)
+            }
+            // ウォークモード
+            else {
+                appDelegate.userDataManager.setAccuracyWalk(accuracy)
+            }
         }
-        appDelegate.userDataManager.saveCycleData()
+        
+        // ゴルフモード
+        if .MODE_CYCLE == appDelegate.nowMapMode {
+            appDelegate.userDataManager.saveCycleData()
+        }
+        // ウォークモード
+        else {
+            appDelegate.userDataManager.saveWalkData()
+        }
     }
 }

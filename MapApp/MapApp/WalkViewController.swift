@@ -261,6 +261,56 @@ class WalkViewController:   UIViewController,
         self.performSegue(withIdentifier: "toCycleViewFromWalk", sender: nil)
     }
     
+    // CycleSettingViewControllerに遷移する
+    func toSettingView() {
+        // CycleSettingViewControllerを表示する
+        self.performSegue(withIdentifier: "toCycleSettingFromWalk", sender: nil)
+    }
+    
+/// 未実装↓
+    // 累計データを消去する
+    func deleteData() {
+        self.userDataManager.deleteWalkData()
+
+
+
+    }
+    
+    // 計測を開始する
+    func walkStart() {
+        // 計測中にだけバックグラウンドでの位置情報更新を許可する
+        locManager.allowsBackgroundLocationUpdates = true
+        
+        
+        
+    }
+    
+    // 計測を再開する
+    func walkReStart() {
+        // 計測中にだけバックグラウンドでの位置情報更新を許可する
+        locManager.allowsBackgroundLocationUpdates = true
+        
+        
+    }
+    
+    // 計測を中断する
+    func walkStop() {
+        // 計測中にだけバックグラウンドでの位置情報更新を許可する
+        locManager.allowsBackgroundLocationUpdates = false
+        
+        
+    }
+
+    // 計測を終了する
+    func walkEnd() {
+        // 計測中にだけバックグラウンドでの位置情報更新を許可する
+        locManager.allowsBackgroundLocationUpdates = false
+
+        
+    }
+/// 未実装↑
+
+    
     //==================================================================
     // MKMapViewDelegate
     //==================================================================

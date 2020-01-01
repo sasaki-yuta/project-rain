@@ -409,6 +409,7 @@
                         <outlet property="searchBar" destination="ahZ-cT-1zn" id="Tdc-zN-frP"/>
                         <segue destination="6Pg-YZ-Fts" kind="presentation" identifier="toCycleViewFromWalk" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="bG3-3c-3h4"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="toGolfViewFromWalk" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="1bs-VB-7UU"/>
+                        <segue destination="nfm-ch-Uh5" kind="presentation" identifier="toCycleSettingFromWalk" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="iXs-S6-MH1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jpa-90-wqP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -433,6 +434,50 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MLw-Q1-d8W">
+                                <rect key="frame" x="30" y="530" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="計測開始">
+                                    <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnStartThouchDown:" destination="PQu-wF-bHb" eventType="touchDown" id="VhX-38-cK7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="STG-Jl-1DX">
+                                <rect key="frame" x="30" y="570" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="計測中断">
+                                    <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnStopThouchDown:" destination="PQu-wF-bHb" eventType="touchDown" id="lGh-rd-oGr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfE-Gi-wyK">
+                                <rect key="frame" x="30" y="610" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="計測終了">
+                                    <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnEndThouchDown:" destination="PQu-wF-bHb" eventType="touchDown" id="Sle-cl-Gqx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTl-hy-n3P">
+                                <rect key="frame" x="30" y="490" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="累計＆設定">
+                                    <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnSettingThouchDown:" destination="PQu-wF-bHb" eventType="touchDown" id="p7v-vv-rxf"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exx-Be-mqU">
                                 <rect key="frame" x="30" y="250" width="90" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -540,11 +585,15 @@
                     <connections>
                         <outlet property="btnCycleMode" destination="UhB-2E-cGI" id="wbd-38-EsQ"/>
                         <outlet property="btnDelPnt" destination="jRp-rf-laN" id="9a1-OZ-Jr9"/>
+                        <outlet property="btnEnd" destination="lfE-Gi-wyK" id="gj6-j5-pnB"/>
                         <outlet property="btnGolfMode" destination="sFB-hG-UXD" id="sIT-CI-wPB"/>
                         <outlet property="btnHybrid" destination="TdV-Py-tk9" id="zZu-W0-WaX"/>
                         <outlet property="btnMutedStandard" destination="Llg-fh-GtE" id="Hvy-hJ-uJV"/>
                         <outlet property="btnSatellite" destination="k5t-IB-gVN" id="woy-lG-TYc"/>
+                        <outlet property="btnSetting" destination="GTl-hy-n3P" id="gYB-4A-4Mm"/>
                         <outlet property="btnStandard" destination="9PA-Co-FhQ" id="qYd-sA-M7R"/>
+                        <outlet property="btnStart" destination="MLw-Q1-d8W" id="cGu-2Q-PzB"/>
+                        <outlet property="btnStop" destination="STG-Jl-1DX" id="aZD-gM-aVF"/>
                         <outlet property="btnWalkMode" destination="z9u-Eb-eXr" id="Jch-Lz-Xdg"/>
                         <outlet property="lblFunk" destination="xfj-8U-U2k" id="pdp-v2-zLQ"/>
                         <outlet property="lblMapMode" destination="Exx-Be-mqU" id="8oa-Ld-gdG"/>
@@ -554,7 +603,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dwH-h1-IMW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="902" y="1504"/>
+            <point key="canvasLocation" x="901.60000000000002" y="1503.6945812807883"/>
         </scene>
         <!--Menu Cycle View Controller-->
         <scene sceneID="kI9-k7-rLa">
@@ -646,8 +695,18 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Hq-aA-7cZ">
+                                        <rect key="frame" x="30" y="370" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="ウォーク">
+                                            <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnWalkModeThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="wnW-vz-cXp"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7H-bd-Luh">
-                                        <rect key="frame" x="30" y="450" width="90" height="30"/>
+                                        <rect key="frame" x="30" y="530" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="計測開始">
@@ -658,7 +717,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8mF-BX-VPd">
-                                        <rect key="frame" x="30" y="490" width="90" height="30"/>
+                                        <rect key="frame" x="30" y="570" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="計測中断">
@@ -669,7 +728,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lV7-MO-cLk">
-                                        <rect key="frame" x="30" y="530" width="90" height="30"/>
+                                        <rect key="frame" x="30" y="610" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="計測終了">
@@ -680,7 +739,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuV-uX-UBe">
-                                        <rect key="frame" x="30" y="570" width="90" height="30"/>
+                                        <rect key="frame" x="30" y="490" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="累計＆設定">
@@ -691,23 +750,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nq8-Kn-qGP">
-                                        <rect key="frame" x="30" y="610" width="90" height="30"/>
+                                        <rect key="frame" x="30" y="450" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="地点削除">
                                             <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="btnDelPointThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="LgH-ds-xHx"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Hq-aA-7cZ">
-                                        <rect key="frame" x="30" y="370" width="90" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="ウォーク">
-                                            <color key="titleColor" red="0.0" green="0.57843422889999996" blue="0.99782758949999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btnWalkModeThouchDown:" destination="XDJ-3x-kia" eventType="touchDown" id="wnW-vz-cXp"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -906,11 +955,12 @@
                         <outlet property="totalDist" destination="e5I-Yw-odT" id="th1-aG-r8Y"/>
                         <outlet property="totalTime" destination="ryg-Sh-ZWx" id="u2y-7v-Riq"/>
                         <segue destination="6Pg-YZ-Fts" kind="presentation" identifier="toCycleView" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="qzy-np-p9Q"/>
+                        <segue destination="2XO-JZ-fI6" kind="presentation" identifier="toWalkViewFromSetting" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="ofk-iG-fGN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TKg-f4-NmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1854" y="780"/>
+            <point key="canvasLocation" x="1831" y="1167"/>
         </scene>
         <!--Point Popup View Controller-->
         <scene sceneID="MTj-OQ-eUG">
@@ -966,8 +1016,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Uz6-gb-i5J"/>
-        <segue reference="bG3-3c-3h4"/>
+        <segue reference="iXs-S6-MH1"/>
+        <segue reference="ofk-iG-fGN"/>
+        <segue reference="qzy-np-p9Q"/>
         <segue reference="1bs-VB-7UU"/>
     </inferredMetricsTieBreakers>
 </document>

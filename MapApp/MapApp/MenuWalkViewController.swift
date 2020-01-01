@@ -25,6 +25,10 @@ class MenuWalkViewController: UIViewController {
 
     @IBOutlet weak var lblFunk: UILabel!
     @IBOutlet weak var btnDelPnt: UIButton!
+    @IBOutlet weak var btnSetting: UIButton!
+    @IBOutlet weak var btnStart: UIButton!
+    @IBOutlet weak var btnStop: UIButton!
+    @IBOutlet weak var btnEnd: UIButton!
 
     
     override func viewDidLoad() {
@@ -65,6 +69,14 @@ class MenuWalkViewController: UIViewController {
         // Func
         btnDelPnt.setTitleColor(strColor, for: .normal)
         btnDelPnt.isEnabled = true
+        btnSetting.setTitleColor(strColor, for: .normal)
+        btnSetting.isEnabled = true
+        btnStart.setTitleColor(strColor, for: .normal)
+        btnStart.isEnabled = true
+        btnStop.setTitleColor(strColor, for: .normal)
+        btnStop.isEnabled = true
+        btnEnd.setTitleColor(strColor, for: .normal)
+        btnEnd.isEnabled = true
 
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         
@@ -121,6 +133,27 @@ class MenuWalkViewController: UIViewController {
             break
         }
         
+        // 計測状態によりFuncボタンの状態を変更する
+        switch appDelegate.nowWalkState {
+        case .STATE_CLOSING?:
+            btnEnd.setTitleColor(UIColor.gray, for: .normal)
+            btnEnd.isEnabled = false
+            btnStop.setTitleColor(UIColor.gray, for: .normal)
+            btnStop.isEnabled = false
+        case .STATE_STARTING?:
+            btnGolfMode.setTitleColor(UIColor.gray, for: .normal)
+            btnGolfMode.isEnabled = false
+            btnStart.setTitleColor(UIColor.gray, for: .normal)
+            btnStart.isEnabled = false
+            btnSetting.setTitleColor(UIColor.gray, for: .normal)
+            btnSetting.isEnabled = false
+        case .STATE_SUSPENDED?:
+            btnStop.setTitleColor(UIColor.gray, for: .normal)
+            btnStop.isEnabled = false
+        default:
+            break
+        }
+        
         if !appDelegate.walkViewController.isExistPoint() {
             btnDelPnt.setTitleColor(UIColor.gray, for: .normal)
             btnDelPnt.isEnabled = false
@@ -137,6 +170,10 @@ class MenuWalkViewController: UIViewController {
         self.view.addSubview(btnWalkMode)
         // Func
         self.view.addSubview(btnDelPnt)
+        self.view.addSubview(btnSetting)
+        self.view.addSubview(btnStart)
+        self.view.addSubview(btnStop)
+        self.view.addSubview(btnEnd)
     }
 
 
@@ -284,6 +321,46 @@ class MenuWalkViewController: UIViewController {
             animations: {self.btnDelPnt.layer.position.x = btnDelPst.x},
             completion: {bool in}
         )
+        
+        let btnSettingPst = btnSetting.layer.position
+        btnSetting.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnSetting.layer.position.x = btnSettingPst.x},
+            completion: {bool in}
+        )
+        
+        let btnStartPst = btnStart.layer.position
+        btnStart.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnStart.layer.position.x = btnStartPst.x},
+            completion: {bool in}
+        )
+        
+        let btnStopPst = btnStop.layer.position
+        btnStop.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnStop.layer.position.x = btnStopPst.x},
+            completion: {bool in}
+        )
+        
+        let btnEndPst = btnEnd.layer.position
+        btnEnd.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnEnd.layer.position.x = btnEndPst.x},
+            completion: {bool in}
+        )
     }
     
     // メニューエリア以外タップ時の処理
@@ -309,6 +386,10 @@ class MenuWalkViewController: UIViewController {
                         self.btnWalkMode.layer.position.x = -self.menuView.frame.width
                         self.lblFunk.layer.position.x = -self.menuView.frame.width
                         self.btnDelPnt.layer.position.x = -self.menuView.frame.width
+                        self.btnSetting.layer.position.x = -self.menuView.frame.width
+                        self.btnStart.layer.position.x = -self.menuView.frame.width
+                        self.btnStop.layer.position.x = -self.menuView.frame.width
+                        self.btnEnd.layer.position.x = -self.menuView.frame.width
                     },
                     completion: {
                         bool in
@@ -426,6 +507,58 @@ class MenuWalkViewController: UIViewController {
         appDelegate.walkViewController.deletePoint()
         // ボタン状態の更新
         updateBtn()
+    }
+    
+    // MenuCycleViewControllerに遷移する
+    @IBAction func btnSettingThouchDown(_ sender: Any) {
+        // Menu画面の消去
+        self.dismiss(animated: true, completion: nil)
+        // Setting画面を表示
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.walkViewController.toSettingView()
+    }
+
+    // 計測開始を押下した時の処理
+    @IBAction func btnStartThouchDown(_ sender: Any) {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        if .STATE_SUSPENDED == appDelegate.nowWalkState {
+            // 計測再開
+            appDelegate.walkViewController.walkReStart()
+        }
+        else {
+            // 計測開始
+            appDelegate.walkViewController.walkStart()
+        }
+
+        // 計測状態を更新する
+        appDelegate.nowWalkState = .STATE_STARTING
+        // ボタン状態の更新
+        updateBtn()
+    }
+
+    // 計測中断を押下した時の処理
+    @IBAction func btnStopThouchDown(_ sender: Any) {
+        // 計測状態を更新する
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.nowWalkState = .STATE_SUSPENDED
+        // ボタン状態の更新
+        updateBtn()
+
+        // 計測を中断する
+        appDelegate.walkViewController.walkStop()
+    }
+    
+    // 計測終了を押下した時の処理
+    @IBAction func btnEndThouchDown(_ sender: Any) {
+        // 計測状態を更新する
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.nowWalkState = .STATE_CLOSING
+        // ボタン状態の更新
+        updateBtn()
+
+        // 計測を終了する
+        appDelegate.walkViewController.walkEnd()
     }
 
 }
