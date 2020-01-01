@@ -188,7 +188,7 @@ class CycleViewController:  UIViewController,
         // 計測中断、終了したデータをViewを切り替えても表示できる様にLoradする
         loadCulcData()
         
-        // 全開のMapTypeをUserDataから取得してMapViewに設定する
+        // 前回のMapTypeをUserDataから取得してMapViewに設定する
         setMapType(userDataManager.getCycleMapType())
         
         // 縮尺を設定
@@ -222,6 +222,7 @@ class CycleViewController:  UIViewController,
         mapViewType.layer.cornerRadius = 5.0 // 角丸のサイズ
         self.view.addSubview(mapViewType)
         
+        // Menu表示ボタン
         mapViewTypeOver.frame = CGRect(x:width - 50, y:58, width:40, height:40)
         self.view.addSubview(mapViewTypeOver)
         
@@ -340,8 +341,8 @@ class CycleViewController:  UIViewController,
         lbar4.frame = CGRect(x: width/2, y: infoTopPos, width: 2, height: labelHeight*2)
         self.view.addSubview(lbar4)
 
-        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         // GPS誤差補正
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         timeInterval = appDelegate.userDataManager.getTimeInterval()
         accuracy = appDelegate.userDataManager.getAccuracy()
         
@@ -375,7 +376,7 @@ class CycleViewController:  UIViewController,
         // 精度の悪い位置情報を捨てる
         var isBreak:Bool = false
         if timeInterval <= Int(abs(locations.last!.timestamp.timeIntervalSinceNow)) {
-            // GPS時間鮮度
+            // GPS時間鮮度が設定値オーバー
             isBreak = true
         }
         if 0 > locations.last!.horizontalAccuracy {
@@ -383,7 +384,7 @@ class CycleViewController:  UIViewController,
             isBreak = true
         }
         if accuracy < Int(locations.last!.horizontalAccuracy) {
-            // m誤差
+            // 水平誤差が設定値オーバー
             isBreak = true
         }
         
@@ -393,10 +394,11 @@ class CycleViewController:  UIViewController,
             self.beforLon = 0
             self.beforLat = 0
             // 中断していないので走行時間だけは加算するため初期化しない
-//            self.beforSinRef = 0
+//          self.beforSinRef = 0
             return
         }
         
+        // 停止中ではない場合
         if (0.0 < speed) {
             //=============================================================
             // 速度
@@ -486,11 +488,13 @@ class CycleViewController:  UIViewController,
                 self.beforLat = locations.last?.coordinate.latitude
             }
         }
+        // 停止中の場合は計測をSKIPするため、前回値を今回値にする
         else {
-            // 走行速度の更新
+            // 速度表示の更新
             self.speed.text = "0.0"
             // 前回値として2001年1月1日の00:00:00 UTCと現在の日時の間の秒間隔:ex 587280439.457562)を保持
             self.beforSinRef = locations.last!.timestamp.timeIntervalSinceReferenceDate
+            // 緯度経度を更新
             self.beforLon = locations.last?.coordinate.longitude
             self.beforLat = locations.last?.coordinate.latitude
         }
@@ -877,7 +881,6 @@ class CycleViewController:  UIViewController,
             tapRoutePoint = mapView.convert(tapPoint, toCoordinateFrom: mapView)
 
             let location = CLLocation(latitude: center.latitude, longitude: center.longitude)
-
 
             // 地図上のルートを削除
             if nil != self.routePolyLine {
