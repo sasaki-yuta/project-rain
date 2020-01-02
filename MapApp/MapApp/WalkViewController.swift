@@ -969,6 +969,9 @@ class WalkViewController:   UIViewController,
         if (0 != pointAno.coordinate.latitude) && (0 != pointAno.coordinate.longitude) {
             retVal = true
         }
+        if 0 < annotationList.count {
+            retVal = true
+        }
         return retVal
     }
     
@@ -979,9 +982,17 @@ class WalkViewController:   UIViewController,
             mapView.removeOverlay(self.routePolyLine)
             routePolyLine = nil
         }
+        
+        // ロングタップ地点を削除
         mapView.removeAnnotation(pointAno)
         pointAno.coordinate.longitude = 0
         pointAno.coordinate.latitude = 0
+        
+        // 検索地点を削除
+        if 0 < annotationList.count {
+            mapView.removeAnnotations(annotationList)
+            annotationList.removeAll()
+        }
     }
 
     
@@ -1001,6 +1012,7 @@ class WalkViewController:   UIViewController,
         if 0 < annotationList.count {
             // 前回検索したアノテーションを削除する
             mapView.removeAnnotations(annotationList)
+            annotationList.removeAll()
         }
 
         if "" == searchBar.text {
