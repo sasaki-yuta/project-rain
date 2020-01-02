@@ -615,8 +615,8 @@ class WalkViewController:   UIViewController,
         // 中断、終了したデータを保存する
         saveCulcData()
         
-        // パーツを非表示にする
-        hideRunningParts()
+        // 中断する時はパーツを非表示にしない
+//      hideRunningParts()
     }
     
     // 計測を終了する
@@ -798,6 +798,10 @@ class WalkViewController:   UIViewController,
         // パーツを表示する
         lblSpeed.isHidden = false
         speed.isHidden = false
+        lblMaxSpeed.isHidden = true
+        maxSpeed.isHidden = true
+        lblAvgSpeed.isHidden = true
+        avgSpeed.isHidden = true
         speedDispChange.isHidden = false
         lblDrivingDist.isHidden = false
         drivingDist.isHidden = false
@@ -813,6 +817,10 @@ class WalkViewController:   UIViewController,
         // パーツを非表示にする
         lblSpeed.isHidden = true
         speed.isHidden = true
+        lblMaxSpeed.isHidden = true
+        maxSpeed.isHidden = true
+        lblAvgSpeed.isHidden = true
+        avgSpeed.isHidden = true
         speedDispChange.isHidden = true
         lblDrivingDist.isHidden = true
         drivingDist.isHidden = true
