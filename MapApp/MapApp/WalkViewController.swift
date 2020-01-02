@@ -581,6 +581,9 @@ class WalkViewController:   UIViewController,
         if nil != routePolyLine {
             mapView.addOverlay(routePolyLine)
         }
+        
+        // パーツを表示する
+        showRunningParts()
     }
     
     // 計測を再開する
@@ -589,6 +592,9 @@ class WalkViewController:   UIViewController,
         locManager.allowsBackgroundLocationUpdates = true
         
         self.isStarting = true
+
+        // パーツを表示する
+        showRunningParts()
     }
     
     // 計測を中断する
@@ -608,6 +614,9 @@ class WalkViewController:   UIViewController,
         userDataManager.saveWalkData()
         // 中断、終了したデータを保存する
         saveCulcData()
+        
+        // パーツを非表示にする
+        hideRunningParts()
     }
     
     // 計測を終了する
@@ -627,6 +636,9 @@ class WalkViewController:   UIViewController,
         userDataManager.saveWalkData()
         // 中断、終了したデータを保存する
         saveCulcData()
+
+        // パーツを非表示にする
+        hideRunningParts()
     }
     
     // 計測中断、終了したデータをViewを切り替えても表示できる様に保存する
@@ -770,6 +782,54 @@ class WalkViewController:   UIViewController,
         if 0 != count {
             mapView.addOverlays(overlays)
         }
+    }
+    
+    // ランニングパーツを表示する
+    func showRunningParts() {
+        // デバイスの画面サイズを取得する
+        let dispSize: CGSize = UIScreen.main.bounds.size
+        let width = Int(dispSize.width)
+        let height = Int(dispSize.height)
+
+        // 地図と検索フィールドの表示エリアを移動する
+        mapView.frame.size = CGSize(width: width, height: (height/3)*2-50) // 検索Barのheight50分マイナス
+        searchBar.frame = CGRect(x: 0, y: (height/3)*2-50, width: width, height: 50)
+
+        // パーツを表示する
+        lblSpeed.isHidden = false
+        speed.isHidden = false
+        speedDispChange.isHidden = false
+        lblDrivingDist.isHidden = false
+        drivingDist.isHidden = false
+        lblDrivingTime.isHidden = false
+        drivingTime.isHidden = false
+        lbar1.isHidden = false
+        lbar2.isHidden = false
+        lbar4.isHidden = false
+    }
+    
+    // ランニングパーツを非表示にする
+    func hideRunningParts() {
+        // パーツを非表示にする
+        lblSpeed.isHidden = true
+        speed.isHidden = true
+        speedDispChange.isHidden = true
+        lblDrivingDist.isHidden = true
+        drivingDist.isHidden = true
+        lblDrivingTime.isHidden = true
+        drivingTime.isHidden = true
+        lbar1.isHidden = true
+        lbar2.isHidden = true
+        lbar4.isHidden = true
+        
+        // デバイスの画面サイズを取得する
+        let dispSize: CGSize = UIScreen.main.bounds.size
+        let width = Int(dispSize.width)
+        let height = Int(dispSize.height)
+        
+        // 地図と検索フィールドの位置を戻す
+        searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
+        mapView.frame.size = CGSize(width: width, height: height-50) // 検索Barのheight50分マイナス
     }
     
 
