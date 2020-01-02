@@ -143,6 +143,8 @@ class MenuWalkViewController: UIViewController {
         case .STATE_STARTING?:
             btnGolfMode.setTitleColor(UIColor.gray, for: .normal)
             btnGolfMode.isEnabled = false
+            btnCycleMode.setTitleColor(UIColor.gray, for: .normal)
+            btnCycleMode.isEnabled = false
             btnStart.setTitleColor(UIColor.gray, for: .normal)
             btnStart.isEnabled = false
             btnSetting.setTitleColor(UIColor.gray, for: .normal)
