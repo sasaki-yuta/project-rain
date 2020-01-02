@@ -208,7 +208,7 @@ class CycleViewController:  UIViewController,
         let height = Int(dispSize.height)
         
         // 地図のサイズを画面サイズに設定する
-        mapView.frame.size = CGSize(width: width, height: (height/3)*2) // 高さ2/3を地図にする
+        mapView.frame.size = CGSize(width: width, height: (height/3)*2-50) // 高さ2/3を地図にして検索Barの50をマイナスする
 
         // 地図表示タイプを切り替えるボタン
         mapViewType = UIButton(type: UIButton.ButtonType.detailDisclosure)

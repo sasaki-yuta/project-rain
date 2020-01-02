@@ -204,7 +204,7 @@ class WalkViewController:   UIViewController,
         let height = Int(dispSize.height)
 
         // 地図のサイズを画面サイズに設定する
-        mapView.frame.size = CGSize(width: width, height: height)
+        mapView.frame.size = CGSize(width: width, height: height-50) // 検索Barのheight50分マイナス
    
         // 地図表示タイプを切り替えるボタン
         mapViewType = UIButton(type: UIButton.ButtonType.detailDisclosure)
@@ -258,15 +258,19 @@ class WalkViewController:   UIViewController,
         
         // 速度
         lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
+        lblSpeed.isHidden = true
         self.view.addSubview(lblSpeed)
+        
         speed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-(labelHeight/2), width: width/2, height: labelHeight+(labelHeight/3)) // /2ではなく、/3で高さの表示位置を微調整した
         speed.text = "-"
+        speed.isHidden = true
         self.view.addSubview(speed)
         
         // MAX速度
         lblMaxSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
         lblMaxSpeed.isHidden = true
         self.view.addSubview(lblMaxSpeed)
+
         maxSpeed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-(labelHeight/2), width: width/2, height: labelHeight+(labelHeight/3)) // /2ではなく、/3で高さの表示位置を微調整した
         if 0.0 != dMaxSpeed {
             maxSpeed.text = dMaxSpeed.description
@@ -281,6 +285,7 @@ class WalkViewController:   UIViewController,
         lblAvgSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
         lblAvgSpeed.isHidden = true
         self.view.addSubview(lblAvgSpeed)
+
         avgSpeed.frame = CGRect(x: width/2, y: infoTopPos+(labelHeight*1)-(labelHeight/2), width: width/2, height: labelHeight+(labelHeight/3)) // /2ではなく、/3で高さの表示位置を微調整した
         if (0.0 != avgSumSpeed) && (0 != avgSumCount) {
             let tmpAvgSpeed = floor(((avgSumSpeed / Double(avgSumCount)) * 3.6)*100)/100
@@ -294,11 +299,14 @@ class WalkViewController:   UIViewController,
 
         // 速度表示切り替えボタン
         speedDispChange.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight*2)
+        speedDispChange.isHidden = true
         self.view.addSubview(speedDispChange)
 
         // 走行距離
         lblDrivingDist.frame = CGRect(x: 0, y: infoTopPos, width: width/2, height: labelHeight/2)
+        lblDrivingDist.isHidden = true
         self.view.addSubview(lblDrivingDist)
+
         drivingDist.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*1)-(labelHeight/2), width: width/2, height: labelHeight+(labelHeight/3)) // /2ではなく、/3で高さの表示位置を微調整した
         if 0.0 != dDrivingDist {
             let tmpDist = floor((dDrivingDist / 1000) * 100) / 100
@@ -307,11 +315,14 @@ class WalkViewController:   UIViewController,
         else {
             drivingDist.text = "-"
         }
+        drivingDist.isHidden = true
         self.view.addSubview(drivingDist)
         
         // 走行時間
         lblDrivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: labelHeight/2)
+        lblDrivingTime.isHidden = true
         self.view.addSubview(lblDrivingTime)
+
         drivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*3)-(labelHeight/2), width: width, height: labelHeight/*+(labelHeight/2)*/)
         if 0.0 != dDrivingTime {
             let hour = Int(dDrivingTime) / 3600
@@ -322,19 +333,22 @@ class WalkViewController:   UIViewController,
         else {
             drivingTime.text = "-"
         }
+        drivingTime.isHidden = true
         self.view.addSubview(drivingTime)
-
         
         // bar1
         lbar1.frame = CGRect(x: 0, y: infoTopPos, width: width, height: 2)
+        lbar1.isHidden = true
         self.view.addSubview(lbar1)
         
         // bar2
         lbar2.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: 2)
+        lbar2.isHidden = true
         self.view.addSubview(lbar2)
 
         // bar4
         lbar4.frame = CGRect(x: width/2, y: infoTopPos, width: 2, height: labelHeight*2)
+        lbar4.isHidden = true
         self.view.addSubview(lbar4)
 
         // GPS誤差補正
