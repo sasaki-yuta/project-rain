@@ -1141,6 +1141,24 @@ class CycleViewController:  UIViewController,
             print(error)
         }
     }
+    
+    // watchOSからMessage受信
+    public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Swift.Void) {
+        print("receiveMessage[iOS]::\(message)")
+        replyHandler(["message" : "received message."])
+
+        // String型以外は処理しない
+        guard let getType = message["GET"] as? String else {
+            return
+        }
+
+        switch getType {
+        case "MODE":
+            sendMessageMode()
+        default:
+            print("not exist type.")
+        }
+    }
 }
 
 

@@ -135,6 +135,8 @@ class ViewController:   UIViewController,
             print("セッション非アクティブで通信できない状態")
             let errStr = error?.localizedDescription.description
             print("error: " + (errStr?.description)!)
+        default:
+            break
         }
     }
     
@@ -171,7 +173,8 @@ class ViewController:   UIViewController,
                 return
             }
             getWatchOSEElevation(getLon, getLat)
-
+        case "MODE":
+            sendMessageMode()
         default:
             print("not exist type.")
         }

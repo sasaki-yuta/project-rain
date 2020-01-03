@@ -24,12 +24,14 @@ class WalkViewController:   UIViewController,
                             CLLocationManagerDelegate,
                             MKMapViewDelegate,
                             UIGestureRecognizerDelegate,
-                            UISearchBarDelegate {
+                            UISearchBarDelegate,
+                            WCSessionDelegate {
 
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapViewTypeOver: UIButton!
     @IBOutlet var longPressGesRec: UILongPressGestureRecognizer!
-    
+
+    var session: WCSession!    
     var mapViewType: UIButton!              // mapViewTypeOverのボタン本体
     var userDataManager:UserDataManager!    // UserDefaults(データバックアップ用)オブジェクト
     var locManager: CLLocationManager!      // 位置情報
@@ -116,6 +118,13 @@ class WalkViewController:   UIViewController,
         // UserDefaults(データバックアップ用)オブジェクト
         userDataManager = appDelegate.userDataManager
         
+        // セッションをアクティブにする
+        if (WCSession.isSupported()) {
+            self.session = WCSession.default
+            self.session.delegate = self
+            self.session.activate()
+        }
+        
         // MapViewのdelegateを登録する
         mapView.delegate = self
         
@@ -153,8 +162,10 @@ class WalkViewController:   UIViewController,
         notification.addObserver(self, selector: #selector(keyboardWillHide(_:)),
                                  name: UIResponder.keyboardWillHideNotification, object: nil)
 
-        
         initMap()
+        
+        // WatchOSにモードを通知する
+        sendMessageMode()
     }
     
     
@@ -1183,4 +1194,57 @@ class WalkViewController:   UIViewController,
     //==================================================================
     // WatchOSとのデータ通信
     //==================================================================
+    // WCSessionDelegateを継承した場合に定義しないととエラーになる
+    public func session(_ session: WCSession, activationDidCompleteWith activationState:    WCSessionActivationState, error: Error?){
+        switch activationState {
+        case .activated:
+            print("セッションアクティブ")
+        case .inactive:
+            print("セッションはアクティブでデータ受信できる可能性はあるが、相手にはデータ送信できない")
+        case .notActivated:
+            print("セッション非アクティブで通信できない状態")
+            let errStr = error?.localizedDescription.description
+            print("error: " + (errStr?.description)!)
+        default:
+            break
+        }
+    }
+    
+    // WCSessionDelegateを継承した場合に定義しないととエラーになる
+    public func sessionDidBecomeInactive(_ session: WCSession){
+        print("sessionDidBecomeInactive")
+    }
+    
+    // WCSessionDelegateを継承した場合に定義しないととエラーになる
+    public func sessionDidDeactivate(_ session: WCSession){
+        print("sessionDidDeactivate")
+    }
+    
+    // watchOSにモードを送信する
+    func sendMessageMode() {
+        let contents =  ["RESP":"MODE", "title":"ウォークモード"] as [String : Any]
+        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+            print ("receive from apple watch");
+        }) { (error) -> Void in
+            print(error)
+        }
+    }
+    
+    // watchOSからMessage受信
+    public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Swift.Void) {
+        print("receiveMessage[iOS]::\(message)")
+        replyHandler(["message" : "received message."])
+
+        // String型以外は処理しない
+        guard let getType = message["GET"] as? String else {
+            return
+        }
+
+        switch getType {
+        case "MODE":
+            sendMessageMode()
+        default:
+            print("not exist type.")
+        }
+    }
 }

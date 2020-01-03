@@ -45,7 +45,7 @@ class InterfaceController:  WKInterfaceController,
         super.willActivate()
 
         // 画面描画時(アクティブになった時)にiOSのアプリにデータ送信を要求する
-        let contents =  ["GET":"LONLAT"]
+        let contents =  ["GET":"MODE"]
         self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
             print (replyMessage);
         }) { (error) -> Void in
@@ -81,6 +81,8 @@ class InterfaceController:  WKInterfaceController,
                 print("restricted")
             case .denied:
                 print("denied")
+            default:
+                break
             }
         }
   
@@ -251,12 +253,8 @@ class InterfaceController:  WKInterfaceController,
                     mapView.addAnnotation(cordinate2D, with: .red)
                 }
                 
-                let fontSize = UIFont.systemFont(ofSize: 20)
-                // モードタイトルを更新
-                let attrStrTitle = NSAttributedString(string: "ゴルフモード", attributes:[NSAttributedString.Key.font:fontSize])
-                modeLabel.setAttributedText(attrStrTitle)
-
                 // タップした距離を表示
+                let fontSize = UIFont.systemFont(ofSize: 20)
                 let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
                 label.setAttributedText(attrStr)
             }
@@ -280,6 +278,25 @@ class InterfaceController:  WKInterfaceController,
             let fontSize = UIFont.systemFont(ofSize: 20)
             let attrStrTitle = NSAttributedString(string: str, attributes:[NSAttributedString.Key.font:fontSize])
             modeLabel.setAttributedText(attrStrTitle)
+            
+            // labelの文字を空にする
+            let text = ""
+            let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
+            label.setAttributedText(attrStr)
+            
+            // ゴルフモードの緯度経度を無効にする
+            dlon = 0
+            dlat = 0
+            
+            if "ゴルフモード" == str {
+                // 画面描画時(アクティブになった時)にiOSのアプリにデータ送信を要求する
+                let contents =  ["GET":"LONLAT"]
+                self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+                    print (replyMessage);
+                }) { (error) -> Void in
+                    print(error)
+                }
+            }
             
         default:
             break
