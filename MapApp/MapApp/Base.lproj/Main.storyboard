@@ -334,7 +334,7 @@
                                 <rect key="frame" x="0.0" y="518" width="375" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="計測画面切り替え 👆">
+                                <state key="normal" title="計測画面 OFF">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -350,7 +350,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="avgSpeed" destination="6YK-kz-koC" id="9dk-Yh-flg"/>
-                        <outlet property="btnCalcSSwitchDisp" destination="yzO-Xj-lVp" id="Nk4-Ma-osM"/>
+                        <outlet property="btnCalcSwitchDisp" destination="yzO-Xj-lVp" id="HD0-We-rk8"/>
                         <outlet property="drivingDist" destination="0WH-EY-HZy" id="bbP-35-8ue"/>
                         <outlet property="drivingTime" destination="kON-wn-vs6" id="sqt-RD-FX6"/>
                         <outlet property="lbar1" destination="mLs-LD-6QT" id="Pfe-5K-4p4"/>
@@ -515,7 +515,7 @@
                                 <rect key="frame" x="0.0" y="518" width="375" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="計測画面切り替え 👆">
+                                <state key="normal" title="計測画面 ON">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -528,7 +528,7 @@
                     </view>
                     <connections>
                         <outlet property="avgSpeed" destination="bvq-AU-938" id="ErI-FU-eJ9"/>
-                        <outlet property="btnCalcSSwitchDisp" destination="nfn-Dh-pMk" id="ZSu-La-6Vs"/>
+                        <outlet property="btnCalcSwitchDisp" destination="nfn-Dh-pMk" id="bkN-3n-ijW"/>
                         <outlet property="drivingDist" destination="xx6-YI-Z4Q" id="e69-GK-PbM"/>
                         <outlet property="drivingTime" destination="OGq-WV-pxz" id="vCO-si-pgY"/>
                         <outlet property="lbar1" destination="dAG-2j-y0d" id="6Gz-oZ-8mZ"/>
@@ -1155,9 +1155,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KNn-Zj-7yF"/>
+        <segue reference="iXs-S6-MH1"/>
         <segue reference="Uz6-gb-i5J"/>
         <segue reference="bG3-3c-3h4"/>
-        <segue reference="5kP-ks-otw"/>
+        <segue reference="1bs-VB-7UU"/>
     </inferredMetricsTieBreakers>
 </document>

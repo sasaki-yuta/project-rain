@@ -100,7 +100,7 @@ class CycleViewController:  UIViewController,
     var routePolyLine: MKPolyline!
         
     // 計測画面表示切り替えボタン
-    @IBOutlet var btnCalcSSwitchDisp: UIButton!
+    @IBOutlet var btnCalcSwitchDisp: UIButton!
     var isShowCalcDisp: Bool = true
 
     
@@ -266,8 +266,9 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(searchBar)
         
         // 計測画面表示切り替えボタンを検索フィールドの上に表示する
-        btnCalcSSwitchDisp.frame = CGRect(x: 0, y: infoTopPos-75, width: width, height: 25)
-        self.view.addSubview(btnCalcSSwitchDisp)
+        btnCalcSwitchDisp.setTitle("計測画面 OFF", for: .normal)
+        btnCalcSwitchDisp.frame = CGRect(x: 0, y: infoTopPos-75, width: width, height: 25)
+        self.view.addSubview(btnCalcSwitchDisp)
         
         // 速度
         lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
@@ -771,7 +772,8 @@ class CycleViewController:  UIViewController,
 
         // 地図、計測画面表示切り替えボタン、検索フィールドの表示エリアを移動する
         mapView.frame.size = CGSize(width: width, height: (height/3)*2-25-50) // 計測画面25、検索Barの50をマイナス
-        btnCalcSSwitchDisp.frame = CGRect(x: 0, y: (height/3)*2-75, width: width, height: 25)
+        btnCalcSwitchDisp.setTitle("計測画面 OFF", for: .normal)
+        btnCalcSwitchDisp.frame = CGRect(x: 0, y: (height/3)*2-75, width: width, height: 25)
         searchBar.frame = CGRect(x: 0, y: (height/3)*2-50, width: width, height: 50)
 
         // パーツを表示する
@@ -818,7 +820,8 @@ class CycleViewController:  UIViewController,
         
         // 地図と検索フィールドの位置を戻す
         searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
-        btnCalcSSwitchDisp.frame = CGRect(x: 0, y: height-75, width: width, height: 25)
+        btnCalcSwitchDisp.setTitle("計測画面 ON", for: .normal)
+        btnCalcSwitchDisp.frame = CGRect(x: 0, y: height-75, width: width, height: 25)
         mapView.frame.size = CGSize(width: width, height: height-25-50) // 検索Barのheight50分マイナス
     }
     
