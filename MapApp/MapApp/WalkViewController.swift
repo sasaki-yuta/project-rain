@@ -99,6 +99,10 @@ class WalkViewController:   UIViewController,
     var timeInterval: Int = 0
     var accuracy: Int = 0
     
+    // 計測画面表示切り替えボタン
+    @IBOutlet var btnCalcSSwitchDisp: UIButton!
+    var isShowCalcDisp: Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -204,7 +208,7 @@ class WalkViewController:   UIViewController,
         let height = Int(dispSize.height)
 
         // 地図のサイズを画面サイズに設定する
-        mapView.frame.size = CGSize(width: width, height: height-50) // 検索Barのheight50分マイナス
+        mapView.frame.size = CGSize(width: width, height: height-25-50) // 計測画面、検索Barのheight50分マイナス
    
         // 地図表示タイプを切り替えるボタン
         mapViewType = UIButton(type: UIButton.ButtonType.detailDisclosure)
@@ -256,6 +260,10 @@ class WalkViewController:   UIViewController,
         searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
         self.view.addSubview(searchBar)
         
+        // 計測画面表示切り替えボタンを検索フィールドの上に表示する
+        btnCalcSSwitchDisp.frame = CGRect(x: 0, y: height-75, width: width, height: 25)
+        self.view.addSubview(btnCalcSSwitchDisp)
+
         // 速度
         lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
         lblSpeed.isHidden = true
@@ -614,9 +622,6 @@ class WalkViewController:   UIViewController,
         userDataManager.saveWalkData()
         // 中断、終了したデータを保存する
         saveCulcData()
-        
-        // 中断する時はパーツを非表示にしない
-//      hideRunningParts()
     }
     
     // 計測を終了する
@@ -636,9 +641,6 @@ class WalkViewController:   UIViewController,
         userDataManager.saveWalkData()
         // 中断、終了したデータを保存する
         saveCulcData()
-
-        // パーツを非表示にする
-        hideRunningParts()
     }
     
     // 計測中断、終了したデータをViewを切り替えても表示できる様に保存する
@@ -757,6 +759,16 @@ class WalkViewController:   UIViewController,
         }
     }
     
+    // 計測画面表示切り替えを押下した時の処理
+    @IBAction func btnCalcChangeThouchDown(_ sender: Any) {
+        if isShowCalcDisp {
+            hideRunningParts()
+        }
+        else {
+            showRunningParts()
+        }
+    }
+    
     // 走行履歴を保存する
     func saveMapOverlays() {
         // 画面表示時にルートも復帰されるため、setOverlaysにルートを保存しない様に一時的に削除する
@@ -786,13 +798,16 @@ class WalkViewController:   UIViewController,
     
     // ランニングパーツを表示する
     func showRunningParts() {
+        isShowCalcDisp = true
+        
         // デバイスの画面サイズを取得する
         let dispSize: CGSize = UIScreen.main.bounds.size
         let width = Int(dispSize.width)
         let height = Int(dispSize.height)
 
-        // 地図と検索フィールドの表示エリアを移動する
-        mapView.frame.size = CGSize(width: width, height: (height/3)*2-50) // 検索Barのheight50分マイナス
+        // 地図、計測画面表示切り替えボタン、検索フィールドの表示エリアを移動する
+        mapView.frame.size = CGSize(width: width, height: (height/3)*2-25-50) // 計測画面25、検索Barの50をマイナス
+        btnCalcSSwitchDisp.frame = CGRect(x: 0, y: (height/3)*2-75, width: width, height: 25)
         searchBar.frame = CGRect(x: 0, y: (height/3)*2-50, width: width, height: 50)
 
         // パーツを表示する
@@ -814,6 +829,8 @@ class WalkViewController:   UIViewController,
     
     // ランニングパーツを非表示にする
     func hideRunningParts() {
+        isShowCalcDisp = false
+        
         // パーツを非表示にする
         lblSpeed.isHidden = true
         speed.isHidden = true
@@ -837,7 +854,8 @@ class WalkViewController:   UIViewController,
         
         // 地図と検索フィールドの位置を戻す
         searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
-        mapView.frame.size = CGSize(width: width, height: height-50) // 検索Barのheight50分マイナス
+        btnCalcSSwitchDisp.frame = CGRect(x: 0, y: height-75, width: width, height: 25)
+        mapView.frame.size = CGSize(width: width, height: height-25-50) // 検索Barのheight50分マイナス
     }
     
 

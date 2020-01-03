@@ -99,6 +99,11 @@ class CycleViewController:  UIViewController,
     // 表示したルート
     var routePolyLine: MKPolyline!
         
+    // 計測画面表示切り替えボタン
+    @IBOutlet var btnCalcSSwitchDisp: UIButton!
+    var isShowCalcDisp: Bool = true
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -208,7 +213,7 @@ class CycleViewController:  UIViewController,
         let height = Int(dispSize.height)
         
         // 地図のサイズを画面サイズに設定する
-        mapView.frame.size = CGSize(width: width, height: (height/3)*2-50) // 高さ2/3を地図にして検索Barの50をマイナスする
+        mapView.frame.size = CGSize(width: width, height: (height/3)*2-25-50) // 高さ2/3を地図にして計測画面の25、検索Barの50をマイナスする
 
         // 地図表示タイプを切り替えるボタン
         mapViewType = UIButton(type: UIButton.ButtonType.detailDisclosure)
@@ -259,6 +264,10 @@ class CycleViewController:  UIViewController,
         // 検索フィールドの位置
         searchBar.frame = CGRect(x: 0, y: infoTopPos-50, width: width, height: 50)
         self.view.addSubview(searchBar)
+        
+        // 計測画面表示切り替えボタンを検索フィールドの上に表示する
+        btnCalcSSwitchDisp.frame = CGRect(x: 0, y: infoTopPos-75, width: width, height: 25)
+        self.view.addSubview(btnCalcSSwitchDisp)
         
         // 速度
         lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
@@ -571,6 +580,9 @@ class CycleViewController:  UIViewController,
         if nil != self.routePolyLine {
             self.mapView.addOverlay(self.routePolyLine)
         }
+        
+        // パーツを表示する
+        showRunningParts()
     }
     
     // 計測を再開する
@@ -579,6 +591,9 @@ class CycleViewController:  UIViewController,
         locManager.allowsBackgroundLocationUpdates = true
         
         self.isStarting = true
+        
+        // パーツを表示する
+        showRunningParts()
     }
     
     // 計測を中断する
@@ -734,7 +749,79 @@ class CycleViewController:  UIViewController,
             lblSpeed.isHidden = false
         }
     }
+    
+    // 計測画面表示切り替えを押下した時の処理
+    @IBAction func btnCalcChangeThouchDown(_ sender: Any) {
+        if isShowCalcDisp {
+            hideRunningParts()
+        }
+        else {
+            showRunningParts()
+        }
+    }
+    
+    // ランニングパーツを表示する
+    func showRunningParts() {
+        isShowCalcDisp = true
+        
+        // デバイスの画面サイズを取得する
+        let dispSize: CGSize = UIScreen.main.bounds.size
+        let width = Int(dispSize.width)
+        let height = Int(dispSize.height)
 
+        // 地図、計測画面表示切り替えボタン、検索フィールドの表示エリアを移動する
+        mapView.frame.size = CGSize(width: width, height: (height/3)*2-25-50) // 計測画面25、検索Barの50をマイナス
+        btnCalcSSwitchDisp.frame = CGRect(x: 0, y: (height/3)*2-75, width: width, height: 25)
+        searchBar.frame = CGRect(x: 0, y: (height/3)*2-50, width: width, height: 50)
+
+        // パーツを表示する
+        lblSpeed.isHidden = false
+        speed.isHidden = false
+        lblMaxSpeed.isHidden = true
+        maxSpeed.isHidden = true
+        lblAvgSpeed.isHidden = true
+        avgSpeed.isHidden = true
+        speedDispChange.isHidden = false
+        lblDrivingDist.isHidden = false
+        drivingDist.isHidden = false
+        lblDrivingTime.isHidden = false
+        drivingTime.isHidden = false
+        lbar1.isHidden = false
+        lbar2.isHidden = false
+        lbar4.isHidden = false
+    }
+    
+    // ランニングパーツを非表示にする
+    func hideRunningParts() {
+        isShowCalcDisp = false
+        
+        // パーツを非表示にする
+        lblSpeed.isHidden = true
+        speed.isHidden = true
+        lblMaxSpeed.isHidden = true
+        maxSpeed.isHidden = true
+        lblAvgSpeed.isHidden = true
+        avgSpeed.isHidden = true
+        speedDispChange.isHidden = true
+        lblDrivingDist.isHidden = true
+        drivingDist.isHidden = true
+        lblDrivingTime.isHidden = true
+        drivingTime.isHidden = true
+        lbar1.isHidden = true
+        lbar2.isHidden = true
+        lbar4.isHidden = true
+        
+        // デバイスの画面サイズを取得する
+        let dispSize: CGSize = UIScreen.main.bounds.size
+        let width = Int(dispSize.width)
+        let height = Int(dispSize.height)
+        
+        // 地図と検索フィールドの位置を戻す
+        searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
+        btnCalcSSwitchDisp.frame = CGRect(x: 0, y: height-75, width: width, height: 25)
+        mapView.frame.size = CGSize(width: width, height: height-25-50) // 検索Barのheight50分マイナス
+    }
+    
     // 走行履歴を保存する
     func saveMapOverlays() {
         // 画面表示時にルートも復帰されるため、setOverlaysにルートを保存しない様に一時的に削除する
