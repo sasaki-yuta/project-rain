@@ -64,6 +64,12 @@ class PointPopupViewController: UIViewController {
             lblStreetAddr.text = "住所 \n"
         }
         
+        // 目的地の場合に経路探索ボタンを非アクティブにする
+        if "目的地" == lblTitle.text {
+            btnRoute.isEnabled = false
+            btnRoute.setTitleColor(.gray, for: .normal)
+        }
+        
         self.view.addSubview(lblTitle)
         self.view.addSubview(lblDistance)
         self.view.addSubview(lblStreetAddr)
