@@ -403,8 +403,8 @@ class CycleViewController:  UIViewController,
             self.speed.text = "0.0"
             self.beforLon = 0
             self.beforLat = 0
-            // 中断していないので走行時間だけは加算するため初期化しない
-//          self.beforSinRef = 0
+            // 走行距離、速度を計測しない場合は時間も計上しない
+            self.beforSinRef = 0
             return
         }
         

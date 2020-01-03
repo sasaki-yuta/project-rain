@@ -233,7 +233,7 @@ class InterfaceController:  WKInterfaceController,
             
             // iOSから緯度経度を受信した時にも現在位置との距離を表示する
             if (nil != locCord2D) {
-                var text = "no data"
+                var text = ""
                 
                 // 現在位置のアノテーションを設定する
                 mapView.addAnnotation(locCord2D!, with: .purple)
