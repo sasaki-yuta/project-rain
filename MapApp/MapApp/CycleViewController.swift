@@ -88,7 +88,8 @@ class CycleViewController:  UIViewController,
     var accuracy: Int = 0
     
     // アノテーション
-    var pointAno: MapAnnotationCycle = MapAnnotationCycle()
+    var pointAno: MapAnnotationCycle = MapAnnotationCycle()         // ロングタップした地点
+    var destinationAno: MapAnnotationCycle = MapAnnotationCycle()   // 目的地
     
     // タップした地点の情報
     var tapPointTitle: String! = ""                 // タップした地点のタイトル
@@ -830,6 +831,7 @@ class CycleViewController:  UIViewController,
         // 画面表示時にルートも復帰されるため、setOverlaysにルートを保存しない様に一時的に削除する
         if nil != self.routePolyLine {
             self.mapView.removeOverlay(self.routePolyLine)
+            self.routePolyLine = nil
         }
         
         // 走行履歴を保存する
@@ -861,6 +863,9 @@ class CycleViewController:  UIViewController,
         if 0 < annotationList.count {
             retVal = true
         }
+        if (0 != destinationAno.coordinate.latitude) && (0 != destinationAno.coordinate.longitude) {
+            retVal = true
+        }
         return retVal
     }
     
@@ -876,6 +881,11 @@ class CycleViewController:  UIViewController,
         mapView.removeAnnotation(pointAno)
         pointAno.coordinate.longitude = 0
         pointAno.coordinate.latitude = 0
+        
+        // 目的地を削除
+        mapView.removeAnnotation(destinationAno)
+        destinationAno.coordinate.longitude = 0
+        destinationAno.coordinate.latitude = 0
         
         // 検索地点を削除
         if 0 < annotationList.count {
@@ -896,6 +906,13 @@ class CycleViewController:  UIViewController,
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // キーボードを戻す
         searchBar.resignFirstResponder()
+
+        // 地図上のルートを削除
+// ルート案内中に他の地点を検索して毎回消えるのは面倒なので
+//      if nil != self.routePolyLine {
+//          self.mapView.removeOverlay(self.routePolyLine)
+//          self.routePolyLine = nil
+//      }
         
         if 0 < annotationList.count {
             // 前回検索したアノテーションを削除する
@@ -985,10 +1002,11 @@ class CycleViewController:  UIViewController,
             let location = CLLocation(latitude: center.latitude, longitude: center.longitude)
 
             // 地図上のルートを削除
-            if nil != self.routePolyLine {
-                self.mapView.removeOverlay(self.routePolyLine)
-                self.routePolyLine = nil
-            }
+// 地点タッチするたびにルートを消すと面倒なので、ルート探索時に消去する
+//          if nil != self.routePolyLine {
+//              self.mapView.removeOverlay(self.routePolyLine)
+//              self.routePolyLine = nil
+//          }
             
             // ロングタップした位置にピンを立てる
             mapView.removeAnnotation(pointAno)
@@ -1076,19 +1094,30 @@ class CycleViewController:  UIViewController,
                 }
                 return
             }
-
-            // 地図上のオーバーレイを削除
-            if nil != self.routePolyLine {
-                self.mapView.removeOverlay(self.routePolyLine)
+            // mainスレッドで処理する
+            DispatchQueue.main.async {
+                // 目的地のアノテーションを別に立てる
+                self.destinationAno.coordinate = CLLocationCoordinate2DMake(self.tapRoutePoint.latitude, self.tapRoutePoint.longitude)
+                self.destinationAno.title = "目的地"
+                self.destinationAno.subtitle = self.tapPointTitle
+                self.mapView.addAnnotation(self.destinationAno)
+                
+                // 地図上のオーバーレイを削除
+                if nil != self.routePolyLine {
+                    self.mapView.removeOverlay(self.routePolyLine)
+                    self.routePolyLine = nil
+                }
+                
+                // ルートを表示
+                let route = directionResonse.routes[0]
+                self.routePolyLine = route.polyline
+                self.routePolyLine.subtitle = "route"
+                self.mapView.addOverlay(self.routePolyLine)
+                
+                //　縮尺を設定
+                let rect = route.polyline.boundingMapRect
+                self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
             }
-            // ルートを表示
-            let route = directionResonse.routes[0]
-            self.routePolyLine = route.polyline
-            self.routePolyLine.subtitle = "route"
-            self.mapView.addOverlay(self.routePolyLine)
-            //　縮尺を設定
-            let rect = route.polyline.boundingMapRect
-            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
         }
     }
     
