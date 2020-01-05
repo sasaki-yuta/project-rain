@@ -942,6 +942,7 @@ class CycleViewController:  UIViewController,
                         annotation.coordinate =     CLLocationCoordinate2DMake(placemark.placemark.coordinate.latitude, placemark.placemark.coordinate.longitude)
                         annotation.title = placemark.placemark.name
                         annotation.subtitle = placemark.placemark.title
+                        annotation.setPinColor(.green)
                         self.annotationList.append(annotation)
                         self.mapView.addAnnotation(annotation)
                     }
@@ -1098,8 +1099,9 @@ class CycleViewController:  UIViewController,
             DispatchQueue.main.async {
                 // 目的地のアノテーションを別に立てる
                 self.destinationAno.coordinate = CLLocationCoordinate2DMake(self.tapRoutePoint.latitude, self.tapRoutePoint.longitude)
-                self.destinationAno.title = "目的地"
-                self.destinationAno.subtitle = self.tapPointTitle
+                self.destinationAno.title = "目的地" + "\n" + self.tapPointTitle
+                self.destinationAno.subtitle = self.tapStreetAddr
+                self.destinationAno.setPinColor(.blue)
                 self.mapView.addAnnotation(self.destinationAno)
                 
                 // 地図上のオーバーレイを削除
@@ -1253,8 +1255,21 @@ extension CycleViewController : MKMapViewDelegate {
         if( annotation is MKUserLocation ) {
             return nil
         }
-
-        // ボタンや画像など独自のピンを作成する場合は、下記を有効にして更新する
+        
         return nil
+
+        // 色を変えたいが、ピンが細いタイプで、選択しないとTitleが出ないため今回のVersionでは見送る
+        let identifier = "pinAnnotation"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView
+
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            let colorPointAnnotation = annotation as! MapAnnotationCycle
+            annotationView?.pinTintColor = colorPointAnnotation.pinColor
+            annotationView?.isHighlighted = true
+        }
+        
+        return annotationView
     }
 }

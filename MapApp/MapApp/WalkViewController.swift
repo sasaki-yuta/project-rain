@@ -1068,8 +1068,9 @@ class WalkViewController:   UIViewController,
             DispatchQueue.main.async {
                 // 目的地のアノテーションを別に立てる
                 self.destinationAno.coordinate = CLLocationCoordinate2DMake(self.tapRoutePoint.latitude, self.tapRoutePoint.longitude)
-                self.destinationAno.title = "目的地"
-                self.destinationAno.subtitle = self.tapPointTitle
+                self.destinationAno.title = "目的地" + "\n" + self.tapPointTitle
+                self.destinationAno.subtitle = self.tapStreetAddr
+                self.destinationAno.setPinColor(.blue)
                 self.mapView.addAnnotation(self.destinationAno)
                 
                 // 地図上のオーバーレイを削除
@@ -1180,6 +1181,7 @@ class WalkViewController:   UIViewController,
                         annotation.coordinate =     CLLocationCoordinate2DMake(placemark.placemark.coordinate.latitude, placemark.placemark.coordinate.longitude)
                         annotation.title = placemark.placemark.name
                         annotation.subtitle = placemark.placemark.title
+                        annotation.setPinColor(.green)
                         self.annotationList.append(annotation)
                         self.mapView.addAnnotation(annotation)
                     }

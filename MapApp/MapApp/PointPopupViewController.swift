@@ -65,7 +65,10 @@ class PointPopupViewController: UIViewController {
         }
         
         // 目的地の場合に経路探索ボタンを非アクティブにする
-        if "目的地" == lblTitle.text {
+        let str = lblTitle.text
+        let firstStr = String((str?.prefix(4))!)
+        print(firstStr)
+        if "目的地\n" == firstStr {
             btnRoute.isEnabled = false
             btnRoute.setTitleColor(.gray, for: .normal)
         }
