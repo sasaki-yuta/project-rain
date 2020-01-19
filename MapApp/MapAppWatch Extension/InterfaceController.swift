@@ -44,27 +44,36 @@ class InterfaceController:  WKInterfaceController,
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
 
-        // 画面描画時(アクティブになった時)にiOSのアプリにデータ送信を要求する
-        let contents =  ["GET":"MODE"]
-        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
-            print (replyMessage);
-        }) { (error) -> Void in
-            print(error)
-        }
-        
         // crownSequencerにフォーカスを当てる
         crownSequencer.focus()
     }
-    
+        
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+    }
+    
+    func sendMessageGetMode() {
+        // mainスレッドで処理する
+        DispatchQueue.main.async {
+            // 画面描画時(アクティブになった時)にiOSのアプリにデータ送信を要求する
+            let contents =  ["GET":"MODE"]
+            self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+                print (replyMessage);
+            }) { (error) -> Void in
+                print(error)
+            }
+        }
     }
 
     // Initializerメソッド
     override init() {
         super.init()
 
+        // ExtensionDelegateから自身のAPIをコールできる様に自分自身を登録する
+        let appDelegate: ExtensionDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+        appDelegate.IfController = self
+        
         // CLLocationManagerのdelegateを登録
         locationManager.delegate = self
 
