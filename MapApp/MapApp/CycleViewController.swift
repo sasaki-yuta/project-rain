@@ -1060,9 +1060,11 @@ class CycleViewController:  UIViewController,
                     if let pm = placemarks.first {
                         // mainスレッドで処理する
                         DispatchQueue.main.async {
+                            self.tapPointTitle = pm.name
                             self.tapStreetAddr = "〒\(pm.postalCode ?? "")\n\(pm.administrativeArea ?? "")\(pm.locality ?? "")\n\(pm.name ?? "")"
                             // ピンのタイトルを設定する
                             self.pointAno.title = pm.name
+                            self.pointAno.subtitle = self.tapStreetAddr
                             
                             // ロングタップした地点のViewをPopup表示する
                             self.showPointPopupView()
