@@ -36,7 +36,10 @@ class CycleViewController:  UIViewController,
     var mapViewType: UIButton!
     var isStarting: Bool! = false
     var session: WCSession!
+    
+    // Popup画面
     var floatingPanelController: FloatingPanelController!
+    var isShowPopup: Bool = false
     
     // UserDefaults(データバックアップ用)オブジェクト
     var userDataManager:UserDataManager!
@@ -379,6 +382,15 @@ class CycleViewController:  UIViewController,
 
     // CLLocationManagerのdelegate：現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
+        // Popup画面に表示する距離を更新
+        if isShowPopup {
+            self.tapDistance = calcDistance(mapView.userLocation.coordinate, tapRoutePoint)
+            let strDist = self.getTapDistance()
+
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.pointPopupViewController.setDistance(strDist)
+        }
+
         // 計測開始していなければreturnする
         if (false == isStarting) {
             return
@@ -903,11 +915,24 @@ class CycleViewController:  UIViewController,
         }
     }
     
+    // PopUp画面表示
+    func showPointPopupView() {
+        isShowPopup = true
+        // セミモーダルビューを表示する
+        floatingPanelController.surfaceView.cornerRadius = 24.0 // かどを丸くする
+        let viewCnt = PointPopupViewController()
+        floatingPanelController.set(contentViewController: viewCnt)
+        // セミモーダルビューを表示する
+        floatingPanelController.addPanel(toParent: self, belowView: nil, animated: false)
+    }
+
     // PopUp画面の消去
     func ExitPointPopupView() {
+        isShowPopup = false
         // セミモーダルビューを非表示にする
         floatingPanelController.removePanelFromParent(animated: true)
     }
+
     
     //==================================================================
     // テキストフィールド
@@ -1132,16 +1157,6 @@ class CycleViewController:  UIViewController,
                 self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
             }
         }
-    }
-    
-    // ロングタップした地点のViewをPopup表示する
-    func showPointPopupView() {
-        // セミモーダルビューを表示する
-        floatingPanelController.surfaceView.cornerRadius = 24.0 // かどを丸くする
-        let viewCnt = PointPopupViewController()
-        floatingPanelController.set(contentViewController: viewCnt)
-        // セミモーダルビューを表示する
-        floatingPanelController.addPanel(toParent: self, belowView: nil, animated: false)        
     }
     
 

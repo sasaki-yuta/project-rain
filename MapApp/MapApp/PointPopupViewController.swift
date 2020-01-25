@@ -173,4 +173,8 @@ class PointPopupViewController: UIViewController {
             break
         }
     }
+    
+    func setDistance(_ text: String) {
+        lblDistance.text = text
+    }
 }

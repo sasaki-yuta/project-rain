@@ -36,7 +36,10 @@ class WalkViewController:   UIViewController,
     var mapViewType: UIButton!              // mapViewTypeOverのボタン本体
     var userDataManager:UserDataManager!    // UserDefaults(データバックアップ用)オブジェクト
     var locManager: CLLocationManager!      // 位置情報
+    
+    // Popup画面
     var floatingPanelController: FloatingPanelController!
+    var isShowPopup: Bool = false
     
     // アノテーション
     var pointAno: MapAnnotationWalk = MapAnnotationWalk()           // ロングタップした地点
@@ -399,6 +402,15 @@ class WalkViewController:   UIViewController,
     
     // CLLocationManagerのdelegate：現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
+        // Popup画面に表示する距離を更新
+        if isShowPopup {
+            self.tapDistance = calcDistance(mapView.userLocation.coordinate, tapRoutePoint)
+            let strDist = self.getTapDistance()
+
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.pointPopupViewController.setDistance(strDist)
+        }
+
         // 計測開始していなければreturnする
         if (false == isStarting) {
             return
@@ -1016,16 +1028,6 @@ class WalkViewController:   UIViewController,
         let dist = bLoc.distance(from: aLoc)
         return dist
     }
-    
-    // ロングタップした地点のViewをPopup表示する
-    func showPointPopupView() {
-        // セミモーダルビューを表示する
-        floatingPanelController.surfaceView.cornerRadius = 24.0 // かどを丸くする
-        let viewCnt = PointPopupViewController()
-        floatingPanelController.set(contentViewController: viewCnt)
-        // セミモーダルビューを表示する
-        floatingPanelController.addPanel(toParent: self, belowView: nil, animated: false)
-    }
 
     // タップした地点の名称を取得する
     public func getTapPointTitle() -> String {
@@ -1141,11 +1143,24 @@ class WalkViewController:   UIViewController,
         }
     }
     
+    // PopUp画面表示
+    func showPointPopupView() {
+        isShowPopup = true
+        // セミモーダルビューを表示する
+        floatingPanelController.surfaceView.cornerRadius = 24.0 // かどを丸くする
+        let viewCnt = PointPopupViewController()
+        floatingPanelController.set(contentViewController: viewCnt)
+        // セミモーダルビューを表示する
+        floatingPanelController.addPanel(toParent: self, belowView: nil, animated: false)
+    }
+    
     // PopUp画面の消去
     func ExitPointPopupView() {
+        isShowPopup = false
         // セミモーダルビューを非表示にする
         floatingPanelController.removePanelFromParent(animated: true)
     }
+
     
     //==================================================================
     // テキストフィールド
@@ -1294,5 +1309,12 @@ class WalkViewController:   UIViewController,
 extension WalkViewController : FloatingPanelControllerDelegate {
     func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
         return CustomFloatingPanelLayout()
+    }
+    
+    // サイズを変更した後に実施する処理
+    func floatingPanelDidEndDragging(_ vc: FloatingPanelController, withVelocity velocity: CGPoint, targetPosition: FloatingPanelPosition) {
+        
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.pointPopupViewController.resize(targetPosition)
     }
 }
