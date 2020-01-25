@@ -11,6 +11,7 @@ import FloatingPanel
 
 class PointPopupViewController: UIViewController {
     
+    var exitBtn: UIButton!
     var routeBtn: UIButton!
     var lblDistance: UILabel!
     var lblTitle: UILabel!
@@ -42,10 +43,19 @@ class PointPopupViewController: UIViewController {
     
     // Viewの初期化
     func initView() {
-        // カスタムの文字色で初期化
-        let g = CGFloat(0x94) / 255
-        let b = CGFloat(0xFE) / 255
-        let strColor: UIColor = UIColor(red: 0, green: g, blue: b, alpha: 1.0)
+        // Voewのサイズを画面サイズに設定する
+        let dispSize: CGSize = UIScreen.main.bounds.size
+        let width = Int(dispSize.width)
+        
+        // exitボタン表示
+        exitBtn = UIButton(type: UIButton.ButtonType.system)
+        exitBtn.addTarget(self, action: #selector(btnExit(_:)), for: UIControl.Event.touchUpInside)
+        exitBtn.frame = CGRect(x:width-40, y:15, width:25, height:25)
+        let picture = UIImage(named: "Exit")
+        exitBtn.setImage(picture, for: .normal)
+        exitBtn.tintColor = .gray
+        // サイズを決める(自動調整)
+        exitBtn.sizeToFit()
         
         // タイトル表示
         lblTitle = UILabel()
@@ -63,6 +73,11 @@ class PointPopupViewController: UIViewController {
         lblStreetAddr.font = UIFont.systemFont(ofSize: 17.0)
         lblStreetAddr.numberOfLines = 4
         
+        // カスタムの文字色で初期化
+        let g = CGFloat(0x94) / 255
+        let b = CGFloat(0xFE) / 255
+        let strColor: UIColor = UIColor(red: 0, green: g, blue: b, alpha: 1.0)
+
         // 探索ボタン表示
         routeBtn = UIButton(type: UIButton.ButtonType.system)
         routeBtn.addTarget(self, action: #selector(btnRouteSearch(_:)), for: UIControl.Event.touchUpInside)
@@ -98,12 +113,28 @@ class PointPopupViewController: UIViewController {
             routeBtn.setTitleColor(.gray, for: .normal)
         }
         
+        self.view.addSubview(exitBtn)
         self.view.addSubview(routeBtn)
         self.view.addSubview(lblTitle)
         self.view.addSubview(lblDistance)
         self.view.addSubview(lblStreetAddr)
     }
-    
+
+    // Closeボタンを押下した時の処理
+    @IBAction func btnExit(_ sender: Any)
+    {
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        if .MODE_CYCLE == appDelegate.nowMapMode {
+            appDelegate.cycleViewController.ExitPointPopupView()
+        }
+        else if .MODE_WALK == appDelegate.nowMapMode {
+            appDelegate.walkViewController.ExitPointPopupView()
+        }
+        else {
+            // 処理なし
+        }
+    }
+
     // 探索ボタンを押下した時の処理
     @IBAction func btnRouteSearch(_ sender: Any)
     {

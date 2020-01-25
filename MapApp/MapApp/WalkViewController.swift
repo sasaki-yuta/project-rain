@@ -1115,6 +1115,9 @@ class WalkViewController:   UIViewController,
     
     // 地点を削除する
     func deletePoint() {
+        // 地点画面を消去する
+        ExitPointPopupView()
+        
         // 地図上のオーバーレイを削除
         if nil != routePolyLine {
             mapView.removeOverlay(self.routePolyLine)
@@ -1137,7 +1140,12 @@ class WalkViewController:   UIViewController,
             annotationList.removeAll()
         }
     }
-
+    
+    // PopUp画面の消去
+    func ExitPointPopupView() {
+        // セミモーダルビューを非表示にする
+        floatingPanelController.removePanelFromParent(animated: true)
+    }
     
     //==================================================================
     // テキストフィールド
@@ -1152,12 +1160,8 @@ class WalkViewController:   UIViewController,
         // キーボードを戻す
         searchBar.resignFirstResponder()
         
-        // 地図上のルートを削除
-// ルート案内中に他の地点を検索して毎回消えるのは面倒なので
-//      if nil != self.routePolyLine {
-//          self.mapView.removeOverlay(self.routePolyLine)
-//          self.routePolyLine = nil
-//      }
+        // 地点画面を消去する
+        ExitPointPopupView()
         
         if 0 < annotationList.count {
             // 前回検索したアノテーションを削除する
