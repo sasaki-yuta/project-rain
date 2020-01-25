@@ -943,7 +943,6 @@ class WalkViewController:   UIViewController,
         
         if (nil == annotation?.subtitle!) {
             tapPointTitle = "タップした地点"
-            tapStreetAddr = annotation?.title ?? ""
         }
         else {
             // POP UP画面に表示する住所
@@ -1205,7 +1204,7 @@ class WalkViewController:   UIViewController,
                         let annotation = MapAnnotationCycle()
                         annotation.coordinate =     CLLocationCoordinate2DMake(placemark.placemark.coordinate.latitude, placemark.placemark.coordinate.longitude)
                         annotation.title = placemark.placemark.name
-                        annotation.subtitle = placemark.placemark.title
+                        annotation.subtitle = "〒\(placemark.placemark.postalCode ?? "")\n\(placemark.placemark.administrativeArea ?? "")\(placemark.placemark.locality ?? "")\n\(placemark.placemark.name ?? "")" //placemark.placemark.title
                         annotation.setPinColor(.green)
                         self.annotationList.append(annotation)
                         self.mapView.addAnnotation(annotation)

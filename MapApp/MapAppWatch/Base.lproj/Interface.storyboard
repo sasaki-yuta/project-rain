@@ -12,16 +12,14 @@
             <objects>
                 <controller id="AgC-eL-Hgc" userLabel="MapDeMode" customClass="InterfaceController" customModule="Map_Mode" customModuleProvider="target">
                     <items>
-                        <label alignment="left" verticalAlignment="center" text="モード" id="5so-GC-wbg"/>
-                        <label alignment="left" verticalAlignment="center" id="ch3-C2-3y5">
+                        <label alignment="left" text="モード" textAlignment="left" id="5so-GC-wbg"/>
+                        <label width="150" height="80" alignment="left" verticalAlignment="center" text="　" textAlignment="left" numberOfLines="3" id="ch3-C2-3y5">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="font" style="UICTFontTextStyleBody"/>
                         </label>
-                        <map height="98" alignment="center" id="oY7-fH-NhX"/>
                     </items>
                     <connections>
                         <outlet property="label" destination="ch3-C2-3y5" id="V9k-Pj-XIQ"/>
-                        <outlet property="mapView" destination="oY7-fH-NhX" id="abX-bz-ScT"/>
                         <outlet property="modeLabel" destination="5so-GC-wbg" id="0uw-O9-DWO"/>
                     </connections>
                 </controller>

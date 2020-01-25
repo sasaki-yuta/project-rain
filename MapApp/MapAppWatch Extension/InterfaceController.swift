@@ -96,10 +96,10 @@ class InterfaceController:  WKInterfaceController,
         }
   
         // 地図の中心位置と縮尺を設定
-        let coordinate = CLLocationCoordinate2DMake(37.331667, -122.030833)
-        let span = MKCoordinateSpan(latitudeDelta: dSpanlat, longitudeDelta: dSpanlon)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView.setRegion(region)
+//        let coordinate = CLLocationCoordinate2DMake(37.331667, -122.030833)
+//        let span = MKCoordinateSpan(latitudeDelta: dSpanlat, longitudeDelta: dSpanlon)
+//        let region = MKCoordinateRegion(center: coordinate, span: span)
+//        mapView.setRegion(region)
         
         // Digital Crownのデリゲートを設定
         crownSequencer.delegate = self
@@ -113,7 +113,7 @@ class InterfaceController:  WKInterfaceController,
         locCord2D = (locations.last?.coordinate)!
         
         // アノテーションを削除する
-        mapView.removeAllAnnotations()
+//        mapView.removeAllAnnotations()
 
         // iOSから緯度経度を受信している場合
         if dlon != 0 && dlat != 0 {
@@ -122,21 +122,21 @@ class InterfaceController:  WKInterfaceController,
             // mをyardに変換する
             let yardStr = Int(distance * 1.09361)
             // 距離をラベルのテキストに設定する
-            let fontSize = UIFont.systemFont(ofSize: 20)
-            let text = String(Int(distance).description + " m / " + yardStr.description + " y")
+            let fontSize = UIFont.systemFont(ofSize: 30)
+            let text = String(Int(distance).description + " m" + "\n" + yardStr.description + " y")
             let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
             label.setAttributedText(attrStr)
             
             // ロングタッチポイントの緯度経度が有効であればアノテーションを設定する
-            let cordinate2D = CLLocationCoordinate2DMake(dlat, dlon)
-            mapView.addAnnotation(cordinate2D, with: .red)
+//            let cordinate2D = CLLocationCoordinate2DMake(dlat, dlon)
+//            mapView.addAnnotation(cordinate2D, with: .red)
         }
         
         // 現在位置のアノテーションを設定する
-        mapView.addAnnotation(locCord2D!, with: .purple)
+//        mapView.addAnnotation(locCord2D!, with: .purple)
         
         // 地図の中心位置を現在位置に設定する
-        updateCurrentLoc()
+//        updateCurrentLoc()
     }
     
     // Digital Crownのデリゲート
@@ -187,7 +187,7 @@ class InterfaceController:  WKInterfaceController,
         }
         
         print("dSpanlat = " + dSpanlat.description, "dSpanlon = " + dSpanlat.description)
-        updateCurrentLoc()
+//        updateCurrentLoc()
     }
     
     // 現在位置更新
@@ -240,14 +240,14 @@ class InterfaceController:  WKInterfaceController,
             dlat = lat
             
             // アノテーションを削除する
-            mapView.removeAllAnnotations()
+//            mapView.removeAllAnnotations()
             
             // iOSから緯度経度を受信した時にも現在位置との距離を表示する
             if (nil != locCord2D) {
                 var text = ""
                 
                 // 現在位置のアノテーションを設定する
-                mapView.addAnnotation(locCord2D!, with: .purple)
+//                mapView.addAnnotation(locCord2D!, with: .purple)
                 
                 if (0 != dlon) && (0 != dlat) {
                     // 現在位置とiOSから受信した緯度経度との距離(m)を算出する
@@ -255,15 +255,15 @@ class InterfaceController:  WKInterfaceController,
                     // mをyardに変換する
                     let yardStr = Int(distance * 1.09361)
                     // 距離をラベルのテキストに設定する
-                    text = String(Int(distance).description + " m / " + yardStr.description + " y")
+                    text = String(Int(distance).description + " m" + "\n" + yardStr.description + " y")
                     
                     // 緯度経度が有効であればアノテーションを設定する
                     let cordinate2D = CLLocationCoordinate2DMake(dlat, dlon)
-                    mapView.addAnnotation(cordinate2D, with: .red)
+//                    mapView.addAnnotation(cordinate2D, with: .red)
                 }
                 
                 // タップした距離を表示
-                let fontSize = UIFont.systemFont(ofSize: 20)
+                let fontSize = UIFont.systemFont(ofSize: 30)
                 let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
                 label.setAttributedText(attrStr)
             }
@@ -284,7 +284,7 @@ class InterfaceController:  WKInterfaceController,
             }
 
             // モードタイトルを更新
-            let fontSize = UIFont.systemFont(ofSize: 20)
+            let fontSize = UIFont.systemFont(ofSize: 25)
             let attrStrTitle = NSAttributedString(string: str, attributes:[NSAttributedString.Key.font:fontSize])
             modeLabel.setAttributedText(attrStrTitle)
             
