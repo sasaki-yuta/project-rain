@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var menuCycleViewController: MenuCycleViewController!
     var walkViewController: WalkViewController!
     var menuWalkViewController: MenuWalkViewController!
+    var pointPopupViewController: PointPopupViewController!
     
     // 選択中のMapMode(初期値=ゴルフ)
     var nowMapMode: MapMode! = .MODE_GOLF

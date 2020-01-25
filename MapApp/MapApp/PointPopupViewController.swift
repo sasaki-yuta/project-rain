@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FloatingPanel
 
 class PointPopupViewController: UIViewController {
     
@@ -17,8 +18,10 @@ class PointPopupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        // AppDelegateに追加したviewControllerに自身を設定
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.pointPopupViewController = self
         
         initView()
     }
@@ -46,17 +49,17 @@ class PointPopupViewController: UIViewController {
         
         // タイトル表示
         lblTitle = UILabel()
-        lblTitle.frame = CGRect(x:20, y:15, width:355, height:50)
+        lblTitle.frame = CGRect(x:20, y:5, width:355, height:40)
         lblTitle.font = UIFont.systemFont(ofSize: 20.0)
         
         // 距離表示
         lblDistance = UILabel()
-        lblDistance.frame = CGRect(x:20, y:90, width:355, height:25)
+        lblDistance.frame = CGRect(x:20, y:40, width:355, height:25)
         lblDistance.font = UIFont.systemFont(ofSize: 17.0)
         
         // 住所表示
         lblStreetAddr = UILabel()
-        lblStreetAddr.frame = CGRect(x:20, y:115, width:355, height:120)
+        lblStreetAddr.frame = CGRect(x:20, y:65, width:355, height:120)
         lblStreetAddr.font = UIFont.systemFont(ofSize: 17.0)
         lblStreetAddr.numberOfLines = 4
         
@@ -65,7 +68,7 @@ class PointPopupViewController: UIViewController {
         routeBtn.addTarget(self, action: #selector(btnRouteSearch(_:)), for: UIControl.Event.touchUpInside)
         routeBtn.setTitle("経路探索", for: UIControl.State.normal)
         routeBtn.setTitleColor(strColor, for: .normal)
-        routeBtn.frame = CGRect(x:20, y:240, width:62, height:30)
+        routeBtn.frame = CGRect(x:20, y:190, width:62, height:30)
         // サイズを決める(自動調整)
         routeBtn.sizeToFit()
         
@@ -113,6 +116,30 @@ class PointPopupViewController: UIViewController {
         }
         else {
             // 処理なし
+        }
+    }
+    
+    // サイズ変更時の画面際描画
+    func resize(_ targetPosition: FloatingPanelPosition) {
+        // セミモーダルビューの各表示パターンの高さに応じて表示/非表示を切り替える
+        switch targetPosition {
+        case .full:
+            lblTitle.isHidden = false
+            lblDistance.isHidden = false
+            lblStreetAddr.isHidden = false
+            routeBtn.isHidden = false
+        case .half:
+            lblTitle.isHidden = false
+            lblDistance.isHidden = false
+            lblStreetAddr.isHidden = false
+            routeBtn.isHidden = false
+        case .tip:
+            lblTitle.isHidden = false
+            lblDistance.isHidden = false
+            lblStreetAddr.isHidden = true
+            routeBtn.isHidden = true
+        default:
+            break
         }
     }
 }

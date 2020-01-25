@@ -1282,8 +1282,16 @@ extension CycleViewController : MKMapViewDelegate {
 
 // FloatingPanelControllerDelegate を実装してカスタマイズしたレイアウトを返す
 extension CycleViewController : FloatingPanelControllerDelegate {
+    // モーダル表示
     func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
         return CustomFloatingPanelLayout()
+    }
+    
+    // サイズを変更した後に実施する処理
+    func floatingPanelDidEndDragging(_ vc: FloatingPanelController, withVelocity velocity: CGPoint, targetPosition: FloatingPanelPosition) {
+        
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.pointPopupViewController.resize(targetPosition)
     }
 }
 

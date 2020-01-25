@@ -33,7 +33,7 @@ class CustomFloatingPanelLayout: FloatingPanelLayout {
         case .half:
             ret = 262.0
         case .tip:
-            ret = 50.0
+            ret = 75.0
         default:
             ret = nil
         }
