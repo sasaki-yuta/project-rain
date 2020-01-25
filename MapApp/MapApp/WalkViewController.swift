@@ -1152,7 +1152,8 @@ class WalkViewController:   UIViewController,
         let viewCnt = PointPopupViewController()
         floatingPanelController.set(contentViewController: viewCnt)
         // セミモーダルビューを表示する
-        floatingPanelController.addPanel(toParent: self, belowView: nil, animated: false)
+        floatingPanelController.addPanel(toParent: self, belowView: nil, animated: true)
+        floatingPanelController.move(to: .half, animated: true)
     }
     
     // PopUp画面の消去
