@@ -1109,20 +1109,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="タップした地点" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dls-pD-6Gg">
-                                <rect key="frame" x="20" y="60" width="355" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ib-R5-hbO">
-                                <rect key="frame" x="20" y="140" width="355" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="住所" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dH-SH-PIE">
                                 <rect key="frame" x="20" y="195" width="322" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1130,23 +1116,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLo-bR-0p0">
-                                <rect key="frame" x="20" y="345" width="62" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="経路探索"/>
-                                <connections>
-                                    <action selector="btnRouteSearch:" destination="6mh-EC-2RU" eventType="touchDown" id="OtT-pb-4bw"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="tCl-H5-gnt"/>
                     </view>
                     <connections>
-                        <outlet property="btnRoute" destination="xLo-bR-0p0" id="GA9-Pi-4bQ"/>
-                        <outlet property="lblDistance" destination="2Ib-R5-hbO" id="cfG-FK-brq"/>
                         <outlet property="lblStreetAddr" destination="0dH-SH-PIE" id="Pxi-mv-hmT"/>
-                        <outlet property="lblTitle" destination="Dls-pD-6Gg" id="Qhc-yo-ihP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dF4-oc-d48" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1156,8 +1131,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="iXs-S6-MH1"/>
-        <segue reference="Uz6-gb-i5J"/>
-        <segue reference="bG3-3c-3h4"/>
+        <segue reference="ofk-iG-fGN"/>
+        <segue reference="qzy-np-p9Q"/>
         <segue reference="1bs-VB-7UU"/>
     </inferredMetricsTieBreakers>
 </document>

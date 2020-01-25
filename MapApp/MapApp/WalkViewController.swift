@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import WatchConnectivity
+import FloatingPanel
 
 // MKPointAnnotation拡張用クラス
 class MapAnnotationWalk: MKPointAnnotation {
@@ -35,6 +36,7 @@ class WalkViewController:   UIViewController,
     var mapViewType: UIButton!              // mapViewTypeOverのボタン本体
     var userDataManager:UserDataManager!    // UserDefaults(データバックアップ用)オブジェクト
     var locManager: CLLocationManager!      // 位置情報
+    var floatingPanelController: FloatingPanelController!
     
     // アノテーション
     var pointAno: MapAnnotationWalk = MapAnnotationWalk()           // ロングタップした地点
@@ -163,6 +165,10 @@ class WalkViewController:   UIViewController,
         notification.addObserver(self, selector: #selector(keyboardWillHide(_:)),
                                  name: UIResponder.keyboardWillHideNotification, object: nil)
 
+        // モーダルビュー
+        floatingPanelController = FloatingPanelController()
+        floatingPanelController.delegate = self
+        
         initMap()
         
         // WatchOSにモードを通知する
@@ -1013,12 +1019,12 @@ class WalkViewController:   UIViewController,
     
     // ロングタップした地点のViewをPopup表示する
     func showPointPopupView() {
-        // ViewをPopUp表示する
-        let storyboard: UIStoryboard = self.storyboard!
-        let second = storyboard.instantiateViewController(withIdentifier: "PointPopupViewController")
-        // modalPresentationStyleを指定する
-        second.modalPresentationStyle = .popover
-        self.present(second, animated: true, completion: nil)
+        // セミモーダルビューを表示する
+        floatingPanelController.surfaceView.cornerRadius = 24.0 // かどを丸くする
+        let viewCnt = PointPopupViewController()
+        floatingPanelController.set(contentViewController: viewCnt)
+        // セミモーダルビューを表示する
+        floatingPanelController.addPanel(toParent: self, belowView: nil, animated: false)
     }
 
     // タップした地点の名称を取得する
@@ -1277,5 +1283,12 @@ class WalkViewController:   UIViewController,
         default:
             print("not exist type.")
         }
+    }
+}
+
+// FloatingPanelControllerDelegate を実装してカスタマイズしたレイアウトを返す
+extension WalkViewController : FloatingPanelControllerDelegate {
+    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
+        return CustomFloatingPanelLayout()
     }
 }

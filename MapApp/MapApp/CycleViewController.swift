@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import WatchConnectivity
+import FloatingPanel
 
 
 // MKPointAnnotation拡張用クラス
@@ -35,6 +36,7 @@ class CycleViewController:  UIViewController,
     var mapViewType: UIButton!
     var isStarting: Bool! = false
     var session: WCSession!
+    var floatingPanelController: FloatingPanelController!
     
     // UserDefaults(データバックアップ用)オブジェクト
     var userDataManager:UserDataManager!
@@ -157,6 +159,10 @@ class CycleViewController:  UIViewController,
         let notification = NotificationCenter.default
         notification.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         notification.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+        // モーダルビュー
+        floatingPanelController = FloatingPanelController()
+        floatingPanelController.delegate = self
         
         // 地図の初期化
         initMap()
@@ -1024,7 +1030,7 @@ class CycleViewController:  UIViewController,
                     if let pm = placemarks.first {
                         // mainスレッドで処理する
                         DispatchQueue.main.async {
-                            self.tapStreetAddr = "〒\(pm.postalCode ?? "")\n\(pm.administrativeArea ?? "")\(pm.locality ?? "") \n\(pm.name ?? "")"
+                            self.tapStreetAddr = "〒\(pm.postalCode ?? "")\n\(pm.administrativeArea ?? "")\(pm.locality ?? "")\n\(pm.name ?? "")"
                             // ピンのタイトルを設定する
                             self.pointAno.title = pm.name
                             
@@ -1125,12 +1131,12 @@ class CycleViewController:  UIViewController,
     
     // ロングタップした地点のViewをPopup表示する
     func showPointPopupView() {
-        // ViewをPopUp表示する
-        let storyboard: UIStoryboard = self.storyboard!
-        let second = storyboard.instantiateViewController(withIdentifier: "PointPopupViewController")
-        // modalPresentationStyleを指定する
-        second.modalPresentationStyle = .popover
-        self.present(second, animated: true, completion: nil)
+        // セミモーダルビューを表示する
+        floatingPanelController.surfaceView.cornerRadius = 24.0 // かどを丸くする
+        let viewCnt = PointPopupViewController()
+        floatingPanelController.set(contentViewController: viewCnt)
+        // セミモーダルビューを表示する
+        floatingPanelController.addPanel(toParent: self, belowView: nil, animated: false)        
     }
     
 
@@ -1273,3 +1279,11 @@ extension CycleViewController : MKMapViewDelegate {
         return annotationView
     }
 }
+
+// FloatingPanelControllerDelegate を実装してカスタマイズしたレイアウトを返す
+extension CycleViewController : FloatingPanelControllerDelegate {
+    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
+        return CustomFloatingPanelLayout()
+    }
+}
+
