@@ -8,14 +8,16 @@
 
 import UIKit
 import FloatingPanel
+import WebKit
 
-class PointPopupViewController: UIViewController {
+class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDelegate {
     
     var exitBtn: UIButton!
     var routeBtn: UIButton!
     var lblDistance: UILabel!
     var lblTitle: UILabel!
     var lblStreetAddr: UILabel!
+    var webView: WKWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +48,7 @@ class PointPopupViewController: UIViewController {
         // Voewのサイズを画面サイズに設定する
         let dispSize: CGSize = UIScreen.main.bounds.size
         let width = Int(dispSize.width)
+        let height = Int(dispSize.height)
         
         // exitボタン表示
         exitBtn = UIButton(type: UIButton.ButtonType.system)
@@ -118,8 +121,42 @@ class PointPopupViewController: UIViewController {
         self.view.addSubview(lblTitle)
         self.view.addSubview(lblDistance)
         self.view.addSubview(lblStreetAddr)
-    }
 
+        // ブラウザ表示
+        let rect = CGRect(x:0, y:230, width:width, height:height-230)
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: rect, configuration: webConfiguration)
+
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+        // スワイプで戻る、進むを有効にする
+        webView.allowsBackForwardNavigationGestures = true
+        
+        var url: String = "https://www.google.co.jp"
+        if .MODE_CYCLE == appDelegate.nowMapMode {
+            url += "/search?q="
+            url += appDelegate.cycleViewController.getTapStreetAddr()
+            url += "+"
+            url += appDelegate.cycleViewController.getTapPointTitle()
+        }
+        else if .MODE_WALK == appDelegate.nowMapMode {
+            url += "/search?q="
+            url += appDelegate.walkViewController.getTapStreetAddr()
+            url += "+"
+            url += appDelegate.walkViewController.getTapPointTitle()
+        }
+        else {
+        }
+        
+        // 日本語を含んだ文字列をURLやNSURLにするとnilになる対策
+        let encodeUrl: String = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let webUrl = URL(string: encodeUrl)
+        let myRequest = URLRequest(url: webUrl!)
+        webView.load(myRequest)
+        // インスタンスをビューに追加する
+        self.view.addSubview(webView)
+    }
+    
     // Closeボタンを押下した時の処理
     @IBAction func btnExit(_ sender: Any)
     {
