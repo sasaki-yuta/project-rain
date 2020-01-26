@@ -3,109 +3,109 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "MapMode40-2.png",
+      "filename" : "iPhoneMapMode40-2.png",
       "scale" : "2x"
     },
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "MapMode60.png",
+      "filename" : "iPhoneMapMode60.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "MapMode58-1.png",
+      "filename" : "iPhoneMapMode58-1.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "MapMode87.png",
+      "filename" : "iPhoneMapMode87.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "MapMode80-1.png",
+      "filename" : "iPhoneMapMode80-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "MapMode120.png",
+      "filename" : "iPhoneMapMode120-1.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "MapMode120-1.png",
+      "filename" : "iPhoneMapMode120.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "MapMode180.png",
+      "filename" : "iPhoneMapMode180.png",
       "scale" : "3x"
     },
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "MapMode20.png",
+      "filename" : "iPhoneMapMode20.png",
       "scale" : "1x"
     },
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "MapMode40-1.png",
+      "filename" : "iPhoneMapMode40-1.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "MapMode29.png",
+      "filename" : "iPhoneMapMode29.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "MapMode58.png",
+      "filename" : "iPhoneMapMode58.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "MapMode40.png",
+      "filename" : "iPhoneMapMode40.png",
       "scale" : "1x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "MapMode80.png",
+      "filename" : "iPhoneMapMode80.png",
       "scale" : "2x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "MapMode76.png",
+      "filename" : "iPhoneMapMode76.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "MapMode152.png",
+      "filename" : "iPhoneMapMode152.png",
       "scale" : "2x"
     },
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "MapMode167.png",
+      "filename" : "iPhoneMapMode167.png",
       "scale" : "2x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "MapMode1024.png",
+      "filename" : "iPhoneMapMode1024.png",
       "scale" : "1x"
     }
   ],
