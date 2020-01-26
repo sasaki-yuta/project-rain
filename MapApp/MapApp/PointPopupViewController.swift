@@ -18,6 +18,8 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
     var lblTitle: UILabel!
     var lblStreetAddr: UILabel!
     var webView: WKWebView!
+    var backBtn: UIButton!
+    var forwardBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,10 +88,23 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
         routeBtn.addTarget(self, action: #selector(btnRouteSearch(_:)), for: UIControl.Event.touchUpInside)
         routeBtn.setTitle("経路探索", for: UIControl.State.normal)
         routeBtn.setTitleColor(strColor, for: .normal)
-        routeBtn.frame = CGRect(x:20, y:190, width:62, height:30)
-        // サイズを決める(自動調整)
-        routeBtn.sizeToFit()
+        routeBtn.frame = CGRect(x:20, y:190, width:60, height:30)
+        routeBtn.sizeToFit() // サイズを決める(自動調整)
         
+        // prevボタン表示
+        backBtn = UIButton(type: UIButton.ButtonType.system)
+        backBtn.addTarget(self, action: #selector(btnBack(_:)), for: UIControl.Event.touchUpInside)
+        backBtn.setTitle("＜", for: UIControl.State.normal)
+        backBtn.frame = CGRect(x:width - 100, y:190, width:30, height:30)
+        backBtn.sizeToFit() // サイズを決める(自動調整)
+        
+        // prevボタン表示
+        forwardBtn = UIButton(type: UIButton.ButtonType.system)
+        forwardBtn.addTarget(self, action: #selector(btnForward(_:)), for: UIControl.Event.touchUpInside)
+        forwardBtn.setTitle("＞", for: UIControl.State.normal)
+        forwardBtn.frame = CGRect(x:width - 50, y:190, width:30, height:30)
+        forwardBtn.sizeToFit() // サイズを決める(自動調整)
+
         // タップした地点の名称を表示する
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         if .MODE_CYCLE == appDelegate.nowMapMode {
@@ -121,6 +136,8 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
         self.view.addSubview(lblTitle)
         self.view.addSubview(lblDistance)
         self.view.addSubview(lblStreetAddr)
+        self.view.addSubview(backBtn)
+        self.view.addSubview(forwardBtn)
 
         // ブラウザ表示
         let rect = CGRect(x:0, y:230, width:width, height:height-230)
@@ -155,6 +172,12 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
         webView.load(myRequest)
         // インスタンスをビューに追加する
         self.view.addSubview(webView)
+        
+        // モーダルビューの初期位置heafに合わせて表示/非表示を切り替える
+        resize(.half)
+
+        // Web forward/backボタンのisEnableを更新する
+        setEnableWebButton()
     }
     
     // Closeボタンを押下した時の処理
@@ -169,6 +192,22 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
         }
         else {
             // 処理なし
+        }
+    }
+    
+    // < ボタンを押下した時の処理
+    @IBAction func btnBack(_ sender: Any)
+    {
+        if webView.canGoBack {
+            webView.goBack()
+        }
+    }
+
+    // > ボタンを押下した時の処理
+    @IBAction func btnForward(_ sender: Any)
+    {
+        if webView.canGoForward {
+            webView.goForward()
         }
     }
 
@@ -196,22 +235,68 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
             lblDistance.isHidden = false
             lblStreetAddr.isHidden = false
             routeBtn.isHidden = false
+            webView.isHidden = false
+            backBtn.isHidden = false
+            forwardBtn.isHidden = false
         case .half:
             lblTitle.isHidden = false
             lblDistance.isHidden = false
             lblStreetAddr.isHidden = false
             routeBtn.isHidden = false
+            webView.isHidden = true
+            backBtn.isHidden = true
+            forwardBtn.isHidden = true
         case .tip:
             lblTitle.isHidden = false
             lblDistance.isHidden = false
             lblStreetAddr.isHidden = true
             routeBtn.isHidden = true
+            webView.isHidden = true
+            backBtn.isHidden = true
+            forwardBtn.isHidden = true
         default:
             break
         }
     }
     
+    // CycleView/WalkViewから距離を更新する
     func setDistance(_ text: String) {
         lblDistance.text = text
+    }
+    
+    // Web forward/backボタンのisEnableを更新する
+    func setEnableWebButton() {
+        // カスタムの文字色で初期化
+        let g = CGFloat(0x94) / 255
+        let b = CGFloat(0xFE) / 255
+        let strColor: UIColor = UIColor(red: 0, green: g, blue: b, alpha: 1.0)
+        
+        if webView.canGoBack {
+            backBtn.isEnabled = true
+            backBtn.setTitleColor(strColor, for: .normal)
+        }
+        else {
+            backBtn.isEnabled = false
+            backBtn.setTitleColor(UIColor.gray, for: .normal)
+        }
+        
+        if webView.canGoForward {
+            forwardBtn.isEnabled = true
+            forwardBtn.setTitleColor(strColor, for: .normal)
+        }
+        else {
+            forwardBtn.isEnabled = false
+            forwardBtn.setTitleColor(UIColor.gray, for: .normal)
+        }
+    }
+    
+    // 読み込み開始
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        setEnableWebButton()
+    }
+    
+    // Web読み込み完了
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        setEnableWebButton()
     }
 }
