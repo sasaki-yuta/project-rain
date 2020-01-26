@@ -11,6 +11,7 @@ import MapKit
 import CoreLocation
 import WatchConnectivity
 import FloatingPanel
+import GoogleMobileAds
 
 // MKPointAnnotation拡張用クラス
 class MapAnnotationWalk: MKPointAnnotation {
@@ -26,8 +27,12 @@ class WalkViewController:   UIViewController,
                             MKMapViewDelegate,
                             UIGestureRecognizerDelegate,
                             UISearchBarDelegate,
-                            WCSessionDelegate {
+                            WCSessionDelegate,
+                            GADBannerViewDelegate {
 
+    // Google AddMod広告
+    var bannerView: GADBannerView!
+    
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapViewTypeOver: UIButton!
     @IBOutlet var longPressGesRec: UILongPressGestureRecognizer!
@@ -117,6 +122,15 @@ class WalkViewController:   UIViewController,
 
         // Do any additional setup after loading the view.
         
+        // Google AddMod広告
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner) //320×50
+        addBannerViewToView(bannerView)
+
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-3106594758397593/3761431592"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
+
         // AppDelegateに追加したviewControllerに自身を設定
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.walkViewController = self
@@ -177,7 +191,28 @@ class WalkViewController:   UIViewController,
         // WatchOSにモードを通知する
         sendMessageMode()
     }
-    
+
+    // Google AddMod広告
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+        [NSLayoutConstraint(item: bannerView,
+                           attribute: .bottom,
+                           relatedBy: .equal,
+                           toItem: bottomLayoutGuide,
+                           attribute: .top,
+                           multiplier: 1,
+                           constant: 0),
+        NSLayoutConstraint(item: bannerView,
+                           attribute: .centerX,
+                           relatedBy: .equal,
+                           toItem: view,
+                           attribute: .centerX,
+                           multiplier: 1,
+                           constant: 0)
+        ])
+    }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {

@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class CycleSettingViewController:   UIViewController,
                                     UIPickerViewDelegate,
-                                    UIPickerViewDataSource{
+                                    UIPickerViewDataSource,
+                                    GADBannerViewDelegate{
+    
+    // Google AddMod広告
+    var bannerView: GADBannerView!
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnDataInit: UIButton!
@@ -36,7 +41,40 @@ class CycleSettingViewController:   UIViewController,
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        // Google AddMod広告
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner) //320×50
+        addBannerViewToView(bannerView)
+
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-3106594758397593/3761431592"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
+
+        // 画面の初期描画
         initView()
+    }
+    
+    // Google AddMod広告
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+        [NSLayoutConstraint(item: bannerView,
+                           attribute: .bottom,
+                           relatedBy: .equal,
+                           toItem: bottomLayoutGuide,
+                           attribute: .top,
+                           multiplier: 1,
+                           constant: 0),
+        NSLayoutConstraint(item: bannerView,
+                           attribute: .centerX,
+                           relatedBy: .equal,
+                           toItem: view,
+                           attribute: .centerX,
+                           multiplier: 1,
+                           constant: 0)
+        ])
     }
     
     func initView()
@@ -101,6 +139,7 @@ class CycleSettingViewController:   UIViewController,
         let min = (Int(time) - (hour * 3600)) / 60
         let sec = Int(time) - ((hour * 3600) + (min * 60))
         totalTime.text = String(format: "%02d", hour) + ":" +  String(format: "%02d", min) + ":" +  String(format: "%02d", sec)
+        
     }
 
     // GPS補正ピッカーの表示
