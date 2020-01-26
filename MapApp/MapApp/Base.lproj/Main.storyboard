@@ -334,7 +334,7 @@
                                 <rect key="frame" x="0.0" y="518" width="375" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="計測画面 OFF">
+                                <state key="normal" title="計測画面">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -515,7 +515,7 @@
                                 <rect key="frame" x="0.0" y="518" width="375" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="計測画面 ON">
+                                <state key="normal" title="計測画面">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -1118,9 +1118,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="iXs-S6-MH1"/>
-        <segue reference="ofk-iG-fGN"/>
-        <segue reference="qzy-np-p9Q"/>
-        <segue reference="1bs-VB-7UU"/>
+        <segue reference="KNn-Zj-7yF"/>
+        <segue reference="Uz6-gb-i5J"/>
+        <segue reference="bG3-3c-3h4"/>
+        <segue reference="5kP-ks-otw"/>
     </inferredMetricsTieBreakers>
 </document>

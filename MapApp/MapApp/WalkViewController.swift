@@ -282,7 +282,7 @@ class WalkViewController:   UIViewController,
         self.view.addSubview(searchBar)
         
         // 計測画面表示切り替えボタンを検索フィールドの上に表示する
-        btnCalcSwitchDisp.setTitle("計測画面 ON", for: .normal)
+        btnCalcSwitchDisp.setTitle("計測画面", for: .normal)
         btnCalcSwitchDisp.frame = CGRect(x: 0, y: height-75, width: width, height: 25)
         self.view.addSubview(btnCalcSwitchDisp)
 
@@ -623,6 +623,9 @@ class WalkViewController:   UIViewController,
         
         // パーツを表示する
         showRunningParts()
+        
+        // AppleWatchからモード情報を再取得してもらうためモード情報を送信
+        sendMessageMode()
     }
     
     // 計測を再開する
@@ -634,6 +637,9 @@ class WalkViewController:   UIViewController,
 
         // パーツを表示する
         showRunningParts()
+        
+        // AppleWatchからモード情報を再取得してもらうためモード情報を送信
+        sendMessageMode()
     }
     
     // 計測を中断する
@@ -653,6 +659,9 @@ class WalkViewController:   UIViewController,
         userDataManager.saveWalkData()
         // 中断、終了したデータを保存する
         saveCulcData()
+        
+        // AppleWatchからモード情報を再取得してもらうためモード情報を送信
+        sendMessageMode()
     }
     
     // 計測を終了する
@@ -672,6 +681,9 @@ class WalkViewController:   UIViewController,
         userDataManager.saveWalkData()
         // 中断、終了したデータを保存する
         saveCulcData()
+        
+        // AppleWatchからモード情報を再取得してもらうためモード情報を送信
+        sendMessageMode()
     }
     
     // 計測中断、終了したデータをViewを切り替えても表示できる様に保存する
@@ -839,7 +851,6 @@ class WalkViewController:   UIViewController,
 
         // 地図、計測画面表示切り替えボタン、検索フィールドの表示エリアを移動する
         mapView.frame.size = CGSize(width: width, height: (height/3)*2-25-50) // 計測画面25、検索Barの50をマイナス
-        btnCalcSwitchDisp.setTitle("計測画面 OFF", for: .normal)
         btnCalcSwitchDisp.frame = CGRect(x: 0, y: (height/3)*2-75, width: width, height: 25)
         searchBar.frame = CGRect(x: 0, y: (height/3)*2-50, width: width, height: 50)
 
@@ -887,7 +898,6 @@ class WalkViewController:   UIViewController,
         
         // 地図と検索フィールドの位置を戻す
         searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
-        btnCalcSwitchDisp.setTitle("計測画面 ON", for: .normal)
         btnCalcSwitchDisp.frame = CGRect(x: 0, y: height-75, width: width, height: 25)
         mapView.frame.size = CGSize(width: width, height: height-25-50) // 検索Barのheight50分マイナス
     }
@@ -1287,6 +1297,47 @@ class WalkViewController:   UIViewController,
             print(error)
         }
     }
+
+    // watchOSにモード別に表示するデータを送信する
+    func sendMessageModeData() {
+        var modeData: String!
+        
+        // 送信データ作成
+        if isStarting {
+            // 計測中は計測中のデータを送信
+            modeData =  "計測中" + "\n"
+            modeData += "平均速度 " + avgSpeed.text! + "\n"
+            modeData += "距離 " + drivingDist.text! + "\n"
+            modeData += "時間 " + drivingTime.text!
+        }
+        else {
+            // 計測中でなければ累計データを送信
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            // 累計最高速度
+            let speed = appDelegate.userDataManager.getTotalWalkMaxSpeed()
+            // 累計走行距離
+            let dist = appDelegate.userDataManager.getTotalWalkDrivingDist()
+            let tmpDist = floor((dist / 1000) * 100) / 100
+            // 累計走行時間
+            let time = appDelegate.userDataManager.getTotalWalkDrivingTime()
+            let hour = Int(time) / 3600
+            let min = (Int(time) - (hour * 3600)) / 60
+            let sec = Int(time) - ((hour * 3600) + (min * 60))
+            
+            modeData =  "累計データ" + "\n"
+            modeData += "最高速度 " + speed.description + "\n"
+            modeData += "距離 " + tmpDist.description + "\n"
+            modeData += "時間 " + String(format: "%02d", hour) + ":" +  String(format: "%02d", min) + ":" +  String(format: "%02d", sec)
+        }
+        
+        // データ送信
+        let contents =  ["RESP":"WALK", "data":modeData] as [String : Any]
+        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+            print ("receive from apple watch");
+        }) { (error) -> Void in
+            print(error)
+        }
+    }
     
     // watchOSからMessage受信
     public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Swift.Void) {
@@ -1301,6 +1352,8 @@ class WalkViewController:   UIViewController,
         switch getType {
         case "MODE":
             sendMessageMode()
+        case "MODEDATA":
+            sendMessageModeData()
         default:
             print("not exist type.")
         }

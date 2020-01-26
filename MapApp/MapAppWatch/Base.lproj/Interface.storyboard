@@ -12,8 +12,8 @@
             <objects>
                 <controller id="AgC-eL-Hgc" userLabel="MapDeMode" customClass="InterfaceController" customModule="Map_Mode" customModuleProvider="target">
                     <items>
-                        <label alignment="left" text="モード" textAlignment="left" id="5so-GC-wbg"/>
-                        <label width="150" height="80" alignment="left" verticalAlignment="center" text="　" textAlignment="left" numberOfLines="3" id="ch3-C2-3y5">
+                        <label alignment="left" text="iPhone検出中" textAlignment="left" id="5so-GC-wbg"/>
+                        <label width="136" height="123" alignment="left" verticalAlignment="center" text="　" textAlignment="left" numberOfLines="4" id="ch3-C2-3y5">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="font" style="UICTFontTextStyleBody"/>
                         </label>

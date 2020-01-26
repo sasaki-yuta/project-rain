@@ -122,7 +122,7 @@ class InterfaceController:  WKInterfaceController,
             // mをyardに変換する
             let yardStr = Int(distance * 1.09361)
             // 距離をラベルのテキストに設定する
-            let fontSize = UIFont.systemFont(ofSize: 30)
+            let fontSize = UIFont.systemFont(ofSize: 33)
             let text = String(Int(distance).description + " m" + "\n" + yardStr.description + " y")
             let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
             label.setAttributedText(attrStr)
@@ -258,13 +258,24 @@ class InterfaceController:  WKInterfaceController,
                     text = String(Int(distance).description + " m" + "\n" + yardStr.description + " y")
                     
                     // 緯度経度が有効であればアノテーションを設定する
-                    let cordinate2D = CLLocationCoordinate2DMake(dlat, dlon)
+//                    let cordinate2D = CLLocationCoordinate2DMake(dlat, dlon)
 //                    mapView.addAnnotation(cordinate2D, with: .red)
+
+                    // タップした距離を表示
+                    let fontSize = UIFont.systemFont(ofSize: 33)
+                    let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
+                    label.setAttributedText(attrStr)
+                }
+                else {
+                    let fontSize = UIFont.systemFont(ofSize: 22)
+                    let attrStr = NSAttributedString(string: "地点 未設定", attributes:[NSAttributedString.Key.font:fontSize])
+                    label.setAttributedText(attrStr)
                 }
                 
-                // タップした距離を表示
-                let fontSize = UIFont.systemFont(ofSize: 30)
-                let attrStr = NSAttributedString(string: text, attributes:[NSAttributedString.Key.font:fontSize])
+            }
+            else {
+                let fontSize = UIFont.systemFont(ofSize: 22)
+                let attrStr = NSAttributedString(string: "地点 未設定", attributes:[NSAttributedString.Key.font:fontSize])
                 label.setAttributedText(attrStr)
             }
 
@@ -284,7 +295,7 @@ class InterfaceController:  WKInterfaceController,
             }
 
             // モードタイトルを更新
-            let fontSize = UIFont.systemFont(ofSize: 25)
+            let fontSize = UIFont.systemFont(ofSize: 22)
             let attrStrTitle = NSAttributedString(string: str, attributes:[NSAttributedString.Key.font:fontSize])
             modeLabel.setAttributedText(attrStrTitle)
             
@@ -297,8 +308,8 @@ class InterfaceController:  WKInterfaceController,
             dlon = 0
             dlat = 0
             
+            // 画面描画時(アクティブになった時)にiOSのアプリにデータ送信を要求する
             if "ゴルフモード" == str {
-                // 画面描画時(アクティブになった時)にiOSのアプリにデータ送信を要求する
                 let contents =  ["GET":"LONLAT"]
                 self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
                     print (replyMessage);
@@ -306,6 +317,38 @@ class InterfaceController:  WKInterfaceController,
                     print(error)
                 }
             }
+            else {
+                // サイクルモード、ウォークモード
+                let contents =  ["GET":"MODEDATA"]
+                self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+                    print (replyMessage);
+                }) { (error) -> Void in
+                    print(error)
+                }
+            }
+        // ウォークモード
+        case "WALK":
+            print("mode")
+            guard let str = message["data"] as? String else {
+                return
+            }
+            
+            // ウォークモードの情報を表示する
+            let fontSize = UIFont.systemFont(ofSize: 20)
+            let attrStrTitle = NSAttributedString(string: str, attributes:[NSAttributedString.Key.font:fontSize])
+            label.setAttributedText(attrStrTitle)
+
+        // サイクルモード
+        case "CYCLE":
+            print("mode")
+            guard let str = message["data"] as? String else {
+                return
+            }
+            
+            // ウォークモードの情報を表示する
+            let fontSize = UIFont.systemFont(ofSize: 20)
+            let attrStrTitle = NSAttributedString(string: str, attributes:[NSAttributedString.Key.font:fontSize])
+            label.setAttributedText(attrStrTitle)
             
         default:
             break
