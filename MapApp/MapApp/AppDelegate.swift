@@ -34,8 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var menuWalkViewController: MenuWalkViewController!
     var pointPopupViewController: PointPopupViewController!
     
-    // 選択中のMapMode(初期値=ゴルフ)
-    var nowMapMode: MapMode! = .MODE_GOLF
+    // 選択中のMapMode(初期値=ウォーク)
+    var nowMapMode: MapMode! = .MODE_WALK
     // サイクル計測状態(初期値=終了)
     var nowCycleState: RunState! = .STATE_CLOSING
     // ウォーキング計測状態(初期値=終了)

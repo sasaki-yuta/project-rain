@@ -276,7 +276,8 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
             backBtn.setTitleColor(strColor, for: .normal)
         }
         else {
-            backBtn.isEnabled = false
+// 誤って検出された場合にもグレーにはするがボタンは押せる様にする
+//          backBtn.isEnabled = false
             backBtn.setTitleColor(UIColor.gray, for: .normal)
         }
         
@@ -285,7 +286,8 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
             forwardBtn.setTitleColor(strColor, for: .normal)
         }
         else {
-            forwardBtn.isEnabled = false
+// 誤って検出された場合にもグレーにはするがボタンは押せる様にする
+//          forwardBtn.isEnabled = false
             forwardBtn.setTitleColor(UIColor.gray, for: .normal)
         }
     }
