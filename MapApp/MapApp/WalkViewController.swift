@@ -196,14 +196,14 @@ class WalkViewController:   UIViewController,
     func addBannerViewToView(_ bannerView: GADBannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
-        view.addConstraints(
-        [NSLayoutConstraint(item: bannerView,
+        view.addConstraints([
+        NSLayoutConstraint(item: bannerView,
                            attribute: .bottom,
                            relatedBy: .equal,
                            toItem: bottomLayoutGuide,
-                           attribute: .top,
+                           attribute: .bottomMargin,
                            multiplier: 1,
-                           constant: 0),
+                           constant: -85),
         NSLayoutConstraint(item: bannerView,
                            attribute: .centerX,
                            relatedBy: .equal,
@@ -384,7 +384,7 @@ class WalkViewController:   UIViewController,
         self.view.addSubview(drivingDist)
         
         // 走行時間
-        lblDrivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: labelHeight/2)
+        lblDrivingTime.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: labelHeight/2+5)
         lblDrivingTime.isHidden = true
         self.view.addSubview(lblDrivingTime)
 
