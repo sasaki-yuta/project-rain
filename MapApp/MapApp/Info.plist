@@ -28,7 +28,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>位置情報を使用して良いですか</string>
+	<string>現在地が地図に表示され、その情報が経路探索、周辺検索、高低差の取得、走行した距離・時間・速度の計測に使用されます。</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
