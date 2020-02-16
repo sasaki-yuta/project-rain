@@ -51,6 +51,7 @@ class CycleViewController:  UIViewController,
     
     // キーボード
     @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var CancelBtn: UIButton!
     var annotationList = [MapAnnotationCycle]()
     
     // 速度
@@ -91,6 +92,7 @@ class CycleViewController:  UIViewController,
     // bar
     @IBOutlet var lbar1: UILabel!
     @IBOutlet var lbar2: UILabel!
+    @IBOutlet var lbar3: UILabel!
     @IBOutlet var lbar4: UILabel!
     
     // GPS誤差補正
@@ -311,6 +313,9 @@ class CycleViewController:  UIViewController,
         // 検索フィールドの位置
         searchBar.frame = CGRect(x: 0, y: infoTopPos-50, width: width, height: 50)
         self.view.addSubview(searchBar)
+        CancelBtn.frame = CGRect(x: width-80, y: infoTopPos-50, width: 80, height: 50)
+        CancelBtn.isHidden = true
+        self.view.addSubview(CancelBtn)
         
         // 計測画面表示切り替えボタンを検索フィールドの上に表示する
         btnCalcSwitchDisp.setTitle("計測画面", for: .normal)
@@ -387,15 +392,19 @@ class CycleViewController:  UIViewController,
 
         
         // bar1
-        lbar1.frame = CGRect(x: 0, y: infoTopPos, width: width, height: 2)
+        lbar1.frame = CGRect(x: 0, y: infoTopPos, width: width, height: 1)
         self.view.addSubview(lbar1)
         
         // bar2
-        lbar2.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: 2)
+        lbar2.frame = CGRect(x: 0, y: infoTopPos+(labelHeight*2), width: width, height: 1)
         self.view.addSubview(lbar2)
-
+        
+        // bar3
+        lbar3.frame = CGRect(x: 0, y: infoTopPos-50, width: width, height: 1)
+        self.view.addSubview(lbar3)
+        
         // bar4
-        lbar4.frame = CGRect(x: width/2, y: infoTopPos, width: 2, height: labelHeight*2)
+        lbar4.frame = CGRect(x: width/2, y: infoTopPos, width: 1, height: labelHeight*2)
         self.view.addSubview(lbar4)
 
         // GPS誤差補正
@@ -841,7 +850,11 @@ class CycleViewController:  UIViewController,
         // 地図、計測画面表示切り替えボタン、検索フィールドの表示エリアを移動する
         mapView.frame.size = CGSize(width: width, height: (height/3)*2-25-50) // 計測画面25、検索Barの50をマイナス
         btnCalcSwitchDisp.frame = CGRect(x: 0, y: (height/3)*2-75, width: width, height: 25)
+        let infoTopPos = (height/3)*2
+        lbar1.frame = CGRect(x: 0, y: infoTopPos, width: width, height: 1)
+        lbar3.frame = CGRect(x: 0, y: (height/3)*2-50, width: width, height: 1)
         searchBar.frame = CGRect(x: 0, y: (height/3)*2-50, width: width, height: 50)
+        CancelBtn.frame = CGRect(x: width-80, y: infoTopPos-50, width: 80, height: 50)
 
         // パーツを表示する
         lblSpeed.isHidden = false
@@ -855,7 +868,6 @@ class CycleViewController:  UIViewController,
         drivingDist.isHidden = false
         lblDrivingTime.isHidden = false
         drivingTime.isHidden = false
-        lbar1.isHidden = false
         lbar2.isHidden = false
         lbar4.isHidden = false
     }
@@ -876,7 +888,6 @@ class CycleViewController:  UIViewController,
         drivingDist.isHidden = true
         lblDrivingTime.isHidden = true
         drivingTime.isHidden = true
-        lbar1.isHidden = true
         lbar2.isHidden = true
         lbar4.isHidden = true
         
@@ -886,7 +897,10 @@ class CycleViewController:  UIViewController,
         let height = Int(dispSize.height)
         
         // 地図と検索フィールドの位置を戻す
+        CancelBtn.frame = CGRect(x: width-80, y: height-50, width: 80, height: 50)
         searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
+        lbar3.frame = CGRect(x: 0, y: height-50, width: width, height: 1)
+        lbar1.frame = CGRect(x: 0, y: height-1, width: width, height: 1)
         btnCalcSwitchDisp.frame = CGRect(x: 0, y: height-75, width: width, height: 25)
         mapView.frame.size = CGSize(width: width, height: height-25-50) // 検索Barのheight50分マイナス
     }
@@ -1050,8 +1064,20 @@ class CycleViewController:  UIViewController,
         guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
             return
         }
+        // 検索バーの幅を減らして(-80)、キャンセルボタンを表示する
+        let dispSize: CGSize = UIScreen.main.bounds.size
+        let width = Int(dispSize.width)
+        let height = Int(dispSize.height)
+        if isShowCalcDisp {
+            searchBar.frame = CGRect(x: 0, y: (height/3)*2-50, width: width-80, height: 50)
+        }
+        else {
+            searchBar.frame = CGRect(x: 0, y: height-50, width: width-80, height: 50)
+        }
+        CancelBtn.isHidden = false
+        
+        // キーボードに合わせてViewを上にスライドする
         let keyboardSize = keyboardInfo.cgRectValue.size
-
         UIView.animate(withDuration: duration) {
             let transform = CGAffineTransform(translationX: 0, y: -(keyboardSize.height))
             self.view.transform = transform
@@ -1064,8 +1090,25 @@ class CycleViewController:  UIViewController,
         UIView.animate(withDuration: duration) {
             self.view.transform = CGAffineTransform.identity
         }
+        
+        // 検索バーの幅を戻して、キャンセルボタンを消去する
+        CancelBtn.isHidden = true
+        let dispSize: CGSize = UIScreen.main.bounds.size
+        let width = Int(dispSize.width)
+        let height = Int(dispSize.height)
+        if isShowCalcDisp {
+            searchBar.frame = CGRect(x: 0, y: (height/3)*2-50, width: width, height: 50)
+        }
+        else {
+            searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
+        }
     }
 
+    // Cancelボタン押下
+    @IBAction func btnCancelThouchDown(_ sender: Any) {
+        // キーボードを戻す
+        searchBar.resignFirstResponder()
+    }
     
     //==================================================================
     // ロングタップ

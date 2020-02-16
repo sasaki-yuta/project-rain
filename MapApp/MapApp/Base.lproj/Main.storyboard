@@ -310,6 +310,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibw-Wj-m7y" userLabel="bar3">
+                                <rect key="frame" x="0.0" y="547" width="380" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QjI-CV-PXc" userLabel="bar4">
                                 <rect key="frame" x="195" y="593" width="2" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -341,6 +349,14 @@
                                     <action selector="btnCalcChangeThouchDown:" destination="6Pg-YZ-Fts" eventType="touchDown" id="hlv-K8-cxE"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XmH-l2-z5e">
+                                <rect key="frame" x="290" y="540" width="80" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="キャンセル"/>
+                                <connections>
+                                    <action selector="btnCancelThouchDown:" destination="6Pg-YZ-Fts" eventType="touchDown" id="4UR-TB-0uN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="MSU-hZ-qSW"/>
@@ -349,12 +365,14 @@
                     <navigationItem key="navigationItem" id="4cd-yE-dxP"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="CancelBtn" destination="XmH-l2-z5e" id="X0H-9I-tVQ"/>
                         <outlet property="avgSpeed" destination="6YK-kz-koC" id="9dk-Yh-flg"/>
                         <outlet property="btnCalcSwitchDisp" destination="yzO-Xj-lVp" id="HD0-We-rk8"/>
                         <outlet property="drivingDist" destination="0WH-EY-HZy" id="bbP-35-8ue"/>
                         <outlet property="drivingTime" destination="kON-wn-vs6" id="sqt-RD-FX6"/>
                         <outlet property="lbar1" destination="mLs-LD-6QT" id="Pfe-5K-4p4"/>
                         <outlet property="lbar2" destination="rqx-Mo-5gV" id="cok-bh-b8g"/>
+                        <outlet property="lbar3" destination="ibw-Wj-m7y" id="eSA-XA-mzz"/>
                         <outlet property="lbar4" destination="QjI-CV-PXc" id="7zi-2J-Po3"/>
                         <outlet property="lblAvgSpeed" destination="Vsd-ah-2VX" id="uzv-Yw-Q9G"/>
                         <outlet property="lblDrivingDist" destination="diY-au-p8v" id="zRu-D7-3Es"/>
@@ -491,6 +509,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEu-md-QcV" userLabel="bar3">
+                                <rect key="frame" x="0.0" y="543" width="380" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPo-vP-e2N" userLabel="bar4">
                                 <rect key="frame" x="195" y="584" width="2" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -522,17 +548,27 @@
                                     <action selector="btnCalcChangeThouchDown:" destination="2XO-JZ-fI6" eventType="touchDown" id="ETt-kV-cJh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dei-Rb-H44">
+                                <rect key="frame" x="290" y="540" width="80" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="キャンセル"/>
+                                <connections>
+                                    <action selector="btnCancelThouchDown:" destination="2XO-JZ-fI6" eventType="touchDown" id="mfJ-tk-CGy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ELB-hu-3oX"/>
                     </view>
                     <connections>
+                        <outlet property="CancelBtn" destination="dei-Rb-H44" id="JkK-Nf-wvz"/>
                         <outlet property="avgSpeed" destination="bvq-AU-938" id="ErI-FU-eJ9"/>
                         <outlet property="btnCalcSwitchDisp" destination="nfn-Dh-pMk" id="bkN-3n-ijW"/>
                         <outlet property="drivingDist" destination="xx6-YI-Z4Q" id="e69-GK-PbM"/>
                         <outlet property="drivingTime" destination="OGq-WV-pxz" id="vCO-si-pgY"/>
                         <outlet property="lbar1" destination="dAG-2j-y0d" id="6Gz-oZ-8mZ"/>
                         <outlet property="lbar2" destination="8Ib-Wi-qGY" id="fck-tS-g4p"/>
+                        <outlet property="lbar3" destination="HEu-md-QcV" id="5uj-l8-q4l"/>
                         <outlet property="lbar4" destination="ZPo-vP-e2N" id="blH-Fg-GUY"/>
                         <outlet property="lblAvgSpeed" destination="1jP-Q4-7Gr" id="NJf-lx-9tL"/>
                         <outlet property="lblDrivingDist" destination="Wzt-tl-XIM" id="1HK-Ve-f05"/>
@@ -1119,7 +1155,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="iXs-S6-MH1"/>
-        <segue reference="ZTp-PD-svD"/>
+        <segue reference="Uz6-gb-i5J"/>
         <segue reference="bG3-3c-3h4"/>
         <segue reference="1bs-VB-7UU"/>
     </inferredMetricsTieBreakers>
