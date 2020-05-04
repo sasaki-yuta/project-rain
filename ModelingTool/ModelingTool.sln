@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelingTool", "ModelingTool\ModelingTool.csproj", "{017B9103-8E61-47A8-842A-D8D0E40F297E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{017B9103-8E61-47A8-842A-D8D0E40F297E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{017B9103-8E61-47A8-842A-D8D0E40F297E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{017B9103-8E61-47A8-842A-D8D0E40F297E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{017B9103-8E61-47A8-842A-D8D0E40F297E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
