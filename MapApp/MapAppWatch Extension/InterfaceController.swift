@@ -28,6 +28,7 @@ class InterfaceController:  WKInterfaceController,
     @IBOutlet var mapView: WKInterfaceMap!
     @IBOutlet weak var label: WKInterfaceLabel!
     @IBOutlet weak var modeLabel: WKInterfaceLabel!
+    @IBOutlet weak var button: WKInterfaceButton!
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -44,6 +45,8 @@ class InterfaceController:  WKInterfaceController,
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
 
+        sendMessageGetMode()
+
         // crownSequencerにフォーカスを当てる
         crownSequencer.focus()
     }
@@ -56,6 +59,7 @@ class InterfaceController:  WKInterfaceController,
     func sendMessageGetMode() {
         // mainスレッドで処理する
         DispatchQueue.main.async {
+            print("sendMessageGetMode[watchOS]")
             // 画面描画時(アクティブになった時)にiOSのアプリにデータ送信を要求する
             let contents =  ["GET":"MODE"]
             self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
@@ -367,5 +371,10 @@ class InterfaceController:  WKInterfaceController,
         }) { (error) -> Void in
             print(error)
         }
+    }
+    
+    // 更新ボタンタッチダウン
+    @IBAction func BtnUpdate() {
+        sendMessageGetMode()
     }
 }

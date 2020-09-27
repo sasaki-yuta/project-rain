@@ -56,10 +56,8 @@
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "8"
       notificationPayloadFile = "MapAppWatch Extension/PushNotificationPayload.apns">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/&#x30de;&#x30c3;&#x30d5;&#x309a; de &#x30e2;&#x30fc;&#x30c8;&#x3099;">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9BE20C2622338A7800ABA8ED"
@@ -67,7 +65,7 @@
             BlueprintName = "MapAppWatch"
             ReferencedContainer = "container:MapApp.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -77,10 +75,8 @@
       debugDocumentVersioning = "YES"
       launchAutomaticallySubstyle = "8"
       notificationPayloadFile = "MapAppWatch Extension/PushNotificationPayload.apns">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/&#x30de;&#x30c3;&#x30d5;&#x309a; de &#x30e2;&#x30fc;&#x30c8;&#x3099;">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9BE20C2622338A7800ABA8ED"
@@ -88,16 +84,7 @@
             BlueprintName = "MapAppWatch"
             ReferencedContainer = "container:MapApp.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9BE20C2622338A7800ABA8ED"
-            BuildableName = "Map Mode.app"
-            BlueprintName = "MapAppWatch"
-            ReferencedContainer = "container:MapApp.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

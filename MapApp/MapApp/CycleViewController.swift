@@ -1323,7 +1323,7 @@ class CycleViewController:  UIViewController,
         }
         
         // データ送信
-        let contents =  ["RESP":"WALK", "data":modeData] as [String : Any]
+        let contents =  ["RESP":"CYCLE", "data":modeData] as [String : Any]
         self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
             print ("receive from apple watch");
         }) { (error) -> Void in

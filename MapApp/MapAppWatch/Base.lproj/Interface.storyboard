@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="15702" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17156" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="15501"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17034"/>
     </dependencies>
     <scenes>
         <!--MapDeMode-->
@@ -17,8 +17,14 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="font" style="UICTFontTextStyleBody"/>
                         </label>
+                        <button width="1" alignment="left" verticalAlignment="bottom" title="更新" id="dGR-Ey-h1A">
+                            <connections>
+                                <action selector="BtnUpdate" destination="AgC-eL-Hgc" id="PSK-kf-iPa"/>
+                            </connections>
+                        </button>
                     </items>
                     <connections>
+                        <outlet property="button" destination="dGR-Ey-h1A" id="eIr-UX-d4g"/>
                         <outlet property="label" destination="ch3-C2-3y5" id="V9k-Pj-XIQ"/>
                         <outlet property="modeLabel" destination="5so-GC-wbg" id="0uw-O9-DWO"/>
                     </connections>
