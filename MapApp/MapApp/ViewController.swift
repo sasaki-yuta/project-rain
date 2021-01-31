@@ -69,7 +69,8 @@ class ViewController:   UIViewController,
         bannerView = GADBannerView(adSize: kGADAdSizeBanner) //320×50
         addBannerViewToView(bannerView)
 
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//←テストID "ca-app-pub-3106594758397593/3761431592"
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//←テストID
+//        bannerView.adUnitID = "ca-app-pub-3106594758397593/3761431592"//←本物のID
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self
