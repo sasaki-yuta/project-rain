@@ -123,15 +123,6 @@ class WalkViewController:   UIViewController,
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        // Google AddMod広告
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner) //320×50
-        addBannerViewToView(bannerView)
-
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//←テストID "ca-app-pub-3106594758397593/3761431592"
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
 
         // AppDelegateに追加したviewControllerに自身を設定
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -195,17 +186,17 @@ class WalkViewController:   UIViewController,
     }
 
     // Google AddMod広告
-    func addBannerViewToView(_ bannerView: GADBannerView) {
+    func addBannerViewToView(_ bannerView: GADBannerView, _ constantPos: CGFloat) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
         view.addConstraints([
         NSLayoutConstraint(item: bannerView,
                            attribute: .bottom,
                            relatedBy: .equal,
-                           toItem: bottomLayoutGuide,
+                           toItem: view.safeAreaLayoutGuide,
                            attribute: .bottomMargin,
                            multiplier: 1,
-                           constant: -85),
+                           constant: constantPos),
         NSLayoutConstraint(item: bannerView,
                            attribute: .centerX,
                            relatedBy: .equal,
@@ -214,6 +205,11 @@ class WalkViewController:   UIViewController,
                            multiplier: 1,
                            constant: 0)
         ])
+        
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//←テストID "ca-app-pub-3106594758397593/3761431592"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
@@ -325,6 +321,10 @@ class WalkViewController:   UIViewController,
         btnCalcSwitchDisp.setTitle("計測画面", for: .normal)
         btnCalcSwitchDisp.frame = CGRect(x: 0, y: height-75, width: width, height: 25)
         self.view.addSubview(btnCalcSwitchDisp)
+
+        // Google AddMod広告
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner) //320×50
+        addBannerViewToView(bannerView, -85)
 
         // 速度
         lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
@@ -916,6 +916,10 @@ class WalkViewController:   UIViewController,
         drivingTime.isHidden = false
         lbar2.isHidden = false
         lbar4.isHidden = false
+        
+        // Google AddMod広告
+        bannerView.removeFromSuperview()
+        addBannerViewToView(bannerView, CGFloat(infoTopPos - height - 50 - 20))
     }
     
     // ランニングパーツを非表示にする
@@ -949,6 +953,10 @@ class WalkViewController:   UIViewController,
         lbar1.frame = CGRect(x: 0, y: height-1, width: width, height: 1)
         btnCalcSwitchDisp.frame = CGRect(x: 0, y: height-75, width: width, height: 25)
         mapView.frame.size = CGSize(width: width, height: height-25-50) // 検索Barのheight50分マイナス
+
+        // Google AddMod広告
+        bannerView.removeFromSuperview()
+        addBannerViewToView(bannerView, -85)
     }
     
 

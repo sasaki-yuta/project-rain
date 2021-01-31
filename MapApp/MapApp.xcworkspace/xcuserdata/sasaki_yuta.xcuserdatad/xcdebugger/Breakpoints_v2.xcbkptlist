@@ -32,8 +32,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "37"
             endingLineNumber = "37"
-            landmarkName = "awake(withContext:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -48,22 +48,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "46"
             endingLineNumber = "46"
-            landmarkName = "willActivate()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "5DF1B852-CEC3-4F87-8E7A-0D6EF1E62EEF"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapApp/WalkViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1433"
-            endingLineNumber = "1433"
+            startingLineNumber = "1441"
+            endingLineNumber = "1441"
             landmarkName = "session(_:didReceiveMessage:replyHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -72,14 +72,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D0A4781B-220C-42C8-8064-1B61C1D3A1B9"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MapApp/WalkViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1435"
-            endingLineNumber = "1435"
+            startingLineNumber = "1443"
+            endingLineNumber = "1443"
             landmarkName = "session(_:didReceiveMessage:replyHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "MapApp/WalkViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1372"
-            endingLineNumber = "1372"
+            startingLineNumber = "1380"
+            endingLineNumber = "1380"
             landmarkName = "sendMessageMode()"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "MapApp/WalkViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1427"
-            endingLineNumber = "1427"
+            startingLineNumber = "1435"
+            endingLineNumber = "1435"
             landmarkName = "session(_:didReceiveMessage:replyHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -128,8 +128,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "341"
             endingLineNumber = "341"
-            landmarkName = "session(_:didReceiveMessage:replyHandler:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -144,8 +144,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "326"
             endingLineNumber = "326"
-            landmarkName = "session(_:didReceiveMessage:replyHandler:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -160,8 +160,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "353"
             endingLineNumber = "353"
-            landmarkName = "session(_:didReceiveMessage:replyHandler:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -192,8 +192,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "227"
             endingLineNumber = "227"
-            landmarkName = "session(_:didReceiveMessage:replyHandler:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -208,8 +208,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
             endingLineNumber = "68"
-            landmarkName = "sendMessageGetMode()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -224,8 +224,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
             endingLineNumber = "66"
-            landmarkName = "sendMessageGetMode()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -240,7 +240,23 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "378"
             endingLineNumber = "378"
-            landmarkName = "BtnUpdate()"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0C57CD30-B064-4E4C-894F-49A24CA53F92"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/CycleViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "911"
+            endingLineNumber = "911"
+            landmarkName = "hideRunningParts()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

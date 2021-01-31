@@ -23,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3B600C2B-157B-4B3B-8172-AC39FFD50FBD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MapApp/ViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "locationManager(_:didChangeAuthorization:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "A561A388-A66A-4CBE-9BDE-C20B03C38EB8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -48,8 +32,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
             endingLineNumber = "64"
-            landmarkName = "sendMessageGetMode()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
