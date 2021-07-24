@@ -11,37 +11,20 @@ import FloatingPanel
 
 
 class CustomFloatingPanelLayout: FloatingPanelLayout {
-    // セミモーダルビューの初期位置
-    var initialPosition: FloatingPanelPosition {
-        return .half
-    }
-
-    var topInteractionBuffer: CGFloat {
-        return 0.0
-    }
+    var position: FloatingPanelPosition = .bottom
     
-    var bottomInteractionBuffer: CGFloat {
-        return 0.0
-    }
-
-    // セミモーダルビューの各表示パターンの高さを決定するためのInset
-    func insetFor(position: FloatingPanelPosition) -> CGFloat? {
-        var ret: CGFloat!
-        switch position {
-        case .full:
-            ret = nil//56.0
-        case .half:
-            ret = 262.0
-        case .tip:
-            ret = 75.0
-        default:
-            ret = nil
-        }
-        return ret
+    var initialState: FloatingPanelState = .half
+    
+    var anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] {
+        return [
+            .full: FloatingPanelLayoutAnchor(absoluteInset: 16.0, edge: .top, referenceGuide: .safeArea),
+            .half: FloatingPanelLayoutAnchor(absoluteInset: 262, edge: .bottom, referenceGuide: .safeArea),
+            .tip: FloatingPanelLayoutAnchor(absoluteInset: 44.0, edge: .bottom, referenceGuide: .safeArea),
+        ]
     }
 
     // セミモーダルビューの背景Viewの透明度
-    func backdropAlphaFor(position: FloatingPanelPosition) -> CGFloat {
+    private func backdropAlphaFor(position: FloatingPanelPosition) -> CGFloat {
         return 0.0
     }
 }

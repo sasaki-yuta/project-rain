@@ -988,11 +988,13 @@ class CycleViewController:  UIViewController,
     func showPointPopupView() {
         isShowPopup = true
         // セミモーダルビューを表示する
-        floatingPanelController.surfaceView.cornerRadius = 24.0 // かどを丸くする
+        let appearance = SurfaceAppearance()
+        appearance.cornerRadius = 24.0  // かどを丸くする
+        floatingPanelController.surfaceView.appearance = appearance
         let viewCnt = PointPopupViewController()
         floatingPanelController.set(contentViewController: viewCnt)
         // セミモーダルビューを表示する
-        floatingPanelController.addPanel(toParent: self, belowView: nil, animated: true)
+        floatingPanelController.addPanel(toParent: self, animated: true)
         floatingPanelController.move(to: .half, animated: true)
     }
 
@@ -1444,15 +1446,16 @@ extension CycleViewController : MKMapViewDelegate {
 // FloatingPanelControllerDelegate を実装してカスタマイズしたレイアウトを返す
 extension CycleViewController : FloatingPanelControllerDelegate {
     // モーダル表示
-    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
+    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
         return CustomFloatingPanelLayout()
     }
     
     // サイズを変更した後に実施する処理
-    func floatingPanelDidEndDragging(_ vc: FloatingPanelController, withVelocity velocity: CGPoint, targetPosition: FloatingPanelPosition) {
+    private func floatingPanelDidEndDragging(_ vc: FloatingPanelController, withVelocity velocity: CGPoint, targetPosition: FloatingPanelPosition) {
         
+        // 呼ばれないためresize()で全てのオブジェクトをtrueにした
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.pointPopupViewController.resize(targetPosition)
+//        appDelegate.pointPopupViewController.resize(targetPosition)
     }
 }
 

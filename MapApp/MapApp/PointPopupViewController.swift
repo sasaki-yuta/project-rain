@@ -227,9 +227,8 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
     }
     
     // サイズ変更時の画面際描画
-    func resize(_ targetPosition: FloatingPanelPosition) {
-        // セミモーダルビューの各表示パターンの高さに応じて表示/非表示を切り替える
-        switch targetPosition {
+    func resize(_ panelState: FloatingPanelState) {
+        switch panelState {
         case .full:
             lblTitle.isHidden = false
             lblDistance.isHidden = false
@@ -243,22 +242,22 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
             lblDistance.isHidden = false
             lblStreetAddr.isHidden = false
             routeBtn.isHidden = false
-            webView.isHidden = true
-            backBtn.isHidden = true
-            forwardBtn.isHidden = true
+            webView.isHidden = false
+            backBtn.isHidden = false
+            forwardBtn.isHidden = false
         case .tip:
             lblTitle.isHidden = false
             lblDistance.isHidden = false
-            lblStreetAddr.isHidden = true
-            routeBtn.isHidden = true
-            webView.isHidden = true
-            backBtn.isHidden = true
-            forwardBtn.isHidden = true
+            lblStreetAddr.isHidden = false
+            routeBtn.isHidden = false
+            webView.isHidden = false
+            backBtn.isHidden = false
+            forwardBtn.isHidden = false
         default:
             break
         }
     }
-    
+
     // CycleView/WalkViewから距離を更新する
     func setDistance(_ text: String) {
         lblDistance.text = text

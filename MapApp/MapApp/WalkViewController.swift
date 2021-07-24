@@ -1216,11 +1216,13 @@ class WalkViewController:   UIViewController,
     func showPointPopupView() {
         isShowPopup = true
         // セミモーダルビューを表示する
-        floatingPanelController.surfaceView.cornerRadius = 24.0 // かどを丸くする
+        let appearance = SurfaceAppearance()
+        appearance.cornerRadius = 24.0  // かどを丸くする
+        floatingPanelController.surfaceView.appearance = appearance
         let viewCnt = PointPopupViewController()
         floatingPanelController.set(contentViewController: viewCnt)
         // セミモーダルビューを表示する
-        floatingPanelController.addPanel(toParent: self, belowView: nil, animated: true)
+        floatingPanelController.addPanel(toParent: self, animated: true)
         floatingPanelController.move(to: .half, animated: true)
     }
     
@@ -1457,24 +1459,24 @@ class WalkViewController:   UIViewController,
     }
 
     /// Tells the delegate an ad request failed.
-    func adView(_ bannerView: GADBannerView,
-        didFailToReceiveAdWithError error: GADRequestError) {
+    private func adView(_ bannerView: GADBannerView,
+        didFailToReceiveAdWithError error: Error) {
       print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
     }
 
     /// Tells the delegate that a full-screen view will be presented in response
     /// to the user clicking on an ad.
-    func adViewWillPresentScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
       print("adViewWillPresentScreen")
     }
 
     /// Tells the delegate that the full-screen view will be dismissed.
-    func adViewWillDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
       print("adViewWillDismissScreen")
     }
 
     /// Tells the delegate that the full-screen view has been dismissed.
-    func adViewDidDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
       print("adViewDidDismissScreen")
     }
 
@@ -1487,14 +1489,15 @@ class WalkViewController:   UIViewController,
 
 // FloatingPanelControllerDelegate を実装してカスタマイズしたレイアウトを返す
 extension WalkViewController : FloatingPanelControllerDelegate {
-    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
+    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
         return CustomFloatingPanelLayout()
     }
     
     // サイズを変更した後に実施する処理
-    func floatingPanelDidEndDragging(_ vc: FloatingPanelController, withVelocity velocity: CGPoint, targetPosition: FloatingPanelPosition) {
-        
+    private func floatingPanelDidEndDragging(_ vc: FloatingPanelController, withVelocity velocity: CGPoint, targetPosition: FloatingPanelPosition) {
+
+        // 呼ばれないためresize()で全てのオブジェクトをtrueにした
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.pointPopupViewController.resize(targetPosition)
+//        appDelegate.pointPopupViewController.resize(targetPosition)
     }
 }
