@@ -147,24 +147,7 @@ class WalkViewController:   UIViewController,
         locManager.pausesLocationUpdatesAutomatically = false
         locManager.distanceFilter = 3
         locManager.delegate = self
-        
-        // 位置情報の使用の許可を得る
-        let status = CLLocationManager.authorizationStatus()
-        if status == CLAuthorizationStatus.restricted || status == CLAuthorizationStatus.denied
-        {
-            print("authorizationStatus = " + status.rawValue.description)
-        }
-        else {
-            if status == CLAuthorizationStatus.notDetermined
-            {
-                locManager.requestWhenInUseAuthorization()
-            }
-            else
-            {
-                locManager.startUpdatingLocation()
-            }
-        }
-        
+
         // KeyBordのdelegateを登録する
         searchBar.delegate = self
         
@@ -194,7 +177,7 @@ class WalkViewController:   UIViewController,
                            attribute: .bottom,
                            relatedBy: .equal,
                            toItem: view.safeAreaLayoutGuide,
-                           attribute: .bottomMargin,
+                           attribute: .topMargin,
                            multiplier: 1,
                            constant: constantPos),
         NSLayoutConstraint(item: bannerView,
@@ -212,7 +195,25 @@ class WalkViewController:   UIViewController,
         bannerView.load(GADRequest())
         bannerView.delegate = self
     }
-    
+
+    // iOS14でのCore Location変更点(iOS14以降ではこちらが必要)
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let status = manager.authorizationStatus
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:   // 常に許可、アプリ使用中のみ許可
+            manager.startUpdatingLocation()
+        case .notDetermined:                            // まだ許可選択していない
+            manager.requestWhenInUseAuthorization()
+        case .denied:
+            print("許可していない");
+        case .restricted:
+            print("機能制限している")
+        default:
+            print("other authorizationStatus")
+        }
+    }
+
+    // iOS14でのCore Location変更点(iOS14以降で呼ばれなくなった)
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {
         if (status == .restricted) {
@@ -325,7 +326,7 @@ class WalkViewController:   UIViewController,
 
         // Google AddMod広告
         bannerView = GADBannerView(adSize: kGADAdSizeBanner) //320×50
-        addBannerViewToView(bannerView, -85)
+        addBannerViewToView(bannerView, CGFloat(height - 75 - 50 - 18))
 
         // 速度
         lblSpeed.frame = CGRect(x: width/2, y: infoTopPos, width: width/2, height: labelHeight/2)
@@ -920,7 +921,9 @@ class WalkViewController:   UIViewController,
         
         // Google AddMod広告
         bannerView.removeFromSuperview()
-        addBannerViewToView(bannerView, CGFloat(infoTopPos - height - 50 - 20))
+        if !isShowPopup {
+            addBannerViewToView(bannerView, CGFloat(infoTopPos-25-50-50-18))
+        }
     }
     
     // ランニングパーツを非表示にする
@@ -957,7 +960,9 @@ class WalkViewController:   UIViewController,
 
         // Google AddMod広告
         bannerView.removeFromSuperview()
-        addBannerViewToView(bannerView, -85)
+        if !isShowPopup {
+            addBannerViewToView(bannerView, CGFloat(height - 75 - 50 - 18))
+        }
     }
     
 
@@ -1215,6 +1220,8 @@ class WalkViewController:   UIViewController,
     // PopUp画面表示
     func showPointPopupView() {
         isShowPopup = true
+        // Google AdMod広告を非表示にする
+        bannerView.removeFromSuperview()
         // セミモーダルビューを表示する
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 24.0  // かどを丸くする
@@ -1229,10 +1236,32 @@ class WalkViewController:   UIViewController,
     // PopUp画面の消去
     func ExitPointPopupView() {
         isShowPopup = false
+        // Google AdMod広告を表示する
+        adMobView()
         // セミモーダルビューを非表示にする
         floatingPanelController.removePanelFromParent(animated: true)
     }
 
+    // Menuを開いた時のGoogle AdMod広告非表示
+    func adMobClose() {
+        // Google AdMod広告を非表示にする
+        bannerView.removeFromSuperview()
+    }
+    
+    // Menuを閉じた時のGoogle AdMod広告表示
+    func adMobView() {
+        isShowPopup = false
+        // Google AdMod広告を表示する
+        let dispSize: CGSize = UIScreen.main.bounds.size
+        let height = Int(dispSize.height)
+        let infoTopPos = (height/3)*2
+        if isShowCalcDisp {
+            addBannerViewToView(bannerView, CGFloat(infoTopPos-25-50-50-18))
+        }
+        else {
+            addBannerViewToView(bannerView, CGFloat(height - 75 - 50 - 18))
+        }
+    }
     
     //==================================================================
     // テキストフィールド
@@ -1421,7 +1450,7 @@ class WalkViewController:   UIViewController,
         }
         
         // データ送信
-        let contents =  ["RESP":"WALK", "data":modeData] as [String : Any]
+        let contents =  ["RESP":"WALK", "data":modeData as Any] as [String : Any]
         self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
             print ("receive from apple watch");
         }) { (error) -> Void in
@@ -1497,7 +1526,7 @@ extension WalkViewController : FloatingPanelControllerDelegate {
     private func floatingPanelDidEndDragging(_ vc: FloatingPanelController, withVelocity velocity: CGPoint, targetPosition: FloatingPanelPosition) {
 
         // 呼ばれないためresize()で全てのオブジェクトをtrueにした
-        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let _: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 //        appDelegate.pointPopupViewController.resize(targetPosition)
     }
 }

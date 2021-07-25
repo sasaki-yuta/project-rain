@@ -91,29 +91,12 @@ class ViewController:   UIViewController,
 
         // MapViewのdelegateを登録する
         mapView.delegate = self
-                
-        // 位置情報の使用の許可を得る
-        let status = CLLocationManager.authorizationStatus()
-        if status == CLAuthorizationStatus.restricted || status == CLAuthorizationStatus.denied
-        {
-            print("authorizationStatus = " + status.rawValue.description)
-        }
-        else {
-            // CLLocationManagerのdelegateを登録する
-            locManager = CLLocationManager()
-            locManager.distanceFilter = 1
-            locManager.delegate = self
 
-            if status == CLAuthorizationStatus.notDetermined
-            {
-                locManager.requestWhenInUseAuthorization()
-            }
-            else
-            {
-                locManager.startUpdatingLocation()
-            }
-        }
-        
+        // CLLocationManagerのdelegateを登録する
+        locManager = CLLocationManager()
+        locManager.distanceFilter = 1
+        locManager.delegate = self
+
         // 地図の初期化
         initMap()
         
@@ -132,7 +115,7 @@ class ViewController:   UIViewController,
                            toItem: view.safeAreaLayoutGuide,
                            attribute: .bottomMargin,
                            multiplier: 1,
-                           constant: -50),
+                           constant: -20),
         NSLayoutConstraint(item: bannerView,
                            attribute: .centerX,
                            relatedBy: .equal,
@@ -142,7 +125,25 @@ class ViewController:   UIViewController,
                            constant: 0)
         ])
     }
-    
+
+    // iOS14でのCore Location変更点(iOS14以降ではこちらが必要)
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let status = manager.authorizationStatus
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:   // 常に許可、アプリ使用中のみ許可
+            manager.startUpdatingLocation()
+        case .notDetermined:                            // まだ許可選択していない
+            manager.requestWhenInUseAuthorization()
+        case .denied:
+            print("許可していない");
+        case .restricted:
+            print("機能制限している")
+        default:
+            print("other authorizationStatus")
+        }
+    }
+
+    // iOS14でのCore Location変更点(iOS14以降で呼ばれなくなった)
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {
         if (status == .restricted) {
@@ -597,7 +598,7 @@ class ViewController:   UIViewController,
     
     // watchOSに緯度経度を送信
     func sendMessageLonLat() {
-        let contents =  ["RESP":"LONLAT", "lon":dlon, "lat":dlat] as [String : Any]
+        let contents =  ["RESP":"LONLAT", "lon":dlon as Any, "lat":dlat as Any] as [String : Any]
         self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
             print ("receive from apple watch");
         }) { (error) -> Void in

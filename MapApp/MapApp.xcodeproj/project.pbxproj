@@ -304,7 +304,6 @@
 				9B8ED911239355AA00AFD405 /* PointPopupViewController.swift */,
 				9BAAFE1F23DBCEF3004C4B43 /* CustomFloatingPanelLayout.swift */,
 				9B107B6C2217D74A006971FF /* Main.storyboard */,
-				9B107B722217D74C006971FF /* Assets.xcassets */,
 				9B107B742217D74C006971FF /* LaunchScreen.storyboard */,
 				9B107B772217D74C006971FF /* Info.plist */,
 				9B107B6F2217D74A006971FF /* MapApp.xcdatamodeld */,
@@ -315,6 +314,7 @@
 		9B107B7F2217D74C006971FF /* MapAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				9B107B722217D74C006971FF /* Assets.xcassets */,
 				9B107B802217D74C006971FF /* MapAppTests.swift */,
 				9B107B822217D74C006971FF /* Info.plist */,
 			);
