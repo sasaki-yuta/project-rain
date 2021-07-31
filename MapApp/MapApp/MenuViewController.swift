@@ -49,7 +49,11 @@ class MenuViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+        // adMobClose
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.viewController.adMobClose()
+        
         // Voewのサイズを画面サイズに設定する
         let dispSize: CGSize = UIScreen.main.bounds.size
 //        let width = Int(dispSize.width)
@@ -187,6 +191,10 @@ class MenuViewController: UIViewController {
                         self.dismiss(animated: true, completion: nil)
                     }
                 )
+
+                // adMob表示
+                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.viewController.adMobView()
             }
         }
     }

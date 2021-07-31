@@ -921,9 +921,7 @@ class WalkViewController:   UIViewController,
         
         // Google AddMod広告
         bannerView.removeFromSuperview()
-        if !isShowPopup {
-            addBannerViewToView(bannerView, CGFloat(infoTopPos-25-50-50-18))
-        }
+        adMobView()
     }
     
     // ランニングパーツを非表示にする
@@ -960,9 +958,7 @@ class WalkViewController:   UIViewController,
 
         // Google AddMod広告
         bannerView.removeFromSuperview()
-        if !isShowPopup {
-            addBannerViewToView(bannerView, CGFloat(height - 75 - 50 - 18))
-        }
+        adMobView()
     }
     
 
@@ -1250,7 +1246,11 @@ class WalkViewController:   UIViewController,
     
     // Menuを閉じた時のGoogle AdMod広告表示
     func adMobView() {
-        isShowPopup = false
+        // POPUP画面またはキーボード表示時は表示しない
+        if (isShowPopup || !CancelBtn.isHidden) {
+            return
+        }
+
         // Google AdMod広告を表示する
         let dispSize: CGSize = UIScreen.main.bounds.size
         let height = Int(dispSize.height)
@@ -1332,6 +1332,9 @@ class WalkViewController:   UIViewController,
             return
         }
         
+        // Google AdMod広告を非表示にする
+        adMobClose()
+        
         // 検索バーの幅を減らして(-80)、キャンセルボタンを表示する
         let dispSize: CGSize = UIScreen.main.bounds.size
         let width = Int(dispSize.width)
@@ -1370,6 +1373,9 @@ class WalkViewController:   UIViewController,
         else {
             searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
         }
+        
+        // Google AdMod広告を表示にする
+        adMobView()
     }
 
     // Cancelボタン押下

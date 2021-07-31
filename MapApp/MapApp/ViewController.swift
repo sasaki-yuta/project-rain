@@ -552,6 +552,17 @@ class ViewController:   UIViewController,
         }.resume()
     }
 
+    // Menuを開いた時のGoogle AdMod広告非表示
+    func adMobClose() {
+        // Google AdMod広告を非表示にする
+        bannerView.removeFromSuperview()
+    }
+
+    // Menuを閉じた時のGoogle AdMod広告表示
+    func adMobView() {
+        addBannerViewToView(bannerView)
+    }
+
     // watchOSからの高低差取得要求を処理する
     func getWatchOSEElevation(_ lon:Double, _ lat:Double) {
         // 国土地理院のURL

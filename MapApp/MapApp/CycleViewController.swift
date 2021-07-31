@@ -874,9 +874,7 @@ class CycleViewController:  UIViewController,
         
         // Google AddMod広告
         bannerView.removeFromSuperview()
-        if !isShowPopup {
-            addBannerViewToView(bannerView, CGFloat(infoTopPos-25-50-50-18))
-        }
+        adMobView()
     }
     
     // ランニングパーツを非表示にする
@@ -913,9 +911,7 @@ class CycleViewController:  UIViewController,
 
         // Google AddMod広告
         bannerView.removeFromSuperview()
-        if !isShowPopup {
-            addBannerViewToView(bannerView, CGFloat(height - 75 - 50 - 18))
-        }
+        adMobView()
     }
     
     // 走行履歴を保存する
@@ -1009,15 +1005,7 @@ class CycleViewController:  UIViewController,
     func ExitPointPopupView() {
         isShowPopup = false
         // Google AdMod広告を表示する
-        let dispSize: CGSize = UIScreen.main.bounds.size
-        let height = Int(dispSize.height)
-        let infoTopPos = (height/3)*2
-        if isShowCalcDisp {
-            addBannerViewToView(bannerView, CGFloat(infoTopPos-25-50-50-18))
-        }
-        else {
-            addBannerViewToView(bannerView, CGFloat(height - 75 - 50 - 18))
-        }
+        adMobView()
         // セミモーダルビューを非表示にする
         floatingPanelController.removePanelFromParent(animated: true)
     }
@@ -1030,7 +1018,10 @@ class CycleViewController:  UIViewController,
 
     // Menuを閉じた時のGoogle AdMod広告表示
     func adMobView() {
-        isShowPopup = false
+        // POPUP画面またはキーボード表示時は表示しない
+        if (isShowPopup || !CancelBtn.isHidden) {
+            return
+        }
         // Google AdMod広告を表示する
         let dispSize: CGSize = UIScreen.main.bounds.size
         let height = Int(dispSize.height)
@@ -1111,6 +1102,10 @@ class CycleViewController:  UIViewController,
         guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
             return
         }
+        
+        // Google AdMod広告を非表示にする
+        adMobClose()
+        
         // 検索バーの幅を減らして(-80)、キャンセルボタンを表示する
         let dispSize: CGSize = UIScreen.main.bounds.size
         let width = Int(dispSize.width)
@@ -1137,7 +1132,7 @@ class CycleViewController:  UIViewController,
         UIView.animate(withDuration: duration) {
             self.view.transform = CGAffineTransform.identity
         }
-        
+
         // 検索バーの幅を戻して、キャンセルボタンを消去する
         CancelBtn.isHidden = true
         let dispSize: CGSize = UIScreen.main.bounds.size
@@ -1149,6 +1144,9 @@ class CycleViewController:  UIViewController,
         else {
             searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
         }
+        
+        // Google AdMod広告を表示にする
+        adMobView()
     }
 
     // Cancelボタン押下
