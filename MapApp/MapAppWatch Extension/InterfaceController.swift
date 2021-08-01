@@ -38,6 +38,9 @@ class InterfaceController:  WKInterfaceController,
             self.session = WCSession.default
             self.session.delegate = self
             self.session.activate()
+            
+            // 起動後に表示する情報を取得
+            sendMessageGetMode()
         }
     }
 
@@ -48,7 +51,7 @@ class InterfaceController:  WKInterfaceController,
         sendMessageGetMode()
 
         // crownSequencerにフォーカスを当てる
-        crownSequencer.focus()
+//        crownSequencer.focus()
     }
         
     override func didDeactivate() {
@@ -106,12 +109,14 @@ class InterfaceController:  WKInterfaceController,
 //        mapView.setRegion(region)
         
         // Digital Crownのデリゲートを設定
-        crownSequencer.delegate = self
+//        crownSequencer.delegate = self
     }
 
     // CLLocationManagerのdelegate：現在位置更新
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print(Date(), locations)
+        
+//        sendMessageGetMode()
         
         // 現在位置をクラスのメンバ変数に保持する
         locCord2D = (locations.last?.coordinate)!
