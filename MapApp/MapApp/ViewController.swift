@@ -60,6 +60,8 @@ class ViewController:   UIViewController,
     // ロングタップした位置との高低差を取得する変数
     var currentElevation: Double = -100000.0
     var longTapElevation: Double = -100000.0
+    
+    var defineClass:Define = Define()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,8 +71,7 @@ class ViewController:   UIViewController,
         bannerView = GADBannerView(adSize: kGADAdSizeBanner) //320×50
         addBannerViewToView(bannerView)
 
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//←テストID
-//        bannerView.adUnitID = "ca-app-pub-3106594758397593/3761431592"//←本物のID
+        bannerView.adUnitID = defineClass.getAddModUnitID()
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self
@@ -421,6 +422,18 @@ class ViewController:   UIViewController,
         default:
             break
         }
+    }
+
+    // ゴルフスコア分析に遷移する
+    func toGolfManageScoreViewController() {
+        // CycleSettingViewControllerを表示する
+        self.performSegue(withIdentifier: "toGolfManageScore", sender: nil)
+    }
+
+    // ゴルフスコア入力に遷移する
+    func toGolfInputScoreViewController() {
+        // CycleSettingViewControllerを表示する
+        self.performSegue(withIdentifier: "toGolfInputScore", sender: nil)
     }
     
     // 地図の表示タイプを切り替える

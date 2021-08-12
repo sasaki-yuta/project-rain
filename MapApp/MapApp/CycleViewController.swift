@@ -116,6 +116,8 @@ class CycleViewController:  UIViewController,
     @IBOutlet var btnCalcSwitchDisp: UIButton!
     var isShowCalcDisp: Bool = true
     
+    var defineClass:Define = Define()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -185,8 +187,7 @@ class CycleViewController:  UIViewController,
                            constant: 0)
         ])
         
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//←テストID
-//        bannerView.adUnitID = "ca-app-pub-3106594758397593/3761431592"//←本物のID
+        bannerView.adUnitID = defineClass.getAddModUnitID()
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self

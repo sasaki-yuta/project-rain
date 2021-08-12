@@ -16,6 +16,7 @@ class CycleSettingViewController:   UIViewController,
     
     // Google AddMod広告
     var bannerView: GADBannerView!
+    var defineClass:Define = Define()
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnDataInit: UIButton!
@@ -45,9 +46,7 @@ class CycleSettingViewController:   UIViewController,
         // Google AddMod広告
         bannerView = GADBannerView(adSize: kGADAdSizeBanner) //320×50
         addBannerViewToView(bannerView)
-
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//←テストID
-//        bannerView.adUnitID = "ca-app-pub-3106594758397593/3761431592"//←本物のID
+        bannerView.adUnitID = defineClass.getAddModUnitID()
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self

@@ -8,6 +8,64 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Golf Manage Score-->
+        <scene sceneID="68k-Pj-gnb">
+            <objects>
+                <viewController id="i4T-Ff-ugt" customClass="GolfManageScore" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="l8D-OE-UgF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yh8-0Z-B6q" userLabel="Btn Back">
+                                <rect key="frame" x="30" y="44" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="戻る"/>
+                                <connections>
+                                    <action selector="btnBackThouchDown:" destination="i4T-Ff-ugt" eventType="touchDown" id="aPx-5c-ZE9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dFS-eI-4TL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnBack" destination="Yh8-0Z-B6q" id="DQO-jS-Cvf"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="zjB-ka-mtM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pA8-cC-INT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1682" y="21"/>
+        </scene>
+        <!--Golf Input Score-->
+        <scene sceneID="qPf-id-72I">
+            <objects>
+                <viewController id="LCL-JA-RJe" customClass="GolfInputScore" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eUW-IY-aCV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Kl-0j-4pJ" userLabel="Btn Back">
+                                <rect key="frame" x="30" y="44" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="戻る"/>
+                                <connections>
+                                    <action selector="btnBackThouchDown:" destination="LCL-JA-RJe" eventType="touchDown" id="ThH-8P-DsC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ax3-Io-dqz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnBack" destination="6Kl-0j-4pJ" id="5sJ-Zn-2lA"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Zhx-n7-aCa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vNG-Fa-6S1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2426" y="21"/>
+        </scene>
         <!--Golf Mode-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -35,12 +93,15 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="KGH-MM-CiI"/>
                     <connections>
                         <outlet property="longPressGesRec" destination="7M3-eP-f7Q" id="X58-0C-EQc"/>
                         <outlet property="mapView" destination="blC-OF-Rwu" id="gub-nJ-bG6"/>
                         <outlet property="mapViewTypeOver" destination="wZ8-dj-6AQ" id="stT-ol-AnH"/>
                         <segue destination="6Pg-YZ-Fts" kind="presentation" identifier="toCycleView" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="0NO-hH-99i"/>
                         <segue destination="2XO-JZ-fI6" kind="presentation" identifier="toWalkView" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="ZTp-PD-svD"/>
+                        <segue destination="i4T-Ff-ugt" kind="presentation" identifier="toGolfManageScore" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="fsK-eR-Og3"/>
+                        <segue destination="LCL-JA-RJe" kind="presentation" identifier="toGolfInputScore" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="6Dm-qH-JPG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -164,6 +225,17 @@
                                             <action selector="btnGetElevationThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="ox3-NA-ocA"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gE-NJ-Sc4" userLabel="Btn Manage Score">
+                                        <rect key="frame" x="30" y="530" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="スコア分析">
+                                            <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnScoreManageThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="RPn-40-1sS"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9J-Xb-EZF">
                                         <rect key="frame" x="30" y="370" width="90" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -172,6 +244,17 @@
                                         </state>
                                         <connections>
                                             <action selector="btnWalkModeThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="iFT-qT-YbJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3Z-2A-ICj" userLabel="Btn Manage Score">
+                                        <rect key="frame" x="30" y="570" width="90" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="スコア入力">
+                                            <color key="titleColor" red="0.0" green="0.58039215690000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnInputScoreThouchDown:" destination="e3M-bM-kPo" eventType="touchDown" id="9nv-x9-Lx7"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -188,6 +271,8 @@
                         <outlet property="btnGetElevation" destination="Mj9-VF-cBn" id="jpa-ZP-q2m"/>
                         <outlet property="btnGolfMode" destination="HZU-rp-PJY" id="fRK-0J-tw3"/>
                         <outlet property="btnHybrid" destination="c2E-0K-t3n" id="kwh-GD-8gy"/>
+                        <outlet property="btnInputScore" destination="W3Z-2A-ICj" id="dsB-XX-HdN"/>
+                        <outlet property="btnMngScore" destination="7gE-NJ-Sc4" id="bZa-5C-fJw"/>
                         <outlet property="btnMutedStandard" destination="WLf-GF-Dxx" id="NTN-NJ-cXK"/>
                         <outlet property="btnSatellite" destination="FEA-d2-Qlb" id="d4e-Uf-irG"/>
                         <outlet property="btnStandard" destination="k7p-Rg-3ju" id="QnZ-K1-C6f"/>
@@ -1155,10 +1240,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="iXs-S6-MH1"/>
-        <segue reference="ofk-iG-fGN"/>
-        <segue reference="qzy-np-p9Q"/>
-        <segue reference="1bs-VB-7UU"/>
+        <segue reference="KNn-Zj-7yF"/>
+        <segue reference="ZTp-PD-svD"/>
+        <segue reference="0NO-hH-99i"/>
+        <segue reference="zjB-ka-mtM"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="groupTableViewBackgroundColor">

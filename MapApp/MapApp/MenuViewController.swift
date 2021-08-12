@@ -21,6 +21,8 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var btnGolfMode: UIButton!
     @IBOutlet weak var btnCycleMode: UIButton!
     @IBOutlet weak var btnWalkMode: UIButton!
+    @IBOutlet weak var btnMngScore: UIButton!
+    @IBOutlet weak var btnInputScore: UIButton!
     @IBOutlet weak var lblMapType: UILabel!
     @IBOutlet weak var lblMapMode: UILabel!
     @IBOutlet weak var lblFunk: UILabel!
@@ -163,6 +165,26 @@ class MenuViewController: UIViewController {
             animations: {self.btnWalkMode.layer.position.x = btnWalkModePos.x},
             completion: {bool in}
         )
+        
+        let btnMngScorePos = btnMngScore.layer.position
+        btnMngScore.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnMngScore.layer.position.x = btnMngScorePos.x},
+            completion: {bool in}
+        )
+        
+        let btnInputScorePos = btnInputScore.layer.position
+        btnInputScore.layer.position.x = -self.menuView.frame.width
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {self.btnInputScore.layer.position.x = btnInputScorePos.x},
+            completion: {bool in}
+        )
     }
     
     // メニューエリア以外タップ時の処理
@@ -186,6 +208,8 @@ class MenuViewController: UIViewController {
                         self.btnGolfMode.layer.position.x = -self.menuView.frame.width
                         self.btnCycleMode.layer.position.x = -self.menuView.frame.width
                         self.btnWalkMode.layer.position.x = -self.menuView.frame.width
+                        self.btnMngScore.layer.position.x = -self.menuView.frame.width
+                        self.btnInputScore.layer.position.x = -self.menuView.frame.width
                     },
                     completion: { bool in
                         self.dismiss(animated: true, completion: nil)
@@ -313,7 +337,25 @@ class MenuViewController: UIViewController {
         appDelegate.nowMapMode = .MODE_WALK
         appDelegate.viewController.toWalkView()
     }
-
+    
+    // ゴルフスコア分析に遷移する
+    @IBAction func btnScoreManageThouchDown(_ sender: Any) {
+        // Menu画面の消去
+        self.dismiss(animated: true, completion: nil)
+        // MenuCycleViewController画面を消去
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.viewController.toGolfManageScoreViewController()
+    }
+    
+    // ゴルフスコア分析に遷移する
+    @IBAction func btnInputScoreThouchDown(_ sender: Any) {
+        // Menu画面の消去
+        self.dismiss(animated: true, completion: nil)
+        // MenuCycleViewController画面を消去
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.viewController.toGolfInputScoreViewController()
+    }
+    
     // 地図タイプボタンのアクティブ状態を更新
     func updateBtn() {
         // カスタムの文字色で初期化
@@ -339,6 +381,10 @@ class MenuViewController: UIViewController {
         btnCycleMode.isEnabled = true
         btnWalkMode.setTitleColor(strColor, for: .normal)
         btnWalkMode.isEnabled = true
+        btnMngScore.setTitleColor(strColor, for: .normal)
+        btnMngScore.isEnabled = true
+        btnInputScore.setTitleColor(strColor, for: .normal)
+        btnInputScore.isEnabled = true
 
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
@@ -413,5 +459,7 @@ class MenuViewController: UIViewController {
         self.view.addSubview(btnGolfMode)
         self.view.addSubview(btnCycleMode)
         self.view.addSubview(btnWalkMode)
+        self.view.addSubview(btnMngScore)
+        self.view.addSubview(btnInputScore)
     }
 }
