@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var walkViewController: WalkViewController!
     var menuWalkViewController: MenuWalkViewController!
     var pointPopupViewController: PointPopupViewController!
+    var golfInputScore: GolfInputScore!
     
     // 選択中のMapMode(初期値=ウォーク)
     var nowMapMode: MapMode! = .MODE_WALK

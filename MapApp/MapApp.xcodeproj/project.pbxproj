@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D1D97C0F1C025FB959A09CA /* Pods_MapAppWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6A96D4BA3CE4F963E6F507 /* Pods_MapAppWatch.framework */; };
 		16B414BF241F82E03C8105FD /* Pods_MapAppWatch_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1299E58E1038F201033E1E3B /* Pods_MapAppWatch_Extension.framework */; };
+		3A4C59E826CD3B8A002016BA /* GolfInputScore2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C59E726CD3B8A002016BA /* GolfInputScore2.swift */; };
 		3AB98E2326C4D2F8002DD302 /* GolfManageScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB98E2226C4D2F8002DD302 /* GolfManageScore.swift */; };
 		3AB98E2526C5CA7A002DD302 /* GolfInputScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB98E2426C5CA7A002DD302 /* GolfInputScore.swift */; };
 		3AB98E2826C5D6D1002DD302 /* Define.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB98E2726C5D6D1002DD302 /* Define.swift */; };
@@ -118,6 +119,7 @@
 		1B28071945CD7E294D8A0FF2 /* Pods-MapApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.release.xcconfig"; path = "Target Support Files/Pods-MapApp/Pods-MapApp.release.xcconfig"; sourceTree = "<group>"; };
 		1F7B0C59E4D855F4BAB063C8 /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2D9A399AA125E1477E7DD388 /* Pods-MapAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppTests.debug.xcconfig"; path = "Target Support Files/Pods-MapAppTests/Pods-MapAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3A4C59E726CD3B8A002016BA /* GolfInputScore2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfInputScore2.swift; sourceTree = "<group>"; };
 		3AB98E2226C4D2F8002DD302 /* GolfManageScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfManageScore.swift; sourceTree = "<group>"; };
 		3AB98E2426C5CA7A002DD302 /* GolfInputScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfInputScore.swift; sourceTree = "<group>"; };
 		3AB98E2726C5D6D1002DD302 /* Define.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Define.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				9B107B6F2217D74A006971FF /* MapApp.xcdatamodeld */,
 				3AB98E2226C4D2F8002DD302 /* GolfManageScore.swift */,
 				3AB98E2426C5CA7A002DD302 /* GolfInputScore.swift */,
+				3A4C59E726CD3B8A002016BA /* GolfInputScore2.swift */,
 			);
 			path = MapApp;
 			sourceTree = "<group>";
@@ -747,6 +750,7 @@
 				3AB98E2326C4D2F8002DD302 /* GolfManageScore.swift in Sources */,
 				9B107B712217D74A006971FF /* MapApp.xcdatamodeld in Sources */,
 				3AB98E2526C5CA7A002DD302 /* GolfInputScore.swift in Sources */,
+				3A4C59E826CD3B8A002016BA /* GolfInputScore2.swift in Sources */,
 				9BD1933722E42E2C00A44FD6 /* CycleViewController.swift in Sources */,
 				9B6379AE23B88CA70049FCEB /* MenuWalkViewController.swift in Sources */,
 				9BE836CB22FFE6B0005CE3C8 /* MenuCycleViewController.swift in Sources */,

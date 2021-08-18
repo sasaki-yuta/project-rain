@@ -84,9 +84,15 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
         let strColor: UIColor = UIColor(red: 0, green: g, blue: b, alpha: 1.0)
 
         // 探索ボタン表示
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         routeBtn = UIButton(type: UIButton.ButtonType.system)
         routeBtn.addTarget(self, action: #selector(btnRouteSearch(_:)), for: UIControl.Event.touchUpInside)
-        routeBtn.setTitle("経路探索", for: UIControl.State.normal)
+        if .MODE_GOLF == appDelegate.nowMapMode {
+            routeBtn.setTitle("ゴルフ場を確定", for: UIControl.State.normal)
+        }
+        else {
+            routeBtn.setTitle("経路探索", for: UIControl.State.normal)
+        }
         routeBtn.setTitleColor(strColor, for: .normal)
         routeBtn.frame = CGRect(x:20, y:190, width:60, height:30)
         routeBtn.sizeToFit() // サイズを決める(自動調整)
@@ -106,7 +112,6 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
         forwardBtn.sizeToFit() // サイズを決める(自動調整)
 
         // タップした地点の名称を表示する
-        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         if .MODE_CYCLE == appDelegate.nowMapMode {
             lblTitle.text = appDelegate.cycleViewController.getTapPointTitle().description
             lblDistance.text = appDelegate.cycleViewController.getTapDistance().description
@@ -116,6 +121,10 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
             lblTitle.text = appDelegate.walkViewController.getTapPointTitle().description
             lblDistance.text = appDelegate.walkViewController.getTapDistance().description
             lblStreetAddr.text = "住所 \n" + appDelegate.walkViewController.getTapStreetAddr().description
+        }
+        else if .MODE_GOLF == appDelegate.nowMapMode {
+            lblTitle.text = appDelegate.golfInputScore.getTapPointTitle().description
+            lblStreetAddr.text = "住所 \n" + appDelegate.golfInputScore.getTapStreetAddr().description
         }
         else {
             lblTitle.text = "地点"
@@ -162,6 +171,12 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
             url += "+"
             url += appDelegate.walkViewController.getTapPointTitle()
         }
+        else if .MODE_GOLF == appDelegate.nowMapMode {
+            url += "/search?q="
+            url += appDelegate.golfInputScore.getTapStreetAddr()
+            url += "+"
+            url += appDelegate.golfInputScore.getTapPointTitle()
+        }
         else {
         }
         
@@ -189,6 +204,9 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
         }
         else if .MODE_WALK == appDelegate.nowMapMode {
             appDelegate.walkViewController.ExitPointPopupView()
+        }
+        else if .MODE_GOLF == appDelegate.nowMapMode {
+            appDelegate.golfInputScore.ExitPointPopupView()
         }
         else {
             // 処理なし
@@ -220,6 +238,9 @@ class PointPopupViewController: UIViewController,WKNavigationDelegate, WKUIDeleg
         }
         else if .MODE_WALK == appDelegate.nowMapMode {
             appDelegate.walkViewController.routeSearch()
+        }
+        else if .MODE_GOLF == appDelegate.nowMapMode {
+            appDelegate.golfInputScore.setGolfCourseName()
         }
         else {
             // 処理なし

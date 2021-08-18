@@ -432,7 +432,6 @@ class ViewController:   UIViewController,
 
     // ゴルフスコア入力に遷移する
     func toGolfInputScoreViewController() {
-        // CycleSettingViewControllerを表示する
         self.performSegue(withIdentifier: "toGolfInputScore", sender: nil)
     }
     

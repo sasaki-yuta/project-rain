@@ -35,7 +35,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pA8-cC-INT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1682" y="21"/>
+            <point key="canvasLocation" x="1686" y="-722"/>
         </scene>
         <!--Golf Input Score-->
         <scene sceneID="qPf-id-72I">
@@ -53,18 +53,97 @@
                                     <action selector="btnBackThouchDown:" destination="LCL-JA-RJe" eventType="touchDown" id="ThH-8P-DsC"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="日時" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D0p-g5-ngk">
+                                <rect key="frame" x="15" y="90" width="35" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ゴルフ場" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZm-bD-aN3">
+                                <rect key="frame" x="15" y="150" width="70" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="位置設定" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6l-R8-Ism">
+                                <rect key="frame" x="15" y="210" width="70" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lAM-I9-JyG">
+                                <rect key="frame" x="100" y="90" width="200" height="32"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <locale key="locale" localeIdentifier="ja"/>
+                            </datePicker>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zca-m9-aXE">
+                                <rect key="frame" x="0.0" y="250" width="375" height="562"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AR4-uc-QFJ">
+                                <rect key="frame" x="100" y="136" width="200" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="地図からゴルフ場を確定してください" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ak7-MT-Ct1">
+                                <rect key="frame" x="100" y="210" width="230" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ax3-Io-dqz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
                         <outlet property="btnBack" destination="6Kl-0j-4pJ" id="5sJ-Zn-2lA"/>
+                        <outlet property="lbl_1" destination="D0p-g5-ngk" id="JCd-yj-B23"/>
+                        <outlet property="lbl_2" destination="WZm-bD-aN3" id="22J-Wi-uNu"/>
+                        <outlet property="lbl_3" destination="t6l-R8-Ism" id="weR-if-fPw"/>
+                        <outlet property="lbllonlat" destination="Ak7-MT-Ct1" id="r3D-Lx-flW"/>
+                        <outlet property="mapView" destination="zca-m9-aXE" id="Car-fG-XFG"/>
+                        <outlet property="roundDate" destination="lAM-I9-JyG" id="yFK-6G-KYl"/>
+                        <outlet property="searchBar" destination="AR4-uc-QFJ" id="lsi-xh-870"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Zhx-n7-aCa"/>
+                        <segue destination="ExQ-H6-Ve2" kind="presentation" identifier="toGolfInputScore2" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="tPM-bu-t9b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vNG-Fa-6S1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2426" y="21"/>
+            <point key="canvasLocation" x="1685.5999999999999" y="20.689655172413794"/>
+        </scene>
+        <!--Golf Input Score2-->
+        <scene sceneID="JOc-Pl-ef6">
+            <objects>
+                <viewController id="ExQ-H6-Ve2" customClass="GolfInputScore2" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rHs-Gx-gVl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cFH-tQ-jaN" userLabel="Btn Back">
+                                <rect key="frame" x="30" y="44" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="戻る"/>
+                                <connections>
+                                    <action selector="btnBackThouchDown:" destination="ExQ-H6-Ve2" eventType="touchDown" id="Yby-Kc-Wck"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fnz-is-Oon"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnBack" destination="cFH-tQ-jaN" id="V4b-kj-nev"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="w2y-11-yAF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O6x-1v-hFJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2463" y="21"/>
         </scene>
         <!--Golf Mode-->
         <scene sceneID="tne-QT-ifu">
@@ -1240,10 +1319,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KNn-Zj-7yF"/>
+        <segue reference="iXs-S6-MH1"/>
         <segue reference="ZTp-PD-svD"/>
         <segue reference="0NO-hH-99i"/>
-        <segue reference="zjB-ka-mtM"/>
+        <segue reference="w2y-11-yAF"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="groupTableViewBackgroundColor">
