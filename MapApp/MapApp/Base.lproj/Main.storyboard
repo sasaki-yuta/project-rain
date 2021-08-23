@@ -139,6 +139,7 @@
                     <connections>
                         <outlet property="btnBack" destination="cFH-tQ-jaN" id="V4b-kj-nev"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="w2y-11-yAF"/>
+                        <segue destination="LCL-JA-RJe" kind="presentation" identifier="toGolfInputScore" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Dl9-YH-z7l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6x-1v-hFJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -181,6 +182,7 @@
                         <segue destination="2XO-JZ-fI6" kind="presentation" identifier="toWalkView" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="ZTp-PD-svD"/>
                         <segue destination="i4T-Ff-ugt" kind="presentation" identifier="toGolfManageScore" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="fsK-eR-Og3"/>
                         <segue destination="LCL-JA-RJe" kind="presentation" identifier="toGolfInputScore" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="6Dm-qH-JPG"/>
+                        <segue destination="ExQ-H6-Ve2" kind="presentation" identifier="toGolfInputScore2" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="eMn-SQ-pFo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1323,6 +1325,8 @@
         <segue reference="ZTp-PD-svD"/>
         <segue reference="0NO-hH-99i"/>
         <segue reference="w2y-11-yAF"/>
+        <segue reference="eMn-SQ-pFo"/>
+        <segue reference="Dl9-YH-z7l"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="groupTableViewBackgroundColor">

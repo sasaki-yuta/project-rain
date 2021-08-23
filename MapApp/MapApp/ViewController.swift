@@ -432,7 +432,15 @@ class ViewController:   UIViewController,
 
     // ゴルフスコア入力に遷移する
     func toGolfInputScoreViewController() {
-        self.performSegue(withIdentifier: "toGolfInputScore", sender: nil)
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        if !appDelegate.userDataManager.getIsInputScore() {
+            // スコア入力中でない場合はゴルフ場設定画面
+            self.performSegue(withIdentifier: "toGolfInputScore", sender: nil)
+        }
+        else {
+            // スコア入力中でない場合はスコア入力画面
+            self.performSegue(withIdentifier: "toGolfInputScore2", sender: nil)
+        }
     }
     
     // 地図の表示タイプを切り替える
