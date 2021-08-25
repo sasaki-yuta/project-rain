@@ -7,7 +7,7 @@ target 'MapApp' do
 
   pod 'FloatingPanel'
   pod 'Google-Mobile-Ads-SDK'
-  #pod 'RealmSwift'
+  pod 'RealmSwift'
 
   # Pods for MapApp
 
