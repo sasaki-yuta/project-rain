@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "93DAE7AF8DD7B638CA1B39ECD67F563C"
-               BuildableName = "Pods_MapApp_MapAppUITests.framework"
+               BuildableName = "Pods-MapApp-MapAppUITests.framework"
                BlueprintName = "Pods-MapApp-MapAppUITests"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
