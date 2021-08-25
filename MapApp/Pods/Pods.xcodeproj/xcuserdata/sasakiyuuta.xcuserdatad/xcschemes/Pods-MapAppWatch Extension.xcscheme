@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "35A4504173107F1725995D6C331FD0C7"
-               BuildableName = "Pods-MapAppWatch Extension.framework"
+               BuildableName = "Pods_MapAppWatch_Extension.framework"
                BlueprintName = "Pods-MapAppWatch Extension"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
