@@ -44,9 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var nowWalkState: RunState! = .STATE_CLOSING
     // UserDefaults(データバックアップ用)オブジェクト
     var userDataManager:UserDataManager = UserDataManager()
+    // ゴルフデータ(RealmData)
+    var golfRealmData:GolfRealmControl!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // realmインスタンス生成
+        golfRealmData = GolfRealmControl()
         
         // GoogleAdmob広告
         GADMobileAds.sharedInstance().start(completionHandler: nil)

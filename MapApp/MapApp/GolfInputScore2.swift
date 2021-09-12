@@ -1146,6 +1146,7 @@ class GolfInputScore2: UIViewController,
         txtP10P4_2.layer.borderWidth = 1
         txtP10P4_2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP10P4_2)
+        
     }
     
     // < ボタンを押下した時の処理

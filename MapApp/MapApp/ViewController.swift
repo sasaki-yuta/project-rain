@@ -433,7 +433,7 @@ class ViewController:   UIViewController,
     // ゴルフスコア入力に遷移する
     func toGolfInputScoreViewController() {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        if !appDelegate.userDataManager.getIsInputScore() {
+        if !appDelegate.golfRealmData.isRound() {
             // スコア入力中でない場合はゴルフ場設定画面
             self.performSegue(withIdentifier: "toGolfInputScore", sender: nil)
         }

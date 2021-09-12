@@ -19,16 +19,6 @@ class UserDataManager: NSObject {
     //=======================================================
     // MapType
     var golfMapType: UInt = MKMapType.standard.rawValue
-    
-    //=======================================================
-    // Golfeモード(スコア入力)変数
-    //=======================================================
-    var isInputScore: Bool = false      // スコア入力中？
-    var bk_isInputScore: Bool = false   // スコア入力中？（現在のバックアップ値）
-    var golfRoundDate: String = ""      // ラウンド開始日時
-    var bk_golfRoundDate: String = ""   // ラウンド開始日時（現在のバックアップ値）
-    var golfCourceName: String = ""     // ゴルフ場名
-    var bk_golfCourceName: String = ""  // ゴルフ場名（現在のバックアップ値）
 
     //=======================================================
     // Cycleモード変数
@@ -103,10 +93,6 @@ class UserDataManager: NSObject {
     override init() {
         // Golfモード
         userDefaults.register(defaults: ["golfMapType": MKMapType.standard.rawValue])
-        // Golfeモード(スコア入力)
-        userDefaults.register(defaults: ["isInputScore": false])
-        userDefaults.register(defaults: ["golfRoundDate": ""])
-        userDefaults.register(defaults: ["golfCourceName": ""])
         // Cycleモード
         userDefaults.register(defaults: ["cycleMapType": MKMapType.standard.rawValue])
         userDefaults.register(defaults: ["totalMaxSpeed": 0.0])
@@ -127,13 +113,6 @@ class UserDataManager: NSObject {
     func roadData() {
         // Golfモード
         golfMapType = userDefaults.object(forKey: "golfMapType") as! UInt
-        // Golfeモード(スコア入力)
-        isInputScore = userDefaults.object(forKey: "isInputScore") as! Bool
-        bk_isInputScore = isInputScore
-        golfRoundDate = userDefaults.object(forKey: "golfRoundDate") as! String
-        bk_golfRoundDate = golfRoundDate
-        golfCourceName = userDefaults.object(forKey: "golfCourceName") as! String
-        bk_golfCourceName = golfCourceName
         // Cycleモード
         cycleMapType = userDefaults.object(forKey: "cycleMapType") as! UInt
         totalMaxSpeed = userDefaults.object(forKey: "totalMaxSpeed") as! Double
@@ -162,8 +141,6 @@ class UserDataManager: NSObject {
     
     // 全データ保存
     func saveData() {
-        // Golfeモード(スコア入力)
-        saveGolfInputScore()
         // Cycleデータ保存
         saveCycleData()
         // Walkデータ保存
@@ -183,63 +160,6 @@ class UserDataManager: NSObject {
     // Golfモードの地図Typeを取得
     func getGolfMapType() -> MKMapType {
         return MKMapType.init(rawValue: golfMapType)!
-    }
-    
-    // スコア入力中？を保存
-    func saveIsInputScore(_ isInput: Bool) {
-        isInputScore = isInput
-    }
-    // スコア入力中？を取得
-    func getIsInputScore() -> Bool {
-        return isInputScore
-    }
-    
-    // ラウンド開始日時を保存
-    func saveGolfRoundDate(_ date: String) {
-        golfRoundDate = date
-    }
-    // ラウンド開始日時を取得
-    func getGolfRoundDate() -> String {
-        return golfRoundDate
-    }
-    
-    // ゴルフ場名を保存
-    func saveGolfCourceName(_ name: String) {
-        golfCourceName = name
-    }
-    // ゴルフ場名を取得
-    func getGolfCourceName() -> String {
-        return golfCourceName
-    }
-    
-    //=======================================================
-    // Golfeモード(スコア入力)
-    //=======================================================
-    func saveGolfInputScore() {
-        var isSync = false
-        
-        // スコア入力中？
-        if bk_isInputScore != isInputScore {
-            userDefaults.set(isInputScore, forKey: "isInputScore")
-            bk_isInputScore = isInputScore
-            isSync = true
-        }
-        // ラウンド開始日時を保存
-        if bk_golfRoundDate != golfRoundDate {
-            userDefaults.set(golfRoundDate, forKey: "golfRoundDate")
-            bk_golfRoundDate = golfRoundDate
-            isSync = true
-        }
-        // ゴルフ場名
-        if bk_golfCourceName != golfCourceName {
-            userDefaults.set(golfCourceName, forKey: "golfCourceName")
-            bk_golfCourceName = golfCourceName
-            isSync = true
-        }
-
-        if true == isSync {
-            userDefaults.synchronize()
-        }
     }
     
     //=======================================================
