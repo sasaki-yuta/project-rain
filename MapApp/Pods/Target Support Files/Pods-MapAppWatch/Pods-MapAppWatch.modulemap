@@ -1,6 +1,0 @@
-framework module Pods_MapAppWatch {
-  umbrella header "Pods-MapAppWatch-umbrella.h"
-
-  export *
-  module * { export * }
-}
