@@ -28,7 +28,7 @@ class GolfRealmControl: NSObject {
             }
         }
         // 現在のRealmファイルの schemaVersion と、下記で設定した schemaVersion が違うと、マイグレーションが実行される
-        config.schemaVersion = 0
+        config.schemaVersion = 1
         Realm.Configuration.defaultConfiguration = config
         
         realm = try! Realm()
@@ -86,35 +86,130 @@ class GolfRealmControl: NSObject {
         }
     }
     
-    // ラウンド中のデータの確定
-    func fixRoundData(_ round: GolfOneRoundData) {
-        try! realm.write {
-            realm.add(round)
+    // スコア設定 View GolfInputScoreで入力した情報を保存する
+    func setGolfScore(_ par_num: [Int] ,_ score_my: [Int], _ score_my_pad: [Int], _ score_my_act: [Int],_ score_2: [Int], _ score_2_pad: [Int], _ score_2_act: [Int],_ score_3: [Int], _ score_3_pad: [Int], _ score_3_act: [Int], _ score_4: [Int], _ score_4_pad: [Int], _ score_4_act: [Int], _ name_2: String, _ name_3: String, _ name_4: String, _ isFirst: Bool) {
+        // realmから取得する
+        let realmRoundData = realm.objects(GolfOneRoundData.self)
+        if 0 < realmRoundData.count {
+            try! realm.write {
+                if isFirst {
+                    realmRoundData[0].isOut = true
+                    var j = 0
+                    for i in 0 ..< 9 {
+                        realmRoundData[0].par_num[i] = par_num[j]
+                        realmRoundData[0].score_my[i] = score_my[j]
+                        realmRoundData[0].score_my_pad[i] = score_my_pad[j]
+                        realmRoundData[0].score_my_act[i] = score_my_act[j]
+                        realmRoundData[0].name_2 = name_2
+                        realmRoundData[0].score_2[i] = score_2[j]
+                        realmRoundData[0].score_2_pad[i] = score_2_pad[j]
+                        realmRoundData[0].score_2_act[i] = score_2_act[j]
+                        realmRoundData[0].name_3 = name_3
+                        realmRoundData[0].score_3[i] = score_3[j]
+                        realmRoundData[0].score_3_pad[i] = score_3_pad[j]
+                        realmRoundData[0].score_3_act[i] = score_3_act[j]
+                        realmRoundData[0].name_4 = name_4
+                        realmRoundData[0].score_4[i] = score_4[j]
+                        realmRoundData[0].score_4_pad[i] = score_4_pad[j]
+                        realmRoundData[0].score_4_act[i] = score_4_act[j]
+                        j = j + 1
+                    }
+                }
+                else {
+                    realmRoundData[0].isOut = false
+                    var j = 0
+                    for i in 9 ..< 18 {
+                        realmRoundData[0].par_num[i] = par_num[j]
+                        realmRoundData[0].score_my[i] = score_my[j]
+                        realmRoundData[0].score_my_pad[i] = score_my_pad[j]
+                        realmRoundData[0].score_my_act[i] = score_my_act[j]
+                        realmRoundData[0].name_2 = name_2
+                        realmRoundData[0].score_2[i] = score_2[j]
+                        realmRoundData[0].score_2_pad[i] = score_2_pad[j]
+                        realmRoundData[0].score_2_act[i] = score_2_act[j]
+                        realmRoundData[0].name_3 = name_3
+                        realmRoundData[0].score_3[i] = score_3[j]
+                        realmRoundData[0].score_3_pad[i] = score_3_pad[j]
+                        realmRoundData[0].score_3_act[i] = score_3_act[j]
+                        realmRoundData[0].name_4 = name_4
+                        realmRoundData[0].score_4[i] = score_4[j]
+                        realmRoundData[0].score_4_pad[i] = score_4_pad[j]
+                        realmRoundData[0].score_4_act[i] = score_4_act[j]
+                        j = j + 1
+                    }
+                }
+            }
         }
     }
     
+    // プレイヤー情報の取得(realmになければ初期値で保存する)
+    func getPlayerInfo() -> PlayerInfo {
+        var letval = PlayerInfo()
+        // realmから取得する
+        let realmRoundData = realm.objects(PlayerInfo.self)
+        if 0 < realmRoundData.count {
+            print(realmRoundData.count)
+            letval = realmRoundData[0] // １件しか存在しないが２件以上取れた場合は１件目を設定
+        }
+        else {
+            letval.create()
+            try! realm.write {
+                realm.add(letval)
+            }
+        }
+        return letval
+    }
+    
+    // プレイヤー名の設定
+    func setPlayerName(_ name: String) {
+        // realmから取得する
+        let realmRoundData = realm.objects(PlayerInfo.self)
+        if 0 < realmRoundData.count {
+            try! realm.write {
+                realmRoundData[0].name = name
+            }
+        }
+    }
 }
 
 // プレイヤーデータ
 class PlayerInfo: Object {
     @objc dynamic var name:String?
+    
+    func create() {
+        name = String()
+        name = "本人"
+    }
 }
 
 // ラウンドデータ
 class GolfOneRoundData: Object {
+    @objc dynamic var isOut = true
     @objc dynamic var pid: String?          // 主キー(0:現在のラウンドデータ、1以降が保存データ)
     @objc dynamic var courseName: String?   // ゴルフ場名
     @objc dynamic var roundDate: String?    // 日時 @objc dynamic var value = Date()
     @objc dynamic var lon:Double = 0.0      // ゴルフ場の座標
     @objc dynamic var lat:Double = 0.0      // ゴルフ場の座標
-    let score_my = List<Int>()              // 本人のスコア
+    var par_num = List<Int>()               // Par
 
-//    let score_p2 = RealmOptional<Int>()     // Player3スコア
-//    let score_p3 = RealmOptional<Int>()     // Player3スコア
-//    let score_p4 = RealmOptional<Int>()     // Player4スコア
+    var score_my = List<Int>()              // 本人のスコア
+    var score_my_pad = List<Int>()          // 本人のスコア
+    var score_my_act = List<Int>()          // 本人のスコア
+
+    @objc dynamic var name_2: String?       // 二人目名前
+    var score_2 = List<Int>()               // 二人目スコア
+    var score_2_pad = List<Int>()           // 二人目スコア
+    var score_2_act = List<Int>()           // 二人目スコア
     
+    @objc dynamic var name_3: String?       // 三人目名前
+    var score_3 = List<Int>()               // 三人目スコア
+    var score_3_pad = List<Int>()           // 三人目スコア
+    var score_3_act = List<Int>()           // 三人目スコア
     
-//    @objc dynamic var players: [String] = []    // 本人以外のプレイヤー
+    @objc dynamic var name_4: String?       // 四人目名前
+    var score_4 = List<Int>()               // 四人目スコア
+    var score_4_pad = List<Int>()           // 四人目スコア
+    var score_4_act = List<Int>()           // 四人目スコア
     
     // プライマリキー
     override static func primaryKey() -> String? {
@@ -127,8 +222,23 @@ class GolfOneRoundData: Object {
         pid = uuid.uuidString
         courseName = String()
         roundDate = String()
+        name_2 = String()
+        name_3 = String()
+        name_4 = String()
         for _ in 0 ..< 18 {
-            score_my.append(0)
+            par_num.append(-1)
+            score_my.append(-1)
+            score_my_pad.append(-1)
+            score_my_act.append(-1)
+            score_2.append(-1)
+            score_2_pad.append(-1)
+            score_2_act.append(-1)
+            score_3.append(-1)
+            score_3_pad.append(-1)
+            score_3_act.append(-1)
+            score_4.append(-1)
+            score_4_pad.append(-1)
+            score_4_act.append(-1)
         }
     }
 }
