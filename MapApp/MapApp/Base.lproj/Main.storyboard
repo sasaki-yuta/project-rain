@@ -108,8 +108,8 @@
                         <outlet property="mapView" destination="zca-m9-aXE" id="Car-fG-XFG"/>
                         <outlet property="roundDate" destination="lAM-I9-JyG" id="yFK-6G-KYl"/>
                         <outlet property="searchBar" destination="AR4-uc-QFJ" id="lsi-xh-870"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Zhx-n7-aCa"/>
-                        <segue destination="ExQ-H6-Ve2" kind="presentation" identifier="toGolfInputScore2" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="tPM-bu-t9b"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="Zhx-n7-aCa"/>
+                        <segue destination="ExQ-H6-Ve2" kind="presentation" identifier="toGolfInputScore2" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="tPM-bu-t9b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vNG-Fa-6S1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -138,13 +138,44 @@
                     </view>
                     <connections>
                         <outlet property="btnBack" destination="cFH-tQ-jaN" id="V4b-kj-nev"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="w2y-11-yAF"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="w2y-11-yAF"/>
                         <segue destination="LCL-JA-RJe" kind="presentation" identifier="toGolfInputScore" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Dl9-YH-z7l"/>
+                        <segue destination="rqe-Fp-Wga" kind="presentation" identifier="toGolfInputScore3" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="fox-Hw-7J2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6x-1v-hFJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2463" y="21"/>
+        </scene>
+        <!--Golf Input Score3-->
+        <scene sceneID="3Ou-4I-DLr">
+            <objects>
+                <viewController id="rqe-Fp-Wga" customClass="GolfInputScore3" customModule="Map_Mode" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cgC-3C-mU5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n03-9a-9eF" userLabel="Btn Back">
+                                <rect key="frame" x="30" y="44" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="戻る"/>
+                                <connections>
+                                    <action selector="btnBackThouchDown:" destination="rqe-Fp-Wga" eventType="touchDown" id="qbN-NV-8ah"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vWe-NO-wpp"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnBack" destination="n03-9a-9eF" id="HVH-1M-dgQ"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="c3u-Q9-8ao"/>
+                        <segue destination="ExQ-H6-Ve2" kind="presentation" identifier="toGolfInputScore2" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="jRA-il-Sac"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZtG-Y4-byS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3233" y="21"/>
         </scene>
         <!--Golf Mode-->
         <scene sceneID="tne-QT-ifu">
@@ -1324,8 +1355,8 @@
         <segue reference="iXs-S6-MH1"/>
         <segue reference="ZTp-PD-svD"/>
         <segue reference="0NO-hH-99i"/>
-        <segue reference="w2y-11-yAF"/>
-        <segue reference="tPM-bu-t9b"/>
+        <segue reference="c3u-Q9-8ao"/>
+        <segue reference="jRA-il-Sac"/>
         <segue reference="Dl9-YH-z7l"/>
     </inferredMetricsTieBreakers>
     <resources>

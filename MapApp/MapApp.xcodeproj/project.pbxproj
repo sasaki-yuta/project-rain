@@ -11,6 +11,7 @@
 		16B414BF241F82E03C8105FD /* Pods_MapAppWatch_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1299E58E1038F201033E1E3B /* Pods_MapAppWatch_Extension.framework */; };
 		3A4C59E826CD3B8A002016BA /* GolfInputScore2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C59E726CD3B8A002016BA /* GolfInputScore2.swift */; };
 		3A5A3EC326DB1D9100280C89 /* GolfRealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A3EC226DB1D9100280C89 /* GolfRealmData.swift */; };
+		3A655A5C26F80A7800155D70 /* GolfInputScore3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A655A5B26F80A7800155D70 /* GolfInputScore3.swift */; };
 		3AB98E2326C4D2F8002DD302 /* GolfManageScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB98E2226C4D2F8002DD302 /* GolfManageScore.swift */; };
 		3AB98E2526C5CA7A002DD302 /* GolfInputScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB98E2426C5CA7A002DD302 /* GolfInputScore.swift */; };
 		3AB98E2826C5D6D1002DD302 /* Define.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB98E2726C5D6D1002DD302 /* Define.swift */; };
@@ -122,6 +123,7 @@
 		2D9A399AA125E1477E7DD388 /* Pods-MapAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppTests.debug.xcconfig"; path = "Target Support Files/Pods-MapAppTests/Pods-MapAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3A4C59E726CD3B8A002016BA /* GolfInputScore2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfInputScore2.swift; sourceTree = "<group>"; };
 		3A5A3EC226DB1D9100280C89 /* GolfRealmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfRealmData.swift; sourceTree = "<group>"; };
+		3A655A5B26F80A7800155D70 /* GolfInputScore3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfInputScore3.swift; sourceTree = "<group>"; };
 		3AB98E2226C4D2F8002DD302 /* GolfManageScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfManageScore.swift; sourceTree = "<group>"; };
 		3AB98E2426C5CA7A002DD302 /* GolfInputScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfInputScore.swift; sourceTree = "<group>"; };
 		3AB98E2726C5D6D1002DD302 /* Define.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Define.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				3AB98E2226C4D2F8002DD302 /* GolfManageScore.swift */,
 				3AB98E2426C5CA7A002DD302 /* GolfInputScore.swift */,
 				3A4C59E726CD3B8A002016BA /* GolfInputScore2.swift */,
+				3A655A5B26F80A7800155D70 /* GolfInputScore3.swift */,
 			);
 			path = MapApp;
 			sourceTree = "<group>";
@@ -762,6 +765,7 @@
 				9B6379AC23B861430049FCEB /* WalkViewController.swift in Sources */,
 				9B107B692217D74A006971FF /* AppDelegate.swift in Sources */,
 				9B1103932244A33C00798283 /* MenuViewController.swift in Sources */,
+				3A655A5C26F80A7800155D70 /* GolfInputScore3.swift in Sources */,
 				3AB98E2826C5D6D1002DD302 /* Define.swift in Sources */,
 				9BAAFE2023DBCEF3004C4B43 /* CustomFloatingPanelLayout.swift in Sources */,
 			);

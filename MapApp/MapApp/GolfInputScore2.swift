@@ -206,6 +206,8 @@ class GolfInputScore2: UIViewController,
         initView()
         
         // スコア更新
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        m_isOut = appDelegate.golfRealmData.getRoundData().isOut
         loadScore(m_isOut)
     }
 
@@ -1164,7 +1166,6 @@ class GolfInputScore2: UIViewController,
             self.performSegue(withIdentifier: "toGolfInputScore", sender: nil)
         }
         else {
-            forwardBtn.isEnabled = true
             saveScore(m_isOut)
             m_isOut = true
             loadScore(m_isOut)
@@ -1175,10 +1176,14 @@ class GolfInputScore2: UIViewController,
     @IBAction func btnForward(_ sender: Any)
     {
         if m_isOut {
-            forwardBtn.isEnabled = false
             saveScore(m_isOut)
             m_isOut = false
             loadScore(m_isOut)
+        }
+        else {
+            saveScore(m_isOut)
+            // In表示中なら合計画面へ遷移
+            self.performSegue(withIdentifier: "toGolfInputScore3", sender: nil)
         }
     }
     

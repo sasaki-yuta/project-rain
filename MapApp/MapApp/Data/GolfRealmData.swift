@@ -61,12 +61,13 @@ class GolfRealmControl: NSObject {
     }
 
     // ゴルフコース設定 View GolfInputScoreで入力した情報を保存する
-    func setGolfCource(_ course: String, _ date: String, _ lon: Double, _ lat: Double) {
+    func setGolfCource(_ course: String, _ adr: String, _ date: String, _ lon: Double, _ lat: Double) {
         // realmから取得する
         let realmRoundData = realm.objects(GolfOneRoundData.self)
         if 0 < realmRoundData.count {
             try! realm.write {
                 realmRoundData[0].courseName = course
+                realmRoundData[0].courseAdr = adr
                 realmRoundData[0].roundDate = date
                 realmRoundData[0].lon = lon
                 realmRoundData[0].lat = lat
@@ -76,12 +77,24 @@ class GolfRealmControl: NSObject {
             let setdata = GolfOneRoundData()
             setdata.create()
             setdata.courseName = course
+            setdata.courseAdr = adr
             setdata.roundDate = date
             setdata.lon = lon
             setdata.lat = lat
             
             try! realm.write {
                 realm.add(setdata)
+            }
+        }
+    }
+    
+    // ラウンド中のデータを削除
+    func deleteGolfCource() {
+        // realmから削除する
+        let realmRoundData = realm.objects(GolfOneRoundData.self)
+        if 0 < realmRoundData.count {
+            try! realm.write {
+                realm.delete(realmRoundData)
             }
         }
     }
@@ -187,6 +200,7 @@ class GolfOneRoundData: Object {
     @objc dynamic var isOut = true
     @objc dynamic var pid: String?          // 主キー(0:現在のラウンドデータ、1以降が保存データ)
     @objc dynamic var courseName: String?   // ゴルフ場名
+    @objc dynamic var courseAdr: String?    // ゴルフ場住所
     @objc dynamic var roundDate: String?    // 日時 @objc dynamic var value = Date()
     @objc dynamic var lon:Double = 0.0      // ゴルフ場の座標
     @objc dynamic var lat:Double = 0.0      // ゴルフ場の座標
@@ -221,6 +235,7 @@ class GolfOneRoundData: Object {
         pid = String()
         pid = uuid.uuidString
         courseName = String()
+        courseAdr = String()
         roundDate = String()
         name_2 = String()
         name_3 = String()

@@ -28,6 +28,7 @@ class GolfInputScore: UIViewController,
     var annotationList = [MapAnnotationCycle]()
     var tapPointTitle: String! = ""                     // 検索した地点のタイトル
     var tapStreetAddr: String! = ""                     // 住所
+    var tapStreetAddr_fix: String! = ""                 // 住所(保存用)
     var tapRoutePoint = CLLocationCoordinate2D()        // 地点登録用の緯度軽度
     var tapRoutePoint_fix = CLLocationCoordinate2D()    // 地点登録用の緯度軽度(保存用)
     // ボタン 開始
@@ -137,13 +138,31 @@ class GolfInputScore: UIViewController,
             startBtn.sizeToFit() // サイズを決める(自動調整)
             let roundData = appDelegate.golfRealmData.getRoundData()
             searchBar.text = roundData.courseName
+            tapStreetAddr_fix = roundData.courseAdr
+            // 日時を表示する
+            roundDate.date = convertDateToString(roundData.roundDate!)
+
             // 地点登録のラベルに緯度軽度を表示する
             tapRoutePoint_fix.longitude = roundData.lon
             tapRoutePoint_fix.latitude = roundData.lat
-            let addr = "完了: " + tapRoutePoint_fix.latitude.description + "," + tapRoutePoint_fix.longitude.description
-            lbllonlat.text = addr
-            // 日時を表示する
-            roundDate.date = convertDateToString(roundData.roundDate!)
+            if (0 != tapRoutePoint_fix.longitude || 0 != tapRoutePoint.latitude) {
+                let addr = "完了: " + tapRoutePoint_fix.latitude.description + "," + tapRoutePoint_fix.longitude.description
+                lbllonlat.text = addr
+                // 地図の中心位置をゴルフコースに変更する
+                var region = MKCoordinateRegion()
+                region.center.longitude = tapRoutePoint_fix.longitude
+                region.center.latitude = tapRoutePoint_fix.latitude
+                mapView.setRegion(region,animated:true)
+                
+                //検索された場所にピンを刺す。
+                let annotation = MapAnnotationCycle()
+                annotation.coordinate =     CLLocationCoordinate2DMake(tapRoutePoint_fix.latitude, tapRoutePoint_fix.longitude)
+                annotation.title = roundData.courseName
+                annotation.subtitle = tapStreetAddr_fix
+                annotation.setPinColor(.green)
+                self.annotationList.append(annotation)
+                self.mapView.addAnnotation(annotation)
+            }
         }
     }
     
@@ -162,7 +181,7 @@ class GolfInputScore: UIViewController,
         
         // スコア入力中？、ラウンド開始日時、ゴルフ場名を保存する
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.golfRealmData.setGolfCource(searchBar.text!.description, strDate, tapRoutePoint_fix.longitude, tapRoutePoint_fix.latitude)
+        appDelegate.golfRealmData.setGolfCource(searchBar.text!.description, tapStreetAddr_fix, strDate, tapRoutePoint_fix.longitude, tapRoutePoint_fix.latitude)
         
         // スコア入力画面表示
         self.performSegue(withIdentifier: "toGolfInputScore2", sender: nil)
@@ -277,6 +296,9 @@ class GolfInputScore: UIViewController,
     
     // ロングタップした住所を取得する
     public func getTapStreetAddr() -> String {
+        if (nil == tapStreetAddr) {
+            tapStreetAddr = ""
+        }
         return tapStreetAddr
     }
     
@@ -306,6 +328,7 @@ class GolfInputScore: UIViewController,
     // セミモーダルビューからゴルフ場を確定した時にゴルフ場名をセットする
     func setGolfCourseName() {
         searchBar.text = tapPointTitle
+        tapStreetAddr_fix = tapStreetAddr
         
         // 確定時に保存する地点を更新する
         tapRoutePoint_fix.longitude = tapRoutePoint.longitude
