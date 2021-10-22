@@ -211,7 +211,7 @@ class GolfInputScore3: UIViewController,
 
         btnSave = UIButton(type: UIButton.ButtonType.system)
         btnSave.addTarget(self, action: #selector(btnSave(_:)), for: UIControl.Event.touchUpInside)
-        btnSave.setTitle("保存", for: UIControl.State.normal)
+        btnSave.setTitle("終了", for: UIControl.State.normal)
         btnSave.frame = CGRect(x:width - 50, y:90+(itemHeight*3)-(itemHeight/2), width:30, height:30)
         btnSave.sizeToFit() // サイズを決める(自動調整)
         self.view.addSubview(btnSave)
@@ -324,8 +324,8 @@ class GolfInputScore3: UIViewController,
     // 保存 ボタンを押下した時の処理
     @IBAction func btnSave(_ sender: Any)
     {
-        
-        
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.golfRealmData.saveGolfCource()
         self.performSegue(withIdentifier: "toViewController", sender: nil)
     }
 

@@ -28,7 +28,7 @@ class GolfRealmControl: NSObject {
             }
         }
         // 現在のRealmファイルの schemaVersion と、下記で設定した schemaVersion が違うと、マイグレーションが実行される
-        config.schemaVersion = 1
+        config.schemaVersion = 2
         Realm.Configuration.defaultConfiguration = config
         
         realm = try! Realm()
@@ -94,6 +94,40 @@ class GolfRealmControl: NSObject {
         let realmRoundData = realm.objects(GolfOneRoundData.self)
         if 0 < realmRoundData.count {
             try! realm.write {
+                realm.delete(realmRoundData)
+            }
+        }
+    }
+    
+    // ラウンド中のデータを確定
+    func saveGolfCource() {
+        let realmRoundData = realm.objects(GolfOneRoundData.self)
+        if 0 < realmRoundData.count {
+            try! realm.write {
+                let addData = GolfRoundData()
+                addData.courseAdr = realmRoundData[0].courseAdr
+                addData.courseName = realmRoundData[0].courseName
+                addData.lat = realmRoundData[0].lat
+                addData.lon = realmRoundData[0].lon
+                addData.name_2 = realmRoundData[0].name_2
+                addData.name_3 = realmRoundData[0].name_3
+                addData.name_4 = realmRoundData[0].name_4
+                addData.par_num = realmRoundData[0].par_num
+                addData.pid = realmRoundData[0].pid
+                addData.roundDate = realmRoundData[0].roundDate
+                addData.score_2 = realmRoundData[0].score_2
+                addData.score_2_act = realmRoundData[0].score_2_act
+                addData.score_2_pad = realmRoundData[0].score_2_pad
+                addData.score_3 = realmRoundData[0].score_3
+                addData.score_3_act = realmRoundData[0].score_3_act
+                addData.score_3_pad = realmRoundData[0].score_3_pad
+                addData.score_4 = realmRoundData[0].score_4
+                addData.score_4_act = realmRoundData[0].score_4_act
+                addData.score_4_pad = realmRoundData[0].score_4_pad
+                addData.score_my = realmRoundData[0].score_my
+                addData.score_my_act = realmRoundData[0].score_my_act
+                addData.score_my_pad = realmRoundData[0].score_my_pad
+                realm.add(addData)
                 realm.delete(realmRoundData)
             }
         }
@@ -255,5 +289,40 @@ class GolfOneRoundData: Object {
             score_4_pad.append(-1)
             score_4_act.append(-1)
         }
+    }
+}
+
+// 過去のラウンドデータ
+class GolfRoundData: Object {
+    @objc dynamic var pid: String?          // 主キー(0:現在のラウンドデータ、1以降が保存データ)
+    @objc dynamic var courseName: String?   // ゴルフ場名
+    @objc dynamic var courseAdr: String?    // ゴルフ場住所
+    @objc dynamic var roundDate: String?    // 日時 @objc dynamic var value = Date()
+    @objc dynamic var lon:Double = 0.0      // ゴルフ場の座標
+    @objc dynamic var lat:Double = 0.0      // ゴルフ場の座標
+    var par_num = List<Int>()               // Par
+
+    var score_my = List<Int>()              // 本人のスコア
+    var score_my_pad = List<Int>()          // 本人のスコア
+    var score_my_act = List<Int>()          // 本人のスコア
+
+    @objc dynamic var name_2: String?       // 二人目名前
+    var score_2 = List<Int>()               // 二人目スコア
+    var score_2_pad = List<Int>()           // 二人目スコア
+    var score_2_act = List<Int>()           // 二人目スコア
+    
+    @objc dynamic var name_3: String?       // 三人目名前
+    var score_3 = List<Int>()               // 三人目スコア
+    var score_3_pad = List<Int>()           // 三人目スコア
+    var score_3_act = List<Int>()           // 三人目スコア
+    
+    @objc dynamic var name_4: String?       // 四人目名前
+    var score_4 = List<Int>()               // 四人目スコア
+    var score_4_pad = List<Int>()           // 四人目スコア
+    var score_4_act = List<Int>()           // 四人目スコア
+    
+    // プライマリキー
+    override static func primaryKey() -> String? {
+        return "pid"
     }
 }
