@@ -59,6 +59,13 @@ class GolfRealmControl: NSObject {
         }
         return letval
     }
+    
+    // 全ラウンドデータの取得
+    func getGolfRoundData() -> Results<GolfRoundData> {
+        // realmから取得する
+        let realmGolfRoundData = realm.objects(GolfRoundData.self)
+        return realmGolfRoundData
+    }
 
     // ゴルフコース設定 View GolfInputScoreで入力した情報を保存する
     func setGolfCource(_ course: String, _ adr: String, _ date: String, _ lon: Double, _ lat: Double) {
@@ -95,6 +102,17 @@ class GolfRealmControl: NSObject {
         if 0 < realmRoundData.count {
             try! realm.write {
                 realm.delete(realmRoundData)
+            }
+        }
+    }
+    
+    // スコア１件削除
+    func deleteGolfRoundData(_ pid:String) {
+        // realmから削除する
+        let realmGolfRoundData = realm.objects(GolfRoundData.self).filter("pid == %@", pid)
+        if 0 < realmGolfRoundData.count {
+            try! realm.write {
+                realm.delete(realmGolfRoundData)
             }
         }
     }
@@ -320,6 +338,17 @@ class GolfRoundData: Object {
     var score_4 = List<Int>()               // 四人目スコア
     var score_4_pad = List<Int>()           // 四人目スコア
     var score_4_act = List<Int>()           // 四人目スコア
+    
+    // スコア管理用データ
+    @objc dynamic var s_total_score:Int = 0       // スコア
+    @objc dynamic var s_tipin_num:Int = 0         // チップイン数
+    @objc dynamic var s_holeinone_num:Int = 0     // ホールインワン数
+    @objc dynamic var s_eagle_num:Int = 0         // イーグル数
+    @objc dynamic var s_birdie_num:Int = 0        // バーディー数
+    @objc dynamic var s_par_num:Int = 0           // パー数
+    @objc dynamic var s_bogie_num:Int = 0         // ボギー数
+    @objc dynamic var s_doublebogey_num:Int = 0   // ダブルボギー数
+    @objc dynamic var s_tripleboge_num = 0        // トリプルボギー以上
     
     // プライマリキー
     override static func primaryKey() -> String? {

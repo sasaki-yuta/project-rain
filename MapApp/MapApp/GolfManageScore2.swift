@@ -1,51 +1,28 @@
 //
-//  GolfManageScore.swift
+//  GolfManageScore2.swift
 //  MapApp
 //
-//  Created by 佐々木勇太 on 2021/08/12.
+//  Created by 佐々木勇太 on 2021/10/31.
 //  Copyright © 2021 rain-00-00-09. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import GoogleMobileAds
 
+class GolfManageScore2: UIViewController,
+                        GADBannerViewDelegate,
+                        UITableViewDelegate,
+                        UITableViewDataSource{
 
-class GolfManageScore: UIViewController,
-                       GADBannerViewDelegate,
-                       UITableViewDelegate,
-                       UITableViewDataSource{
-
-    @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet var startDate: UIDatePicker!
-    @IBOutlet var endDate: UIDatePicker!
-    @IBOutlet var lbl_startDate: UILabel!
-    @IBOutlet var lbl_endDate: UILabel!    // ボタン 開始
 
-    var rithtBtn = UIButton(type: UIButton.ButtonType.system)//: UIButton!
+    var rithtBtn = UIButton(type: UIButton.ButtonType.system)
+    var delBtn = UIButton(type: UIButton.ButtonType.system)
+    var showBtn = UIButton(type: UIButton.ButtonType.system)
     var bannerView: GADBannerView!  // Google AddMod広告
     var defineClass:Define = Define()
-
-    var data = [
-            ["ベストスコア",""],
-            ["総ラウンド数",""],
-            ["平均スコア",""],
-            ["チップイン数",""],
-            ["ホールインワン数",""],
-            ["イーグル以上",""],
-            ["バーディー数",""],
-            ["パー数",""],
-            ["ボギー数",""],
-            ["ダブルボギー数",""],
-            ["トリプルボギー以上",""],
-        ]
     
-    // 戻るボタンを押下した時の処理
-    @IBAction func btnBackThouchDown(_ sender: Any)
-    {
-        // ViewControllerを表示する
-        self.performSegue(withIdentifier: "toViewController", sender: nil)
-    }
+    var data: [[String]] = []
     
     override func viewDidLoad()
     {
@@ -83,53 +60,81 @@ class GolfManageScore: UIViewController,
                            constant: 0)
         ])
     }
-
+    
+    // 戻るボタンを押下した時の処理
+    @IBAction func btnBackThouchDown(_ sender: Any)
+    {
+        // ViewControllerを表示する
+        self.performSegue(withIdentifier: "toViewController", sender: nil)
+    }
+    
     // 画面の初期描画
     func initView() {
         let dispSize: CGSize = UIScreen.main.bounds.size
         let width = Int(dispSize.width)
         let height = Int(dispSize.height)
-
-        lbl_startDate.frame = CGRect(x:25, y:100, width:50, height:30)
-        startDate.frame = CGRect(x:75+10, y:100, width:100, height:30)
-        lbl_endDate.frame = CGRect(x:185+10, y:100, width:50, height:30)
-        endDate.frame = CGRect(x:245+10, y:100, width:100, height:30)
-
-        tableView.frame = CGRect(x:10, y:150, width:width-20, height:height-150-130)
-        
-        // スコア一蘭ボタン表示
+    
+        tableView.frame = CGRect(x:10, y:100, width:width-20, height:height-100-130)
+        // スコア分析ボタン表示
         rithtBtn.addTarget(self, action: #selector(btnStart(_:)), for: UIControl.Event.touchUpInside)
-        rithtBtn.setTitle("スコア一覧", for: UIControl.State.normal)
+        rithtBtn.setTitle("スコア分析", for: UIControl.State.normal)
         rithtBtn.frame = CGRect(x:width - 100, y:44, width:30, height:30)
         rithtBtn.sizeToFit() // サイズを決める(自動調整)
         self.view.addSubview(rithtBtn)
     }
-    
-    // スコア一覧画 ボタンを押下した時の処理
+
+    // スコア一分析 ボタンを押下した時の処理
     @IBAction func btnStart(_ sender: Any)
     {
         // スコア一覧画面表示
-        self.performSegue(withIdentifier: "GolfManageScore2", sender: nil)
-    }
+        self.performSegue(withIdentifier: "GolfManageScore", sender: nil)
+                }
     
     // セルの個数を指定するデリゲートメソッド（必須）
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let scorelst = appDelegate.golfRealmData.getGolfRoundData()
+        return scorelst.count
     }
     
     // セルに値を設定するデータソースメソッド（必須）
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // realmからスコアデータを取得する
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let scorelst = appDelegate.golfRealmData.getGolfRoundData()
+        var oneData = ["","","",""]
+        oneData[0] = scorelst[indexPath.row].roundDate!
+        oneData[1] = scorelst[indexPath.row].courseName!
+        oneData[2] = scorelst[indexPath.row].s_total_score.description
+        oneData[3] = scorelst[indexPath.row].pid!   // 削除、表示、編集する時に検索する主キー
+        data.append(oneData)
+        
         // セルを取得する
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
         // TableViewCellの中に配置したLabelを取得する
         let label1 = cell.contentView.viewWithTag(1) as! UILabel
         let label2 = cell.contentView.viewWithTag(2) as! UILabel
+        let label3 = cell.contentView.viewWithTag(3) as! UILabel
 
         // Labelにテキストを設定する
         label1.text = data[indexPath.row][0]
         label2.text = data[indexPath.row][1]
+        label3.text = data[indexPath.row][2]
 
         return cell
+    }
+
+    //スワイプしたセルを削除　※arrayNameは変数名に変更してください
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            // realmからデータを削除する
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.golfRealmData.deleteGolfRoundData(data[indexPath.row][3])
+
+
+            data.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
+        }
     }
 }
