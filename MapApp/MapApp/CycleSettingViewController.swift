@@ -204,19 +204,28 @@ class CycleSettingViewController:   UIViewController,
     // データ消去を押下した時の処理
     @IBAction func btnCycleDeleteThouchDown(_ sender: Any)
     {
-        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        // ゴルフモード
-        if .MODE_CYCLE == appDelegate.nowMapMode {
-            appDelegate.cycleViewController.deleteData()
-        }
-        // ウォークモード
-        else {
-            appDelegate.walkViewController.deleteData()
-        }
+        let alert = UIAlertController(title: "確認", message: "累計データを削除しますか？", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "はい", style: .default, handler: { (_) in
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            // ゴルフモード
+            if .MODE_CYCLE == appDelegate.nowMapMode {
+                appDelegate.cycleViewController.deleteData()
+            }
+            // ウォークモード
+            else {
+                appDelegate.walkViewController.deleteData()
+            }
 
-        maxSpeed.text = "0.0"
-        totalDist.text = "0.0"
-        totalTime.text = "00:00:00"
+            self.maxSpeed.text = "0.0"
+            self.totalDist.text = "0.0"
+            self.totalTime.text = "00:00:00"
+        })
+        let action2 = UIAlertAction(title: "いいえ", style: .default, handler: { (_) in
+            // 何もしない
+        })
+        alert.addAction(action1)
+        alert.addAction(action2)
+        self.present(alert, animated: true, completion: nil)
     }
     
     // 計測制度データ消去を押下した時の処理
