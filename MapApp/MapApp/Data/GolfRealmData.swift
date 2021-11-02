@@ -28,7 +28,7 @@ class GolfRealmControl: NSObject {
             }
         }
         // 現在のRealmファイルの schemaVersion と、下記で設定した schemaVersion が違うと、マイグレーションが実行される
-        config.schemaVersion = 2
+        config.schemaVersion = 3
         Realm.Configuration.defaultConfiguration = config
         
         realm = try! Realm()

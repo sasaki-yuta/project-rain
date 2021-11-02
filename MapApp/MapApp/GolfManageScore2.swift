@@ -125,16 +125,41 @@ class GolfManageScore2: UIViewController,
         return cell
     }
 
-    //スワイプしたセルを削除　※arrayNameは変数名に変更してください
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCell.EditingStyle.delete {
-            // realmからデータを削除する
-            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.golfRealmData.deleteGolfRoundData(data[indexPath.row][3])
+    // 右へスワイプ
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal, title: "削除") { (action, view, completionHandler) in
+            
+            let alert = UIAlertController(title: "確認", message: "選択したスコアを削除しますか？", preferredStyle: .alert)
+                    let action1 = UIAlertAction(title: "はい", style: .default, handler: { (_) in
+                        // realmからデータを削除する
+                        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.golfRealmData.deleteGolfRoundData(self.data[indexPath.row][3])
 
-
-            data.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
+                        // tableviewからデータを削除する
+                        self.data.remove(at: indexPath.row)
+                        tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
+                    })
+                    let action2 = UIAlertAction(title: "いいえ", style: .default, handler: { (_) in
+                        // 何もしない
+                    })
+                    alert.addAction(action1)
+                    alert.addAction(action2)
+            self.present(alert, animated: true, completion: nil)
+                
+            completionHandler(true) // 処理成功時はtrue/失敗時はfalseを設定する
         }
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        return configuration
+    }
+
+    // 左へスワイプ
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "参照") { (action, view, completionHandler) in
+            // なんか処理
+            
+            completionHandler(true) // 処理成功時はtrue/失敗時はfalseを設定する
+        }
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        return configuration
     }
 }
