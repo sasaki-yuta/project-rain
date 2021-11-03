@@ -30,13 +30,14 @@ class GolfManageScore: UIViewController,
             ["ベストスコア",""],
             ["総ラウンド数",""],
             ["平均スコア",""],
-            ["チップイン数",""],
-            ["ホールインワン数",""],
-            ["イーグル以上",""],
-            ["バーディー数",""],
-            ["パー数",""],
-            ["ボギー数",""],
-            ["ダブルボギー数",""],
+            ["チップイン",""],
+            ["ホールインワン",""],
+            ["アルバトロス",""],
+            ["イーグル",""],
+            ["バーディー",""],
+            ["パー",""],
+            ["ボギー",""],
+            ["ダブルボギー",""],
             ["トリプルボギー以上",""],
         ]
     
@@ -57,6 +58,22 @@ class GolfManageScore: UIViewController,
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self
+
+        // スコア分析情報を取得してdataに設定する
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let alalysData = appDelegate.golfRealmData.getScoreAnalysData()
+        data[0][1] = alalysData.s_bestScore.description
+        data[1][1] = alalysData.s_totalRoundNum.description + "　回"
+        data[2][1] = alalysData.s_aveScore.description
+        data[3][1] = alalysData.s_tipin_num.description + "　回"
+        data[4][1] = alalysData.s_holeinone_num.description + "　回"
+        data[5][1] = alalysData.s_albatross_num.description + "　回"
+        data[6][1] = alalysData.s_eagle_num.description + "　回"
+        data[7][1] = alalysData.s_birdie_num.description + "　回"
+        data[8][1] = alalysData.s_par_num.description + "　回"
+        data[9][1] = alalysData.s_bogie_num.description + "　回"
+        data[10][1] = alalysData.s_doublebogey_num.description + "　回"
+        data[11][1] = alalysData.s_tripleboge_num.description + "　回"
 
         // 画面の初期描画
         initView()

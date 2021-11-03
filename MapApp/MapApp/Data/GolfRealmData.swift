@@ -9,6 +9,22 @@
 import Foundation
 import RealmSwift
 
+// スコア分析データクラス
+class ScoreAnalysData: NSObject {
+    var s_bestScore:Int         = 0     // ベストスコア
+    var s_totalRoundNum:Int     = 0     // 総ラウンド数
+    var s_aveScore:Double       = 0     // 平均スコア
+    var s_tipin_num:Int         = 0     // チップイン数
+    var s_holeinone_num:Int     = 0     // ホールインワン数
+    var s_albatross_num:Int     = 0     // アルバトロス数
+    var s_eagle_num:Int         = 0     // イーグル数
+    var s_birdie_num:Int        = 0     // バーディー数
+    var s_par_num:Int           = 0     // パー数
+    var s_bogie_num:Int         = 0     // ボギー数
+    var s_doublebogey_num:Int   = 0     // ダブルボギー数
+    var s_tripleboge_num:Int    = 0     // トリプルボギー以上
+}
+
 // データ操作クラス
 class GolfRealmControl: NSObject {
     var realm: Realm!
@@ -145,10 +161,103 @@ class GolfRealmControl: NSObject {
                 addData.score_my = realmRoundData[0].score_my
                 addData.score_my_act = realmRoundData[0].score_my_act
                 addData.score_my_pad = realmRoundData[0].score_my_pad
+                
+                // 18ラウンド分ループ
+                for i in 0 ..< 18 {
+                    // スコアが未入力ならSKIP
+                    if 0 >= realmRoundData[0].score_my[i] {
+                        continue
+                    }
+    
+                    // スコア加算
+                    addData.s_total_score += realmRoundData[0].score_my[i]
+
+                    // ホールインワン数など記録するので１ホールのパー数が未入力ならSKIPする
+                    if 0 >= realmRoundData[0].par_num[i] {
+                        continue
+                    }
+                    
+                    // ホールインワン数など記録
+                    let diff = realmRoundData[0].score_my[i] - realmRoundData[0].par_num[i]
+                    if 1 == realmRoundData[0].score_my[i] {
+                        addData.s_holeinone_num += 1    // ホールインワン数
+                    }
+                    else if -3 == diff {
+                        addData.s_albatross_num += 1    // アルバトロス数
+                    }
+                    else if -2 == diff {
+                        addData.s_eagle_num += 1        // イーグル数
+                    }
+                    else if -1 == diff {
+                        addData.s_birdie_num += 1       // バーディー数
+                    }
+                    else if 0 == diff {
+                        addData.s_par_num += 1          // パー数
+                    }
+                    else if 1 == diff {
+                        addData.s_bogie_num += 1        // ボギー数
+                    }
+                    else if 2 == diff {
+                        addData.s_doublebogey_num += 1  // ダブルボギー数
+                    }
+                    else if 3 <= diff {
+                        addData.s_tripleboge_num += 1   // トリプルボギー以上
+                    }
+                    else {
+                        // スコア上ありえないので加算しない
+                    }
+                    
+                    // チップイン数の加算
+                    if 0 == realmRoundData[0].score_my_pad[i] {
+                        addData.s_tipin_num += 1
+                    }
+                }
+                
                 realm.add(addData)
                 realm.delete(realmRoundData)
             }
         }
+    }
+    
+    // スコア分析に表示する情報を取得する
+    func getScoreAnalysData() -> ScoreAnalysData {
+        let ret = ScoreAnalysData()
+        ret.s_bestScore = 999 // ありえないスコアで初期化
+        let roundData = getGolfRoundData()
+        var validScoreNum = 0   // 平均スコアを算出するための分母(有効なラウンド数)
+        var validTotalScore = 0 // 平均スコアを算出するための分子(有効なスコア合計)
+
+        for i in 0 ..< roundData.count {
+            if 0 < roundData[i].s_total_score {
+                validScoreNum += 1
+                validTotalScore += roundData[i].s_total_score
+                if roundData[i].s_total_score < ret.s_bestScore {
+                    ret.s_bestScore = roundData[i].s_total_score    // ベストスコア
+                }
+            }
+            
+            ret.s_totalRoundNum += 1                                // 総ラウンド数（スコア０でもラウンドデータを一覧表示するためベストスコア計算の分母には使わない）
+            ret.s_tipin_num += roundData[i].s_tipin_num             // チップイン数
+            ret.s_holeinone_num += roundData[i].s_holeinone_num     // ホールインワン数
+            ret.s_albatross_num += roundData[i].s_albatross_num     // アルバトロス数
+            ret.s_eagle_num += roundData[i].s_eagle_num             // イーグル数
+            ret.s_birdie_num += roundData[i].s_birdie_num           // バーディー数
+            ret.s_par_num += roundData[i].s_par_num                 // パー数
+            ret.s_bogie_num += roundData[i].s_bogie_num             // ボギー数
+            ret.s_doublebogey_num += roundData[i].s_doublebogey_num // ダブルボギー数
+            ret.s_tripleboge_num += roundData[i].s_tripleboge_num   // トリプルボギー以上
+        }
+        
+        // 1件もスコアが入力されていない場合はベストスコアを999から初期値の0に戻す
+        if (999 == ret.s_bestScore) {
+            ret.s_bestScore = 0
+        }
+        
+        if 0 < validScoreNum {
+            ret.s_aveScore = Double(validTotalScore / validScoreNum)  // 平均スコア
+        }
+
+        return ret
     }
     
     // スコア設定 View GolfInputScoreで入力した情報を保存する
@@ -343,12 +452,13 @@ class GolfRoundData: Object {
     @objc dynamic var s_total_score:Int = 0       // スコア
     @objc dynamic var s_tipin_num:Int = 0         // チップイン数
     @objc dynamic var s_holeinone_num:Int = 0     // ホールインワン数
+    @objc dynamic var s_albatross_num:Int = 0     // アルバトロス数
     @objc dynamic var s_eagle_num:Int = 0         // イーグル数
     @objc dynamic var s_birdie_num:Int = 0        // バーディー数
     @objc dynamic var s_par_num:Int = 0           // パー数
     @objc dynamic var s_bogie_num:Int = 0         // ボギー数
     @objc dynamic var s_doublebogey_num:Int = 0   // ダブルボギー数
-    @objc dynamic var s_tripleboge_num = 0        // トリプルボギー以上
+    @objc dynamic var s_tripleboge_num:Int = 0    // トリプルボギー以上
     
     // プライマリキー
     override static func primaryKey() -> String? {
