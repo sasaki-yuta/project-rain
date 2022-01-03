@@ -59,9 +59,12 @@ class GolfManageScore: UIViewController,
         bannerView.load(GADRequest())
         bannerView.delegate = self
 
+        // 画面の初期描画
+        initView()
+        
         // スコア分析情報を取得してdataに設定する
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        let alalysData = appDelegate.golfRealmData.getScoreAnalysData()
+        let alalysData = appDelegate.golfRealmData.getScoreAnalysData(startDate.date, endDate.date)
         data[0][1] = alalysData.s_bestScore.description
         data[1][1] = alalysData.s_totalRoundNum.description + "　回"
         data[2][1] = alalysData.s_aveScore.description
@@ -74,9 +77,6 @@ class GolfManageScore: UIViewController,
         data[9][1] = alalysData.s_bogie_num.description + "　回"
         data[10][1] = alalysData.s_doublebogey_num.description + "　回"
         data[11][1] = alalysData.s_tripleboge_num.description + "　回"
-
-        // 画面の初期描画
-        initView()
     }
     
     // Google AddMod広告
@@ -120,6 +120,48 @@ class GolfManageScore: UIViewController,
         rithtBtn.frame = CGRect(x:width - 100, y:44, width:30, height:30)
         rithtBtn.sizeToFit() // サイズを決める(自動調整)
         self.view.addSubview(rithtBtn)
+        
+        // datePickerの値が変更されたら呼ばれる
+        startDate.addTarget(self, action: #selector(updateDatePicker), for: .valueChanged);
+        endDate.addTarget(self, action: #selector(updateDatePicker), for: .valueChanged);
+
+        // 開始日を設定する
+        startDate.date = convertDateToString("2000/1/1")
+    }
+    
+    // datePickerの値が変更されたら呼ばれる
+    @objc func updateDatePicker() {
+        print("update")
+        // スコア分析情報を取得してdataに設定する
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let alalysData = appDelegate.golfRealmData.getScoreAnalysData(startDate.date, endDate.date)
+        data[0][1] = alalysData.s_bestScore.description
+        data[1][1] = alalysData.s_totalRoundNum.description + "　回"
+        data[2][1] = alalysData.s_aveScore.description
+        data[3][1] = alalysData.s_tipin_num.description + "　回"
+        data[4][1] = alalysData.s_holeinone_num.description + "　回"
+        data[5][1] = alalysData.s_albatross_num.description + "　回"
+        data[6][1] = alalysData.s_eagle_num.description + "　回"
+        data[7][1] = alalysData.s_birdie_num.description + "　回"
+        data[8][1] = alalysData.s_par_num.description + "　回"
+        data[9][1] = alalysData.s_bogie_num.description + "　回"
+        data[10][1] = alalysData.s_doublebogey_num.description + "　回"
+        data[11][1] = alalysData.s_tripleboge_num.description + "　回"
+        tableView.reloadData()
+    }
+    
+    // 文字列をDate型に変換する
+    func convertDateToString(_ strDate: String) -> Date {
+        /// 現在のLocaleの取得
+        let locale = Locale.current
+        let localeId = locale.identifier
+        
+        // 文字列をDate型に変換する
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy/MM/dd"   // HH:0-23時間表記 hh:0-11時間表記
+        dateformatter.locale = Locale(identifier: localeId)
+        let date = dateformatter.date(from: strDate)!
+        return date
     }
     
     // スコア一覧画 ボタンを押下した時の処理

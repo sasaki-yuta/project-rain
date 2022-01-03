@@ -219,8 +219,22 @@ class GolfRealmControl: NSObject {
         }
     }
     
+    // 文字列をDate型に変換する
+    func convertDateToString(_ strDate: String) -> Date {
+        /// 現在のLocaleの取得
+        let locale = Locale.current
+        let localeId = locale.identifier
+        
+        // 文字列をDate型に変換する
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy/MM/dd HH:mm"   // HH:0-23時間表記 hh:0-11時間表記
+        dateformatter.locale = Locale(identifier: localeId)
+        let date = dateformatter.date(from: strDate)!
+        return date
+    }
+    
     // スコア分析に表示する情報を取得する
-    func getScoreAnalysData() -> ScoreAnalysData {
+    func getScoreAnalysData(_ start: Date, _ end: Date) -> ScoreAnalysData {
         let ret = ScoreAnalysData()
         ret.s_bestScore = 999 // ありえないスコアで初期化
         let roundData = getGolfRoundData()
@@ -228,6 +242,12 @@ class GolfRealmControl: NSObject {
         var validTotalScore = 0 // 平均スコアを算出するための分子(有効なスコア合計)
 
         for i in 0 ..< roundData.count {
+            // Inputの期間以外はSkip
+            let date = convertDateToString(roundData[i].roundDate!)
+            if ((date < start) || (end < date)) {
+                continue
+            }
+            
             if 0 < roundData[i].s_total_score {
                 validScoreNum += 1
                 validTotalScore += roundData[i].s_total_score

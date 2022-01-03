@@ -103,7 +103,8 @@ class GolfManageScore2: UIViewController,
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let scorelst = appDelegate.golfRealmData.getGolfRoundData()
         var oneData = ["","","",""]
-        oneData[0] = scorelst[indexPath.row].roundDate!
+        let roundDate = convertDateToString(scorelst[indexPath.row].roundDate!)
+        oneData[0] = roundDate.description
         oneData[1] = scorelst[indexPath.row].courseName!
         oneData[2] = scorelst[indexPath.row].s_total_score.description
         oneData[3] = scorelst[indexPath.row].pid!   // 削除、表示、編集する時に検索する主キー
@@ -123,6 +124,20 @@ class GolfManageScore2: UIViewController,
         label3.text = data[indexPath.row][2]
 
         return cell
+    }
+    
+    // 文字列をDate型に変換する
+    func convertDateToString(_ strDate: String) -> Date {
+        /// 現在のLocaleの取得
+        let locale = Locale.current
+        let localeId = locale.identifier
+        
+        // 文字列をDate型に変換する
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy/MM/dd HH:mm"   // HH:0-23時間表記 hh:0-11時間表記
+        dateformatter.locale = Locale(identifier: localeId)
+        let date = dateformatter.date(from: strDate)!
+        return date
     }
 
     // 右へスワイプ

@@ -177,7 +177,6 @@ class GolfInputScore: UIViewController,
         dateformatter.dateFormat = "yyyy/MM/dd HH:mm"   // HH:0-23時間表記 hh:0-11時間表記
         dateformatter.locale = Locale(identifier: localeId)
         let strDate = dateformatter.string(from: roundDate.date)
-        print(strDate.description)
         
         // スコア入力中？、ラウンド開始日時、ゴルフ場名を保存する
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
