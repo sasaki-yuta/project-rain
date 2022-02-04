@@ -111,6 +111,10 @@ class CycleViewController:  UIViewController,
     
     // 表示したルート
     var routePolyLine: MKPolyline!
+
+    // initMapを一度実行したか？
+    var is_initMap:Bool = false
+    var safeAreaBottom:CGFloat = 0
         
     // 計測画面表示切り替えボタン
     @IBOutlet var btnCalcSwitchDisp: UIButton!
@@ -159,11 +163,28 @@ class CycleViewController:  UIViewController,
         floatingPanelController = FloatingPanelController()
         floatingPanelController.delegate = self
         
-        // 地図の初期化
-        initMap()
+        // ここで現在位置を設定しないとモード変更後に現在位置を地図のセンターにできない
+        // 縮尺を設定
+        var region:MKCoordinateRegion = mapView.region
+        region.span.latitudeDelta = 0.02
+        region.span.longitudeDelta = 0.02
+        mapView.setRegion(region,animated:true)
+        // 現在位置表示の有効化
+        mapView.showsUserLocation = true
+        // 現在位置設定
+        mapView.userTrackingMode = .follow
         
         // WatchOSにモードを通知する
         sendMessageMode()
+    }
+    
+    // レイアウト処理開始
+    override func viewWillLayoutSubviews() {
+        // 地図の初期化
+        if (false == is_initMap) {
+            initMap()
+            is_initMap = true
+        }
     }
     
     // Google AddMod広告
@@ -175,9 +196,9 @@ class CycleViewController:  UIViewController,
                            attribute: .bottom,
                            relatedBy: .equal,
                            toItem: view.safeAreaLayoutGuide,
-                           attribute: .topMargin,
+                           attribute: .bottomMargin,
                            multiplier: 1,
-                           constant: constantPos),
+                           constant: 0),//constantPos),
         NSLayoutConstraint(item: bannerView,
                            attribute: .centerX,
                            relatedBy: .equal,
@@ -243,16 +264,16 @@ class CycleViewController:  UIViewController,
         // 前回のMapTypeをUserDataから取得してMapViewに設定する
         setMapType(userDataManager.getCycleMapType())
         
+        // viewDidLoadで実行する様にしたためコメントアウト
         // 縮尺を設定
-        var region:MKCoordinateRegion = mapView.region
-        region.span.latitudeDelta = 0.02
-        region.span.longitudeDelta = 0.02
-        mapView.setRegion(region,animated:true)
-        
+//      var region:MKCoordinateRegion = mapView.region
+//      region.span.latitudeDelta = 0.02
+//      region.span.longitudeDelta = 0.02
+//      mapView.setRegion(region,animated:true)
         // 現在位置表示の有効化
-        mapView.showsUserLocation = true
+//      mapView.showsUserLocation = true
         // 現在位置設定
-        mapView.userTrackingMode = .follow
+//      mapView.userTrackingMode = .follow
         
         // デバイスの画面サイズを取得する
         let dispSize: CGSize = UIScreen.main.bounds.size
@@ -260,7 +281,8 @@ class CycleViewController:  UIViewController,
         let height = Int(dispSize.height)
         
         // 地図のサイズを画面サイズに設定する
-        mapView.frame.size = CGSize(width: width, height: (height/3)*2-25-50) // 高さ2/3を地図にして計測画面の25、検索Barの50をマイナスする
+        safeAreaBottom = self.view.safeAreaInsets.bottom
+        mapView.frame.size = CGSize(width: width, height: (height/3)*2-Int(safeAreaBottom)-25-50) // 高さ2/3を地図にして計測画面の25、検索Barの50をマイナスする
 
         // 地図表示タイプを切り替えるボタン
         mapViewType = UIButton(type: UIButton.ButtonType.detailDisclosure)
@@ -305,7 +327,7 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(scale)
 
         // 各種情報表示位置の係数
-        let infoTopPos = (height/3)*2
+        let infoTopPos = (height/3)*2 - Int(safeAreaBottom) - 50
         let labelHeight = ((height/3)*1)/2/2 // 画面の1/3を情報表示エリアにする
         
         // 検索フィールドの位置
@@ -850,12 +872,13 @@ class CycleViewController:  UIViewController,
         let height = Int(dispSize.height)
 
         // 地図、計測画面表示切り替えボタン、検索フィールドの表示エリアを移動する
-        mapView.frame.size = CGSize(width: width, height: (height/3)*2-25-50) // 計測画面25、検索Barの50をマイナス
-        btnCalcSwitchDisp.frame = CGRect(x: 0, y: (height/3)*2-75, width: width, height: 25)
-        let infoTopPos = (height/3)*2
+        let infoTopPos = (height/3)*2 - Int(safeAreaBottom) - 50
+        mapView.frame.size = CGSize(width: width, height: infoTopPos-25-50) // 計測画面25、検索Barの50をマイナス
+
+        btnCalcSwitchDisp.frame = CGRect(x: 0, y: infoTopPos-75, width: width, height: 25)
         lbar1.frame = CGRect(x: 0, y: infoTopPos, width: width, height: 1)
-        lbar3.frame = CGRect(x: 0, y: (height/3)*2-50, width: width, height: 1)
-        searchBar.frame = CGRect(x: 0, y: (height/3)*2-50, width: width, height: 50)
+        lbar3.frame = CGRect(x: 0, y: infoTopPos-50, width: width, height: 1)
+        searchBar.frame = CGRect(x: 0, y: infoTopPos-50, width: width, height: 50)
         CancelBtn.frame = CGRect(x: width-80, y: infoTopPos-50, width: 80, height: 50)
 
         // パーツを表示する
@@ -874,7 +897,7 @@ class CycleViewController:  UIViewController,
         lbar4.isHidden = false
         
         // Google AddMod広告
-        bannerView.removeFromSuperview()
+//      bannerView.removeFromSuperview()
         adMobView()
     }
     
@@ -903,15 +926,15 @@ class CycleViewController:  UIViewController,
         let height = Int(dispSize.height)
         
         // 地図と検索フィールドの位置を戻す
-        CancelBtn.frame = CGRect(x: width-80, y: height-50, width: 80, height: 50)
-        searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
-        lbar3.frame = CGRect(x: 0, y: height-50, width: width, height: 1)
-        lbar1.frame = CGRect(x: 0, y: height-1, width: width, height: 1)
-        btnCalcSwitchDisp.frame = CGRect(x: 0, y: height-75, width: width, height: 25)
-        mapView.frame.size = CGSize(width: width, height: height-25-50) // 検索Barのheight50分マイナス
+        CancelBtn.frame = CGRect(x: width-80, y: height-50-Int(safeAreaBottom)-50, width: 80, height: 50)
+        searchBar.frame = CGRect(x: 0, y: height-50-Int(safeAreaBottom)-50, width: width, height: 50)
+        lbar3.frame = CGRect(x: 0, y: height-50-Int(safeAreaBottom)-50, width: width, height: 1)
+        lbar1.frame = CGRect(x: 0, y: height-1-Int(safeAreaBottom)-50, width: width, height: 1)
+        btnCalcSwitchDisp.frame = CGRect(x: 0, y: height-75-Int(safeAreaBottom)-50, width: width, height: 25)
+        mapView.frame.size = CGSize(width: width, height: height-25-50-Int(safeAreaBottom)-50) // 検索Barのheight50分マイナス
 
         // Google AddMod広告
-        bannerView.removeFromSuperview()
+//      bannerView.removeFromSuperview()
         adMobView()
     }
     
@@ -990,7 +1013,7 @@ class CycleViewController:  UIViewController,
     func showPointPopupView() {
         isShowPopup = true
         // Google AdMod広告を非表示にする
-        bannerView.removeFromSuperview()
+//      bannerView.removeFromSuperview()
         // セミモーダルビューを表示する
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 24.0  // かどを丸くする
@@ -1014,7 +1037,7 @@ class CycleViewController:  UIViewController,
     // Menuを開いた時のGoogle AdMod広告非表示
     func adMobClose() {
         // Google AdMod広告を非表示にする
-        bannerView.removeFromSuperview()
+//      bannerView.removeFromSuperview()
     }
 
     // Menuを閉じた時のGoogle AdMod広告表示
@@ -1024,14 +1047,14 @@ class CycleViewController:  UIViewController,
             return
         }
         // Google AdMod広告を表示する
-        let dispSize: CGSize = UIScreen.main.bounds.size
-        let height = Int(dispSize.height)
-        let infoTopPos = (height/3)*2
+//      let dispSize: CGSize = UIScreen.main.bounds.size
+//      let height = Int(dispSize.height)
+//      let infoTopPos = (height/3)*2
         if isShowCalcDisp {
-            addBannerViewToView(bannerView, CGFloat(infoTopPos-25-50-50-18))
+//          addBannerViewToView(bannerView, CGFloat(infoTopPos-25-50-50-18))
         }
         else {
-            addBannerViewToView(bannerView, CGFloat(height - 75 - 50 - 18))
+//          addBannerViewToView(bannerView, CGFloat(height - 75 - 50 - 18))
         }
     }
 
@@ -1112,10 +1135,10 @@ class CycleViewController:  UIViewController,
         let width = Int(dispSize.width)
         let height = Int(dispSize.height)
         if isShowCalcDisp {
-            searchBar.frame = CGRect(x: 0, y: (height/3)*2-50, width: width-80, height: 50)
+            searchBar.frame = CGRect(x: 0, y: (height/3)*2-50-Int(safeAreaBottom)-50, width: width-80, height: 50)
         }
         else {
-            searchBar.frame = CGRect(x: 0, y: height-50, width: width-80, height: 50)
+            searchBar.frame = CGRect(x: 0, y: height-50-Int(safeAreaBottom)-50, width: width-80, height: 50)
         }
         CancelBtn.isHidden = false
         
@@ -1140,10 +1163,10 @@ class CycleViewController:  UIViewController,
         let width = Int(dispSize.width)
         let height = Int(dispSize.height)
         if isShowCalcDisp {
-            searchBar.frame = CGRect(x: 0, y: (height/3)*2-50, width: width, height: 50)
+            searchBar.frame = CGRect(x: 0, y: (height/3)*2-50-Int(safeAreaBottom)-50, width: width, height: 50)
         }
         else {
-            searchBar.frame = CGRect(x: 0, y: height-50, width: width, height: 50)
+            searchBar.frame = CGRect(x: 0, y: height-50-Int(safeAreaBottom)-50, width: width, height: 50)
         }
         
         // Google AdMod広告を表示にする

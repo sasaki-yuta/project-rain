@@ -29,7 +29,8 @@ class MenuWalkViewController: UIViewController {
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var btnStop: UIButton!
     @IBOutlet weak var btnEnd: UIButton!
-
+    // initMapを一度実行したか？
+    var is_initView:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,156 +44,16 @@ class MenuWalkViewController: UIViewController {
         updateBtn();
     }
     
-    // 地図タイプボタンのアクティブ状態を更新
-    func updateBtn() {
-        // カスタムの文字色で初期化
-        let g = CGFloat(0x94) / 255
-        let b = CGFloat(0xFE) / 255
-        let strColor: UIColor = UIColor(red: 0, green: g, blue: b, alpha: 1.0)
-
-        // MapType
-        btnStandard.setTitleColor(strColor, for: .normal)
-        btnStandard.isEnabled = true
-        btnSatellite.setTitleColor(strColor, for: .normal)
-        btnSatellite.isEnabled = true
-        btnHybrid.setTitleColor(strColor, for: .normal)
-        btnHybrid.isEnabled = true
-        btnMutedStandard.setTitleColor(strColor, for: .normal)
-        btnMutedStandard.isEnabled = true
-        // MapMode
-        btnGolfMode.setTitleColor(strColor, for: .normal)
-        btnGolfMode.isEnabled = true
-        btnCycleMode.setTitleColor(strColor, for: .normal)
-        btnCycleMode.isEnabled = true
-        btnWalkMode.setTitleColor(strColor, for: .normal)
-        btnWalkMode.isEnabled = true
-        // Func
-        btnDelPnt.setTitleColor(strColor, for: .normal)
-        btnDelPnt.isEnabled = true
-        btnSetting.setTitleColor(strColor, for: .normal)
-        btnSetting.isEnabled = true
-        btnStart.setTitleColor(strColor, for: .normal)
-        btnStart.isEnabled = true
-        btnStop.setTitleColor(strColor, for: .normal)
-        btnStop.isEnabled = true
-        btnEnd.setTitleColor(strColor, for: .normal)
-        btnEnd.isEnabled = true
-
-        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        // 選択されているMapTypeボタンの状態を変更する
-        switch appDelegate.walkViewController.mapView.mapType {
-        case .standard:
-            btnStandard.setTitleColor(UIColor.gray, for: .normal)
-            btnStandard.isEnabled = false
-            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
-            menuView.backgroundColor = .white
-            lblMapType.textColor = .black
-            lblMapMode.textColor = .black
-            lblFunk.textColor = .black
-        case .satellite:
-            btnSatellite.setTitleColor(UIColor.gray, for: .normal)
-            btnSatellite.isEnabled = false
-            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
-            menuView.backgroundColor = .black
-            lblMapType.textColor = .white
-            lblMapMode.textColor = .white
-            lblFunk.textColor = .white
-        case .hybrid:
-            btnHybrid.setTitleColor(UIColor.gray, for: .normal)
-            btnHybrid.isEnabled = false
-            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
-            menuView.backgroundColor = .black
-            lblMapType.textColor = .white
-            lblMapMode.textColor = .white
-            lblFunk.textColor = .white
-        case .mutedStandard:
-            btnMutedStandard.setTitleColor(UIColor.gray, for: .normal)
-            btnMutedStandard.isEnabled = false
-            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
-            menuView.backgroundColor = .white
-            lblMapType.textColor = .black
-            lblMapMode.textColor = .black
-            lblFunk.textColor = .black
-        default:
-            break
+    // レイアウト処理開始
+    override func viewWillLayoutSubviews() {
+        // 地図の初期化
+        if (false == is_initView) {
+            initView()
+            is_initView = true
         }
-        
-        // 選択されているMapTypeボタンの状態を変更する
-        switch appDelegate.nowMapMode {
-        case .MODE_GOLF?:
-            btnGolfMode.setTitleColor(UIColor.gray, for: .normal)
-            btnGolfMode.isEnabled = false
-        case .MODE_CYCLE?:
-            btnCycleMode.setTitleColor(UIColor.gray, for: .normal)
-            btnCycleMode.isEnabled = false
-        case .MODE_WALK?:
-            btnWalkMode.setTitleColor(UIColor.gray, for: .normal)
-            btnWalkMode.isEnabled = false
-        case .none:
-            break
-        }
-        
-        // 計測状態によりFuncボタンの状態を変更する
-        switch appDelegate.nowWalkState {
-        case .STATE_CLOSING?:
-            btnEnd.setTitleColor(UIColor.gray, for: .normal)
-            btnEnd.isEnabled = false
-            btnStop.setTitleColor(UIColor.gray, for: .normal)
-            btnStop.isEnabled = false
-        case .STATE_STARTING?:
-            btnGolfMode.setTitleColor(UIColor.gray, for: .normal)
-            btnGolfMode.isEnabled = false
-            btnCycleMode.setTitleColor(UIColor.gray, for: .normal)
-            btnCycleMode.isEnabled = false
-            btnStart.setTitleColor(UIColor.gray, for: .normal)
-            btnStart.isEnabled = false
-            btnSetting.setTitleColor(UIColor.gray, for: .normal)
-            btnSetting.isEnabled = false
-        case .STATE_SUSPENDED?:
-            btnStop.setTitleColor(UIColor.gray, for: .normal)
-            btnStop.isEnabled = false
-        default:
-            break
-        }
-        
-        if !appDelegate.walkViewController.isExistPoint() {
-            btnDelPnt.setTitleColor(UIColor.gray, for: .normal)
-            btnDelPnt.isEnabled = false
-        }
-
-        // MapType
-        self.view.addSubview(btnStandard)
-        self.view.addSubview(btnSatellite)
-        self.view.addSubview(btnHybrid)
-        self.view.addSubview(btnMutedStandard)
-        // MapMode
-        self.view.addSubview(btnGolfMode)
-        self.view.addSubview(btnCycleMode)
-        self.view.addSubview(btnWalkMode)
-        // Func
-        self.view.addSubview(btnDelPnt)
-        self.view.addSubview(btnSetting)
-        self.view.addSubview(btnStart)
-        self.view.addSubview(btnStop)
-        self.view.addSubview(btnEnd)
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    func initView() {
         // adMobClose
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.walkViewController.adMobClose()
@@ -201,7 +62,9 @@ class MenuWalkViewController: UIViewController {
         let dispSize: CGSize = UIScreen.main.bounds.size
         //        let width = Int(dispSize.width)
         let height = Int(dispSize.height)
-        menuView.frame.size = CGSize(width: 150, height: height)
+        
+        let safeAreaBottom = self.view.safeAreaInsets.bottom
+        menuView.frame.size = CGSize(width: 150, height: height - Int(safeAreaBottom) - 50)
         
         // メニューの位置を取得する
         let menuPos = self.menuView.layer.position
@@ -367,6 +230,158 @@ class MenuWalkViewController: UIViewController {
             animations: {self.btnEnd.layer.position.x = btnEndPst.x},
             completion: {bool in}
         )
+
+    }
+    
+    // 地図タイプボタンのアクティブ状態を更新
+    func updateBtn() {
+        // カスタムの文字色で初期化
+        let g = CGFloat(0x94) / 255
+        let b = CGFloat(0xFE) / 255
+        let strColor: UIColor = UIColor(red: 0, green: g, blue: b, alpha: 1.0)
+
+        // MapType
+        btnStandard.setTitleColor(strColor, for: .normal)
+        btnStandard.isEnabled = true
+        btnSatellite.setTitleColor(strColor, for: .normal)
+        btnSatellite.isEnabled = true
+        btnHybrid.setTitleColor(strColor, for: .normal)
+        btnHybrid.isEnabled = true
+        btnMutedStandard.setTitleColor(strColor, for: .normal)
+        btnMutedStandard.isEnabled = true
+        // MapMode
+        btnGolfMode.setTitleColor(strColor, for: .normal)
+        btnGolfMode.isEnabled = true
+        btnCycleMode.setTitleColor(strColor, for: .normal)
+        btnCycleMode.isEnabled = true
+        btnWalkMode.setTitleColor(strColor, for: .normal)
+        btnWalkMode.isEnabled = true
+        // Func
+        btnDelPnt.setTitleColor(strColor, for: .normal)
+        btnDelPnt.isEnabled = true
+        btnSetting.setTitleColor(strColor, for: .normal)
+        btnSetting.isEnabled = true
+        btnStart.setTitleColor(strColor, for: .normal)
+        btnStart.isEnabled = true
+        btnStop.setTitleColor(strColor, for: .normal)
+        btnStop.isEnabled = true
+        btnEnd.setTitleColor(strColor, for: .normal)
+        btnEnd.isEnabled = true
+
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        // 選択されているMapTypeボタンの状態を変更する
+        switch appDelegate.walkViewController.mapView.mapType {
+        case .standard:
+            btnStandard.setTitleColor(UIColor.gray, for: .normal)
+            btnStandard.isEnabled = false
+            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+            menuView.backgroundColor = .white
+            lblMapType.textColor = .black
+            lblMapMode.textColor = .black
+            lblFunk.textColor = .black
+        case .satellite:
+            btnSatellite.setTitleColor(UIColor.gray, for: .normal)
+            btnSatellite.isEnabled = false
+            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+            menuView.backgroundColor = .black
+            lblMapType.textColor = .white
+            lblMapMode.textColor = .white
+            lblFunk.textColor = .white
+        case .hybrid:
+            btnHybrid.setTitleColor(UIColor.gray, for: .normal)
+            btnHybrid.isEnabled = false
+            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+            menuView.backgroundColor = .black
+            lblMapType.textColor = .white
+            lblMapMode.textColor = .white
+            lblFunk.textColor = .white
+        case .mutedStandard:
+            btnMutedStandard.setTitleColor(UIColor.gray, for: .normal)
+            btnMutedStandard.isEnabled = false
+            // メニューの背景色とタイトルの文字色を地図Typeに合わせて変える
+            menuView.backgroundColor = .white
+            lblMapType.textColor = .black
+            lblMapMode.textColor = .black
+            lblFunk.textColor = .black
+        default:
+            break
+        }
+        
+        // 選択されているMapTypeボタンの状態を変更する
+        switch appDelegate.nowMapMode {
+        case .MODE_GOLF?:
+            btnGolfMode.setTitleColor(UIColor.gray, for: .normal)
+            btnGolfMode.isEnabled = false
+        case .MODE_CYCLE?:
+            btnCycleMode.setTitleColor(UIColor.gray, for: .normal)
+            btnCycleMode.isEnabled = false
+        case .MODE_WALK?:
+            btnWalkMode.setTitleColor(UIColor.gray, for: .normal)
+            btnWalkMode.isEnabled = false
+        case .none:
+            break
+        }
+        
+        // 計測状態によりFuncボタンの状態を変更する
+        switch appDelegate.nowWalkState {
+        case .STATE_CLOSING?:
+            btnEnd.setTitleColor(UIColor.gray, for: .normal)
+            btnEnd.isEnabled = false
+            btnStop.setTitleColor(UIColor.gray, for: .normal)
+            btnStop.isEnabled = false
+        case .STATE_STARTING?:
+            btnGolfMode.setTitleColor(UIColor.gray, for: .normal)
+            btnGolfMode.isEnabled = false
+            btnCycleMode.setTitleColor(UIColor.gray, for: .normal)
+            btnCycleMode.isEnabled = false
+            btnStart.setTitleColor(UIColor.gray, for: .normal)
+            btnStart.isEnabled = false
+            btnSetting.setTitleColor(UIColor.gray, for: .normal)
+            btnSetting.isEnabled = false
+        case .STATE_SUSPENDED?:
+            btnStop.setTitleColor(UIColor.gray, for: .normal)
+            btnStop.isEnabled = false
+        default:
+            break
+        }
+        
+        if !appDelegate.walkViewController.isExistPoint() {
+            btnDelPnt.setTitleColor(UIColor.gray, for: .normal)
+            btnDelPnt.isEnabled = false
+        }
+
+        // MapType
+        self.view.addSubview(btnStandard)
+        self.view.addSubview(btnSatellite)
+        self.view.addSubview(btnHybrid)
+        self.view.addSubview(btnMutedStandard)
+        // MapMode
+        self.view.addSubview(btnGolfMode)
+        self.view.addSubview(btnCycleMode)
+        self.view.addSubview(btnWalkMode)
+        // Func
+        self.view.addSubview(btnDelPnt)
+        self.view.addSubview(btnSetting)
+        self.view.addSubview(btnStart)
+        self.view.addSubview(btnStop)
+        self.view.addSubview(btnEnd)
+    }
+
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     // メニューエリア以外タップ時の処理

@@ -1480,7 +1480,7 @@
                     <view key="view" alpha="0.90000000000000002" contentMode="scaleToFill" id="1ds-V3-odd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="tCl-H5-gnt"/>
+                        <viewLayoutGuide key="safeArea" id="sbU-aV-xcS"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </viewController>
@@ -1502,9 +1502,9 @@
         <segue reference="ofk-iG-fGN"/>
         <segue reference="qzy-np-p9Q"/>
         <segue reference="EEX-i9-oU7"/>
-        <segue reference="tPM-bu-t9b"/>
-        <segue reference="Dl9-YH-z7l"/>
-        <segue reference="7m6-WA-u9S"/>
+        <segue reference="eMn-SQ-pFo"/>
+        <segue reference="6Dm-qH-JPG"/>
+        <segue reference="fsK-eR-Og3"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="groupTableViewBackgroundColor">

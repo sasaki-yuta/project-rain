@@ -62,6 +62,9 @@ class ViewController:   UIViewController,
     var longTapElevation: Double = -100000.0
     
     var defineClass:Define = Define()
+    
+    // initMapを一度実行したか？
+    var is_initMap:Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,14 +100,31 @@ class ViewController:   UIViewController,
         locManager = CLLocationManager()
         locManager.distanceFilter = 1
         locManager.delegate = self
-
-        // 地図の初期化
-        initMap()
+        
+        // ここで現在位置を設定しないとモード変更後に現在位置を地図のセンターにできない
+        // 縮尺を設定
+        var region:MKCoordinateRegion = mapView.region
+        region.span.latitudeDelta = 0.02
+        region.span.longitudeDelta = 0.02
+        mapView.setRegion(region,animated:true)
+        // 現在位置表示の有効化
+        mapView.showsUserLocation = true
+        // 現在位置設定
+        mapView.userTrackingMode = .follow
         
         // watchOSにゴルフモードを送信する
         sendMessageMode()
     }
-    
+
+    // レイアウト処理開始
+    override func viewWillLayoutSubviews() {
+        // 地図の初期化
+        if (false == is_initMap) {
+            initMap()
+            is_initMap = true
+        }
+    }
+
     // Google AddMod広告
     func addBannerViewToView(_ bannerView: GADBannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
@@ -116,7 +136,7 @@ class ViewController:   UIViewController,
                            toItem: view.safeAreaLayoutGuide,
                            attribute: .bottomMargin,
                            multiplier: 1,
-                           constant: -20),
+                           constant: 0),//-20),
         NSLayoutConstraint(item: bannerView,
                            attribute: .centerX,
                            relatedBy: .equal,
@@ -231,16 +251,16 @@ class ViewController:   UIViewController,
         // 全開のMapTypeをUserDataから取得してMapViewに設定する
         setMapType(userDataManager.getGolfMapType())
         
+        // viewDidLoadで実行する様にしたためコメントアウト
         // 縮尺を設定
-        var region:MKCoordinateRegion = mapView.region
-        region.span.latitudeDelta = 0.02
-        region.span.longitudeDelta = 0.02
-        mapView.setRegion(region,animated:true)
-        
+//      var region:MKCoordinateRegion = mapView.region
+//      region.span.latitudeDelta = 0.02
+//      region.span.longitudeDelta = 0.02
+//      mapView.setRegion(region,animated:true)
         // 現在位置表示の有効化
-        mapView.showsUserLocation = true
+//      mapView.showsUserLocation = true
         // 現在位置設定
-        mapView.userTrackingMode = .follow
+//      mapView.userTrackingMode = .follow
 
         // デバイスの画面サイズを取得する
         let dispSize: CGSize = UIScreen.main.bounds.size
@@ -248,7 +268,8 @@ class ViewController:   UIViewController,
         let height = Int(dispSize.height)
         
         // 地図のサイズを画面サイズに設定する
-        mapView.frame.size = CGSize(width: width, height: height)
+        let safeAreaBottom = self.view.safeAreaInsets.bottom
+        mapView.frame.size = CGSize(width: width, height: height - Int(safeAreaBottom) - 50)
         
         // 地図表示タイプを切り替えるボタン
         mapViewType = UIButton(type: UIButton.ButtonType.detailDisclosure)
@@ -575,12 +596,12 @@ class ViewController:   UIViewController,
     // Menuを開いた時のGoogle AdMod広告非表示
     func adMobClose() {
         // Google AdMod広告を非表示にする
-        bannerView.removeFromSuperview()
+//      bannerView.removeFromSuperview()
     }
 
     // Menuを閉じた時のGoogle AdMod広告表示
     func adMobView() {
-        addBannerViewToView(bannerView)
+//      addBannerViewToView(bannerView)
     }
 
     // watchOSからの高低差取得要求を処理する

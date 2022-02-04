@@ -30,7 +30,8 @@ class MenuCycleViewController: UIViewController {
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var btnStop: UIButton!
     @IBOutlet weak var btnEnd: UIButton!
-
+    // initMapを一度実行したか？
+    var is_initView:Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,9 +56,16 @@ class MenuCycleViewController: UIViewController {
     }
     */
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    // レイアウト処理開始
+    override func viewWillLayoutSubviews() {
+        // 地図の初期化
+        if (false == is_initView) {
+            initView()
+            is_initView = true
+        }
+    }
+    
+    func initView() {
         // adMobClose
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.cycleViewController.adMobClose()
@@ -66,7 +74,9 @@ class MenuCycleViewController: UIViewController {
         let dispSize: CGSize = UIScreen.main.bounds.size
         //        let width = Int(dispSize.width)
         let height = Int(dispSize.height)
-        menuView.frame.size = CGSize(width: 150, height: height)
+        
+        let safeAreaBottom = self.view.safeAreaInsets.bottom
+        menuView.frame.size = CGSize(width: 150, height: height - Int(safeAreaBottom) - 50)
         
         // メニューの位置を取得する
         let menuPos = self.menuView.layer.position
@@ -201,6 +211,10 @@ class MenuCycleViewController: UIViewController {
             animations: {self.btnDelPnt.layer.position.x = btnDelPst.x},
             completion: {bool in}
         )
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     // メニューエリア以外タップ時の処理

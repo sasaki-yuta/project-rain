@@ -14,8 +14,8 @@
             filePath = "MapApp/WalkViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1470"
-            endingLineNumber = "1470"
+            startingLineNumber = "1495"
+            endingLineNumber = "1495"
             landmarkName = "session(_:didReceiveMessage:replyHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -49,22 +49,6 @@
             startingLineNumber = "228"
             endingLineNumber = "228"
             landmarkName = "session(_:didReceiveMessage:replyHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B7CE4612-F6CB-4670-B3AC-3FB1879FF278"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MapApp/WalkViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1392"
-            endingLineNumber = "1392"
-            landmarkName = "session(_:activationDidCompleteWith:error:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -161,6 +145,38 @@
             startingLineNumber = "136"
             endingLineNumber = "136"
             landmarkName = "updateDatePicker()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D34D047C-EFBF-486F-B388-6D1DC0D8C49A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/WalkViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "978"
+            endingLineNumber = "978"
+            landmarkName = "hideRunningParts()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1DD74845-C4C2-4702-BF2D-7430B08A69D3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MapApp/WalkViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1409"
+            endingLineNumber = "1409"
+            landmarkName = "btnCancelThouchDown(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
