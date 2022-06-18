@@ -35,160 +35,160 @@ class GolfInputScore2: UIViewController,
     var txtPar1 = UITextField()
     var txtP1P1 = UITextField()
     var txtP1P1_1 = UITextField()
-    var txtP1P1_2 = UITextField()
+//    var txtP1P1_2 = UITextField()
     var txtP1P2 = UITextField()
     var txtP1P2_1 = UITextField()
-    var txtP1P2_2 = UITextField()
+//    var txtP1P2_2 = UITextField()
     var txtP1P3 = UITextField()
     var txtP1P3_1 = UITextField()
-    var txtP1P3_2 = UITextField()
+//    var txtP1P3_2 = UITextField()
     var txtP1P4 = UITextField()
     var txtP1P4_1 = UITextField()
-    var txtP1P4_2 = UITextField()
+//    var txtP1P4_2 = UITextField()
     
     // スコア入力 Line2
     var lblHole2 = UILabel()
     var txtPar2 = UITextField()
     var txtP2P1 = UITextField()
     var txtP2P1_1 = UITextField()
-    var txtP2P1_2 = UITextField()
+//    var txtP2P1_2 = UITextField()
     var txtP2P2 = UITextField()
     var txtP2P2_1 = UITextField()
-    var txtP2P2_2 = UITextField()
+//    var txtP2P2_2 = UITextField()
     var txtP2P3 = UITextField()
     var txtP2P3_1 = UITextField()
-    var txtP2P3_2 = UITextField()
+//    var txtP2P3_2 = UITextField()
     var txtP2P4 = UITextField()
     var txtP2P4_1 = UITextField()
-    var txtP2P4_2 = UITextField()
+//    var txtP2P4_2 = UITextField()
     
     // スコア入力 Line3
     var lblHole3 = UILabel()
     var txtPar3 = UITextField()
     var txtP3P1 = UITextField()
     var txtP3P1_1 = UITextField()
-    var txtP3P1_2 = UITextField()
+//    var txtP3P1_2 = UITextField()
     var txtP3P2 = UITextField()
     var txtP3P2_1 = UITextField()
-    var txtP3P2_2 = UITextField()
+//    var txtP3P2_2 = UITextField()
     var txtP3P3 = UITextField()
     var txtP3P3_1 = UITextField()
-    var txtP3P3_2 = UITextField()
+//    var txtP3P3_2 = UITextField()
     var txtP3P4 = UITextField()
     var txtP3P4_1 = UITextField()
-    var txtP3P4_2 = UITextField()
+//    var txtP3P4_2 = UITextField()
 
     // スコア入力 Line4
     var lblHole4 = UILabel()
     var txtPar4 = UITextField()
     var txtP4P1 = UITextField()
     var txtP4P1_1 = UITextField()
-    var txtP4P1_2 = UITextField()
+//    var txtP4P1_2 = UITextField()
     var txtP4P2 = UITextField()
     var txtP4P2_1 = UITextField()
-    var txtP4P2_2 = UITextField()
+//    var txtP4P2_2 = UITextField()
     var txtP4P3 = UITextField()
     var txtP4P3_1 = UITextField()
-    var txtP4P3_2 = UITextField()
+//    var txtP4P3_2 = UITextField()
     var txtP4P4 = UITextField()
     var txtP4P4_1 = UITextField()
-    var txtP4P4_2 = UITextField()
+//    var txtP4P4_2 = UITextField()
 
     // スコア入力 Line5
     var lblHole5 = UILabel()
     var txtPar5 = UITextField()
     var txtP5P1 = UITextField()
     var txtP5P1_1 = UITextField()
-    var txtP5P1_2 = UITextField()
+//    var txtP5P1_2 = UITextField()
     var txtP5P2 = UITextField()
     var txtP5P2_1 = UITextField()
-    var txtP5P2_2 = UITextField()
+//    var txtP5P2_2 = UITextField()
     var txtP5P3 = UITextField()
     var txtP5P3_1 = UITextField()
-    var txtP5P3_2 = UITextField()
+//    var txtP5P3_2 = UITextField()
     var txtP5P4 = UITextField()
     var txtP5P4_1 = UITextField()
-    var txtP5P4_2 = UITextField()
+//    var txtP5P4_2 = UITextField()
     
     // スコア入力 Line6
     var lblHole6 = UILabel()
     var txtPar6 = UITextField()
     var txtP6P1 = UITextField()
     var txtP6P1_1 = UITextField()
-    var txtP6P1_2 = UITextField()
+//    var txtP6P1_2 = UITextField()
     var txtP6P2 = UITextField()
     var txtP6P2_1 = UITextField()
-    var txtP6P2_2 = UITextField()
+//    var txtP6P2_2 = UITextField()
     var txtP6P3 = UITextField()
     var txtP6P3_1 = UITextField()
-    var txtP6P3_2 = UITextField()
+//    var txtP6P3_2 = UITextField()
     var txtP6P4 = UITextField()
     var txtP6P4_1 = UITextField()
-    var txtP6P4_2 = UITextField()
+//    var txtP6P4_2 = UITextField()
 
     // スコア入力 Line7
     var lblHole7 = UILabel()
     var txtPar7 = UITextField()
     var txtP7P1 = UITextField()
     var txtP7P1_1 = UITextField()
-    var txtP7P1_2 = UITextField()
+//    var txtP7P1_2 = UITextField()
     var txtP7P2 = UITextField()
     var txtP7P2_1 = UITextField()
-    var txtP7P2_2 = UITextField()
+//    var txtP7P2_2 = UITextField()
     var txtP7P3 = UITextField()
     var txtP7P3_1 = UITextField()
-    var txtP7P3_2 = UITextField()
+//    var txtP7P3_2 = UITextField()
     var txtP7P4 = UITextField()
     var txtP7P4_1 = UITextField()
-    var txtP7P4_2 = UITextField()
+//    var txtP7P4_2 = UITextField()
     
     // スコア入力 Line8
     var lblHole8 = UILabel()
     var txtPar8 = UITextField()
     var txtP8P1 = UITextField()
     var txtP8P1_1 = UITextField()
-    var txtP8P1_2 = UITextField()
+//    var txtP8P1_2 = UITextField()
     var txtP8P2 = UITextField()
     var txtP8P2_1 = UITextField()
-    var txtP8P2_2 = UITextField()
+//    var txtP8P2_2 = UITextField()
     var txtP8P3 = UITextField()
     var txtP8P3_1 = UITextField()
-    var txtP8P3_2 = UITextField()
+//    var txtP8P3_2 = UITextField()
     var txtP8P4 = UITextField()
     var txtP8P4_1 = UITextField()
-    var txtP8P4_2 = UITextField()
+//    var txtP8P4_2 = UITextField()
     
     // スコア入力 Line9
     var lblHole9 = UILabel()
     var txtPar9 = UITextField()
     var txtP9P1 = UITextField()
     var txtP9P1_1 = UITextField()
-    var txtP9P1_2 = UITextField()
+//    var txtP9P1_2 = UITextField()
     var txtP9P2 = UITextField()
     var txtP9P2_1 = UITextField()
-    var txtP9P2_2 = UITextField()
+//    var txtP9P2_2 = UITextField()
     var txtP9P3 = UITextField()
     var txtP9P3_1 = UITextField()
-    var txtP9P3_2 = UITextField()
+//    var txtP9P3_2 = UITextField()
     var txtP9P4 = UITextField()
     var txtP9P4_1 = UITextField()
-    var txtP9P4_2 = UITextField()
+//    var txtP9P4_2 = UITextField()
     
     // スコア入力 LineOut
     var lblHole10 = UILabel()
     var txtPar10 = UILabel()
     var txtP10P1 = UILabel()
     var txtP10P1_1 = UILabel()
-    var txtP10P1_2 = UILabel()
+//    var txtP10P1_2 = UILabel()
     var txtP10P2 = UILabel()
     var txtP10P2_1 = UILabel()
-    var txtP10P2_2 = UILabel()
+//    var txtP10P2_2 = UILabel()
     var txtP10P3 = UILabel()
     var txtP10P3_1 = UILabel()
-    var txtP10P3_2 = UILabel()
+//    var txtP10P3_2 = UILabel()
     var txtP10P4 = UILabel()
     var txtP10P4_1 = UILabel()
-    var txtP10P4_2 = UILabel()
+//    var txtP10P4_2 = UILabel()
 
     override func viewDidLoad()
     {
@@ -220,120 +220,120 @@ class GolfInputScore2: UIViewController,
         txtPar1.delegate = self
         txtP1P1.delegate = self
         txtP1P1_1.delegate = self
-        txtP1P1_2.delegate = self
+//        txtP1P1_2.delegate = self
         txtP1P2.delegate = self
         txtP1P2_1.delegate = self
-        txtP1P2_2.delegate = self
+//        txtP1P2_2.delegate = self
         txtP1P3.delegate = self
         txtP1P3_1.delegate = self
-        txtP1P3_2.delegate = self
+//        txtP1P3_2.delegate = self
         txtP1P4.delegate = self
         txtP1P4_1.delegate = self
-        txtP1P4_2.delegate = self
+//        txtP1P4_2.delegate = self
         txtPar2.delegate = self
         txtP2P1.delegate = self
         txtP2P1_1.delegate = self
-        txtP2P1_2.delegate = self
+//        txtP2P1_2.delegate = self
         txtP2P2.delegate = self
         txtP2P2_1.delegate = self
-        txtP2P2_2.delegate = self
+//        txtP2P2_2.delegate = self
         txtP2P3.delegate = self
         txtP2P3_1.delegate = self
-        txtP2P3_2.delegate = self
+//        txtP2P3_2.delegate = self
         txtP2P4.delegate = self
         txtP2P4_1.delegate = self
-        txtP2P4_2.delegate = self
+//        txtP2P4_2.delegate = self
         txtPar3.delegate = self
         txtP3P1.delegate = self
         txtP3P1_1.delegate = self
-        txtP3P1_2.delegate = self
+//        txtP3P1_2.delegate = self
         txtP3P2.delegate = self
         txtP3P2_1.delegate = self
-        txtP3P2_2.delegate = self
+//        txtP3P2_2.delegate = self
         txtP3P3.delegate = self
         txtP3P3_1.delegate = self
-        txtP3P3_2.delegate = self
+//        txtP3P3_2.delegate = self
         txtP3P4.delegate = self
         txtP3P4_1.delegate = self
-        txtP3P4_2.delegate = self
+//        txtP3P4_2.delegate = self
         txtPar4.delegate = self
         txtP4P1.delegate = self
         txtP4P1_1.delegate = self
-        txtP4P1_2.delegate = self
+//        txtP4P1_2.delegate = self
         txtP4P2.delegate = self
         txtP4P2_1.delegate = self
-        txtP4P2_2.delegate = self
+//        txtP4P2_2.delegate = self
         txtP4P3.delegate = self
         txtP4P3_1.delegate = self
-        txtP4P3_2.delegate = self
+//        txtP4P3_2.delegate = self
         txtP4P4.delegate = self
         txtP4P4_1.delegate = self
-        txtP4P4_2.delegate = self
+//        txtP4P4_2.delegate = self
         txtPar5.delegate = self
         txtP5P1.delegate = self
         txtP5P1_1.delegate = self
-        txtP5P1_2.delegate = self
+//        txtP5P1_2.delegate = self
         txtP5P2.delegate = self
         txtP5P2_1.delegate = self
-        txtP5P2_2.delegate = self
+//        txtP5P2_2.delegate = self
         txtP5P3.delegate = self
         txtP5P3_1.delegate = self
-        txtP5P3_2.delegate = self
+//        txtP5P3_2.delegate = self
         txtP5P4.delegate = self
         txtP5P4_1.delegate = self
-        txtP5P4_2.delegate = self
+//        txtP5P4_2.delegate = self
         txtPar6.delegate = self
         txtP6P1.delegate = self
         txtP6P1_1.delegate = self
-        txtP6P1_2.delegate = self
+//        txtP6P1_2.delegate = self
         txtP6P2.delegate = self
         txtP6P2_1.delegate = self
-        txtP6P2_2.delegate = self
+//        txtP6P2_2.delegate = self
         txtP6P3.delegate = self
         txtP6P3_1.delegate = self
-        txtP6P3_2.delegate = self
+//        txtP6P3_2.delegate = self
         txtP6P4.delegate = self
         txtP6P4_1.delegate = self
-        txtP6P4_2.delegate = self
+//        txtP6P4_2.delegate = self
         txtPar7.delegate = self
         txtP7P1.delegate = self
         txtP7P1_1.delegate = self
-        txtP7P1_2.delegate = self
+//        txtP7P1_2.delegate = self
         txtP7P2.delegate = self
         txtP7P2_1.delegate = self
-        txtP7P2_2.delegate = self
+//        txtP7P2_2.delegate = self
         txtP7P3.delegate = self
         txtP7P3_1.delegate = self
-        txtP7P3_2.delegate = self
+//        txtP7P3_2.delegate = self
         txtP7P4.delegate = self
         txtP7P4_1.delegate = self
-        txtP7P4_2.delegate = self
+//        txtP7P4_2.delegate = self
         txtPar8.delegate = self
         txtP8P1.delegate = self
         txtP8P1_1.delegate = self
-        txtP8P1_2.delegate = self
+//        txtP8P1_2.delegate = self
         txtP8P2.delegate = self
         txtP8P2_1.delegate = self
-        txtP8P2_2.delegate = self
+//        txtP8P2_2.delegate = self
         txtP8P3.delegate = self
         txtP8P3_1.delegate = self
-        txtP8P3_2.delegate = self
+//        txtP8P3_2.delegate = self
         txtP8P4.delegate = self
         txtP8P4_1.delegate = self
-        txtP8P4_2.delegate = self
+//        txtP8P4_2.delegate = self
         txtPar9.delegate = self
         txtP9P1.delegate = self
         txtP9P1_1.delegate = self
-        txtP9P1_2.delegate = self
+//        txtP9P1_2.delegate = self
         txtP9P2.delegate = self
         txtP9P2_1.delegate = self
-        txtP9P2_2.delegate = self
+//        txtP9P2_2.delegate = self
         txtP9P3.delegate = self
         txtP9P3_1.delegate = self
-        txtP9P3_2.delegate = self
+//        txtP9P3_2.delegate = self
         txtP9P4.delegate = self
         txtP9P4_1.delegate = self
-        txtP9P4_2.delegate = self
+//        txtP9P4_2.delegate = self
 
         
         let dispSize: CGSize = UIScreen.main.bounds.size
@@ -413,15 +413,15 @@ class GolfInputScore2: UIViewController,
         txtP1P1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P1)
 
-        txtP1P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight/2)
+        txtP1P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P1_1.layer.borderWidth = 1
         txtP1P1_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P1_1)
 
-        txtP1P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP1P1_2.layer.borderWidth = 1
-        txtP1P1_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP1P1_2)
+//        txtP1P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP1P1_2.layer.borderWidth = 1
+//        txtP1P1_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP1P1_2)
 
         // Player2
         txtP1P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
@@ -429,15 +429,15 @@ class GolfInputScore2: UIViewController,
         txtP1P2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P2)
 
-        txtP1P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight/2)
+        txtP1P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P2_1.layer.borderWidth = 1
         txtP1P2_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P2_1)
 
-        txtP1P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP1P2_2.layer.borderWidth = 1
-        txtP1P2_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP1P2_2)
+//        txtP1P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP1P2_2.layer.borderWidth = 1
+//        txtP1P2_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP1P2_2)
 
         // Player3
         txtP1P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
@@ -445,15 +445,15 @@ class GolfInputScore2: UIViewController,
         txtP1P3.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P3)
 
-        txtP1P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight/2)
+        txtP1P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P3_1.layer.borderWidth = 1
         txtP1P3_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P3_1)
 
-        txtP1P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP1P3_2.layer.borderWidth = 1
-        txtP1P3_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP1P3_2)
+//        txtP1P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP1P3_2.layer.borderWidth = 1
+//        txtP1P3_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP1P3_2)
 
         // Player4
         txtP1P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
@@ -461,15 +461,15 @@ class GolfInputScore2: UIViewController,
         txtP1P4.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P4)
 
-        txtP1P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight/2)
+        txtP1P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P4_1.layer.borderWidth = 1
         txtP1P4_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P4_1)
 
-        txtP1P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP1P4_2.layer.borderWidth = 1
-        txtP1P4_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP1P4_2)
+//        txtP1P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP1P4_2.layer.borderWidth = 1
+//        txtP1P4_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP1P4_2)
         
         // スコア入力 Line2 ==============================
         lblHole2.text = "2"
@@ -489,15 +489,15 @@ class GolfInputScore2: UIViewController,
         txtP2P1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP2P1)
 
-        txtP2P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight/2)
+        txtP2P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P1_1.layer.borderWidth = 1
         txtP2P1_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP2P1_1)
 
-        txtP2P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP2P1_2.layer.borderWidth = 1
-        txtP2P1_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP2P1_2)
+//        txtP2P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP2P1_2.layer.borderWidth = 1
+//        txtP2P1_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP2P1_2)
 
         // Player2
         txtP2P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
@@ -505,15 +505,15 @@ class GolfInputScore2: UIViewController,
         txtP2P2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP2P2)
 
-        txtP2P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight/2)
+        txtP2P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P2_1.layer.borderWidth = 1
         txtP2P2_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP2P2_1)
 
-        txtP2P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP2P2_2.layer.borderWidth = 1
-        txtP2P2_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP2P2_2)
+//        txtP2P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP2P2_2.layer.borderWidth = 1
+//        txtP2P2_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP2P2_2)
 
         // Player3
         txtP2P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
@@ -521,15 +521,15 @@ class GolfInputScore2: UIViewController,
         txtP2P3.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP2P3)
 
-        txtP2P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight/2)
+        txtP2P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P3_1.layer.borderWidth = 1
         txtP2P3_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP2P3_1)
 
-        txtP2P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP2P3_2.layer.borderWidth = 1
-        txtP2P3_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP2P3_2)
+//        txtP2P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP2P3_2.layer.borderWidth = 1
+//        txtP2P3_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP2P3_2)
 
         // Player4
         txtP2P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
@@ -537,15 +537,15 @@ class GolfInputScore2: UIViewController,
         txtP2P4.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP2P4)
 
-        txtP2P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight/2)
+        txtP2P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P4_1.layer.borderWidth = 1
         txtP2P4_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP2P4_1)
 
-        txtP2P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP2P4_2.layer.borderWidth = 1
-        txtP2P4_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP2P4_2)
+//        txtP2P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP2P4_2.layer.borderWidth = 1
+//        txtP2P4_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP2P4_2)
         
         // スコア入力 Line3 ==============================
         lblHole3.text = "3"
@@ -565,15 +565,15 @@ class GolfInputScore2: UIViewController,
         txtP3P1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP3P1)
 
-        txtP3P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight/2)
+        txtP3P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P1_1.layer.borderWidth = 1
         txtP3P1_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP3P1_1)
 
-        txtP3P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP3P1_2.layer.borderWidth = 1
-        txtP3P1_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP3P1_2)
+//        txtP3P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP3P1_2.layer.borderWidth = 1
+//        txtP3P1_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP3P1_2)
         
         // Player2
         txtP3P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
@@ -581,15 +581,15 @@ class GolfInputScore2: UIViewController,
         txtP3P2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP3P2)
 
-        txtP3P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight/2)
+        txtP3P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P2_1.layer.borderWidth = 1
         txtP3P2_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP3P2_1)
 
-        txtP3P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP3P2_2.layer.borderWidth = 1
-        txtP3P2_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP3P2_2)
+//        txtP3P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP3P2_2.layer.borderWidth = 1
+//        txtP3P2_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP3P2_2)
 
         // Player3
         txtP3P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
@@ -597,15 +597,15 @@ class GolfInputScore2: UIViewController,
         txtP3P3.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP3P3)
 
-        txtP3P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight/2)
+        txtP3P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P3_1.layer.borderWidth = 1
         txtP3P3_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP3P3_1)
 
-        txtP3P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP3P3_2.layer.borderWidth = 1
-        txtP3P3_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP3P3_2)
+//        txtP3P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP3P3_2.layer.borderWidth = 1
+//        txtP3P3_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP3P3_2)
 
         // Player4
         txtP3P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
@@ -613,15 +613,15 @@ class GolfInputScore2: UIViewController,
         txtP3P4.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP3P4)
 
-        txtP3P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight/2)
+        txtP3P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P4_1.layer.borderWidth = 1
         txtP3P4_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP3P4_1)
 
-        txtP3P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP3P4_2.layer.borderWidth = 1
-        txtP3P4_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP3P4_2)
+//        txtP3P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP3P4_2.layer.borderWidth = 1
+//        txtP3P4_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP3P4_2)
 
         // スコア入力 Line4 ==============================
         lblHole4.text = "4"
@@ -641,15 +641,15 @@ class GolfInputScore2: UIViewController,
         txtP4P1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP4P1)
 
-        txtP4P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight/2)
+        txtP4P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P1_1.layer.borderWidth = 1
         txtP4P1_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP4P1_1)
 
-        txtP4P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP4P1_2.layer.borderWidth = 1
-        txtP4P1_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP4P1_2)
+//        txtP4P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP4P1_2.layer.borderWidth = 1
+//        txtP4P1_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP4P1_2)
         
         // Player2
         txtP4P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
@@ -657,15 +657,15 @@ class GolfInputScore2: UIViewController,
         txtP4P2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP4P2)
 
-        txtP4P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight/2)
+        txtP4P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P2_1.layer.borderWidth = 1
         txtP4P2_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP4P2_1)
 
-        txtP4P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP4P2_2.layer.borderWidth = 1
-        txtP4P2_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP4P2_2)
+//        txtP4P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP4P2_2.layer.borderWidth = 1
+//        txtP4P2_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP4P2_2)
 
         // Player3
         txtP4P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
@@ -673,15 +673,15 @@ class GolfInputScore2: UIViewController,
         txtP4P3.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP4P3)
 
-        txtP4P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight/2)
+        txtP4P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P3_1.layer.borderWidth = 1
         txtP4P3_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP4P3_1)
 
-        txtP4P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP4P3_2.layer.borderWidth = 1
-        txtP4P3_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP4P3_2)
+//        txtP4P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP4P3_2.layer.borderWidth = 1
+//        txtP4P3_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP4P3_2)
         
         // Player4
         txtP4P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
@@ -689,15 +689,15 @@ class GolfInputScore2: UIViewController,
         txtP4P4.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP4P4)
 
-        txtP4P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight/2)
+        txtP4P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P4_1.layer.borderWidth = 1
         txtP4P4_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP4P4_1)
 
-        txtP4P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP4P4_2.layer.borderWidth = 1
-        txtP4P4_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP4P4_2)
+//        txtP4P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP4P4_2.layer.borderWidth = 1
+//        txtP4P4_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP4P4_2)
 
         // スコア入力 Line5 ==============================
         lblHole5.text = "5"
@@ -717,15 +717,15 @@ class GolfInputScore2: UIViewController,
         txtP5P1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP5P1)
 
-        txtP5P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight/2)
+        txtP5P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P1_1.layer.borderWidth = 1
         txtP5P1_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP5P1_1)
 
-        txtP5P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP5P1_2.layer.borderWidth = 1
-        txtP5P1_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP5P1_2)
+//        txtP5P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP5P1_2.layer.borderWidth = 1
+//        txtP5P1_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP5P1_2)
         
         // Player2
         txtP5P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
@@ -733,15 +733,15 @@ class GolfInputScore2: UIViewController,
         txtP5P2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP5P2)
 
-        txtP5P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight/2)
+        txtP5P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P2_1.layer.borderWidth = 1
         txtP5P2_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP5P2_1)
 
-        txtP5P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP5P2_2.layer.borderWidth = 1
-        txtP5P2_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP5P2_2)
+//        txtP5P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP5P2_2.layer.borderWidth = 1
+//        txtP5P2_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP5P2_2)
 
         // Player3
         txtP5P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
@@ -749,15 +749,15 @@ class GolfInputScore2: UIViewController,
         txtP5P3.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP5P3)
 
-        txtP5P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight/2)
+        txtP5P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P3_1.layer.borderWidth = 1
         txtP5P3_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP5P3_1)
 
-        txtP5P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP5P3_2.layer.borderWidth = 1
-        txtP5P3_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP5P3_2)
+//        txtP5P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP5P3_2.layer.borderWidth = 1
+//        txtP5P3_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP5P3_2)
         
         // Player4
         txtP5P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
@@ -765,15 +765,15 @@ class GolfInputScore2: UIViewController,
         txtP5P4.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP5P4)
 
-        txtP5P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight/2)
+        txtP5P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P4_1.layer.borderWidth = 1
         txtP5P4_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP5P4_1)
 
-        txtP5P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP5P4_2.layer.borderWidth = 1
-        txtP5P4_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP5P4_2)
+//        txtP5P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP5P4_2.layer.borderWidth = 1
+//        txtP5P4_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP5P4_2)
         
         // スコア入力 Line6 ==============================
         lblHole6.text = "6"
@@ -793,15 +793,15 @@ class GolfInputScore2: UIViewController,
         txtP6P1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP6P1)
 
-        txtP6P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight/2)
+        txtP6P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P1_1.layer.borderWidth = 1
         txtP6P1_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP6P1_1)
 
-        txtP6P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP6P1_2.layer.borderWidth = 1
-        txtP6P1_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP6P1_2)
+//        txtP6P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP6P1_2.layer.borderWidth = 1
+//        txtP6P1_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP6P1_2)
         
         // Player2
         txtP6P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
@@ -809,15 +809,15 @@ class GolfInputScore2: UIViewController,
         txtP6P2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP6P2)
 
-        txtP6P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight/2)
+        txtP6P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P2_1.layer.borderWidth = 1
         txtP6P2_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP6P2_1)
 
-        txtP6P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP6P2_2.layer.borderWidth = 1
-        txtP6P2_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP6P2_2)
+//        txtP6P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP6P2_2.layer.borderWidth = 1
+//        txtP6P2_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP6P2_2)
 
         // Player3
         txtP6P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
@@ -825,15 +825,15 @@ class GolfInputScore2: UIViewController,
         txtP6P3.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP6P3)
 
-        txtP6P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight/2)
+        txtP6P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P3_1.layer.borderWidth = 1
         txtP6P3_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP6P3_1)
 
-        txtP6P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP6P3_2.layer.borderWidth = 1
-        txtP6P3_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP6P3_2)
+//        txtP6P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP6P3_2.layer.borderWidth = 1
+//        txtP6P3_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP6P3_2)
         
         // Player4
         txtP6P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
@@ -841,15 +841,15 @@ class GolfInputScore2: UIViewController,
         txtP6P4.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP6P4)
 
-        txtP6P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight/2)
+        txtP6P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P4_1.layer.borderWidth = 1
         txtP6P4_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP6P4_1)
 
-        txtP6P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP6P4_2.layer.borderWidth = 1
-        txtP6P4_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP6P4_2)
+//        txtP6P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP6P4_2.layer.borderWidth = 1
+//        txtP6P4_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP6P4_2)
         
         // スコア入力 Line7 ==============================
         lblHole7.text = "7"
@@ -869,15 +869,15 @@ class GolfInputScore2: UIViewController,
         txtP7P1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP7P1)
 
-        txtP7P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight/2)
+        txtP7P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P1_1.layer.borderWidth = 1
         txtP7P1_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP7P1_1)
 
-        txtP7P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP7P1_2.layer.borderWidth = 1
-        txtP7P1_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP7P1_2)
+//        txtP7P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP7P1_2.layer.borderWidth = 1
+//        txtP7P1_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP7P1_2)
         
         // Player2
         txtP7P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
@@ -885,15 +885,15 @@ class GolfInputScore2: UIViewController,
         txtP7P2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP7P2)
 
-        txtP7P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight/2)
+        txtP7P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P2_1.layer.borderWidth = 1
         txtP7P2_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP7P2_1)
 
-        txtP7P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP7P2_2.layer.borderWidth = 1
-        txtP7P2_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP7P2_2)
+//        txtP7P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP7P2_2.layer.borderWidth = 1
+//        txtP7P2_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP7P2_2)
 
         // Player3
         txtP7P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
@@ -901,15 +901,15 @@ class GolfInputScore2: UIViewController,
         txtP7P3.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP7P3)
 
-        txtP7P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight/2)
+        txtP7P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P3_1.layer.borderWidth = 1
         txtP7P3_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP7P3_1)
 
-        txtP7P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP7P3_2.layer.borderWidth = 1
-        txtP7P3_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP7P3_2)
+//        txtP7P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP7P3_2.layer.borderWidth = 1
+//        txtP7P3_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP7P3_2)
         
         // Player4
         txtP7P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
@@ -917,15 +917,15 @@ class GolfInputScore2: UIViewController,
         txtP7P4.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP7P4)
 
-        txtP7P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight/2)
+        txtP7P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P4_1.layer.borderWidth = 1
         txtP7P4_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP7P4_1)
 
-        txtP7P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP7P4_2.layer.borderWidth = 1
-        txtP7P4_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP7P4_2)
+//        txtP7P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP7P4_2.layer.borderWidth = 1
+//        txtP7P4_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP7P4_2)
         
         // スコア入力 Line8 ==============================
         lblHole8.text = "8"
@@ -945,15 +945,15 @@ class GolfInputScore2: UIViewController,
         txtP8P1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP8P1)
 
-        txtP8P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight/2)
+        txtP8P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P1_1.layer.borderWidth = 1
         txtP8P1_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP8P1_1)
 
-        txtP8P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP8P1_2.layer.borderWidth = 1
-        txtP8P1_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP8P1_2)
+//        txtP8P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP8P1_2.layer.borderWidth = 1
+//        txtP8P1_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP8P1_2)
         
         // Player2
         txtP8P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
@@ -961,15 +961,15 @@ class GolfInputScore2: UIViewController,
         txtP8P2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP8P2)
 
-        txtP8P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight/2)
+        txtP8P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P2_1.layer.borderWidth = 1
         txtP8P2_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP8P2_1)
 
-        txtP8P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP8P2_2.layer.borderWidth = 1
-        txtP8P2_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP8P2_2)
+//        txtP8P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP8P2_2.layer.borderWidth = 1
+//        txtP8P2_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP8P2_2)
         
         // Player3
         txtP8P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
@@ -977,15 +977,15 @@ class GolfInputScore2: UIViewController,
         txtP8P3.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP8P3)
 
-        txtP8P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight/2)
+        txtP8P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P3_1.layer.borderWidth = 1
         txtP8P3_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP8P3_1)
 
-        txtP8P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP8P3_2.layer.borderWidth = 1
-        txtP8P3_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP8P3_2)
+//        txtP8P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP8P3_2.layer.borderWidth = 1
+//        txtP8P3_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP8P3_2)
         
         // Player4
         txtP8P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
@@ -993,15 +993,15 @@ class GolfInputScore2: UIViewController,
         txtP8P4.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP8P4)
 
-        txtP8P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight/2)
+        txtP8P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P4_1.layer.borderWidth = 1
         txtP8P4_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP8P4_1)
 
-        txtP8P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP8P4_2.layer.borderWidth = 1
-        txtP8P4_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP8P4_2)
+//        txtP8P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP8P4_2.layer.borderWidth = 1
+//        txtP8P4_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP8P4_2)
         
         // スコア入力 Line9 ==============================
         lblHole9.text = "9"
@@ -1021,15 +1021,15 @@ class GolfInputScore2: UIViewController,
         txtP9P1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP9P1)
 
-        txtP9P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight/2)
+        txtP9P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P1_1.layer.borderWidth = 1
         txtP9P1_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP9P1_1)
 
-        txtP9P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP9P1_2.layer.borderWidth = 1
-        txtP9P1_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP9P1_2)
+//        txtP9P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP9P1_2.layer.borderWidth = 1
+//        txtP9P1_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP9P1_2)
         
         // Player2
         txtP9P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
@@ -1037,15 +1037,15 @@ class GolfInputScore2: UIViewController,
         txtP9P2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP9P2)
 
-        txtP9P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight/2)
+        txtP9P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P2_1.layer.borderWidth = 1
         txtP9P2_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP9P2_1)
 
-        txtP9P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP9P2_2.layer.borderWidth = 1
-        txtP9P2_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP9P2_2)
+//        txtP9P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP9P2_2.layer.borderWidth = 1
+//        txtP9P2_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP9P2_2)
         
         // Player3
         txtP9P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
@@ -1053,15 +1053,15 @@ class GolfInputScore2: UIViewController,
         txtP9P3.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP9P3)
 
-        txtP9P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight/2)
+        txtP9P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P3_1.layer.borderWidth = 1
         txtP9P3_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP9P3_1)
 
-        txtP9P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP9P3_2.layer.borderWidth = 1
-        txtP9P3_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP9P3_2)
+//        txtP9P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP9P3_2.layer.borderWidth = 1
+//        txtP9P3_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP9P3_2)
         
         // Player4
         txtP9P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
@@ -1069,15 +1069,15 @@ class GolfInputScore2: UIViewController,
         txtP9P4.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP9P4)
 
-        txtP9P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight/2)
+        txtP9P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P4_1.layer.borderWidth = 1
         txtP9P4_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP9P4_1)
 
-        txtP9P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP9P4_2.layer.borderWidth = 1
-        txtP9P4_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP9P4_2)
+//        txtP9P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP9P4_2.layer.borderWidth = 1
+//        txtP9P4_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP9P4_2)
         
         // スコア入力 LineOut ============================
         lblHole10.text = "T"
@@ -1097,15 +1097,15 @@ class GolfInputScore2: UIViewController,
         txtP10P1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP10P1)
 
-        txtP10P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*10), width:(itemWidth/2), height:itemHeight/2)
+        txtP10P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*10), width:(itemWidth/2), height:itemHeight)
         txtP10P1_1.layer.borderWidth = 1
         txtP10P1_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP10P1_1)
 
-        txtP10P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*11)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP10P1_2.layer.borderWidth = 1
-        txtP10P1_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP10P1_2)
+//        txtP10P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*11)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP10P1_2.layer.borderWidth = 1
+//        txtP10P1_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP10P1_2)
         
         // Player2
         txtP10P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*10), width:(itemWidth/2), height:itemHeight)
@@ -1113,15 +1113,15 @@ class GolfInputScore2: UIViewController,
         txtP10P2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP10P2)
 
-        txtP10P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*10), width:(itemWidth/2), height:itemHeight/2)
+        txtP10P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*10), width:(itemWidth/2), height:itemHeight)
         txtP10P2_1.layer.borderWidth = 1
         txtP10P2_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP10P2_1)
 
-        txtP10P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*11)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP10P2_2.layer.borderWidth = 1
-        txtP10P2_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP10P2_2)
+//        txtP10P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*11)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP10P2_2.layer.borderWidth = 1
+//        txtP10P2_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP10P2_2)
         
         // Player3
         txtP10P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*10), width:(itemWidth/2), height:itemHeight)
@@ -1129,15 +1129,15 @@ class GolfInputScore2: UIViewController,
         txtP10P3.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP10P3)
 
-        txtP10P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*10), width:(itemWidth/2), height:itemHeight/2)
+        txtP10P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*10), width:(itemWidth/2), height:itemHeight)
         txtP10P3_1.layer.borderWidth = 1
         txtP10P3_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP10P3_1)
 
-        txtP10P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*11)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP10P3_2.layer.borderWidth = 1
-        txtP10P3_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP10P3_2)
+//        txtP10P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*11)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP10P3_2.layer.borderWidth = 1
+//        txtP10P3_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP10P3_2)
         
         // Player4
         txtP10P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*10), width:(itemWidth/2), height:itemHeight)
@@ -1145,15 +1145,15 @@ class GolfInputScore2: UIViewController,
         txtP10P4.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP10P4)
 
-        txtP10P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*10), width:(itemWidth/2), height:itemHeight/2)
+        txtP10P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*10), width:(itemWidth/2), height:itemHeight)
         txtP10P4_1.layer.borderWidth = 1
         txtP10P4_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP10P4_1)
 
-        txtP10P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*11)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP10P4_2.layer.borderWidth = 1
-        txtP10P4_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP10P4_2)
+//        txtP10P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*11)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP10P4_2.layer.borderWidth = 1
+//        txtP10P4_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP10P4_2)
         
     }
     
@@ -1357,6 +1357,7 @@ class GolfInputScore2: UIViewController,
         }
         txtP10P1_1.text = total.description
 
+#if false
         // 本人のスコア(ACT)
         total = 0
         input = Int(txtP1P1_2.text!.description)
@@ -1396,6 +1397,7 @@ class GolfInputScore2: UIViewController,
             total = total + input!
         }
         txtP10P1_2.text = total.description
+#endif
 
         // 二人目のスコア=================================
         total = 0
@@ -1477,6 +1479,7 @@ class GolfInputScore2: UIViewController,
         }
         txtP10P2_1.text = total.description
 
+#if false
         // 二人目のスコア(ACT)
         total = 0
         input = Int(txtP1P2_2.text!.description)
@@ -1516,6 +1519,7 @@ class GolfInputScore2: UIViewController,
             total = total + input!
         }
         txtP10P2_2.text = total.description
+#endif
 
         // 三人目のスコア=================================
         total = 0
@@ -1597,6 +1601,7 @@ class GolfInputScore2: UIViewController,
         }
         txtP10P3_1.text = total.description
 
+#if false
         // 三人目のスコア(ACT)
         total = 0
         input = Int(txtP1P3_2.text!.description)
@@ -1636,7 +1641,8 @@ class GolfInputScore2: UIViewController,
             total = total + input!
         }
         txtP10P3_2.text = total.description
-        
+#endif
+
         // 四人目のスコア=================================
         total = 0
         input = Int(txtP1P4.text!.description)
@@ -1717,6 +1723,7 @@ class GolfInputScore2: UIViewController,
         }
         txtP10P4_1.text = total.description
 
+#if false
         // 四人目のスコア(ACT)
         total = 0
         input = Int(txtP1P4_2.text!.description)
@@ -1756,159 +1763,160 @@ class GolfInputScore2: UIViewController,
             total = total + input!
         }
         txtP10P4_2.text = total.description
+#endif
     }
-    
+
     // テキストフィールドの初期化
     func clearTextFiled() {
         // スコア入力 Line1
         txtPar1.text = ""
         txtP1P1.text = ""
         txtP1P1_1.text = ""
-        txtP1P1_2.text = ""
+//        txtP1P1_2.text = ""
         txtP1P2.text = ""
         txtP1P2_1.text = ""
-        txtP1P2_2.text = ""
+//        txtP1P2_2.text = ""
         txtP1P3.text = ""
         txtP1P3_1.text = ""
-        txtP1P3_2.text = ""
+//        txtP1P3_2.text = ""
         txtP1P4.text = ""
         txtP1P4_1.text = ""
-        txtP1P4_2.text = ""
+//        txtP1P4_2.text = ""
         
         // スコア入力 Line2
         txtPar2.text = ""
         txtP2P1.text = ""
         txtP2P1_1.text = ""
-        txtP2P1_2.text = ""
+//        txtP2P1_2.text = ""
         txtP2P2.text = ""
         txtP2P2_1.text = ""
-        txtP2P2_2.text = ""
+//        txtP2P2_2.text = ""
         txtP2P3.text = ""
         txtP2P3_1.text = ""
-        txtP2P3_2.text = ""
+//        txtP2P3_2.text = ""
         txtP2P4.text = ""
         txtP2P4_1.text = ""
-        txtP2P4_2.text = ""
+//        txtP2P4_2.text = ""
         
         // スコア入力 Line3
         txtPar3.text = ""
         txtP3P1.text = ""
         txtP3P1_1.text = ""
-        txtP3P1_2.text = ""
+//        txtP3P1_2.text = ""
         txtP3P2.text = ""
         txtP3P2_1.text = ""
-        txtP3P2_2.text = ""
+//        txtP3P2_2.text = ""
         txtP3P3.text = ""
         txtP3P3_1.text = ""
-        txtP3P3_2.text = ""
+//        txtP3P3_2.text = ""
         txtP3P4.text = ""
         txtP3P4_1.text = ""
-        txtP3P4_2.text = ""
+//        txtP3P4_2.text = ""
 
         // スコア入力 Line4
         txtPar4.text = ""
         txtP4P1.text = ""
         txtP4P1_1.text = ""
-        txtP4P1_2.text = ""
+//        txtP4P1_2.text = ""
         txtP4P2.text = ""
         txtP4P2_1.text = ""
-        txtP4P2_2.text = ""
+//        txtP4P2_2.text = ""
         txtP4P3.text = ""
         txtP4P3_1.text = ""
-        txtP4P3_2.text = ""
+//        txtP4P3_2.text = ""
         txtP4P4.text = ""
         txtP4P4_1.text = ""
-        txtP4P4_2.text = ""
+//        txtP4P4_2.text = ""
 
         // スコア入力 Line5
         txtPar5.text = ""
         txtP5P1.text = ""
         txtP5P1_1.text = ""
-        txtP5P1_2.text = ""
+//        txtP5P1_2.text = ""
         txtP5P2.text = ""
         txtP5P2_1.text = ""
-        txtP5P2_2.text = ""
+//        txtP5P2_2.text = ""
         txtP5P3.text = ""
         txtP5P3_1.text = ""
-        txtP5P3_2.text = ""
+//        txtP5P3_2.text = ""
         txtP5P4.text = ""
         txtP5P4_1.text = ""
-        txtP5P4_2.text = ""
+//        txtP5P4_2.text = ""
         
         // スコア入力 Line6
         txtPar6.text = ""
         txtP6P1.text = ""
         txtP6P1_1.text = ""
-        txtP6P1_2.text = ""
+//        txtP6P1_2.text = ""
         txtP6P2.text = ""
         txtP6P2_1.text = ""
-        txtP6P2_2.text = ""
+//        txtP6P2_2.text = ""
         txtP6P3.text = ""
         txtP6P3_1.text = ""
-        txtP6P3_2.text = ""
+//        txtP6P3_2.text = ""
         txtP6P4.text = ""
         txtP6P4_1.text = ""
-        txtP6P4_2.text = ""
+//        txtP6P4_2.text = ""
 
         // スコア入力 Line7
         txtPar7.text = ""
         txtP7P1.text = ""
         txtP7P1_1.text = ""
-        txtP7P1_2.text = ""
+//        txtP7P1_2.text = ""
         txtP7P2.text = ""
         txtP7P2_1.text = ""
-        txtP7P2_2.text = ""
+//        txtP7P2_2.text = ""
         txtP7P3.text = ""
         txtP7P3_1.text = ""
-        txtP7P3_2.text = ""
+//        txtP7P3_2.text = ""
         txtP7P4.text = ""
         txtP7P4_1.text = ""
-        txtP7P4_2.text = ""
+//        txtP7P4_2.text = ""
         
         // スコア入力 Line8
         txtPar8.text = ""
         txtP8P1.text = ""
         txtP8P1_1.text = ""
-        txtP8P1_2.text = ""
+//        txtP8P1_2.text = ""
         txtP8P2.text = ""
         txtP8P2_1.text = ""
-        txtP8P2_2.text = ""
+//        txtP8P2_2.text = ""
         txtP8P3.text = ""
         txtP8P3_1.text = ""
-        txtP8P3_2.text = ""
+//        txtP8P3_2.text = ""
         txtP8P4.text = ""
         txtP8P4_1.text = ""
-        txtP8P4_2.text = ""
+//        txtP8P4_2.text = ""
         
         // スコア入力 Line9
         txtPar9.text = ""
         txtP9P1.text = ""
         txtP9P1_1.text = ""
-        txtP9P1_2.text = ""
+//        txtP9P1_2.text = ""
         txtP9P2.text = ""
         txtP9P2_1.text = ""
-        txtP9P2_2.text = ""
+//        txtP9P2_2.text = ""
         txtP9P3.text = ""
         txtP9P3_1.text = ""
-        txtP9P3_2.text = ""
+//        txtP9P3_2.text = ""
         txtP9P4.text = ""
         txtP9P4_1.text = ""
-        txtP9P4_2.text = ""
+//        txtP9P4_2.text = ""
         
         // スコア入力 LineOut
         txtPar10.text = ""
         txtP10P1.text = ""
         txtP10P1_1.text = ""
-        txtP10P1_2.text = ""
+//        txtP10P1_2.text = ""
         txtP10P2.text = ""
         txtP10P2_1.text = ""
-        txtP10P2_2.text = ""
+//        txtP10P2_2.text = ""
         txtP10P3.text = ""
         txtP10P3_1.text = ""
-        txtP10P3_2.text = ""
+//        txtP10P3_2.text = ""
         txtP10P4.text = ""
         txtP10P4_1.text = ""
-        txtP10P4_2.text = ""
+//        txtP10P4_2.text = ""
     }
     
     // スコア読み込み
@@ -2046,6 +2054,7 @@ class GolfInputScore2: UIViewController,
             }
             txtP10P1_1.text = total_pad.description
             
+#if false
             // 自分のスコア(ACT)
             if 0 <= roundData.score_my_act[0] {
                 txtP1P1_2.text = roundData.score_my_act[0].description
@@ -2081,6 +2090,7 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P1_2.text = total_act.description
+#endif
             
             // 二人目のスコア=====================================
             if 0 <= roundData.score_2[0] {
@@ -2153,7 +2163,8 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P2_1.text = total_pad.description
-            
+
+#if false
             // 自分のスコア(ACT)
             if 0 <= roundData.score_2_act[0] {
                 txtP1P2_2.text = roundData.score_2_act[0].description
@@ -2189,7 +2200,8 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P2_2.text = total_act.description
-
+#endif
+            
             // 三人目のスコア=====================================
             if 0 <= roundData.score_3[0] {
                 txtP1P3.text = roundData.score_3[0].description
@@ -2261,7 +2273,8 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P3_1.text = total_pad.description
-            
+
+#if false
             // 自分のスコア(ACT)
             if 0 <= roundData.score_3_act[0] {
                 txtP1P3_2.text = roundData.score_3_act[0].description
@@ -2297,6 +2310,7 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P3_2.text = total_act.description
+#endif
             
             // 四人目のスコア=====================================
             if 0 <= roundData.score_4[0] {
@@ -2370,6 +2384,7 @@ class GolfInputScore2: UIViewController,
             }
             txtP10P4_1.text = total_pad.description
             
+#if false
             // 自分のスコア(ACT)
             if 0 <= roundData.score_4_act[0] {
                 txtP1P4_2.text = roundData.score_4_act[0].description
@@ -2405,7 +2420,7 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P4_2.text = total_act.description
-
+#endif
         }
         else {
             lblHole1.text = "10"
@@ -2526,6 +2541,7 @@ class GolfInputScore2: UIViewController,
             }
             txtP10P1_1.text = total_pad.description
             
+#if false
             // 自分のスコア(ACT)
             if 0 <= roundData.score_my_act[9] {
                 txtP1P1_2.text = roundData.score_my_act[9].description
@@ -2561,7 +2577,7 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P1_2.text = total_act.description
-            
+#endif
             // 二人目のスコア=====================================
             if 0 <= roundData.score_2[9] {
                 txtP1P2.text = roundData.score_2[9].description
@@ -2633,7 +2649,8 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P2_1.text = total_pad.description
-            
+
+#if false
             // 二人目のスコア(ACT)
             if 0 <= roundData.score_2_act[9] {
                 txtP1P2_2.text = roundData.score_2_act[9].description
@@ -2669,7 +2686,8 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P2_2.text = total_act.description
-
+#endif
+            
             // 三人目のスコア=====================================
             if 0 <= roundData.score_3[9] {
                 txtP1P3.text = roundData.score_3[9].description
@@ -2741,7 +2759,8 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P3_1.text = total_pad.description
-            
+
+#if false
             // 三人目のスコア(ACT)
             if 0 <= roundData.score_3_act[9] {
                 txtP1P3_2.text = roundData.score_3_act[9].description
@@ -2777,7 +2796,8 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P3_2.text = total_act.description
-
+#endif
+            
             // 四人目のスコア=====================================
             if 0 <= roundData.score_4[9] {
                 txtP1P4.text = roundData.score_4[9].description
@@ -2850,6 +2870,7 @@ class GolfInputScore2: UIViewController,
             }
             txtP10P4_1.text = total_pad.description
             
+#if false
             // 四人目のスコア(ACT)
             if 0 <= roundData.score_4_act[9] {
                 txtP1P4_2.text = roundData.score_4_act[9].description
@@ -2885,6 +2906,7 @@ class GolfInputScore2: UIViewController,
                 }
             }
             txtP10P4_2.text = total_act.description
+#endif
         }
     }
     
@@ -3026,6 +3048,7 @@ class GolfInputScore2: UIViewController,
             score_my_pad[8] = input!
         }
 
+#if false
         // 本人のスコア(ACT)
         input = Int(txtP1P1_2.text!.description)
         if (nil != input) {
@@ -3063,7 +3086,8 @@ class GolfInputScore2: UIViewController,
         if (nil != input) {
             score_my_act[8] = input!
         }
-
+#endif
+        
         // 二人目のスコア=================================
         name_2 = lblName2.text!
         input = Int(txtP1P2.text!.description)
@@ -3141,6 +3165,7 @@ class GolfInputScore2: UIViewController,
             score_2_pad[8] = input!
         }
 
+#if false
         // 二人目のスコア(ACT)
         input = Int(txtP1P2_2.text!.description)
         if (nil != input) {
@@ -3178,7 +3203,8 @@ class GolfInputScore2: UIViewController,
         if (nil != input) {
             score_2_act[8] = input!
         }
-
+#endif
+        
         // 三人目のスコア=================================
         name_3 = lblName3.text!
         input = Int(txtP1P3.text!.description)
@@ -3256,6 +3282,7 @@ class GolfInputScore2: UIViewController,
             score_3_pad[8] = input!
         }
 
+#if false
         // 三人目のスコア(ACT)
         input = Int(txtP1P3_2.text!.description)
         if (nil != input) {
@@ -3293,6 +3320,7 @@ class GolfInputScore2: UIViewController,
         if (nil != input) {
             score_3_act[8] = input!
         }
+#endif
         
         // 四人目のスコア=================================
         name_4 = lblName4.text!
@@ -3371,6 +3399,7 @@ class GolfInputScore2: UIViewController,
             score_4_pad[8] = input!
         }
 
+#if false
         // 四人目のスコア(ACT)
         input = Int(txtP1P4_2.text!.description)
         if (nil != input) {
@@ -3408,6 +3437,7 @@ class GolfInputScore2: UIViewController,
         if (nil != input) {
             score_4_act[8] = input!
         }
+#endif
         
         // 全スコアの保存
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate

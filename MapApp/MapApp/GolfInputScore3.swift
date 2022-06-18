@@ -35,16 +35,16 @@ class GolfInputScore3: UIViewController,
     var txtPar1 = UITextField()
     var txtP1P1 = UITextField()
     var txtP1P1_1 = UITextField()
-    var txtP1P1_2 = UITextField()
+//    var txtP1P1_2 = UITextField()
     var txtP1P2 = UITextField()
     var txtP1P2_1 = UITextField()
-    var txtP1P2_2 = UITextField()
+//    var txtP1P2_2 = UITextField()
     var txtP1P3 = UITextField()
     var txtP1P3_1 = UITextField()
-    var txtP1P3_2 = UITextField()
+//    var txtP1P3_2 = UITextField()
     var txtP1P4 = UITextField()
     var txtP1P4_1 = UITextField()
-    var txtP1P4_2 = UITextField()
+//    var txtP1P4_2 = UITextField()
 
 
     override func viewDidLoad()
@@ -143,15 +143,15 @@ class GolfInputScore3: UIViewController,
         txtP1P1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P1)
 
-        txtP1P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight/2)
+        txtP1P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P1_1.layer.borderWidth = 1
         txtP1P1_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P1_1)
 
-        txtP1P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP1P1_2.layer.borderWidth = 1
-        txtP1P1_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP1P1_2)
+//        txtP1P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP1P1_2.layer.borderWidth = 1
+//        txtP1P1_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP1P1_2)
 
         // Player2
         txtP1P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
@@ -159,15 +159,15 @@ class GolfInputScore3: UIViewController,
         txtP1P2.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P2)
 
-        txtP1P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight/2)
+        txtP1P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P2_1.layer.borderWidth = 1
         txtP1P2_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P2_1)
 
-        txtP1P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP1P2_2.layer.borderWidth = 1
-        txtP1P2_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP1P2_2)
+//        txtP1P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP1P2_2.layer.borderWidth = 1
+//        txtP1P2_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP1P2_2)
 
         // Player3
         txtP1P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
@@ -175,15 +175,15 @@ class GolfInputScore3: UIViewController,
         txtP1P3.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P3)
 
-        txtP1P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight/2)
+        txtP1P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P3_1.layer.borderWidth = 1
         txtP1P3_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P3_1)
 
-        txtP1P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP1P3_2.layer.borderWidth = 1
-        txtP1P3_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP1P3_2)
+//        txtP1P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+//        txtP1P3_2.layer.borderWidth = 1
+//        txtP1P3_2.textAlignment = NSTextAlignment.center
+//        self.view.addSubview(txtP1P3_2)
 
         // Player4
         txtP1P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
@@ -191,15 +191,15 @@ class GolfInputScore3: UIViewController,
         txtP1P4.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P4)
 
-        txtP1P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight/2)
+        txtP1P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P4_1.layer.borderWidth = 1
         txtP1P4_1.textAlignment = NSTextAlignment.center
         self.view.addSubview(txtP1P4_1)
 
-        txtP1P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
-        txtP1P4_2.layer.borderWidth = 1
-        txtP1P4_2.textAlignment = NSTextAlignment.center
-        self.view.addSubview(txtP1P4_2)
+  //      txtP1P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
+  //      txtP1P4_2.layer.borderWidth = 1
+  //      txtP1P4_2.textAlignment = NSTextAlignment.center
+  //      self.view.addSubview(txtP1P4_2)
         
         // 削除、保存ボタン表示 Line2 ==============================
         btnDelete = UIButton(type: UIButton.ButtonType.system)
@@ -293,16 +293,16 @@ class GolfInputScore3: UIViewController,
         txtPar1.text = par.description
         txtP1P1.text = P1P1.description
         txtP1P1_1.text = P1P1_1.description
-        txtP1P1_2.text = P1P1_2.description
+//        txtP1P1_2.text = P1P1_2.description
         txtP1P2.text = P1P2.description
         txtP1P2_1.text = P1P2_1.description
-        txtP1P2_2.text = P1P2_2.description
+//        txtP1P2_2.text = P1P2_2.description
         txtP1P3.text = P1P3.description
         txtP1P3_1.text = P1P3_1.description
-        txtP1P3_2.text = P1P3_2.description
+//        txtP1P3_2.text = P1P3_2.description
         txtP1P4.text = P1P4.description
         txtP1P4_1.text = P1P4_1.description
-        txtP1P4_2.text = P1P4_2.description
+//        txtP1P4_2.text = P1P4_2.description
     }
 
     // < ボタンを押下した時の処理
