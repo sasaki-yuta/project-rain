@@ -169,6 +169,7 @@
                         <outlet property="tableView" destination="HHJ-rf-s3j" id="1Fu-V4-VbT"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="toViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="EEX-i9-oU7"/>
                         <segue destination="i4T-Ff-ugt" kind="presentation" identifier="GolfManageScore" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="7m6-WA-u9S"/>
+                        <segue destination="ExQ-H6-Ve2" kind="presentation" identifier="toGolfInputScore2" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="nbI-W9-GXR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s1O-Pp-h5a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1502,9 +1503,9 @@
         <segue reference="ofk-iG-fGN"/>
         <segue reference="qzy-np-p9Q"/>
         <segue reference="EEX-i9-oU7"/>
-        <segue reference="eMn-SQ-pFo"/>
+        <segue reference="nbI-W9-GXR"/>
         <segue reference="6Dm-qH-JPG"/>
-        <segue reference="fsK-eR-Og3"/>
+        <segue reference="7m6-WA-u9S"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="groupTableViewBackgroundColor">

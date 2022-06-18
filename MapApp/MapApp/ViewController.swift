@@ -459,7 +459,7 @@ class ViewController:   UIViewController,
             self.performSegue(withIdentifier: "toGolfInputScore", sender: nil)
         }
         else {
-            // スコア入力中でない場合はスコア入力画面
+            // スコア入力中の場合はスコア入力画面
             self.performSegue(withIdentifier: "toGolfInputScore2", sender: nil)
         }
     }

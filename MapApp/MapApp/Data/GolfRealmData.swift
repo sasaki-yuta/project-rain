@@ -83,6 +83,56 @@ class GolfRealmControl: NSObject {
         return realmGolfRoundData
     }
 
+    // スコア一覧から詳細を確認するときに選択したスコアをラウンド中データに設定する
+    func setGolfCource(_ pid:String) {
+        // 指定されたラウンドデータを検索
+        let inputList = realm.objects(GolfRoundData.self).filter("pid == %@", pid)
+        let input = inputList[0]
+        
+        // ラウンド中のデータがあれば削除(ラウンド終了しないと一覧に出ないため通常はありえないケース)
+        let realmRoundData = realm.objects(GolfOneRoundData.self)
+        if 0 < realmRoundData.count {
+            try! realm.write {
+                realm.delete(realmRoundData)
+            }
+        }
+        
+        // ラウンド中データにコピー
+        let setdata = GolfOneRoundData()
+        setdata.create()
+        
+        setdata.pid = input.pid                     // 主キー
+        setdata.courseName = input.courseName       // ゴルフ場名
+        setdata.courseAdr = input.courseAdr         // ゴルフ場住所
+        setdata.roundDate = input.roundDate         // 日時 @objc dynamic var value = Date()
+        setdata.lon = input.lon                     // ゴルフ場の座標
+        setdata.lat = input.lat                     // ゴルフ場の座標
+        setdata.par_num = input.par_num             // Par
+
+        setdata.score_my = input.score_my           // 本人のスコア
+        setdata.score_my_pad = input.score_my_pad   // 本人のスコア
+        setdata.score_my_act = input.score_my_act   // 本人のスコア
+
+        setdata.name_2 = input.name_2               // 二人目名前
+        setdata.score_2 = input.score_2             // 二人目スコア
+        setdata.score_2_pad = input.score_2_pad     // 二人目スコア
+        setdata.score_2_act = input.score_2_act     // 二人目スコア
+        
+        setdata.name_3 = input.name_3               // 三人目名前
+        setdata.score_3 = input.score_3             // 三人目スコア
+        setdata.score_3_pad = input.score_3_pad     // 三人目スコア
+        setdata.score_3_act = input.score_3_act     // 三人目スコア
+        
+        setdata.name_4 = input.name_4               // 四人目名前
+        setdata.score_4 = input.score_4             // 四人目スコア
+        setdata.score_4_pad = input.score_4_pad     // 四人目スコア
+        setdata.score_4_act = input.score_4_act     // 四人目スコア
+        
+        try! realm.write {
+            realm.add(setdata)
+        }
+    }
+    
     // ゴルフコース設定 View GolfInputScoreで入力した情報を保存する
     func setGolfCource(_ course: String, _ adr: String, _ date: String, _ lon: Double, _ lat: Double) {
         // realmから取得する
@@ -138,6 +188,10 @@ class GolfRealmControl: NSObject {
         let realmRoundData = realm.objects(GolfOneRoundData.self)
         if 0 < realmRoundData.count {
             try! realm.write {
+                let realmGolfRoundData = realm.objects(GolfRoundData.self).filter("pid == %@", realmRoundData[0].pid)
+                if 0 < realmGolfRoundData.count {
+                    realm.delete(realmGolfRoundData)
+                }
                 let addData = GolfRoundData()
                 addData.courseAdr = realmRoundData[0].courseAdr
                 addData.courseName = realmRoundData[0].courseName
@@ -212,8 +266,9 @@ class GolfRealmControl: NSObject {
                         addData.s_tipin_num += 1
                     }
                 }
-                
+                // 保存する前に同じID(編集前)のデータを削除する
                 realm.add(addData)
+                // ラウンド中(または編集中のデータを削除する)
                 realm.delete(realmRoundData)
             }
         }

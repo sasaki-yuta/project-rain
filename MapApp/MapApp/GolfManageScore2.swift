@@ -170,8 +170,25 @@ class GolfManageScore2: UIViewController,
     // 左へスワイプ
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "参照") { (action, view, completionHandler) in
-            // なんか処理
             
+            let alert = UIAlertController(title: "確認", message: "ラウンド中のデータが削除されますが良いですか？", preferredStyle: .alert)
+                    let action1 = UIAlertAction(title: "はい", style: .default, handler: { (_) in
+                        // realmにラウンド中データとして設定する
+                        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.golfRealmData.setGolfCource(self.data[indexPath.row][3])
+
+                        completionHandler(true) // 処理成功時はtrue/失敗時はfalseを設定する
+                        
+                        // スコア入力中の場合はスコア入力画面
+                        self.performSegue(withIdentifier: "toGolfInputScore2", sender: nil)
+                    })
+                    let action2 = UIAlertAction(title: "いいえ", style: .default, handler: { (_) in
+                        // 何もしない
+                    })
+                    alert.addAction(action1)
+                    alert.addAction(action2)
+            self.present(alert, animated: true, completion: nil)
+                
             completionHandler(true) // 処理成功時はtrue/失敗時はfalseを設定する
         }
         let configuration = UISwipeActionsConfiguration(actions: [action])
