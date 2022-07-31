@@ -314,19 +314,37 @@ class GolfInputScore3: UIViewController,
     // 削除 ボタンを押下した時の処理
     @IBAction func btnDelete(_ sender: Any)
     {
-        // realmからラウンド中データを削除
-        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.golfRealmData.deleteGolfCource()
-        
-        self.performSegue(withIdentifier: "toViewController", sender: nil)
+        let alert = UIAlertController(title: "確認", message: "本当に削除しますか？", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "はい", style: .default, handler: { (_) in
+            // realmからラウンド中データを削除
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.golfRealmData.deleteGolfCource()
+            
+            self.performSegue(withIdentifier: "toViewController", sender: nil)
+        })
+        let action2 = UIAlertAction(title: "いいえ", style: .default, handler: { (_) in
+            // 何もしない
+        })
+        alert.addAction(action1)
+        alert.addAction(action2)
+        self.present(alert, animated: true, completion: nil)
     }
 
     // 保存 ボタンを押下した時の処理
     @IBAction func btnSave(_ sender: Any)
     {
-        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.golfRealmData.saveGolfCource()
-        self.performSegue(withIdentifier: "toViewController", sender: nil)
+        let alert = UIAlertController(title: "確認", message: "終了してスコア一覧に登録しますか？\n後で一覧から編集できます。", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "はい", style: .default, handler: { (_) in
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.golfRealmData.saveGolfCource()
+            self.performSegue(withIdentifier: "toViewController", sender: nil)
+        })
+        let action2 = UIAlertAction(title: "いいえ", style: .default, handler: { (_) in
+            // 何もしない
+        })
+        alert.addAction(action1)
+        alert.addAction(action2)
+        self.present(alert, animated: true, completion: nil)
     }
 
     // 戻るボタンを押下した時の処理

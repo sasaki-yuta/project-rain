@@ -15,6 +15,7 @@ class GolfManageScore2: UIViewController,
                         UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
+    var helpBtn: UIButton!
 
     var rithtBtn = UIButton(type: UIButton.ButtonType.system)
     var delBtn = UIButton(type: UIButton.ButtonType.system)
@@ -78,17 +79,41 @@ class GolfManageScore2: UIViewController,
         // スコア分析ボタン表示
         rithtBtn.addTarget(self, action: #selector(btnStart(_:)), for: UIControl.Event.touchUpInside)
         rithtBtn.setTitle("スコア分析", for: UIControl.State.normal)
-        rithtBtn.frame = CGRect(x:width - 100, y:44, width:30, height:30)
+        rithtBtn.frame = CGRect(x:width - 120, y:44, width:30, height:30)
         rithtBtn.sizeToFit() // サイズを決める(自動調整)
         self.view.addSubview(rithtBtn)
+        
+        // helpボタン
+        helpBtn = UIButton(type: UIButton.ButtonType.detailDisclosure)
+        helpBtn.frame = CGRect(x:width - 40, y:50, width:18, height:18)
+        helpBtn.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor // 背景色
+        helpBtn.layer.masksToBounds = false
+        helpBtn.layer.shadowColor = UIColor.black.cgColor
+        helpBtn.layer.shadowOffset = CGSize(width: 2, height: 2)
+        helpBtn.layer.shadowOpacity = 0.2
+        helpBtn.layer.shadowRadius = 3 // ぼかし
+        helpBtn.layer.cornerRadius = 5.0 // 角丸のサイズ
+        helpBtn.addTarget(self, action: #selector(helpBtnThouchDown(_:)), for: UIControl.Event.touchUpInside)
+        self.view.addSubview(helpBtn)
     }
-
+    
+    // helpボタンを押下した時の処理
+    @IBAction func helpBtnThouchDown(_ sender: Any)
+    {
+        let alert = UIAlertController(title: "操作方法", message: "スコアを選択し、「右スワイプ：削除ボタン」、「左スワイプ：参照ボタン」を表示します。", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "はい", style: .default, handler: { (_) in
+            
+        })
+        alert.addAction(action1)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     // スコア一分析 ボタンを押下した時の処理
     @IBAction func btnStart(_ sender: Any)
     {
         // スコア一覧画面表示
         self.performSegue(withIdentifier: "GolfManageScore", sender: nil)
-                }
+    }
     
     // セルの個数を指定するデリゲートメソッド（必須）
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -171,7 +196,7 @@ class GolfManageScore2: UIViewController,
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "参照") { (action, view, completionHandler) in
             
-            let alert = UIAlertController(title: "確認", message: "ラウンド中のデータが削除されますが良いですか？", preferredStyle: .alert)
+            let alert = UIAlertController(title: "確認", message: "ラウンド中のデータがあれば削除されますが良いですか？", preferredStyle: .alert)
                     let action1 = UIAlertAction(title: "はい", style: .default, handler: { (_) in
                         // realmにラウンド中データとして設定する
                         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate

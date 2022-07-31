@@ -117,7 +117,7 @@ class GolfManageScore: UIViewController,
         // スコア一蘭ボタン表示
         rithtBtn.addTarget(self, action: #selector(btnStart(_:)), for: UIControl.Event.touchUpInside)
         rithtBtn.setTitle("スコア一覧", for: UIControl.State.normal)
-        rithtBtn.frame = CGRect(x:width - 100, y:44, width:30, height:30)
+        rithtBtn.frame = CGRect(x:width - 120, y:44, width:30, height:30)
         rithtBtn.sizeToFit() // サイズを決める(自動調整)
         self.view.addSubview(rithtBtn)
         

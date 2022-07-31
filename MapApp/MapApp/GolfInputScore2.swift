@@ -189,7 +189,11 @@ class GolfInputScore2: UIViewController,
     var txtP10P4 = UILabel()
     var txtP10P4_1 = UILabel()
 //    var txtP10P4_2 = UILabel()
+    
+    // 数値キーボードのinputAccesoryViewに入れるtoolbar
+    var toolbarDone = UIToolbar()
 
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -335,6 +339,21 @@ class GolfInputScore2: UIViewController,
         txtP9P4_1.delegate = self
 //        txtP9P4_2.delegate = self
 
+
+        // 数値キーボードの完了ボタンを右寄せにする為に、左側を埋めるスペース作成
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                    target: nil,
+                                    action: nil)
+        // 数値キーボードの完了ボタンを作成
+        let done = UIBarButtonItem(title: "完了",
+                                   style: .done,
+                                   target: self,
+                                   action: #selector(didTapDoneButton))
+
+        // 数値キーボードのtoolbarのitemsに作成したスペースと完了ボタンを入れる。実際にも左から順に表示されます。
+        toolbarDone.items = [space, done]
+        toolbarDone.sizeToFit()
+        
         
         let dispSize: CGSize = UIScreen.main.bounds.size
         let width = Int(dispSize.width)
@@ -405,33 +424,44 @@ class GolfInputScore2: UIViewController,
         txtPar1.frame = CGRect(x:(itemWidth*1), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtPar1.layer.borderWidth = 1
         txtPar1.textAlignment = NSTextAlignment.center
+        txtPar1.keyboardType = UIKeyboardType.numberPad
+        txtPar1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtPar1)
         
         // Player1
         txtP1P1.frame = CGRect(x:(itemWidth*2)-(itemWidth/2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P1.layer.borderWidth = 1
         txtP1P1.textAlignment = NSTextAlignment.center
+        txtP1P1.keyboardType = UIKeyboardType.numberPad
+        txtP1P1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP1P1)
 
         txtP1P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P1_1.layer.borderWidth = 1
         txtP1P1_1.textAlignment = NSTextAlignment.center
+        txtP1P1_1.keyboardType = UIKeyboardType.numberPad
+        txtP1P1_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP1P1_1)
 
 //        txtP1P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
 //        txtP1P1_2.layer.borderWidth = 1
 //        txtP1P1_2.textAlignment = NSTextAlignment.center
+//        txtP1P1_2.keyboardType = UIKeyboardType.numberPad
 //        self.view.addSubview(txtP1P1_2)
 
         // Player2
         txtP1P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P2.layer.borderWidth = 1
         txtP1P2.textAlignment = NSTextAlignment.center
+        txtP1P2.keyboardType = UIKeyboardType.numberPad
+        txtP1P2.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP1P2)
 
         txtP1P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P2_1.layer.borderWidth = 1
         txtP1P2_1.textAlignment = NSTextAlignment.center
+        txtP1P2_1.keyboardType = UIKeyboardType.numberPad
+        txtP1P2_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP1P2_1)
 
 //        txtP1P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -443,11 +473,15 @@ class GolfInputScore2: UIViewController,
         txtP1P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P3.layer.borderWidth = 1
         txtP1P3.textAlignment = NSTextAlignment.center
+        txtP1P3.keyboardType = UIKeyboardType.numberPad
+        txtP1P3.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP1P3)
 
         txtP1P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P3_1.layer.borderWidth = 1
         txtP1P3_1.textAlignment = NSTextAlignment.center
+        txtP1P3_1.keyboardType = UIKeyboardType.numberPad
+        txtP1P3_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP1P3_1)
 
 //        txtP1P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -459,11 +493,15 @@ class GolfInputScore2: UIViewController,
         txtP1P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P4.layer.borderWidth = 1
         txtP1P4.textAlignment = NSTextAlignment.center
+        txtP1P4.keyboardType = UIKeyboardType.numberPad
+        txtP1P4.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP1P4)
 
         txtP1P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*1), width:(itemWidth/2), height:itemHeight)
         txtP1P4_1.layer.borderWidth = 1
         txtP1P4_1.textAlignment = NSTextAlignment.center
+        txtP1P4_1.keyboardType = UIKeyboardType.numberPad
+        txtP1P4_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP1P4_1)
 
 //        txtP1P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*2)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -481,17 +519,23 @@ class GolfInputScore2: UIViewController,
         txtPar2.frame = CGRect(x:(itemWidth*1), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtPar2.layer.borderWidth = 1
         txtPar2.textAlignment = NSTextAlignment.center
+        txtPar2.keyboardType = UIKeyboardType.numberPad
+        txtPar2.inputAccessoryView = toolbarDone
         self.view.addSubview(txtPar2)
         
         // Player1
         txtP2P1.frame = CGRect(x:(itemWidth*2)-(itemWidth/2), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P1.layer.borderWidth = 1
         txtP2P1.textAlignment = NSTextAlignment.center
+        txtP2P1.keyboardType = UIKeyboardType.numberPad
+        txtP2P1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP2P1)
 
         txtP2P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P1_1.layer.borderWidth = 1
         txtP2P1_1.textAlignment = NSTextAlignment.center
+        txtP2P1_1.keyboardType = UIKeyboardType.numberPad
+        txtP2P1_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP2P1_1)
 
 //        txtP2P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -503,11 +547,15 @@ class GolfInputScore2: UIViewController,
         txtP2P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P2.layer.borderWidth = 1
         txtP2P2.textAlignment = NSTextAlignment.center
+        txtP2P2.keyboardType = UIKeyboardType.numberPad
+        txtP2P2.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP2P2)
 
         txtP2P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P2_1.layer.borderWidth = 1
         txtP2P2_1.textAlignment = NSTextAlignment.center
+        txtP2P2_1.keyboardType = UIKeyboardType.numberPad
+        txtP2P2_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP2P2_1)
 
 //        txtP2P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -519,11 +567,15 @@ class GolfInputScore2: UIViewController,
         txtP2P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P3.layer.borderWidth = 1
         txtP2P3.textAlignment = NSTextAlignment.center
+        txtP2P3.keyboardType = UIKeyboardType.numberPad
+        txtP2P3.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP2P3)
 
         txtP2P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P3_1.layer.borderWidth = 1
         txtP2P3_1.textAlignment = NSTextAlignment.center
+        txtP2P3_1.keyboardType = UIKeyboardType.numberPad
+        txtP2P3_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP2P3_1)
 
 //        txtP2P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -535,11 +587,15 @@ class GolfInputScore2: UIViewController,
         txtP2P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P4.layer.borderWidth = 1
         txtP2P4.textAlignment = NSTextAlignment.center
+        txtP2P4.keyboardType = UIKeyboardType.numberPad
+        txtP2P4.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP2P4)
 
         txtP2P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*2), width:(itemWidth/2), height:itemHeight)
         txtP2P4_1.layer.borderWidth = 1
         txtP2P4_1.textAlignment = NSTextAlignment.center
+        txtP2P4_1.keyboardType = UIKeyboardType.numberPad
+        txtP2P4_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP2P4_1)
 
 //        txtP2P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*3)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -557,17 +613,23 @@ class GolfInputScore2: UIViewController,
         txtPar3.frame = CGRect(x:(itemWidth*1), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtPar3.layer.borderWidth = 1
         txtPar3.textAlignment = NSTextAlignment.center
+        txtPar3.keyboardType = UIKeyboardType.numberPad
+        txtPar3.inputAccessoryView = toolbarDone
         self.view.addSubview(txtPar3)
 
         // Player1
         txtP3P1.frame = CGRect(x:(itemWidth*2)-(itemWidth/2), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P1.layer.borderWidth = 1
         txtP3P1.textAlignment = NSTextAlignment.center
+        txtP3P1.keyboardType = UIKeyboardType.numberPad
+        txtP3P1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP3P1)
 
         txtP3P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P1_1.layer.borderWidth = 1
         txtP3P1_1.textAlignment = NSTextAlignment.center
+        txtP3P1_1.keyboardType = UIKeyboardType.numberPad
+        txtP3P1_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP3P1_1)
 
 //        txtP3P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -579,11 +641,15 @@ class GolfInputScore2: UIViewController,
         txtP3P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P2.layer.borderWidth = 1
         txtP3P2.textAlignment = NSTextAlignment.center
+        txtP3P2.keyboardType = UIKeyboardType.numberPad
+        txtP3P2.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP3P2)
 
         txtP3P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P2_1.layer.borderWidth = 1
         txtP3P2_1.textAlignment = NSTextAlignment.center
+        txtP3P2_1.keyboardType = UIKeyboardType.numberPad
+        txtP3P2_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP3P2_1)
 
 //        txtP3P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -595,11 +661,15 @@ class GolfInputScore2: UIViewController,
         txtP3P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P3.layer.borderWidth = 1
         txtP3P3.textAlignment = NSTextAlignment.center
+        txtP3P3.keyboardType = UIKeyboardType.numberPad
+        txtP3P3.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP3P3)
 
         txtP3P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P3_1.layer.borderWidth = 1
         txtP3P3_1.textAlignment = NSTextAlignment.center
+        txtP3P3_1.keyboardType = UIKeyboardType.numberPad
+        txtP3P3_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP3P3_1)
 
 //        txtP3P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -611,11 +681,15 @@ class GolfInputScore2: UIViewController,
         txtP3P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P4.layer.borderWidth = 1
         txtP3P4.textAlignment = NSTextAlignment.center
+        txtP3P4.keyboardType = UIKeyboardType.numberPad
+        txtP3P4.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP3P4)
 
         txtP3P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*3), width:(itemWidth/2), height:itemHeight)
         txtP3P4_1.layer.borderWidth = 1
         txtP3P4_1.textAlignment = NSTextAlignment.center
+        txtP3P4_1.keyboardType = UIKeyboardType.numberPad
+        txtP3P4_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP3P4_1)
 
 //        txtP3P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*4)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -633,17 +707,23 @@ class GolfInputScore2: UIViewController,
         txtPar4.frame = CGRect(x:(itemWidth*1), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtPar4.layer.borderWidth = 1
         txtPar4.textAlignment = NSTextAlignment.center
+        txtPar4.keyboardType = UIKeyboardType.numberPad
+        txtPar4.inputAccessoryView = toolbarDone
         self.view.addSubview(txtPar4)
         
         // Player1
         txtP4P1.frame = CGRect(x:(itemWidth*2)-(itemWidth/2), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P1.layer.borderWidth = 1
         txtP4P1.textAlignment = NSTextAlignment.center
+        txtP4P1.keyboardType = UIKeyboardType.numberPad
+        txtP4P1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP4P1)
 
         txtP4P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P1_1.layer.borderWidth = 1
         txtP4P1_1.textAlignment = NSTextAlignment.center
+        txtP4P1_1.keyboardType = UIKeyboardType.numberPad
+        txtP4P1_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP4P1_1)
 
 //        txtP4P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -655,11 +735,15 @@ class GolfInputScore2: UIViewController,
         txtP4P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P2.layer.borderWidth = 1
         txtP4P2.textAlignment = NSTextAlignment.center
+        txtP4P2.keyboardType = UIKeyboardType.numberPad
+        txtP4P2.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP4P2)
 
         txtP4P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P2_1.layer.borderWidth = 1
         txtP4P2_1.textAlignment = NSTextAlignment.center
+        txtP4P2_1.keyboardType = UIKeyboardType.numberPad
+        txtP4P2_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP4P2_1)
 
 //        txtP4P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -671,11 +755,15 @@ class GolfInputScore2: UIViewController,
         txtP4P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P3.layer.borderWidth = 1
         txtP4P3.textAlignment = NSTextAlignment.center
+        txtP4P3.keyboardType = UIKeyboardType.numberPad
+        txtP4P3.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP4P3)
 
         txtP4P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P3_1.layer.borderWidth = 1
         txtP4P3_1.textAlignment = NSTextAlignment.center
+        txtP4P3_1.keyboardType = UIKeyboardType.numberPad
+        txtP4P3_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP4P3_1)
 
 //        txtP4P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -687,11 +775,15 @@ class GolfInputScore2: UIViewController,
         txtP4P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P4.layer.borderWidth = 1
         txtP4P4.textAlignment = NSTextAlignment.center
+        txtP4P4.keyboardType = UIKeyboardType.numberPad
+        txtP4P4.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP4P4)
 
         txtP4P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*4), width:(itemWidth/2), height:itemHeight)
         txtP4P4_1.layer.borderWidth = 1
         txtP4P4_1.textAlignment = NSTextAlignment.center
+        txtP4P4_1.keyboardType = UIKeyboardType.numberPad
+        txtP4P4_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP4P4_1)
 
 //        txtP4P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*5)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -709,17 +801,23 @@ class GolfInputScore2: UIViewController,
         txtPar5.frame = CGRect(x:(itemWidth*1), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtPar5.layer.borderWidth = 1
         txtPar5.textAlignment = NSTextAlignment.center
+        txtPar5.keyboardType = UIKeyboardType.numberPad
+        txtPar5.inputAccessoryView = toolbarDone
         self.view.addSubview(txtPar5)
         
         // Player1
         txtP5P1.frame = CGRect(x:(itemWidth*2)-(itemWidth/2), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P1.layer.borderWidth = 1
         txtP5P1.textAlignment = NSTextAlignment.center
+        txtP5P1.keyboardType = UIKeyboardType.numberPad
+        txtP5P1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP5P1)
 
         txtP5P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P1_1.layer.borderWidth = 1
         txtP5P1_1.textAlignment = NSTextAlignment.center
+        txtP5P1_1.keyboardType = UIKeyboardType.numberPad
+        txtP5P1_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP5P1_1)
 
 //        txtP5P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -731,11 +829,15 @@ class GolfInputScore2: UIViewController,
         txtP5P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P2.layer.borderWidth = 1
         txtP5P2.textAlignment = NSTextAlignment.center
+        txtP5P2.keyboardType = UIKeyboardType.numberPad
+        txtP5P2.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP5P2)
 
         txtP5P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P2_1.layer.borderWidth = 1
         txtP5P2_1.textAlignment = NSTextAlignment.center
+        txtP5P2_1.keyboardType = UIKeyboardType.numberPad
+        txtP5P2_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP5P2_1)
 
 //        txtP5P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -747,11 +849,15 @@ class GolfInputScore2: UIViewController,
         txtP5P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P3.layer.borderWidth = 1
         txtP5P3.textAlignment = NSTextAlignment.center
+        txtP5P3.keyboardType = UIKeyboardType.numberPad
+        txtP5P3.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP5P3)
 
         txtP5P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P3_1.layer.borderWidth = 1
         txtP5P3_1.textAlignment = NSTextAlignment.center
+        txtP5P3_1.keyboardType = UIKeyboardType.numberPad
+        txtP5P3_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP5P3_1)
 
 //        txtP5P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -763,11 +869,15 @@ class GolfInputScore2: UIViewController,
         txtP5P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P4.layer.borderWidth = 1
         txtP5P4.textAlignment = NSTextAlignment.center
+        txtP5P4.keyboardType = UIKeyboardType.numberPad
+        txtP5P4.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP5P4)
 
         txtP5P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*5), width:(itemWidth/2), height:itemHeight)
         txtP5P4_1.layer.borderWidth = 1
         txtP5P4_1.textAlignment = NSTextAlignment.center
+        txtP5P4_1.keyboardType = UIKeyboardType.numberPad
+        txtP5P4_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP5P4_1)
 
 //        txtP5P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*6)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -785,17 +895,23 @@ class GolfInputScore2: UIViewController,
         txtPar6.frame = CGRect(x:(itemWidth*1), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtPar6.layer.borderWidth = 1
         txtPar6.textAlignment = NSTextAlignment.center
+        txtPar6.keyboardType = UIKeyboardType.numberPad
+        txtPar6.inputAccessoryView = toolbarDone
         self.view.addSubview(txtPar6)
         
         // Player1
         txtP6P1.frame = CGRect(x:(itemWidth*2)-(itemWidth/2), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P1.layer.borderWidth = 1
         txtP6P1.textAlignment = NSTextAlignment.center
+        txtP6P1.keyboardType = UIKeyboardType.numberPad
+        txtP6P1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP6P1)
 
         txtP6P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P1_1.layer.borderWidth = 1
         txtP6P1_1.textAlignment = NSTextAlignment.center
+        txtP6P1_1.keyboardType = UIKeyboardType.numberPad
+        txtP6P1_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP6P1_1)
 
 //        txtP6P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -807,11 +923,15 @@ class GolfInputScore2: UIViewController,
         txtP6P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P2.layer.borderWidth = 1
         txtP6P2.textAlignment = NSTextAlignment.center
+        txtP6P2.keyboardType = UIKeyboardType.numberPad
+        txtP6P2.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP6P2)
 
         txtP6P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P2_1.layer.borderWidth = 1
         txtP6P2_1.textAlignment = NSTextAlignment.center
+        txtP6P2_1.keyboardType = UIKeyboardType.numberPad
+        txtP6P2_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP6P2_1)
 
 //        txtP6P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -823,11 +943,15 @@ class GolfInputScore2: UIViewController,
         txtP6P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P3.layer.borderWidth = 1
         txtP6P3.textAlignment = NSTextAlignment.center
+        txtP6P3.keyboardType = UIKeyboardType.numberPad
+        txtP6P3.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP6P3)
 
         txtP6P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P3_1.layer.borderWidth = 1
         txtP6P3_1.textAlignment = NSTextAlignment.center
+        txtP6P3_1.keyboardType = UIKeyboardType.numberPad
+        txtP6P3_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP6P3_1)
 
 //        txtP6P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -839,11 +963,15 @@ class GolfInputScore2: UIViewController,
         txtP6P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P4.layer.borderWidth = 1
         txtP6P4.textAlignment = NSTextAlignment.center
+        txtP6P4.keyboardType = UIKeyboardType.numberPad
+        txtP6P4.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP6P4)
 
         txtP6P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*6), width:(itemWidth/2), height:itemHeight)
         txtP6P4_1.layer.borderWidth = 1
         txtP6P4_1.textAlignment = NSTextAlignment.center
+        txtP6P4_1.keyboardType = UIKeyboardType.numberPad
+        txtP6P4_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP6P4_1)
 
 //        txtP6P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*7)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -861,17 +989,23 @@ class GolfInputScore2: UIViewController,
         txtPar7.frame = CGRect(x:(itemWidth*1), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtPar7.layer.borderWidth = 1
         txtPar7.textAlignment = NSTextAlignment.center
+        txtPar7.keyboardType = UIKeyboardType.numberPad
+        txtPar7.inputAccessoryView = toolbarDone
         self.view.addSubview(txtPar7)
         
         // Player1
         txtP7P1.frame = CGRect(x:(itemWidth*2)-(itemWidth/2), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P1.layer.borderWidth = 1
         txtP7P1.textAlignment = NSTextAlignment.center
+        txtP7P1.keyboardType = UIKeyboardType.numberPad
+        txtP7P1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP7P1)
 
         txtP7P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P1_1.layer.borderWidth = 1
         txtP7P1_1.textAlignment = NSTextAlignment.center
+        txtP7P1_1.keyboardType = UIKeyboardType.numberPad
+        txtP7P1_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP7P1_1)
 
 //        txtP7P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -883,11 +1017,15 @@ class GolfInputScore2: UIViewController,
         txtP7P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P2.layer.borderWidth = 1
         txtP7P2.textAlignment = NSTextAlignment.center
+        txtP7P2.keyboardType = UIKeyboardType.numberPad
+        txtP7P2.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP7P2)
 
         txtP7P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P2_1.layer.borderWidth = 1
         txtP7P2_1.textAlignment = NSTextAlignment.center
+        txtP7P2_1.keyboardType = UIKeyboardType.numberPad
+        txtP7P2_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP7P2_1)
 
 //        txtP7P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -899,11 +1037,15 @@ class GolfInputScore2: UIViewController,
         txtP7P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P3.layer.borderWidth = 1
         txtP7P3.textAlignment = NSTextAlignment.center
+        txtP7P3.keyboardType = UIKeyboardType.numberPad
+        txtP7P3.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP7P3)
 
         txtP7P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P3_1.layer.borderWidth = 1
         txtP7P3_1.textAlignment = NSTextAlignment.center
+        txtP7P3_1.keyboardType = UIKeyboardType.numberPad
+        txtP7P3_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP7P3_1)
 
 //        txtP7P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -915,11 +1057,15 @@ class GolfInputScore2: UIViewController,
         txtP7P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P4.layer.borderWidth = 1
         txtP7P4.textAlignment = NSTextAlignment.center
+        txtP7P4.keyboardType = UIKeyboardType.numberPad
+        txtP7P4.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP7P4)
 
         txtP7P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*7), width:(itemWidth/2), height:itemHeight)
         txtP7P4_1.layer.borderWidth = 1
         txtP7P4_1.textAlignment = NSTextAlignment.center
+        txtP7P4_1.keyboardType = UIKeyboardType.numberPad
+        txtP7P4_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP7P4_1)
 
 //        txtP7P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*8)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -937,17 +1083,23 @@ class GolfInputScore2: UIViewController,
         txtPar8.frame = CGRect(x:(itemWidth*1), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtPar8.layer.borderWidth = 1
         txtPar8.textAlignment = NSTextAlignment.center
+        txtPar8.keyboardType = UIKeyboardType.numberPad
+        txtPar8.inputAccessoryView = toolbarDone
         self.view.addSubview(txtPar8)
         
         // Player1
         txtP8P1.frame = CGRect(x:(itemWidth*2)-(itemWidth/2), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P1.layer.borderWidth = 1
         txtP8P1.textAlignment = NSTextAlignment.center
+        txtP8P1.keyboardType = UIKeyboardType.numberPad
+        txtP8P1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP8P1)
 
         txtP8P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P1_1.layer.borderWidth = 1
         txtP8P1_1.textAlignment = NSTextAlignment.center
+        txtP8P1_1.keyboardType = UIKeyboardType.numberPad
+        txtP8P1_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP8P1_1)
 
 //        txtP8P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -959,11 +1111,15 @@ class GolfInputScore2: UIViewController,
         txtP8P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P2.layer.borderWidth = 1
         txtP8P2.textAlignment = NSTextAlignment.center
+        txtP8P2.keyboardType = UIKeyboardType.numberPad
+        txtP8P2.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP8P2)
 
         txtP8P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P2_1.layer.borderWidth = 1
         txtP8P2_1.textAlignment = NSTextAlignment.center
+        txtP8P2_1.keyboardType = UIKeyboardType.numberPad
+        txtP8P2_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP8P2_1)
 
 //        txtP8P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -975,11 +1131,15 @@ class GolfInputScore2: UIViewController,
         txtP8P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P3.layer.borderWidth = 1
         txtP8P3.textAlignment = NSTextAlignment.center
+        txtP8P3.keyboardType = UIKeyboardType.numberPad
+        txtP8P3.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP8P3)
 
         txtP8P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P3_1.layer.borderWidth = 1
         txtP8P3_1.textAlignment = NSTextAlignment.center
+        txtP8P3_1.keyboardType = UIKeyboardType.numberPad
+        txtP8P3_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP8P3_1)
 
 //        txtP8P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -991,11 +1151,15 @@ class GolfInputScore2: UIViewController,
         txtP8P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P4.layer.borderWidth = 1
         txtP8P4.textAlignment = NSTextAlignment.center
+        txtP8P4.keyboardType = UIKeyboardType.numberPad
+        txtP8P4.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP8P4)
 
         txtP8P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*8), width:(itemWidth/2), height:itemHeight)
         txtP8P4_1.layer.borderWidth = 1
         txtP8P4_1.textAlignment = NSTextAlignment.center
+        txtP8P4_1.keyboardType = UIKeyboardType.numberPad
+        txtP8P4_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP8P4_1)
 
 //        txtP8P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*9)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -1013,17 +1177,23 @@ class GolfInputScore2: UIViewController,
         txtPar9.frame = CGRect(x:(itemWidth*1), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtPar9.layer.borderWidth = 1
         txtPar9.textAlignment = NSTextAlignment.center
+        txtPar9.keyboardType = UIKeyboardType.numberPad
+        txtPar9.inputAccessoryView = toolbarDone
         self.view.addSubview(txtPar9)
         
         // Player1
         txtP9P1.frame = CGRect(x:(itemWidth*2)-(itemWidth/2), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P1.layer.borderWidth = 1
         txtP9P1.textAlignment = NSTextAlignment.center
+        txtP9P1.keyboardType = UIKeyboardType.numberPad
+        txtP9P1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP9P1)
 
         txtP9P1_1.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P1_1.layer.borderWidth = 1
         txtP9P1_1.textAlignment = NSTextAlignment.center
+        txtP9P1_1.keyboardType = UIKeyboardType.numberPad
+        txtP9P1_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP9P1_1)
 
 //        txtP9P1_2.frame = CGRect(x:(itemWidth*2), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -1035,11 +1205,15 @@ class GolfInputScore2: UIViewController,
         txtP9P2.frame = CGRect(x:(itemWidth*3)-(itemWidth/2), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P2.layer.borderWidth = 1
         txtP9P2.textAlignment = NSTextAlignment.center
+        txtP9P2.keyboardType = UIKeyboardType.numberPad
+        txtP9P2.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP9P2)
 
         txtP9P2_1.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P2_1.layer.borderWidth = 1
         txtP9P2_1.textAlignment = NSTextAlignment.center
+        txtP9P2_1.keyboardType = UIKeyboardType.numberPad
+        txtP9P2_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP9P2_1)
 
 //        txtP9P2_2.frame = CGRect(x:(itemWidth*3), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -1051,11 +1225,15 @@ class GolfInputScore2: UIViewController,
         txtP9P3.frame = CGRect(x:(itemWidth*4)-(itemWidth/2), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P3.layer.borderWidth = 1
         txtP9P3.textAlignment = NSTextAlignment.center
+        txtP9P3.keyboardType = UIKeyboardType.numberPad
+        txtP9P3.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP9P3)
 
         txtP9P3_1.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P3_1.layer.borderWidth = 1
         txtP9P3_1.textAlignment = NSTextAlignment.center
+        txtP9P3_1.keyboardType = UIKeyboardType.numberPad
+        txtP9P3_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP9P3_1)
 
 //        txtP9P3_2.frame = CGRect(x:(itemWidth*4), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -1067,11 +1245,15 @@ class GolfInputScore2: UIViewController,
         txtP9P4.frame = CGRect(x:(itemWidth*5)-(itemWidth/2), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P4.layer.borderWidth = 1
         txtP9P4.textAlignment = NSTextAlignment.center
+        txtP9P4.keyboardType = UIKeyboardType.numberPad
+        txtP9P4.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP9P4)
 
         txtP9P4_1.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*9), width:(itemWidth/2), height:itemHeight)
         txtP9P4_1.layer.borderWidth = 1
         txtP9P4_1.textAlignment = NSTextAlignment.center
+        txtP9P4_1.keyboardType = UIKeyboardType.numberPad
+        txtP9P4_1.inputAccessoryView = toolbarDone
         self.view.addSubview(txtP9P4_1)
 
 //        txtP9P4_2.frame = CGRect(x:(itemWidth*5), y:90+(itemHeight*10)-(itemHeight/2), width:(itemWidth/2), height:itemHeight/2)
@@ -1234,6 +1416,14 @@ class GolfInputScore2: UIViewController,
         updateTotal()
         self.view.endEditing(true)
     }
+    
+    // 数値キーボードの完了ボタンを押した時の処理
+    @objc func didTapDoneButton() {
+        // 合計値を更新する
+        updateTotal()
+        self.view.endEditing(true)
+    }
+
 
     // 合計値を更新する
     func updateTotal() {

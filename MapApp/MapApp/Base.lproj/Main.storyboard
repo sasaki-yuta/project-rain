@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2XO-JZ-fI6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2XO-JZ-fI6">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1499,13 +1499,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="iXs-S6-MH1"/>
-        <segue reference="ofk-iG-fGN"/>
-        <segue reference="qzy-np-p9Q"/>
+        <segue reference="KNn-Zj-7yF"/>
+        <segue reference="ZTp-PD-svD"/>
+        <segue reference="0NO-hH-99i"/>
         <segue reference="EEX-i9-oU7"/>
-        <segue reference="nbI-W9-GXR"/>
+        <segue reference="eMn-SQ-pFo"/>
         <segue reference="6Dm-qH-JPG"/>
-        <segue reference="7m6-WA-u9S"/>
+        <segue reference="fsK-eR-Og3"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="groupTableViewBackgroundColor">
