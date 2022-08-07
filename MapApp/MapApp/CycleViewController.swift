@@ -1353,11 +1353,13 @@ class CycleViewController:  UIViewController,
     
     // watchOSにモードを送信する
     func sendMessageMode() {
-        let contents =  ["RESP":"MODE", "title":"サイクルモード"] as [String : Any]
-        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
-            print ("receive from apple watch");
-        }) { (error) -> Void in
-            print(error)
+        if (WCSession.isSupported()) {
+            let contents =  ["RESP":"MODE", "title":"サイクルモード"] as [String : Any]
+            self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+                print ("receive from apple watch");
+            }) { (error) -> Void in
+                print(error)
+            }
         }
     }
     
@@ -1391,12 +1393,14 @@ class CycleViewController:  UIViewController,
             modeData += "時間 " + String(format: "%02d", hour) + ":" +  String(format: "%02d", min) + ":" +  String(format: "%02d", sec)
         }
         
-        // データ送信
-        let contents =  ["RESP":"CYCLE", "data":modeData as Any] as [String : Any]
-        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
-            print ("receive from apple watch");
-        }) { (error) -> Void in
-            print(error)
+        if (WCSession.isSupported()) {
+            // データ送信
+            let contents =  ["RESP":"CYCLE", "data":modeData as Any] as [String : Any]
+            self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+                print ("receive from apple watch");
+            }) { (error) -> Void in
+                print(error)
+            }
         }
     }
 

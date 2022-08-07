@@ -634,14 +634,15 @@ class ViewController:   UIViewController,
                     if -100000.0 != self.longTapElevation {
                         let sendMsg = "高低差：" + (round(((self.longTapElevation - elevation)*10))/10).description + " m"
                         
-                        //watchOSにメッセージ送信する
-                        let contents =  ["RESP":"HEIGHT", "STR":sendMsg] as [String : Any]
-                        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
-                            print ("receive from apple watch");
-                        }) { (error) -> Void in
-                            print(error)
+                        if (WCSession.isSupported()) {
+                            //watchOSにメッセージ送信する
+                            let contents =  ["RESP":"HEIGHT", "STR":sendMsg] as [String : Any]
+                            self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+                                print ("receive from apple watch");
+                            }) { (error) -> Void in
+                                print(error)
+                            }
                         }
-                        
                     }
                 }
             }
@@ -650,21 +651,25 @@ class ViewController:   UIViewController,
     
     // watchOSに緯度経度を送信
     func sendMessageLonLat() {
-        let contents =  ["RESP":"LONLAT", "lon":dlon as Any, "lat":dlat as Any] as [String : Any]
-        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
-            print ("receive from apple watch");
-        }) { (error) -> Void in
-            print(error)
+        if (WCSession.isSupported()) {
+            let contents =  ["RESP":"LONLAT", "lon":dlon as Any, "lat":dlat as Any] as [String : Any]
+            self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+                print ("receive from apple watch");
+            }) { (error) -> Void in
+                print(error)
+            }
         }
     }
     
     // watchOSにモードを送信する
     func sendMessageMode() {
-        let contents =  ["RESP":"MODE", "title":"ゴルフモード"] as [String : Any]
-        self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
-            print ("receive from apple watch");
-        }) { (error) -> Void in
-            print(error)
+        if (WCSession.isSupported()) {
+            let contents =  ["RESP":"MODE", "title":"ゴルフモード"] as [String : Any]
+            self.session.sendMessage(contents, replyHandler: { (replyMessage) -> Void in
+                print ("receive from apple watch");
+            }) { (error) -> Void in
+                print(error)
+            }
         }
     }
     
