@@ -1,1 +1,1 @@
-readme **
+readme unity_build_ios
