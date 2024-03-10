@@ -71,7 +71,7 @@ class ViewController:   UIViewController,
         // Do any additional setup after loading the view, typically from a nib.
         
         // Google AddMod広告
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner) //320×50
+        bannerView = GADBannerView(adSize: GADAdSizeBanner) //320×50
         addBannerViewToView(bannerView)
 
         bannerView.adUnitID = defineClass.getAddModUnitID()

@@ -52,7 +52,7 @@ class GolfInputScore3: UIViewController,
         super.viewDidLoad()
         
         // Google AddMod広告
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner) //320×50
+        bannerView = GADBannerView(adSize: GADAdSizeBanner) //320×50
         addBannerViewToView(bannerView)
         bannerView.adUnitID = defineClass.getAddModUnitID()
         bannerView.rootViewController = self

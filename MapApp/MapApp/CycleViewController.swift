@@ -343,7 +343,7 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(btnCalcSwitchDisp)
         
         // Google AddMod広告
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner) //320×50
+        bannerView = GADBannerView(adSize: GADAdSizeBanner) //320×50
         addBannerViewToView(bannerView, CGFloat(infoTopPos-25-50-50-18))
         
         // 速度

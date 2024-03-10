@@ -78,7 +78,7 @@ class InterfaceController:  WKInterfaceController,
         super.init()
 
         // ExtensionDelegateから自身のAPIをコールできる様に自分自身を登録する
-        let appDelegate: ExtensionDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+        let appDelegate: ExtensionDelegate = WKApplication.shared().delegate as! ExtensionDelegate
         appDelegate.IfController = self
         
         // CLLocationManagerのdelegateを登録

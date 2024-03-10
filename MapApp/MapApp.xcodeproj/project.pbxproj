@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -51,7 +51,6 @@
 		9BD1933722E42E2C00A44FD6 /* CycleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD1933622E42E2C00A44FD6 /* CycleViewController.swift */; };
 		9BE20C2B22338A7800ABA8ED /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE20C2922338A7800ABA8ED /* Interface.storyboard */; };
 		9BE20C2D22338A7B00ABA8ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BE20C2C22338A7B00ABA8ED /* Assets.xcassets */; };
-		9BE20C3422338A7B00ABA8ED /* MapAppWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9BE20C3322338A7B00ABA8ED /* MapAppWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9BE20C3922338A7B00ABA8ED /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE20C3822338A7B00ABA8ED /* InterfaceController.swift */; };
 		9BE20C3B22338A7B00ABA8ED /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE20C3A22338A7B00ABA8ED /* ExtensionDelegate.swift */; };
 		9BE20C3D22338A7B00ABA8ED /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE20C3C22338A7B00ABA8ED /* NotificationController.swift */; };
@@ -75,13 +74,6 @@
 			remoteGlobalIDString = 9B107B642217D74A006971FF;
 			remoteInfo = MapApp;
 		};
-		9BE20C3522338A7B00ABA8ED /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9B107B5D2217D74A006971FF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9BE20C3222338A7B00ABA8ED;
-			remoteInfo = "MapAppWatch Extension";
-		};
 		9BE20C4222338A7B00ABA8ED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9B107B5D2217D74A006971FF /* Project object */;
@@ -92,17 +84,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9BE20C4A22338A7B00ABA8ED /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				9BE20C3422338A7B00ABA8ED /* MapAppWatch Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9BE20C4C22338A7B00ABA8ED /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -175,7 +156,6 @@
 		9BE20C2A22338A7800ABA8ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		9BE20C2C22338A7B00ABA8ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BE20C2E22338A7B00ABA8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9BE20C3322338A7B00ABA8ED /* MapAppWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MapAppWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BE20C3822338A7B00ABA8ED /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		9BE20C3A22338A7B00ABA8ED /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		9BE20C3C22338A7B00ABA8ED /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
@@ -230,19 +210,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9BE20C3022338A7B00ABA8ED /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				16B414BF241F82E03C8105FD /* Pods_MapAppWatch_Extension.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E7F11550EB99DB4F4F0CED1B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				0D1D97C0F1C025FB959A09CA /* Pods_MapAppWatch.framework in Frameworks */,
+				16B414BF241F82E03C8105FD /* Pods_MapAppWatch_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +271,6 @@
 				9B107B7C2217D74C006971FF /* MapAppTests.xctest */,
 				9B107B872217D74C006971FF /* MapAppUITests.xctest */,
 				9BE20C2722338A7800ABA8ED /* Map Mode.app */,
-				9BE20C3322338A7B00ABA8ED /* MapAppWatch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -468,36 +440,18 @@
 			buildPhases = (
 				E7B7A4A98CD1BDD0A8F7C928 /* [CP] Check Pods Manifest.lock */,
 				9BE20C2522338A7800ABA8ED /* Resources */,
-				9BE20C4A22338A7B00ABA8ED /* Embed App Extensions */,
 				E7F11550EB99DB4F4F0CED1B /* Frameworks */,
+				FCE6C84D2B30E6C89D45BF39 /* [CP] Check Pods Manifest.lock */,
+				9BE20C2F22338A7B00ABA8ED /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9BE20C3622338A7B00ABA8ED /* PBXTargetDependency */,
 			);
 			name = MapAppWatch;
 			productName = MapAppWatch;
 			productReference = 9BE20C2722338A7800ABA8ED /* Map Mode.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		9BE20C3222338A7B00ABA8ED /* MapAppWatch Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9BE20C4922338A7B00ABA8ED /* Build configuration list for PBXNativeTarget "MapAppWatch Extension" */;
-			buildPhases = (
-				FCE6C84D2B30E6C89D45BF39 /* [CP] Check Pods Manifest.lock */,
-				9BE20C2F22338A7B00ABA8ED /* Sources */,
-				9BE20C3022338A7B00ABA8ED /* Frameworks */,
-				9BE20C3122338A7B00ABA8ED /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "MapAppWatch Extension";
-			productName = "MapAppWatch Extension";
-			productReference = 9BE20C3322338A7B00ABA8ED /* MapAppWatch Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -505,6 +459,7 @@
 		9B107B5D2217D74A006971FF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				KnownAssetTags = (
 					New,
 				);
@@ -528,10 +483,7 @@
 					};
 					9BE20C2622338A7800ABA8ED = {
 						CreatedOnToolsVersion = 10.1;
-					};
-					9BE20C3222338A7B00ABA8ED = {
-						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = "";
 					};
 				};
 			};
@@ -552,7 +504,6 @@
 				9B107B7B2217D74C006971FF /* MapAppTests */,
 				9B107B862217D74C006971FF /* MapAppUITests */,
 				9BE20C2622338A7800ABA8ED /* MapAppWatch */,
-				9BE20C3222338A7B00ABA8ED /* MapAppWatch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -587,15 +538,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BE20C2D22338A7B00ABA8ED /* Assets.xcassets in Resources */,
-				9BE20C2B22338A7800ABA8ED /* Interface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9BE20C3122338A7B00ABA8ED /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 				9BE20C3F22338A7B00ABA8ED /* Assets.xcassets in Resources */,
+				9BE20C2B22338A7800ABA8ED /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,11 +758,6 @@
 			target = 9B107B642217D74A006971FF /* MapApp */;
 			targetProxy = 9B107B882217D74C006971FF /* PBXContainerItemProxy */;
 		};
-		9BE20C3622338A7B00ABA8ED /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9BE20C3222338A7B00ABA8ED /* MapAppWatch Extension */;
-			targetProxy = 9BE20C3522338A7B00ABA8ED /* PBXContainerItemProxy */;
-		};
 		9BE20C4322338A7B00ABA8ED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9BE20C2622338A7800ABA8ED /* MapAppWatch */;
@@ -893,6 +832,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -907,7 +847,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MARKETING_VERSION = 1.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -915,7 +855,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Debug;
 		};
@@ -958,6 +898,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -966,7 +907,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MARKETING_VERSION = 1.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -974,7 +915,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Release;
 		};
@@ -991,7 +932,7 @@
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.53.1",
 				);
 				INFOPLIST_FILE = MapApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1017,7 +958,7 @@
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.53.1",
 				);
 				INFOPLIST_FILE = MapApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1122,11 +1063,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = KJD33B7KR7;
-				IBSC_MODULE = MapAppWatch_Extension;
 				INFOPLIST_FILE = MapAppWatch/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pf2017app.MapApp.watchkitapp;
 				PRODUCT_NAME = "Map Mode";
@@ -1134,7 +1079,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 9.6;
 			};
 			name = Debug;
 		};
@@ -1144,11 +1089,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = KJD33B7KR7;
-				IBSC_MODULE = MapAppWatch_Extension;
 				INFOPLIST_FILE = MapAppWatch/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pf2017app.MapApp.watchkitapp;
 				PRODUCT_NAME = "Map Mode";
@@ -1156,57 +1105,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
-			};
-			name = Release;
-		};
-		9BE20C4722338A7B00ABA8ED /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD43CABE145B5FCF8DA076DD /* Pods-MapAppWatch Extension.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
-				DEVELOPMENT_TEAM = KJD33B7KR7;
-				INFOPLIST_FILE = "MapAppWatch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.5;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pf2017app.MapApp.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
-			};
-			name = Debug;
-		};
-		9BE20C4822338A7B00ABA8ED /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3EB9A2208B385571B700F81 /* Pods-MapAppWatch Extension.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
-				DEVELOPMENT_TEAM = KJD33B7KR7;
-				INFOPLIST_FILE = "MapAppWatch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.5;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pf2017app.MapApp.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 9.6;
 			};
 			name = Release;
 		};
@@ -1245,15 +1144,6 @@
 			buildConfigurations = (
 				9B107B972217D74C006971FF /* Debug */,
 				9B107B982217D74C006971FF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9BE20C4922338A7B00ABA8ED /* Build configuration list for PBXNativeTarget "MapAppWatch Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9BE20C4722338A7B00ABA8ED /* Debug */,
-				9BE20C4822338A7B00ABA8ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
