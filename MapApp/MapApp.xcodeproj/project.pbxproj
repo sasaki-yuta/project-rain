@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0D1D97C0F1C025FB959A09CA /* Pods_MapAppWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6A96D4BA3CE4F963E6F507 /* Pods_MapAppWatch.framework */; };
-		16B414BF241F82E03C8105FD /* Pods_MapAppWatch_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1299E58E1038F201033E1E3B /* Pods_MapAppWatch_Extension.framework */; };
 		3A4C59E826CD3B8A002016BA /* GolfInputScore2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C59E726CD3B8A002016BA /* GolfInputScore2.swift */; };
 		3A5A3EC326DB1D9100280C89 /* GolfRealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A3EC226DB1D9100280C89 /* GolfRealmData.swift */; };
 		3A655A5C26F80A7800155D70 /* GolfInputScore3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A655A5B26F80A7800155D70 /* GolfInputScore3.swift */; };
@@ -99,7 +98,6 @@
 
 /* Begin PBXFileReference section */
 		0AF272B8F4F9DD98EB5C8498 /* Pods_MapApp_MapAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapApp_MapAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1299E58E1038F201033E1E3B /* Pods_MapAppWatch_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapAppWatch_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B28071945CD7E294D8A0FF2 /* Pods-MapApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.release.xcconfig"; path = "Target Support Files/Pods-MapApp/Pods-MapApp.release.xcconfig"; sourceTree = "<group>"; };
 		1F7B0C59E4D855F4BAB063C8 /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2D9A399AA125E1477E7DD388 /* Pods-MapAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppTests.debug.xcconfig"; path = "Target Support Files/Pods-MapAppTests/Pods-MapAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D1D97C0F1C025FB959A09CA /* Pods_MapAppWatch.framework in Frameworks */,
-				16B414BF241F82E03C8105FD /* Pods_MapAppWatch_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +242,6 @@
 				0AF272B8F4F9DD98EB5C8498 /* Pods_MapApp_MapAppUITests.framework */,
 				F64BACC053D53F6A14DCC47C /* Pods_MapAppTests.framework */,
 				4D6A96D4BA3CE4F963E6F507 /* Pods_MapAppWatch.framework */,
-				1299E58E1038F201033E1E3B /* Pods_MapAppWatch_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -384,6 +380,7 @@
 				9B107B632217D74A006971FF /* Resources */,
 				9BE20C4C22338A7B00ABA8ED /* Embed Watch Content */,
 				9170700F579D39D9D31BCE95 /* [CP] Embed Pods Frameworks */,
+				A05983F0866FFF974DC445BD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -423,6 +420,7 @@
 				9B107B842217D74C006971FF /* Frameworks */,
 				9B107B852217D74C006971FF /* Resources */,
 				3A607200EA4413D339BD2894 /* [CP] Embed Pods Frameworks */,
+				C1A3A4C9E72E5BA103CAE751 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -644,6 +642,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MapApp/Pods-MapApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A05983F0866FFF974DC445BD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MapApp/Pods-MapApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MapApp/Pods-MapApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MapApp/Pods-MapApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1A3A4C9E72E5BA103CAE751 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MapApp-MapAppUITests/Pods-MapApp-MapAppUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MapApp-MapAppUITests/Pods-MapApp-MapAppUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MapApp-MapAppUITests/Pods-MapApp-MapAppUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E7B7A4A98CD1BDD0A8F7C928 /* [CP] Check Pods Manifest.lock */ = {
@@ -932,7 +964,7 @@
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.53.1",
 				);
 				INFOPLIST_FILE = MapApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -958,7 +990,7 @@
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.53.1",
 				);
 				INFOPLIST_FILE = MapApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -980,6 +1012,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KJD33B7KR7;
 				INFOPLIST_FILE = MapAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1002,6 +1035,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KJD33B7KR7;
 				INFOPLIST_FILE = MapAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1023,6 +1057,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KJD33B7KR7;
 				INFOPLIST_FILE = MapAppUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1044,6 +1079,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KJD33B7KR7;
 				INFOPLIST_FILE = MapAppUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1079,7 +1115,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
 			};
 			name = Debug;
 		};
@@ -1105,7 +1141,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
 			};
 			name = Release;
 		};

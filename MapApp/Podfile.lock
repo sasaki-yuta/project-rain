@@ -1,13 +1,13 @@
 PODS:
-  - FloatingPanel (2.8.2)
-  - Google-Mobile-Ads-SDK (11.1.0):
+  - FloatingPanel (2.8.6)
+  - Google-Mobile-Ads-SDK (11.13.0):
     - GoogleUserMessagingPlatform (>= 1.1)
-  - GoogleUserMessagingPlatform (2.2.0)
-  - Realm (10.48.0):
-    - Realm/Headers (= 10.48.0)
-  - Realm/Headers (10.48.0)
-  - RealmSwift (10.48.0):
-    - Realm (= 10.48.0)
+  - GoogleUserMessagingPlatform (2.7.0)
+  - Realm (20.0.1):
+    - Realm/Headers (= 20.0.1)
+  - Realm/Headers (20.0.1)
+  - RealmSwift (20.0.1):
+    - Realm (= 20.0.1)
 
 DEPENDENCIES:
   - FloatingPanel
@@ -23,12 +23,12 @@ SPEC REPOS:
     - RealmSwift
 
 SPEC CHECKSUMS:
-  FloatingPanel: 99b72651e5e607a6a4e0c9831e30f02d145beeb6
-  Google-Mobile-Ads-SDK: 4a1f2ccef63660f9a74efc6a6ea979483d421aaa
-  GoogleUserMessagingPlatform: d31dbfb40ec02c5d9683029815c5d5a7f46389ee
-  Realm: ac7ec3bd884b42282431fc414cc0bb3e92d726cf
-  RealmSwift: 4eb8b254ebe413cbc486c5a366f2a315b54d75f7
+  FloatingPanel: 11559d3700c39f1c2ee8dbb7a5415223b52fdce0
+  Google-Mobile-Ads-SDK: 14f57f2dc33532a24db288897e26494640810407
+  GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
+  Realm: 9572204903ef28caeb3c03bb30c1147f354ee3e7
+  RealmSwift: d230b44017a55a1ba97de6a944da1fe3bedb92b5
 
-PODFILE CHECKSUM: 23c5234f64075d21de1ce6e93b9895532a1f4c53
+PODFILE CHECKSUM: 62cada9717496980e295b2a0d741a9eb50419afe
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
