@@ -1,1 +1,1 @@
-readme **
+readme GoshuinQuest
