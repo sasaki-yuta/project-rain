@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+//map
+import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_animations/flutter_map_animations.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +17,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      // エミュレーター右上の「debug」という帯を消す
+      debugShowCheckedModeBanner: false,
+      title: '御朱印 Quest',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -31,7 +39,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: '御朱印 Quest'),
     );
   }
 }
@@ -54,72 +62,152 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  List<Marker> addMarkers = [];
+  // 現在位置
+//  List<CircleMarker> circleMarkers = [];
+  LatLng currentPosition = LatLng(35.6815366,139.7655055); // 初期位置（東京駅）
+  // MapControllerのインスタンス作成
+  late final _animatedMapController = AnimatedMapController(vsync: this);
 
-  void _incrementCounter() {
+  void _addMarker(LatLng latlng) {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      addMarkers.add(
+        Marker(
+          width: 30.0,
+          height: 30.0,
+          point: latlng,
+          child: GestureDetector(
+            onTap: () {
+              _animatedMapController.animateTo(dest: latlng);
+            },
+            child: const Icon(
+              Icons.location_on,
+              color: Colors.blue,
+              size: 50,
+            ),
+          ),
+        ),
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
+        backgroundColor: Colors.white,
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+      body: FlutterMap(
+        // mapControllerをFlutterMapに指定
+        mapController: _animatedMapController.mapController,
+        options: MapOptions(
+          // GPS受ける前の初期現在地を設定（東京駅）
+          initialCenter: LatLng(35.6815366,139.7655055),
+          initialZoom: 10.0,
+          maxZoom: 20.0,
+          minZoom: 8.0,
+          onTap: (tapPosition, point) {
+            _addMarker(point);
+          },
         ),
+        children: [
+          TileLayer(
+            urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          ),
+/*
+          const MarkerLayer(
+            markers: [
+              Marker(
+                width: 30.0,
+                height: 30.0,
+                point: LatLng(35.6815366,139.7655055), // ピンの位置を設定
+                child: Icon(
+                  Icons.location_on,
+                  color: Colors.red,
+                  size: 50,
+                ),
+                rotate: true,
+              )
+            ],
+          ),
+*/
+          MarkerLayer(
+            markers: [
+              Marker(
+                width: 40.0,
+                height: 40.0,
+                point: LatLng(currentPosition.latitude, currentPosition.longitude),//currentPosition,
+                child: Icon(
+                  Icons.directions_walk, // 自車位置マークとして車のアイコンを使用
+                  color: Colors.blue,
+                  size: 40.0,
+                ),
+              ),
+            ],
+          ),
+          MarkerLayer(markers: addMarkers),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+    _listenToLocationUpdates();
+  }
+
+  // 現在地の取得
+  Future<void> _getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // サービスが有効か確認
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // サービスが無効な場合、ユーザーに知らせる
+      return;
+    }
+
+    // パーミッションの確認
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.deniedForever) {
+      // ユーザーがパーミッションを永続的に拒否している場合
+      return;
+    } else if (permission == LocationPermission.denied) {
+      // ユーザーがパーミッションを拒否した場合
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse && permission != LocationPermission.always) {
+        return;
+      }
+    }
+
+    // 現在地を取得
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      currentPosition = LatLng(position.latitude, position.longitude);
+    });
+
+    // マップの中心位置を更新
+    _animatedMapController.mapController.move(currentPosition, 13);
+  }
+
+  // 位置情報の更新をリスン
+  void _listenToLocationUpdates() {
+    Geolocator.getPositionStream(locationSettings: LocationSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 10, // 10メートルごとに位置更新
+    )).listen((Position position) {
+      // 指定したメートルを移動するとここに突入する
+      setState(() {
+        currentPosition = LatLng(position.latitude, position.longitude);
+      });
+
+      // マップの位置を更新
+      _animatedMapController.mapController.move(currentPosition, 13);
+    });
   }
 }
