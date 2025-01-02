@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-//map
+// map
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
+// admob
+//import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
+  // admob
+//  MobileAds.instance.initialize();
+
   runApp(const MyApp());
 }
 
