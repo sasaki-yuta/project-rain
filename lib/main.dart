@@ -6,12 +6,10 @@ import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 // admob
-//import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'admob.dart';
 
 void main() {
-  // admob
-//  MobileAds.instance.initialize();
-
   runApp(const MyApp());
 }
 
@@ -99,6 +97,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    // admob
+    final bannerId = getAdBannerUnitId();
+    BannerAd myBanner = BannerAd(
+        adUnitId: bannerId,
+        size: AdSize.banner,
+        request: const AdRequest(),
+        listener: const BannerAdListener()
+    );
+    myBanner.load();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -155,6 +163,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           MarkerLayer(markers: addMarkers),
         ],
       ),
+/*
+      // admob
+      body: Container(
+        width: myBanner.size.width.toDouble(),
+        height: myBanner.size.height.toDouble(),
+        alignment: Alignment.center,
+        child: AdWidget(ad: myBanner),
+      ),
+      const SafeArea(child: SizedBox.shrink()),
+ */
     );
   }
 
@@ -163,6 +181,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.initState();
     _getCurrentLocation();
     _listenToLocationUpdates();
+    // admob
+//  addBanner();
   }
 
   // 現在地の取得
