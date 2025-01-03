@@ -9,6 +9,8 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 // admob
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'admob.dart';
+// data
+import 'data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // エミュレーター右上の「debug」という帯を消す
       debugShowCheckedModeBanner: false,
-      title: '御朱印 Quest',
+      title: '御朱印 Quest（一宮編）',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: '御朱印 Quest'),
+      home: const MyHomePage(title: '御朱印 Quest（一宮編）'),
     );
   }
 }
@@ -78,7 +80,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   // MapControllerのインスタンス作成
   late final _animatedMapController = AnimatedMapController(vsync: this);
 
-  void _addMarker(LatLng latlng) {
+  // 神社データクラス
+  DataMnager _dataMnager = DataMnager();
+
+  void _addMarker(IchinomiyaMonJinja ichinomiya) {
+    LatLng latlng = LatLng(ichinomiya.latitude, ichinomiya.longitude);
+    Text title = Text(ichinomiya.name);
+    Text content = Text("よみ：${ichinomiya.yomi}\n地方：${ichinomiya.area}\n旧国名：${ichinomiya.kyuukokumei}\n住所：${ichinomiya.address}\n祭神：${ichinomiya.saijin}\n御神徳：${ichinomiya.goshintoku}");
+
     setState(() {
       addMarkers.add(
         Marker(
@@ -88,10 +97,28 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           child: GestureDetector(
             onTap: () {
               _animatedMapController.animateTo(dest: latlng);
+              // マーカーがタップされたときにダイアログを表示
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: title,//const Text("Marker Tapped"),
+                    content: content,
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // ダイアログを閉じる
+                        },
+                        child: const Text("Close"),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
             child: const Icon(
               Icons.location_on,
-              color: Colors.blue,
+              color: Colors.red,
               size: 50,
             ),
           ),
@@ -127,11 +154,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               options: MapOptions(
                 // GPS受ける前の初期現在地を設定（東京駅）
                 initialCenter: LatLng(35.6815366,139.7655055),
-                initialZoom: 10.0,
+                initialZoom: 8.0,
                 maxZoom: 20.0,
                 minZoom: 8.0,
                 onTap: (tapPosition, point) {
-                  _addMarker(point);
+//                  _addMarker(point);
                 },
                 onPositionChanged: _onPositionChanged, // 位置変更のコールバック
               ),
@@ -168,8 +195,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     tooltip: 'Go to Current Location',
                   ),
                 ),
-                // onTap時に_addMarker()で登録されたマーカを表示する
-//              MarkerLayer(markers: addMarkers),
+                // _addMarker()で登録されたマーカを表示する
+                MarkerLayer(markers: addMarkers),
               ],
             ),
           ),
@@ -193,8 +220,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.initState();
     _getCurrentLocation();
     _listenToLocationUpdates();
+    _setIchinomiyaMarker();
     // admob
     addBanner();
+  }
+
+  void _setIchinomiyaMarker() {
+    List<IchinomiyaMonJinja> ichinomiyaJinjaList = _dataMnager.getIchinomiyaJinja();
+    for (var jinja in ichinomiyaJinjaList) {
+      LatLng latlon = LatLng(jinja.latitude, jinja.longitude);
+      _addMarker(jinja);
+    }
   }
 
   // 地図の位置が変わった際の処理
