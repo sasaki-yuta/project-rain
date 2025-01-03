@@ -112,67 +112,57 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         backgroundColor: Colors.white,
         title: Text(widget.title),
       ),
-      body: FlutterMap(
-        // mapControllerをFlutterMapに指定
-        mapController: _animatedMapController.mapController,
-        options: MapOptions(
-          // GPS受ける前の初期現在地を設定（東京駅）
-          initialCenter: LatLng(35.6815366,139.7655055),
-          initialZoom: 10.0,
-          maxZoom: 20.0,
-          minZoom: 8.0,
-          onTap: (tapPosition, point) {
-            _addMarker(point);
-          },
-        ),
-        children: [
-          TileLayer(
-            urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          ),
-/*
-          const MarkerLayer(
-            markers: [
-              Marker(
-                width: 30.0,
-                height: 30.0,
-                point: LatLng(35.6815366,139.7655055), // ピンの位置を設定
-                child: Icon(
-                  Icons.location_on,
-                  color: Colors.red,
-                  size: 50,
-                ),
-                rotate: true,
-              )
-            ],
-          ),
-*/
-          MarkerLayer(
-            markers: [
-              Marker(
-                width: 40.0,
-                height: 40.0,
-                point: LatLng(currentPosition.latitude, currentPosition.longitude),//currentPosition,
-                child: Icon(
-                  Icons.directions_walk, // 自車位置マークとして車のアイコンを使用
-                  color: Colors.blue,
-                  size: 40.0,
-                ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 10, // 割合
+            child: FlutterMap(
+              // mapControllerをFlutterMapに指定
+              mapController: _animatedMapController.mapController,
+              options: MapOptions(
+                // GPS受ける前の初期現在地を設定（東京駅）
+                initialCenter: LatLng(35.6815366,139.7655055),
+                initialZoom: 10.0,
+                maxZoom: 20.0,
+                minZoom: 8.0,
+                onTap: (tapPosition, point) {
+                  _addMarker(point);
+                },
               ),
-            ],
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                ),
+                MarkerLayer(
+                  markers: [
+                    Marker(
+                      width: 40.0,
+                      height: 40.0,
+                      point: LatLng(currentPosition.latitude, currentPosition.longitude),//currentPosition,
+                      child: Icon(
+                        Icons.directions_walk, // 自車位置マークとして車のアイコンを使用
+                        color: Colors.blue,
+                        size: 40.0,
+                      ),
+                    ),
+                  ],
+                ),
+                MarkerLayer(markers: addMarkers),
+              ],
+            ),
           ),
-          MarkerLayer(markers: addMarkers),
+          Container(
+            width: myBanner.size.width.toDouble(),
+            height: myBanner.size.height.toDouble(),
+            alignment: Alignment.center,
+            child: AdWidget(ad: myBanner),
+          ),
+          const SafeArea(
+            // admobのバナーをSafeAreaで表示するため
+            child: SizedBox.shrink(),
+          ),
         ],
       ),
-/*
-      // admob
-      body: Container(
-        width: myBanner.size.width.toDouble(),
-        height: myBanner.size.height.toDouble(),
-        alignment: Alignment.center,
-        child: AdWidget(ad: myBanner),
-      ),
-      const SafeArea(child: SizedBox.shrink()),
- */
     );
   }
 
@@ -182,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _getCurrentLocation();
     _listenToLocationUpdates();
     // admob
-//  addBanner();
+    addBanner();
   }
 
   // 現在地の取得
