@@ -71,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   // 現在位置
   late Position _currentPosition;
   bool _isMapMoving = false; // 地図がスクロール中かどうかのフラグ
+  double _currentZoom = 13.0; // 現在のズームレベルを保持
 
   LatLng currentPosition = LatLng(35.6815366,139.7655055); // 初期位置（東京駅）
   // MapControllerのインスタンス作成
@@ -199,13 +200,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   void _onPositionChanged(MapCamera position, bool hasMoved) {
     setState(() {
       _isMapMoving = hasMoved; // 地図がスクロール中かどうかを更新
+      _currentZoom = position.zoom;
     });
   }
 
   // 現在地に戻すボタンが押された時の処理
   void _moveToCurrentLocation() {
     _isMapMoving = false;
-    _animatedMapController.mapController.move(currentPosition, 13);
+    _animatedMapController.mapController.move(currentPosition, _currentZoom);
   }
 
   // 現在地の取得
@@ -242,7 +244,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     // 地図スクロールしていない時だけマップの中心位置を更新
     if (false == _isMapMoving) {
-      _animatedMapController.mapController.move(currentPosition, 13);
+      _animatedMapController.mapController.move(currentPosition, _currentZoom);
     }
   }
 
@@ -260,7 +262,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
       // 地図スクロールしていない時だけマップの中心位置を更新
       if (false == _isMapMoving) {
-        _animatedMapController.mapController.move(currentPosition, 13);
+        _animatedMapController.mapController.move(currentPosition, _currentZoom);
       }
     });
   }
