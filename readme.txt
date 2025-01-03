@@ -27,6 +27,11 @@ C:\proj\flutter\project_rain>flutter pub add geolocator
 インストール
 C:\proj\flutter\project_rain>flutter pub add google_mobile_ads
 
+■flutter_map_location_marker （現在位置アイコン）
+コマンドプロンプトでプロジェクトのカレントに移動する
+インストール
+C:\proj\flutter\project_rain>flutter pub add flutter_map_location_marker 
+
 ------------------------
 ■エラー対応（google admob インストールしたらエラーが出た）
 

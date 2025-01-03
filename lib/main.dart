@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 // admob
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'admob.dart';
@@ -69,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   List<Marker> addMarkers = [];
   // 現在位置
 //  List<CircleMarker> circleMarkers = [];
+  late Position _currentPosition;
   LatLng currentPosition = LatLng(35.6815366,139.7655055); // 初期位置（東京駅）
   // MapControllerのインスタンス作成
   late final _animatedMapController = AnimatedMapController(vsync: this);
@@ -133,21 +135,19 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 TileLayer(
                   urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 ),
-                MarkerLayer(
-                  markers: [
-                    Marker(
-                      width: 40.0,
-                      height: 40.0,
-                      point: LatLng(currentPosition.latitude, currentPosition.longitude),//currentPosition,
-                      child: Icon(
-                        Icons.directions_walk, // 自車位置マークとして車のアイコンを使用
-                        color: Colors.blue,
-                        size: 40.0,
-                      ),
-                    ),
-                  ],
+                _isPositionInitialized() == false? Center(child: CircularProgressIndicator()) :
+                LocationMarkerLayer( // ここで現在地を表示
+                  position: LocationMarkerPosition(
+                    latitude: _currentPosition.latitude,
+                    longitude: _currentPosition.longitude,
+                    accuracy: _currentPosition.accuracy, // 位置精度を追加
+                  ),
+                  style: LocationMarkerStyle(
+                    marker: Icon(Icons.my_location, color: Colors.blue, size: 30), // 現在地のアイコンを変更
+                  ),
                 ),
-                MarkerLayer(markers: addMarkers),
+                // onTap時に_addMarker()で登録されたマーカを表示する
+//              MarkerLayer(markers: addMarkers),
               ],
             ),
           ),
@@ -204,6 +204,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState(() {
       currentPosition = LatLng(position.latitude, position.longitude);
+      _currentPosition = position;
     });
 
     // マップの中心位置を更新
@@ -219,10 +220,21 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       // 指定したメートルを移動するとここに突入する
       setState(() {
         currentPosition = LatLng(position.latitude, position.longitude);
+        _currentPosition = position;
       });
 
       // マップの位置を更新
       _animatedMapController.mapController.move(currentPosition, 13);
     });
+  }
+
+  bool _isPositionInitialized() {
+    try {
+      // late変数が初期化されていないとき、エラーをキャッチ
+      _currentPosition;
+      return true;  // 初期化されていればtrue
+    } catch (e) {
+      return false; // 初期化されていなければfalse
+    }
   }
 }
