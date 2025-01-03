@@ -69,8 +69,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   List<Marker> addMarkers = [];
   // 現在位置
-//  List<CircleMarker> circleMarkers = [];
   late Position _currentPosition;
+  bool _isMapMoving = false; // 地図がスクロール中かどうかのフラグ
+
   LatLng currentPosition = LatLng(35.6815366,139.7655055); // 初期位置（東京駅）
   // MapControllerのインスタンス作成
   late final _animatedMapController = AnimatedMapController(vsync: this);
@@ -130,6 +131,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 onTap: (tapPosition, point) {
                   _addMarker(point);
                 },
+                onPositionChanged: _onPositionChanged, // 位置変更のコールバック
               ),
               children: [
                 TileLayer(
@@ -144,6 +146,24 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   ),
                   style: LocationMarkerStyle(
                     marker: Icon(Icons.my_location, color: Colors.blue, size: 30), // 現在地のアイコンを変更
+                  ),
+                ),
+                Positioned(
+                  top: 20,
+                  right: 20,
+                  child: FloatingActionButton(
+                    onPressed: _moveToCurrentLocation, // 現在地に戻す処理
+                    child: Icon(Icons.my_location),
+                    tooltip: 'Go to Current Location',
+                  ),
+                ),
+                Positioned(
+                  top: 90,
+                  right: 20,
+                  child: FloatingActionButton(
+                    onPressed: _moveToCurrentLocation, // 現在地に戻す処理
+                    child: Icon(Icons.my_library_books),
+                    tooltip: 'Go to Current Location',
                   ),
                 ),
                 // onTap時に_addMarker()で登録されたマーカを表示する
@@ -173,6 +193,19 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _listenToLocationUpdates();
     // admob
     addBanner();
+  }
+
+  // 地図の位置が変わった際の処理
+  void _onPositionChanged(MapCamera position, bool hasMoved) {
+    setState(() {
+      _isMapMoving = hasMoved; // 地図がスクロール中かどうかを更新
+    });
+  }
+
+  // 現在地に戻すボタンが押された時の処理
+  void _moveToCurrentLocation() {
+    _isMapMoving = false;
+    _animatedMapController.mapController.move(currentPosition, 13);
   }
 
   // 現在地の取得
@@ -207,8 +240,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       _currentPosition = position;
     });
 
-    // マップの中心位置を更新
-    _animatedMapController.mapController.move(currentPosition, 13);
+    // 地図スクロールしていない時だけマップの中心位置を更新
+    if (false == _isMapMoving) {
+      _animatedMapController.mapController.move(currentPosition, 13);
+    }
   }
 
   // 位置情報の更新をリスン
@@ -223,8 +258,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         _currentPosition = position;
       });
 
-      // マップの位置を更新
-      _animatedMapController.mapController.move(currentPosition, 13);
+      // 地図スクロールしていない時だけマップの中心位置を更新
+      if (false == _isMapMoving) {
+        _animatedMapController.mapController.move(currentPosition, 13);
+      }
     });
   }
 
