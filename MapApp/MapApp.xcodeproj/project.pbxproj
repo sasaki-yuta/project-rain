@@ -59,6 +59,7 @@
 		B7652F512F04AB3800AA25B8 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = B7652F502F04AB3800AA25B8 /* FloatingPanel */; };
 		B7652F542F04AB5300AA25B8 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B7652F532F04AB5300AA25B8 /* RealmSwift */; };
 		B7652F572F04AB7700AA25B8 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = B7652F562F04AB7700AA25B8 /* GoogleMobileAds */; };
+		B7652F582F04B63800AA25B8 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = B7652F532F04AB5300AA25B8 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,17 @@
 				9BE20C4422338A7B00ABA8ED /* Map Mode.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7652F592F04B63800AA25B8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B7652F582F04B63800AA25B8 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -385,6 +397,7 @@
 				9B107B622217D74A006971FF /* Frameworks */,
 				9B107B632217D74A006971FF /* Resources */,
 				9BE20C4C22338A7B00ABA8ED /* Embed Watch Content */,
+				B7652F592F04B63800AA25B8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
