@@ -32,10 +32,10 @@ class ViewController:   UIViewController,
                         CLLocationManagerDelegate,
                         UIGestureRecognizerDelegate,
                         WCSessionDelegate,
-                        GADBannerViewDelegate {
+                        BannerViewDelegate {
     
     // Google AddMod広告
-    var bannerView: GADBannerView!
+    var bannerView: BannerView!
     
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var longPressGesRec: UILongPressGestureRecognizer!
@@ -71,12 +71,12 @@ class ViewController:   UIViewController,
         // Do any additional setup after loading the view, typically from a nib.
         
         // Google AddMod広告
-        bannerView = GADBannerView(adSize: GADAdSizeBanner) //320×50
+        bannerView = BannerView(adSize: AdSizeBanner) //320×50
         addBannerViewToView(bannerView)
 
         bannerView.adUnitID = defineClass.getAddModUnitID()
         bannerView.rootViewController = self
-        bannerView.load(GADRequest())
+        bannerView.load(Request())
         bannerView.delegate = self
         
         // AppDelegateに追加したviewControllerに自身を設定
@@ -126,7 +126,7 @@ class ViewController:   UIViewController,
     }
 
     // Google AddMod広告
-    func addBannerViewToView(_ bannerView: GADBannerView) {
+    func addBannerViewToView(_ bannerView: BannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
         view.addConstraints(

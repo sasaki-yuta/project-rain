@@ -28,10 +28,10 @@ class WalkViewController:   UIViewController,
                             UIGestureRecognizerDelegate,
                             UISearchBarDelegate,
                             WCSessionDelegate,
-                            GADBannerViewDelegate {
+                            BannerViewDelegate {
 
     // Google AddMod広告
-    var bannerView: GADBannerView!
+    var bannerView: BannerView!
     
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapViewTypeOver: UIButton!
@@ -193,7 +193,7 @@ class WalkViewController:   UIViewController,
     }
     
     // Google AddMod広告
-    func addBannerViewToView(_ bannerView: GADBannerView, _ constantPos: CGFloat) {
+    func addBannerViewToView(_ bannerView: BannerView, _ constantPos: CGFloat) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
         view.addConstraints([
@@ -215,7 +215,7 @@ class WalkViewController:   UIViewController,
         
         bannerView.adUnitID = defineClass.getAddModUnitID()
         bannerView.rootViewController = self
-        bannerView.load(GADRequest())
+        bannerView.load(Request())
         bannerView.delegate = self
     }
 
@@ -349,7 +349,7 @@ class WalkViewController:   UIViewController,
         self.view.addSubview(btnCalcSwitchDisp)
 
         // Google AddMod広告
-        bannerView = GADBannerView(adSize: GADAdSizeBanner) //320×50
+        bannerView = BannerView(adSize: AdSizeBanner) //320×50
         addBannerViewToView(bannerView, CGFloat(height - 75 - 50 - 18))
 
         // 速度
@@ -1518,35 +1518,35 @@ class WalkViewController:   UIViewController,
     // Admob
     //==================================================================
     /// Tells the delegate an ad request loaded an ad.
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+    func adViewDidReceiveAd(_ bannerView: BannerView) {
       print("adViewDidReceiveAd")
     }
 
     /// Tells the delegate an ad request failed.
-    private func adView(_ bannerView: GADBannerView,
+    private func adView(_ bannerView: BannerView,
         didFailToReceiveAdWithError error: Error) {
       print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
     }
 
     /// Tells the delegate that a full-screen view will be presented in response
     /// to the user clicking on an ad.
-    func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillPresentScreen(_ bannerView: BannerView) {
       print("adViewWillPresentScreen")
     }
 
     /// Tells the delegate that the full-screen view will be dismissed.
-    func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillDismissScreen(_ bannerView: BannerView) {
       print("adViewWillDismissScreen")
     }
 
     /// Tells the delegate that the full-screen view has been dismissed.
-    func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewDidDismissScreen(_ bannerView: BannerView) {
       print("adViewDidDismissScreen")
     }
 
     /// Tells the delegate that a user click will open another app (such as
     /// the App Store), backgrounding the current app.
-    func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
+    func adViewWillLeaveApplication(_ bannerView: BannerView) {
       print("adViewWillLeaveApplication")
     }
 }

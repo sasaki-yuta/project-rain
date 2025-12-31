@@ -10,10 +10,10 @@ import UIKit
 import GoogleMobileAds
 
 class GolfInputScore3: UIViewController,
-                      GADBannerViewDelegate{
+                       BannerViewDelegate{
     
     @IBOutlet weak var btnBack: UIButton!
-    var bannerView: GADBannerView!
+    var bannerView: BannerView!
     var defineClass:Define = Define()
     // ボタン <
     var backBtn: UIButton!
@@ -52,11 +52,11 @@ class GolfInputScore3: UIViewController,
         super.viewDidLoad()
         
         // Google AddMod広告
-        bannerView = GADBannerView(adSize: GADAdSizeBanner) //320×50
+        bannerView = BannerView(adSize: AdSizeBanner) //320×50
         addBannerViewToView(bannerView)
         bannerView.adUnitID = defineClass.getAddModUnitID()
         bannerView.rootViewController = self
-        bannerView.load(GADRequest())
+        bannerView.load(Request())
         bannerView.delegate = self
         
         // 画面表示
@@ -355,7 +355,7 @@ class GolfInputScore3: UIViewController,
     }
 
     // Google AddMod広告
-    func addBannerViewToView(_ bannerView: GADBannerView) {
+    func addBannerViewToView(_ bannerView: BannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
         view.addConstraints(

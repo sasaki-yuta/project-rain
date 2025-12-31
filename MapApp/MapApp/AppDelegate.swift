@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         golfRealmData = GolfRealmControl()
         
         // GoogleAdmob広告
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        MobileAds.shared.start(completionHandler: nil)
         
         return true
     }

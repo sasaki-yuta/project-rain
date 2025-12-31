@@ -11,7 +11,7 @@ import GoogleMobileAds
 
 
 class GolfManageScore: UIViewController,
-                       GADBannerViewDelegate,
+                       BannerViewDelegate,
                        UITableViewDelegate,
                        UITableViewDataSource{
 
@@ -23,7 +23,7 @@ class GolfManageScore: UIViewController,
     @IBOutlet var lbl_endDate: UILabel!    // ボタン 開始
 
     var rithtBtn = UIButton(type: UIButton.ButtonType.system)//: UIButton!
-    var bannerView: GADBannerView!  // Google AddMod広告
+    var bannerView: BannerView!  // Google AddMod広告
     var defineClass:Define = Define()
 
     var data = [
@@ -52,11 +52,11 @@ class GolfManageScore: UIViewController,
     {
         super.viewDidLoad()
         // Google AddMod広告
-        bannerView = GADBannerView(adSize: GADAdSizeBanner) //320×50
+        bannerView = BannerView(adSize: AdSizeBanner) //320×50
         addBannerViewToView(bannerView)
         bannerView.adUnitID = defineClass.getAddModUnitID()
         bannerView.rootViewController = self
-        bannerView.load(GADRequest())
+        bannerView.load(Request())
         bannerView.delegate = self
 
         // 画面の初期描画
@@ -80,7 +80,7 @@ class GolfManageScore: UIViewController,
     }
     
     // Google AddMod広告
-    func addBannerViewToView(_ bannerView: GADBannerView) {
+    func addBannerViewToView(_ bannerView: BannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
         view.addConstraints(

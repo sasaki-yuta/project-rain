@@ -12,13 +12,13 @@ import MapKit
 import FloatingPanel
 
 class GolfInputScore: UIViewController,
-                      GADBannerViewDelegate,
+                      BannerViewDelegate,
                       MKMapViewDelegate,
                       UISearchBarDelegate{
 
     @IBOutlet weak var btnBack: UIButton!
     // Google AddMod広告
-    var bannerView: GADBannerView!
+    var bannerView: BannerView!
     var defineClass:Define = Define()
 
     // 地図
@@ -61,11 +61,11 @@ class GolfInputScore: UIViewController,
         searchBar.delegate = self
         
         // Google AddMod広告
-        bannerView = GADBannerView(adSize: GADAdSizeBanner) //320×50
+        bannerView = BannerView(adSize: AdSizeBanner) //320×50
         addBannerViewToView(bannerView)
         bannerView.adUnitID = defineClass.getAddModUnitID()
         bannerView.rootViewController = self
-        bannerView.load(GADRequest())
+        bannerView.load(Request())
         bannerView.delegate = self
         
         // AppDelegateに追加したviewControllerに自身を設定
@@ -81,7 +81,7 @@ class GolfInputScore: UIViewController,
     }
     
     // Google AddMod広告
-    func addBannerViewToView(_ bannerView: GADBannerView) {
+    func addBannerViewToView(_ bannerView: BannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
         view.addConstraints(

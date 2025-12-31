@@ -28,10 +28,10 @@ class CycleViewController:  UIViewController,
                             WCSessionDelegate,
                             UIGestureRecognizerDelegate,
                             UISearchBarDelegate,
-                            GADBannerViewDelegate {
+                            BannerViewDelegate {
     
     // Google AddMod広告
-    var bannerView: GADBannerView!
+    var bannerView: BannerView!
     
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapViewTypeOver: UIButton!
@@ -188,7 +188,7 @@ class CycleViewController:  UIViewController,
     }
     
     // Google AddMod広告
-    func addBannerViewToView(_ bannerView: GADBannerView, _ constantPos: CGFloat) {
+    func addBannerViewToView(_ bannerView: BannerView, _ constantPos: CGFloat) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
         view.addConstraints([
@@ -210,7 +210,7 @@ class CycleViewController:  UIViewController,
         
         bannerView.adUnitID = defineClass.getAddModUnitID()
         bannerView.rootViewController = self
-        bannerView.load(GADRequest())
+        bannerView.load(Request())
         bannerView.delegate = self
     }
 
@@ -343,7 +343,7 @@ class CycleViewController:  UIViewController,
         self.view.addSubview(btnCalcSwitchDisp)
         
         // Google AddMod広告
-        bannerView = GADBannerView(adSize: GADAdSizeBanner) //320×50
+        bannerView = BannerView(adSize: AdSizeBanner) //320×50
         addBannerViewToView(bannerView, CGFloat(infoTopPos-25-50-50-18))
         
         // 速度
