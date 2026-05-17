@@ -11,7 +11,7 @@ struct FavoritesTabView: View {
     var body: some View {
         VStack {
             NavigationView {
-                Form {
+                ScrollView {
                 }
                 .navigationTitle("Favorites")
             }

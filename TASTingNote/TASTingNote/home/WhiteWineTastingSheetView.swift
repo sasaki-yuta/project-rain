@@ -1,50 +1,59 @@
+//
+//  WhiteWineTastingSheetView.swift
+//  TASTingNote
+//
+//  Created by 佐々木 勇太 on 2026/05/15.
+//
+
 import SwiftUI
 import PhotosUI
 
 struct WhiteWineTastingSheetView: View {
 
-    @Binding var wine: Wine
+    @Bindable var wine: Wine
 
     @State private var selectedItem: PhotosPickerItem?
 
-    // 外観
+    // MARK: 外観
 
-    @State private var clarity = "清澄"
-
+    @State private var clarity = "澄んだ"
     @State private var brightness = "輝きのある"
+    @State private var color = "レモンイエロー"
+    @State private var density = "淡い"
+    @State private var viscosity = "適度な"
+    @State private var appearanceImpression = "若々しい"
 
-    @State private var color = "レモン"
+    // MARK: 香り
 
-    @State private var viscosity = "やや強い"
+    @State private var firstImpression = "開いている"
 
-    // 香り
+    @State private var fruit = "柑橘類"
+    @State private var flower = "アカシア"
+    @State private var spice = "石灰"
 
-    @State private var aromaIntensity = "やや強い"
+    @State private var aromaImpression = "若々しい"
 
-    @State private var aromaMemo = ""
+    // MARK: 味わい
 
-    // 味わい
-
-    @State private var sweetness = 2
-
-    @State private var acidity = 4
-
-    @State private var bitterness = 2
-
-    @State private var alcohol = 3
-
-    @State private var body_ = "ややコク"
-
+    @State private var attack = "やや軽い"
+    @State private var sweetness = "ドライ"
+    @State private var acidity = "爽やかな"
+    @State private var bitterness = "穏やかな"
+    @State private var balance = "スムーズな"
+    @State private var alcohol = "12%～13%未満"
     @State private var finish = "やや長い"
+    @State private var evaluation = "エレガントでミネラリー"
 
-    // 結論
+    // MARK: その他
+
+    @State private var temperature = "8～10度"
+    @State private var glass = "中庸"
+
+    // MARK: 結論
 
     @State private var grape = ""
-
     @State private var country = ""
-
     @State private var vintage = ""
-
     @State private var comment = ""
 
     var body: some View {
@@ -114,7 +123,7 @@ struct WhiteWineTastingSheetView: View {
                         title: "清澄度",
                         selection: $clarity,
                         options: [
-                            "清澄",
+                            "澄んだ",
                             "やや濁った",
                             "濁った"
                         ]
@@ -125,7 +134,8 @@ struct WhiteWineTastingSheetView: View {
                         selection: $brightness,
                         options: [
                             "輝きのある",
-                            "落ち着いた"
+                            "ややくすんだ",
+                            "モヤがかった"
                         ]
                     )
 
@@ -133,10 +143,22 @@ struct WhiteWineTastingSheetView: View {
                         title: "色調",
                         selection: $color,
                         options: [
-                            "グリーン",
-                            "レモン",
-                            "ゴールド",
+                            "レモンイエロー",
+                            "イエロー",
+                            "黄金色",
+                            "トパーズ",
                             "アンバー"
+                        ]
+                    )
+
+                    tastingRow(
+                        title: "濃淡",
+                        selection: $density,
+                        options: [
+                            "淡い",
+                            "やや濃い",
+                            "濃い",
+                            "非常に濃い"
                         ]
                     )
 
@@ -144,11 +166,22 @@ struct WhiteWineTastingSheetView: View {
                         title: "粘性",
                         selection: $viscosity,
                         options: [
-                            "弱い",
-                            "やや弱い",
-                            "中程度",
+                            "さらっとした",
+                            "適度な",
                             "やや強い",
-                            "強い"
+                            "ねっとりとした"
+                        ]
+                    )
+
+                    tastingRow(
+                        title: "外観の印象",
+                        selection: $appearanceImpression,
+                        options: [
+                            "若々しい",
+                            "やや発展した",
+                            "熟成した",
+                            "軽快な",
+                            "濃縮感がある"
                         ]
                     )
                 }
@@ -160,30 +193,64 @@ struct WhiteWineTastingSheetView: View {
                 tastingSection(title: "香り") {
 
                     tastingRow(
-                        title: "強さ",
-                        selection: $aromaIntensity,
+                        title: "第一印象",
+                        selection: $firstImpression,
                         options: [
-                            "弱い",
-                            "中程度",
-                            "やや強い",
-                            "強い"
+                            "閉じている",
+                            "控えめ",
+                            "開いている",
+                            "力強い"
                         ]
                     )
 
-                    VStack(alignment: .leading) {
+                    tastingRow(
+                        title: "果実",
+                        selection: $fruit,
+                        options: [
+                            "柑橘類",
+                            "青リンゴ",
+                            "洋梨",
+                            "白桃",
+                            "アプリコット",
+                            "パイナップル"
+                        ]
+                    )
 
-                        Text("特徴")
-                            .font(.headline)
+                    tastingRow(
+                        title: "花・植物",
+                        selection: $flower,
+                        options: [
+                            "スイカズラ",
+                            "アカシア",
+                            "白バラ",
+                            "ハーブ",
+                            "タイム"
+                        ]
+                    )
 
-                        TextEditor(text: $aromaMemo)
-                            .frame(height: 100)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(
-                                        Color.gray.opacity(0.3)
-                                    )
-                            )
-                    }
+                    tastingRow(
+                        title: "香辛料・芳香",
+                        selection: $spice,
+                        options: [
+                            "石灰",
+                            "火打石",
+                            "貝殻",
+                            "トースト",
+                            "ヴァニラ",
+                            "蜂蜜"
+                        ]
+                    )
+
+                    tastingRow(
+                        title: "香りの印象",
+                        selection: $aromaImpression,
+                        options: [
+                            "若々しい",
+                            "熟成感が現れている",
+                            "ニュートラル",
+                            "木樽からのニュアンス"
+                        ]
+                    )
                 }
 
                 Divider()
@@ -192,35 +259,72 @@ struct WhiteWineTastingSheetView: View {
 
                 tastingSection(title: "味わい") {
 
-                    scoreRow(
-                        title: "甘味",
-                        value: $sweetness
-                    )
-
-                    scoreRow(
-                        title: "酸味",
-                        value: $acidity
-                    )
-
-                    scoreRow(
-                        title: "苦味",
-                        value: $bitterness
-                    )
-
-                    scoreRow(
-                        title: "アルコール",
-                        value: $alcohol
-                    )
-
                     tastingRow(
-                        title: "ボディ",
-                        selection: $body_,
+                        title: "アタック",
+                        selection: $attack,
                         options: [
                             "軽い",
                             "やや軽い",
-                            "中程度",
-                            "ややコク",
-                            "コク"
+                            "やや強い",
+                            "強い"
+                        ]
+                    )
+
+                    tastingRow(
+                        title: "甘み",
+                        selection: $sweetness,
+                        options: [
+                            "ドライ",
+                            "ソフトな",
+                            "まろやか",
+                            "豊かな",
+                            "残糖がある"
+                        ]
+                    )
+
+                    tastingRow(
+                        title: "酸味",
+                        selection: $acidity,
+                        options: [
+                            "なめらかな",
+                            "爽やかな",
+                            "はつらつとした",
+                            "力強い"
+                        ]
+                    )
+
+                    tastingRow(
+                        title: "苦味",
+                        selection: $bitterness,
+                        options: [
+                            "控えめ",
+                            "穏やかな",
+                            "コクを与える",
+                            "強い"
+                        ]
+                    )
+
+                    tastingRow(
+                        title: "バランス",
+                        selection: $balance,
+                        options: [
+                            "スムーズな",
+                            "スリムな",
+                            "ドライな",
+                            "ジューシーな",
+                            "豊潤な"
+                        ]
+                    )
+
+                    tastingRow(
+                        title: "アルコール",
+                        selection: $alcohol,
+                        options: [
+                            "11%未満",
+                            "11%～12%未満",
+                            "12%～13%未満",
+                            "13%～14%未満",
+                            "14%以上"
                         ]
                     )
 
@@ -230,9 +334,49 @@ struct WhiteWineTastingSheetView: View {
                         options: [
                             "短い",
                             "やや短い",
-                            "中程度",
                             "やや長い",
                             "長い"
+                        ]
+                    )
+
+                    tastingRow(
+                        title: "評価",
+                        selection: $evaluation,
+                        options: [
+                            "シンプル、フレッシュ感を楽しむ",
+                            "エレガントでミネラリー",
+                            "成熟度が高く豊か",
+                            "濃縮し力強い"
+                        ]
+                    )
+                }
+
+                Divider()
+
+                // MARK: サービス
+
+                tastingSection(title: "サービス") {
+
+                    tastingRow(
+                        title: "適正温度",
+                        selection: $temperature,
+                        options: [
+                            "8度未満",
+                            "8～10度",
+                            "11～14度",
+                            "15～18度"
+                        ]
+                    )
+
+                    tastingRow(
+                        title: "グラス",
+                        selection: $glass,
+                        options: [
+                            "小ぶり",
+                            "中庸",
+                            "大ぶり",
+                            "バルーン型",
+                            "チューリップ型"
                         ]
                     )
                 }
@@ -244,19 +388,19 @@ struct WhiteWineTastingSheetView: View {
                 tastingSection(title: "結論") {
 
                     TextField(
-                        "品種",
+                        "主なブドウ品種",
                         text: $grape
                     )
                     .textFieldStyle(.roundedBorder)
 
                     TextField(
-                        "産地",
+                        "生産地",
                         text: $country
                     )
                     .textFieldStyle(.roundedBorder)
 
                     TextField(
-                        "ヴィンテージ",
+                        "収穫年",
                         text: $vintage
                     )
                     .textFieldStyle(.roundedBorder)
@@ -280,19 +424,17 @@ struct WhiteWineTastingSheetView: View {
             .padding()
         }
         .background(Color.white)
-        .navigationTitle("白ワイン試験")
+        .navigationTitle("白ワイン")
         .navigationBarTitleDisplayMode(.inline)
-
-        // 写真変更
 
         .onChange(of: selectedItem) {
 
             Task {
 
-                if let data = try? await selectedItem?.loadTransferable(type: Data.self),
-                   let image = UIImage(data: data) {
+                if let data = try? await selectedItem?
+                    .loadTransferable(type: Data.self) {
 
-                    wine.image = image
+                    wine.imageData = data
                 }
             }
         }
@@ -367,24 +509,6 @@ extension WhiteWineTastingSheetView {
                     }
                 }
             }
-        }
-    }
-
-    func scoreRow(
-        title: String,
-        value: Binding<Int>
-    ) -> some View {
-
-        VStack(alignment: .leading) {
-
-            Text("\(title): \(value.wrappedValue)")
-                .font(.headline)
-
-            Stepper(
-                "",
-                value: value,
-                in: 1...5
-            )
         }
     }
 }

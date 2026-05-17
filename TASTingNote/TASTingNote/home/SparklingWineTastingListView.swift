@@ -1,5 +1,5 @@
 //
-//  WhiteWineTastingListView 2.swift
+//  SparklingWineTastingListView.swift
 //  TASTingNote
 //
 //  Created by 佐々木 勇太 on 2026/05/13.

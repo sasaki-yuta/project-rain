@@ -1,16 +1,43 @@
+//
+//  WhiteWineTastingListView.swift
+//  TASTingNote
+//
+//  Created by 佐々木 勇太 on 2026/05/15.
+//
+
 import SwiftUI
 import SwiftData
 import PhotosUI
 
-struct Wine: Identifiable {
-    let id = UUID()
+@Model
+final class Wine {
+
+    var id: UUID
     var name: String
-    var image: UIImage?
+    var imageData: Data?
+
+    init(
+        name: String,
+        imageData: Data? = nil
+    ) {
+        self.id = UUID()
+        self.name = name
+        self.imageData = imageData
+    }
+
+    var image: UIImage? {
+        guard let imageData else { return nil }
+        return UIImage(data: imageData)
+    }
 }
 
 struct WhiteWineTastingListView: View {
     @State private var searchText = ""
-    @State private var wines: [Wine] = []
+
+    @Environment(\.modelContext) private var context
+    @Query(sort: \Wine.name)
+    private var wines: [Wine]
+
     @State private var showAddScreen = false
 
     var filteredWines: [Wine] {
@@ -26,14 +53,18 @@ struct WhiteWineTastingListView: View {
     var body: some View {
         VStack{
             NavigationView {
-                List(filteredWines) { wine in
+                List(filteredWines, id: \.persistentModelID) { wine in
+
                     NavigationLink {
-                        WhiteWineTastingSheetView(
-                            wine: binding(for: wine)
-                        )
+
+                        WhiteWineTastingSheetView(wine: wine)
+
                     } label: {
+
                         HStack(spacing: 16) {
+
                             if let image = wine.image {
+
                                 Image(uiImage: image)
                                     .resizable()
                                     .scaledToFill()
@@ -41,20 +72,25 @@ struct WhiteWineTastingListView: View {
                                     .clipShape(
                                         RoundedRectangle(cornerRadius: 12)
                                     )
+
                             } else {
+
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Color.gray.opacity(0.15))
                                     .frame(width: 80, height: 60)
                                     .overlay {
+
                                         Image(systemName: "wineglass")
                                             .font(.title2)
                                             .foregroundColor(.gray)
                                     }
                             }
-                            
+
                             VStack(alignment: .leading) {
+
                                 Text(wine.name)
                                     .font(.headline)
+
                                 Text("白ワイン")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
@@ -78,22 +114,11 @@ struct WhiteWineTastingListView: View {
                     }
                 }
                 .sheet(isPresented: $showAddScreen) {
-                    AddWineView { newWine in
-                        wines.append(newWine)
-                    }
+                    AddWineView()
+                    
                 }
             }
         }
-    }
-
-    // Binding取得
-    func binding(for wine: Wine) -> Binding<Wine> {
-        guard let index = wines.firstIndex(where: {
-            $0.id == wine.id
-        }) else {
-            fatalError("Wine not found")
-        }
-        return $wines[index]
     }
 }
 
@@ -102,7 +127,7 @@ struct AddWineView: View {
     @State private var wineName = ""
     @State private var selectedItem: PhotosPickerItem?
     @State private var selectedImage: UIImage?
-    var onSave: (Wine) -> Void
+    @Environment(\.modelContext) private var context
 
     var body: some View {
         NavigationStack {
@@ -147,13 +172,17 @@ struct AddWineView: View {
 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("保存") {
-                        let newWine = Wine(
-                            name: wineName,
-                            image: selectedImage
+                        let imageData = selectedImage?.jpegData(
+                            compressionQuality: 0.8
                         )
-                        onSave(newWine)
-                        dismiss()
 
+                        let wine = Wine(
+                            name: wineName,
+                            imageData: imageData
+                        )
+
+                        context.insert(wine)
+                        dismiss()
                     }
                     .disabled(wineName.isEmpty)
                 }

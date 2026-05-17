@@ -26,6 +26,6 @@ struct TASTingNoteApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(for: Wine.self)
     }
 }
