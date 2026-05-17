@@ -11,9 +11,11 @@ import SwiftUI
 struct AITabView: View {
     var body: some View {
         VStack {
-            
-            
-            
+            NavigationView {
+                Form {
+                }
+                .navigationTitle("AI")
+            }
         }
     }
 }

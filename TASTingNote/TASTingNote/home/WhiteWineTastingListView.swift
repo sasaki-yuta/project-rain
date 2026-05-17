@@ -28,7 +28,7 @@ struct WhiteWineTastingListView: View {
             NavigationView {
                 List(filteredWines) { wine in
                     NavigationLink {
-                        WineTastingSheetView(
+                        WhiteWineTastingSheetView(
                             wine: binding(for: wine)
                         )
                     } label: {

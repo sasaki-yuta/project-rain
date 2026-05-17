@@ -18,7 +18,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("HOME", systemImage: "house")
                 }
-            StarTabView()
+            FavoritesTabView()
                 .tabItem {
                     Label("お気に入り", systemImage: "star")
                 }
@@ -31,7 +31,7 @@ struct ContentView: View {
                     Label("AI", systemImage: "brain")
                 }
 
-            GearTabView()
+            SettingsTabView()
                 .tabItem {
                     Label("設定", systemImage: "gear")
                 }

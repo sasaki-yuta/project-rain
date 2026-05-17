@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-struct StarTabView: View {
+struct FavoritesTabView: View {
     var body: some View {
         VStack {
-            
-            
-            
+            NavigationView {
+                Form {
+                }
+                .navigationTitle("Favorites")
+            }
         }
     }
 }

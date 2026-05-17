@@ -1,7 +1,7 @@
 import SwiftUI
 import PhotosUI
 
-struct WineTastingSheetView: View {
+struct WhiteWineTastingSheetView: View {
 
     @Binding var wine: Wine
 
@@ -301,7 +301,7 @@ struct WineTastingSheetView: View {
 
 // MARK: - UI Helper
 
-extension WineTastingSheetView {
+extension WhiteWineTastingSheetView {
 
     func tastingSection<Content: View>(
         title: String,

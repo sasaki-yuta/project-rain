@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeTabView: View {
     @State private var searchText = ""
+    // 保存されたユーザー名を取得
+    @AppStorage("userName") private var userName = "ゲスト"
     
     var body: some View {
         VStack {
@@ -40,7 +42,7 @@ struct HomeTabView: View {
                 }
                 .searchable(text: $searchText, prompt: "ワインの検索")
                 .keyboardType(.default)
-                .navigationBarTitle("Sa8i8co")
+                .navigationBarTitle(userName.isEmpty ? "ゲスト" : userName)
             }
         }
     }
