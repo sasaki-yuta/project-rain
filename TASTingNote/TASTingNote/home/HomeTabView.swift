@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeTabView: View {
     @State private var searchText = ""

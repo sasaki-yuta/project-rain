@@ -10,50 +10,7 @@ import PhotosUI
 struct WhiteWineTastingSheetView: View {
 
     @Bindable var wine: Wine
-
     @State private var selectedItem: PhotosPickerItem?
-    @State private var tastingDate = Date()
-    @State private var rating = 0
-
-    // MARK: 外観
-
-    @State private var clarity: String? = nil
-    @State private var brightness: String? = nil
-    @State private var color: String? = nil
-    @State private var density: String? = nil
-    @State private var viscosity: String? = nil
-    @State private var appearanceImpression: String? = nil
-
-    // MARK: 香り
-
-    @State private var firstImpression: String? = nil
-    @State private var fruit: String? = nil
-    @State private var flower: String? = nil
-    @State private var spice: String? = nil
-    @State private var aromaImpression: String? = nil
-
-    // MARK: 味わい
-
-    @State private var attack: String? = nil
-    @State private var sweetness: String? = nil
-    @State private var acidity: String? = nil
-    @State private var bitterness: String? = nil
-    @State private var balance: String? = nil
-    @State private var alcohol: String? = nil
-    @State private var finish: String? = nil
-    @State private var evaluation: String? = nil
-
-    // MARK: その他
-
-    @State private var temperature: String? = nil
-    @State private var glass: String? = nil
-
-    // MARK: 結論
-
-    @State private var grape = ""
-    @State private var country = ""
-    @State private var vintage = ""
-    @State private var comment = ""
 
     private let accent = Color(
         red: 0.52,
@@ -76,7 +33,7 @@ struct WhiteWineTastingSheetView: View {
 
                     tastingScaleRow(
                         title: "清澄度",
-                        selection: $clarity,
+                        selection: $wine.clarity,
                         options: [
                             "澄んだ",
                             "やや濁った",
@@ -84,9 +41,16 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
 
+                    simpleField(
+                        title: "その他",
+                        text: $wine.appearance
+                    )
+
+
+
                     tastingScaleRow(
                         title: "輝き",
-                        selection: $brightness,
+                        selection: $wine.brightness,
                         options: [
                             "輝きのある",
                             "ややくすんだ",
@@ -96,7 +60,7 @@ struct WhiteWineTastingSheetView: View {
 
                     tastingScaleRow(
                         title: "色調",
-                        selection: $color,
+                        selection: $wine.color,
                         options: [
                             "レモン",
                             "イエロー",
@@ -108,7 +72,7 @@ struct WhiteWineTastingSheetView: View {
 
                     tastingScaleRow(
                         title: "濃淡",
-                        selection: $density,
+                        selection: $wine.density,
                         options: [
                             "淡い",
                             "やや濃い",
@@ -118,7 +82,7 @@ struct WhiteWineTastingSheetView: View {
 
                     tastingScaleRow(
                         title: "粘性",
-                        selection: $viscosity,
+                        selection: $wine.viscosity,
                         options: [
                             "弱い",
                             "適度",
@@ -135,7 +99,7 @@ struct WhiteWineTastingSheetView: View {
 
                     tastingScaleRow(
                         title: "第一印象",
-                        selection: $firstImpression,
+                        selection: $wine.firstImpression,
                         options: [
                             "弱い",
                             "やや弱い",
@@ -147,7 +111,7 @@ struct WhiteWineTastingSheetView: View {
 
                     tastingScaleRow(
                         title: "果実香",
-                        selection: $fruit,
+                        selection: $wine.fruit,
                         options: [
                             "柑橘",
                             "青リンゴ",
@@ -159,7 +123,7 @@ struct WhiteWineTastingSheetView: View {
 
                     tastingScaleRow(
                         title: "花の香り",
-                        selection: $flower,
+                        selection: $wine.flower,
                         options: [
                             "弱い",
                             "やや弱い",
@@ -171,7 +135,7 @@ struct WhiteWineTastingSheetView: View {
 
                     tastingScaleRow(
                         title: "樽香",
-                        selection: $spice,
+                        selection: $wine.spice,
                         options: [
                             "なし",
                             "弱い",
@@ -189,31 +153,31 @@ struct WhiteWineTastingSheetView: View {
 
                     numberScaleRow(
                         title: "甘味",
-                        selection: $sweetness,
+                        selection: $wine.sweetness,
                         values: ["1", "2", "3", "4", "5"]
                     )
 
                     numberScaleRow(
                         title: "酸味",
-                        selection: $acidity,
+                        selection: $wine.acidity,
                         values: ["1", "2", "3", "4", "5"]
                     )
 
                     numberScaleRow(
                         title: "ボディ",
-                        selection: $balance,
+                        selection: $wine.balance,
                         values: ["1", "2", "3", "4", "5"]
                     )
 
                     numberScaleRow(
                         title: "アルコール",
-                        selection: $alcohol,
+                        selection: $wine.alcohol,
                         values: ["1", "2", "3", "4", "5"]
                     )
 
                     tastingScaleRow(
                         title: "余韻",
-                        selection: $finish,
+                        selection: $wine.finish,
                         options: [
                             "短い",
                             "やや短い",
@@ -232,17 +196,17 @@ struct WhiteWineTastingSheetView: View {
 
                     simpleField(
                         title: "ブドウ品種",
-                        text: $grape
+                        text: $wine.grape
                     )
 
                     simpleField(
                         title: "生産地",
-                        text: $country
+                        text: $wine.country
                     )
 
                     simpleField(
                         title: "ヴィンテージ",
-                        text: $vintage
+                        text: $wine.vintage
                     )
                 }
             }
@@ -257,18 +221,6 @@ struct WhiteWineTastingSheetView: View {
         )
         .navigationTitle("テイスティングシート")
         .navigationBarTitleDisplayMode(.inline)
-
-        .toolbar {
-
-            ToolbarItem(placement: .topBarTrailing) {
-
-                Button("保存") {
-
-                }
-                .foregroundStyle(accent)
-                .fontWeight(.bold)
-            }
-        }
 
         .onChange(of: selectedItem) {
 
@@ -361,7 +313,7 @@ extension WhiteWineTastingSheetView {
 
                 DatePicker(
                     "",
-                    selection: $tastingDate,
+                    selection: $wine.tastingDate,
                     displayedComponents: .date
                 )
                 .datePickerStyle(.compact)
@@ -382,13 +334,13 @@ extension WhiteWineTastingSheetView {
                 HStack(spacing: 10) {
                     ForEach(1...5, id: \.self) { star in
                         Button {
-                            rating = star
+                            wine.rating = star
 
                         } label: {
 
                             Image(
                                 systemName:
-                                    star <= rating
+                                    star <= wine.rating
                                     ? "star.fill"
                                     : "star"
                             )
@@ -404,7 +356,7 @@ extension WhiteWineTastingSheetView {
                     .font(.subheadline)
                     .fontWeight(.semibold)
 
-                TextEditor(text: $comment)
+                TextEditor(text: $wine.comment)
                     .frame(height: 120)
                     .padding(8)
                     .background(

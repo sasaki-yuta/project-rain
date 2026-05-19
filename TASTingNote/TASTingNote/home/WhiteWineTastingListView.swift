@@ -15,14 +15,85 @@ final class Wine {
     var id: UUID
     var name: String
     var imageData: Data?
+    var rating: Int
+    var comment: String
+    var tastingDate: Date = Date()
+    
+    // MARK: 外観
+    var clarity: String?
+    var brightness: String?
+    var color: String?
+    var density: String?
+    var viscosity: String?
+    var appearance = ""
+
+    // MARK: 香り
+    var firstImpression: String? = nil
+    var fruit: String? = nil
+    var flower: String? = nil
+    var spice: String? = nil
+
+    // MARK: 味わい
+    var sweetness: String? = nil
+    var acidity: String? = nil
+    var balance: String? = nil
+    var alcohol: String? = nil
+    var finish: String? = nil
+
+    // MARK: 結論
+    var grape = ""
+    var country = ""
+    var vintage = ""
 
     init(
         name: String,
-        imageData: Data? = nil
+        imageData: Data? = nil,
+        rating: Int = 0,
+        comment: String = "",
+        tastingDate: Date = Date(),
+        clarity: String? = nil,
+        brightness: String? = nil,
+        color: String? = "",
+        density: String? = "",
+        viscosity: String? = "",
+        appearance: String = "",
+        firstImpression: String? = "",
+        fruit: String? = "",
+        flower: String? = "",
+        spice: String? = "",
+        sweetness: String? = "",
+        acidity: String? = "",
+        balance: String? = "",
+        alcohol: String? = "",
+        finish: String? = "",
+        grape: String = "",
+        country: String = "",
+        vintage: String = "",
     ) {
         self.id = UUID()
         self.name = name
         self.imageData = imageData
+        self.rating = rating
+        self.comment = comment
+        self.tastingDate = tastingDate
+        self.clarity = clarity
+        self.brightness = brightness
+        self.color = color
+        self.density = density
+        self.viscosity = viscosity
+        self.appearance = appearance
+        self.firstImpression = firstImpression
+        self.fruit = fruit
+        self.flower = flower
+        self.spice = spice
+        self.sweetness = sweetness
+        self.acidity = acidity
+        self.balance = balance
+        self.alcohol = alcohol
+        self.finish = finish
+        self.grape = grape
+        self.country = country
+        self.vintage = vintage
     }
 
     var image: UIImage? {
@@ -34,7 +105,8 @@ final class Wine {
 struct WhiteWineTastingListView: View {
     @State private var searchText = ""
 
-    @Environment(\.modelContext) private var context
+    @Environment(\.modelContext)
+    private var context
     @Query(sort: \Wine.name)
     private var wines: [Wine]
 
@@ -127,7 +199,8 @@ struct AddWineView: View {
     @State private var wineName = ""
     @State private var selectedItem: PhotosPickerItem?
     @State private var selectedImage: UIImage?
-    @Environment(\.modelContext) private var context
+    @Environment(\.modelContext)
+    private var context
 
     var body: some View {
         NavigationStack {
