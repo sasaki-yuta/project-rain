@@ -182,6 +182,7 @@ struct AddWineView: View {
                         )
 
                         context.insert(wine)
+                        try? context.save()
                         dismiss()
                     }
                     .disabled(wineName.isEmpty)

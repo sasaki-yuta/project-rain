@@ -4,7 +4,6 @@
 //
 //  Created by 佐々木 勇太 on 2026/05/15.
 //
-
 import SwiftUI
 import PhotosUI
 
@@ -13,41 +12,41 @@ struct WhiteWineTastingSheetView: View {
     @Bindable var wine: Wine
 
     @State private var selectedItem: PhotosPickerItem?
+    @State private var tastingDate = Date()
+    @State private var rating = 0
 
     // MARK: 外観
 
-    @State private var clarity = "澄んだ"
-    @State private var brightness = "輝きのある"
-    @State private var color = "レモンイエロー"
-    @State private var density = "淡い"
-    @State private var viscosity = "適度な"
-    @State private var appearanceImpression = "若々しい"
+    @State private var clarity: String? = nil
+    @State private var brightness: String? = nil
+    @State private var color: String? = nil
+    @State private var density: String? = nil
+    @State private var viscosity: String? = nil
+    @State private var appearanceImpression: String? = nil
 
     // MARK: 香り
 
-    @State private var firstImpression = "開いている"
-
-    @State private var fruit = "柑橘類"
-    @State private var flower = "アカシア"
-    @State private var spice = "石灰"
-
-    @State private var aromaImpression = "若々しい"
+    @State private var firstImpression: String? = nil
+    @State private var fruit: String? = nil
+    @State private var flower: String? = nil
+    @State private var spice: String? = nil
+    @State private var aromaImpression: String? = nil
 
     // MARK: 味わい
 
-    @State private var attack = "やや軽い"
-    @State private var sweetness = "ドライ"
-    @State private var acidity = "爽やかな"
-    @State private var bitterness = "穏やかな"
-    @State private var balance = "スムーズな"
-    @State private var alcohol = "12%～13%未満"
-    @State private var finish = "やや長い"
-    @State private var evaluation = "エレガントでミネラリー"
+    @State private var attack: String? = nil
+    @State private var sweetness: String? = nil
+    @State private var acidity: String? = nil
+    @State private var bitterness: String? = nil
+    @State private var balance: String? = nil
+    @State private var alcohol: String? = nil
+    @State private var finish: String? = nil
+    @State private var evaluation: String? = nil
 
     // MARK: その他
 
-    @State private var temperature = "8～10度"
-    @State private var glass = "中庸"
+    @State private var temperature: String? = nil
+    @State private var glass: String? = nil
 
     // MARK: 結論
 
@@ -56,70 +55,26 @@ struct WhiteWineTastingSheetView: View {
     @State private var vintage = ""
     @State private var comment = ""
 
+    private let accent = Color(
+        red: 0.52,
+        green: 0.15,
+        blue: 0.26
+    )
+
     var body: some View {
 
         ScrollView {
+            VStack(spacing: 28) {
 
-            VStack(alignment: .leading, spacing: 24) {
+                headerView
 
-                // MARK: ワイン情報
+                sectionCard(
+                    number: "1",
+                    title: "外観",
+                    english: "APPEARANCE"
+                ) {
 
-                VStack(alignment: .leading, spacing: 16) {
-
-                    if let image = wine.image {
-
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxHeight: 240)
-                            .clipShape(
-                                RoundedRectangle(cornerRadius: 16)
-                            )
-
-                    } else {
-
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.gray.opacity(0.15))
-                            .frame(height: 240)
-                            .overlay {
-
-                                Image(systemName: "wineglass")
-                                    .font(.system(size: 60))
-                                    .foregroundColor(.gray)
-                            }
-                    }
-
-                    PhotosPicker(
-                        selection: $selectedItem,
-                        matching: .images
-                    ) {
-
-                        Label(
-                            "ワイン画像を変更",
-                            systemImage: "photo"
-                        )
-                    }
-
-                    VStack(alignment: .leading) {
-
-                        Text("ワイン名")
-                            .font(.headline)
-
-                        TextField(
-                            "ワイン名を入力",
-                            text: $wine.name
-                        )
-                        .textFieldStyle(.roundedBorder)
-                    }
-                }
-
-                Divider()
-
-                // MARK: 外観
-
-                tastingSection(title: "外観") {
-
-                    tastingRow(
+                    tastingScaleRow(
                         title: "清澄度",
                         selection: $clarity,
                         options: [
@@ -129,7 +84,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
 
-                    tastingRow(
+                    tastingScaleRow(
                         title: "輝き",
                         selection: $brightness,
                         options: [
@@ -139,11 +94,11 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
 
-                    tastingRow(
+                    tastingScaleRow(
                         title: "色調",
                         selection: $color,
                         options: [
-                            "レモンイエロー",
+                            "レモン",
                             "イエロー",
                             "黄金色",
                             "トパーズ",
@@ -151,281 +106,169 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
 
-                    tastingRow(
+                    tastingScaleRow(
                         title: "濃淡",
                         selection: $density,
                         options: [
                             "淡い",
                             "やや濃い",
-                            "濃い",
-                            "非常に濃い"
+                            "濃い"
                         ]
                     )
 
-                    tastingRow(
+                    tastingScaleRow(
                         title: "粘性",
                         selection: $viscosity,
                         options: [
-                            "さらっとした",
-                            "適度な",
-                            "やや強い",
-                            "ねっとりとした"
-                        ]
-                    )
-
-                    tastingRow(
-                        title: "外観の印象",
-                        selection: $appearanceImpression,
-                        options: [
-                            "若々しい",
-                            "やや発展した",
-                            "熟成した",
-                            "軽快な",
-                            "濃縮感がある"
+                            "弱い",
+                            "適度",
+                            "強い"
                         ]
                     )
                 }
 
-                Divider()
+                sectionCard(
+                    number: "2",
+                    title: "香り",
+                    english: "AROMA"
+                ) {
 
-                // MARK: 香り
-
-                tastingSection(title: "香り") {
-
-                    tastingRow(
+                    tastingScaleRow(
                         title: "第一印象",
                         selection: $firstImpression,
                         options: [
-                            "閉じている",
-                            "控えめ",
-                            "開いている",
-                            "力強い"
-                        ]
-                    )
-
-                    tastingRow(
-                        title: "果実",
-                        selection: $fruit,
-                        options: [
-                            "柑橘類",
-                            "青リンゴ",
-                            "洋梨",
-                            "白桃",
-                            "アプリコット",
-                            "パイナップル"
-                        ]
-                    )
-
-                    tastingRow(
-                        title: "花・植物",
-                        selection: $flower,
-                        options: [
-                            "スイカズラ",
-                            "アカシア",
-                            "白バラ",
-                            "ハーブ",
-                            "タイム"
-                        ]
-                    )
-
-                    tastingRow(
-                        title: "香辛料・芳香",
-                        selection: $spice,
-                        options: [
-                            "石灰",
-                            "火打石",
-                            "貝殻",
-                            "トースト",
-                            "ヴァニラ",
-                            "蜂蜜"
-                        ]
-                    )
-
-                    tastingRow(
-                        title: "香りの印象",
-                        selection: $aromaImpression,
-                        options: [
-                            "若々しい",
-                            "熟成感が現れている",
-                            "ニュートラル",
-                            "木樽からのニュアンス"
-                        ]
-                    )
-                }
-
-                Divider()
-
-                // MARK: 味わい
-
-                tastingSection(title: "味わい") {
-
-                    tastingRow(
-                        title: "アタック",
-                        selection: $attack,
-                        options: [
-                            "軽い",
-                            "やや軽い",
+                            "弱い",
+                            "やや弱い",
+                            "中程度",
                             "やや強い",
                             "強い"
                         ]
                     )
 
-                    tastingRow(
-                        title: "甘み",
-                        selection: $sweetness,
+                    tastingScaleRow(
+                        title: "果実香",
+                        selection: $fruit,
                         options: [
-                            "ドライ",
-                            "ソフトな",
-                            "まろやか",
-                            "豊かな",
-                            "残糖がある"
+                            "柑橘",
+                            "青リンゴ",
+                            "洋梨",
+                            "白桃",
+                            "南国果実"
                         ]
                     )
 
-                    tastingRow(
-                        title: "酸味",
-                        selection: $acidity,
+                    tastingScaleRow(
+                        title: "花の香り",
+                        selection: $flower,
                         options: [
-                            "なめらかな",
-                            "爽やかな",
-                            "はつらつとした",
-                            "力強い"
-                        ]
-                    )
-
-                    tastingRow(
-                        title: "苦味",
-                        selection: $bitterness,
-                        options: [
-                            "控えめ",
-                            "穏やかな",
-                            "コクを与える",
+                            "弱い",
+                            "やや弱い",
+                            "中程度",
+                            "やや強い",
                             "強い"
                         ]
                     )
 
-                    tastingRow(
-                        title: "バランス",
-                        selection: $balance,
+                    tastingScaleRow(
+                        title: "樽香",
+                        selection: $spice,
                         options: [
-                            "スムーズな",
-                            "スリムな",
-                            "ドライな",
-                            "ジューシーな",
-                            "豊潤な"
+                            "なし",
+                            "弱い",
+                            "中程度",
+                            "強い"
                         ]
                     )
+                }
 
-                    tastingRow(
+                sectionCard(
+                    number: "3",
+                    title: "味わい",
+                    english: "TASTE"
+                ) {
+
+                    numberScaleRow(
+                        title: "甘味",
+                        selection: $sweetness,
+                        values: ["1", "2", "3", "4", "5"]
+                    )
+
+                    numberScaleRow(
+                        title: "酸味",
+                        selection: $acidity,
+                        values: ["1", "2", "3", "4", "5"]
+                    )
+
+                    numberScaleRow(
+                        title: "ボディ",
+                        selection: $balance,
+                        values: ["1", "2", "3", "4", "5"]
+                    )
+
+                    numberScaleRow(
                         title: "アルコール",
                         selection: $alcohol,
-                        options: [
-                            "11%未満",
-                            "11%～12%未満",
-                            "12%～13%未満",
-                            "13%～14%未満",
-                            "14%以上"
-                        ]
+                        values: ["1", "2", "3", "4", "5"]
                     )
 
-                    tastingRow(
+                    tastingScaleRow(
                         title: "余韻",
                         selection: $finish,
                         options: [
                             "短い",
                             "やや短い",
+                            "中程度",
                             "やや長い",
                             "長い"
                         ]
                     )
-
-                    tastingRow(
-                        title: "評価",
-                        selection: $evaluation,
-                        options: [
-                            "シンプル、フレッシュ感を楽しむ",
-                            "エレガントでミネラリー",
-                            "成熟度が高く豊か",
-                            "濃縮し力強い"
-                        ]
-                    )
                 }
 
-                Divider()
+                sectionCard(
+                    number: "4",
+                    title: "結論",
+                    english: "CONCLUSION"
+                ) {
 
-                // MARK: サービス
-
-                tastingSection(title: "サービス") {
-
-                    tastingRow(
-                        title: "適正温度",
-                        selection: $temperature,
-                        options: [
-                            "8度未満",
-                            "8～10度",
-                            "11～14度",
-                            "15～18度"
-                        ]
-                    )
-
-                    tastingRow(
-                        title: "グラス",
-                        selection: $glass,
-                        options: [
-                            "小ぶり",
-                            "中庸",
-                            "大ぶり",
-                            "バルーン型",
-                            "チューリップ型"
-                        ]
-                    )
-                }
-
-                Divider()
-
-                // MARK: 結論
-
-                tastingSection(title: "結論") {
-
-                    TextField(
-                        "主なブドウ品種",
+                    simpleField(
+                        title: "ブドウ品種",
                         text: $grape
                     )
-                    .textFieldStyle(.roundedBorder)
 
-                    TextField(
-                        "生産地",
+                    simpleField(
+                        title: "生産地",
                         text: $country
                     )
-                    .textFieldStyle(.roundedBorder)
 
-                    TextField(
-                        "収穫年",
+                    simpleField(
+                        title: "ヴィンテージ",
                         text: $vintage
                     )
-                    .textFieldStyle(.roundedBorder)
-
-                    VStack(alignment: .leading) {
-
-                        Text("コメント")
-                            .font(.headline)
-
-                        TextEditor(text: $comment)
-                            .frame(height: 140)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(
-                                        Color.gray.opacity(0.3)
-                                    )
-                            )
-                    }
                 }
             }
             .padding()
         }
-        .background(Color.white)
-        .navigationTitle("白ワイン")
+        .background(
+            Color(
+                red: 0.98,
+                green: 0.97,
+                blue: 0.97
+            )
+        )
+        .navigationTitle("テイスティングシート")
         .navigationBarTitleDisplayMode(.inline)
+
+        .toolbar {
+
+            ToolbarItem(placement: .topBarTrailing) {
+
+                Button("保存") {
+
+                }
+                .foregroundStyle(accent)
+                .fontWeight(.bold)
+            }
+        }
 
         .onChange(of: selectedItem) {
 
@@ -441,74 +284,340 @@ struct WhiteWineTastingSheetView: View {
     }
 }
 
-// MARK: - UI Helper
+// MARK: - Header
 
 extension WhiteWineTastingSheetView {
 
-    func tastingSection<Content: View>(
-        title: String,
-        @ViewBuilder content: () -> Content
-    ) -> some View {
+    var headerView: some View {
 
         VStack(alignment: .leading, spacing: 18) {
 
-            Text(title)
-                .font(.title3)
-                .bold()
+            if let image = wine.image {
 
-            content()
-        }
-    }
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(height: 220)
+                    .frame(maxWidth: .infinity)
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: 20)
+                    )
 
-    func tastingRow(
-        title: String,
-        selection: Binding<String>,
-        options: [String]
-    ) -> some View {
+            } else {
 
-        VStack(alignment: .leading, spacing: 10) {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.gray.opacity(0.12))
+                    .frame(height: 220)
+                    .overlay {
 
-            Text(title)
-                .font(.headline)
+                        Image(systemName: "wineglass.fill")
+                            .font(.system(size: 60))
+                            .foregroundStyle(accent.opacity(0.7))
+                    }
+            }
 
-            ScrollView(.horizontal, showsIndicators: false) {
+            PhotosPicker(
+                selection: $selectedItem,
+                matching: .images
+            ) {
 
-                HStack {
+                Label(
+                    "ワイン画像を変更",
+                    systemImage: "photo"
+                )
+                .font(.subheadline)
+                .foregroundStyle(accent)
+            }
 
-                    ForEach(options, id: \.self) { option in
+            VStack(alignment: .leading, spacing: 8) {
+                Text("ワイン名")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
 
+                TextField(
+                    "ワイン名を入力",
+                    text: $wine.name
+                )
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(.white)
+                )
+                .overlay {
+
+                    RoundedRectangle(cornerRadius: 14)
+                        .stroke(
+                            Color.gray.opacity(0.2)
+                        )
+                }
+            }
+            
+            // 日付
+            VStack(alignment: .leading, spacing: 8) {
+
+                Text("試飲日")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+
+                DatePicker(
+                    "",
+                    selection: $tastingDate,
+                    displayedComponents: .date
+                )
+                .datePickerStyle(.compact)
+                .labelsHidden()
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.gray.opacity(0.06))
+                )
+            }
+            
+            VStack(alignment: .leading, spacing: 8) {
+                Text("評価")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+
+                HStack(spacing: 10) {
+                    ForEach(1...5, id: \.self) { star in
                         Button {
-
-                            selection.wrappedValue = option
+                            rating = star
 
                         } label: {
 
-                            HStack {
-
-                                Image(
-                                    systemName:
-                                        selection.wrappedValue == option
-                                        ? "largecircle.fill.circle"
-                                        : "circle"
-                                )
-
-                                Text(option)
-                            }
-                            .padding(.horizontal, 14)
-                            .padding(.vertical, 10)
-                            .background(
-                                RoundedRectangle(
-                                    cornerRadius: 12
-                                )
-                                .stroke(
-                                    Color.gray.opacity(0.3)
-                                )
+                            Image(
+                                systemName:
+                                    star <= rating
+                                    ? "star.fill"
+                                    : "star"
                             )
+                            .font(.title2)
+                            .foregroundStyle(.yellow)
                         }
-                        .foregroundColor(.primary)
                     }
                 }
             }
+ 
+            VStack(alignment: .leading, spacing: 8) {
+                Text("コメント")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+
+                TextEditor(text: $comment)
+                    .frame(height: 120)
+                    .padding(8)
+                    .background(
+                        RoundedRectangle(
+                            cornerRadius: 12
+                        )
+                        .stroke(
+                            Color.gray.opacity(0.25)
+                        )
+                    )
+            }
+        }
+    }
+
+    func infoRow(
+        left: String,
+        right: String
+    ) -> some View {
+
+        HStack {
+
+            Text(left)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+            Spacer()
+
+            Text(right)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+    }
+}
+
+// MARK: - Section
+
+extension WhiteWineTastingSheetView {
+
+    func sectionCard<Content: View>(
+        number: String,
+        title: String,
+        english: String,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+
+        VStack(alignment: .leading, spacing: 20) {
+
+            HStack(spacing: 10) {
+
+                Text(number)
+                    .font(.caption.bold())
+                    .foregroundStyle(.white)
+                    .frame(width: 24, height: 24)
+                    .background(accent)
+                    .clipShape(Circle())
+
+                Text(title)
+                    .font(.title3.bold())
+
+                Text("(\(english))")
+                    .font(.caption)
+                    .foregroundStyle(accent)
+            }
+
+            content()
+        }
+        .padding(20)
+        .background(.white)
+        .clipShape(
+            RoundedRectangle(cornerRadius: 24)
+        )
+        .overlay {
+
+            RoundedRectangle(cornerRadius: 24)
+                .stroke(
+                    accent.opacity(0.12),
+                    lineWidth: 1
+                )
+        }
+    }
+}
+
+// MARK: - Rows
+
+extension WhiteWineTastingSheetView {
+
+    func tastingScaleRow(
+        title: String,
+        selection: Binding<String?>,
+        options: [String]
+    ) -> some View {
+
+        VStack(alignment: .leading, spacing: 12) {
+
+            Text(title)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+
+            LazyVGrid(
+                columns: [
+                    GridItem(.adaptive(minimum: 88))
+                ],
+                spacing: 10
+            ) {
+
+                ForEach(options, id: \.self) { option in
+
+                    Button {
+
+                        selection.wrappedValue = option
+
+                    } label: {
+
+                        HStack(spacing: 6) {
+
+                            Image(
+                                systemName:
+                                    selection.wrappedValue == option
+                                    ? "record.circle.fill"
+                                    : "circle"
+                            )
+
+                            Text(option)
+                                .font(.caption)
+                                .lineLimit(1)
+                        }
+                        .foregroundStyle(
+                            selection.wrappedValue == option
+                            ? .white
+                            : .primary
+                        )
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background {
+
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(
+                                    selection.wrappedValue == option
+                                    ? accent
+                                    : Color.gray.opacity(0.08)
+                                )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func numberScaleRow(
+        title: String,
+        selection: Binding<String?>,
+        values: [String]
+    ) -> some View {
+
+        VStack(alignment: .leading, spacing: 12) {
+
+            Text(title)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+
+            HStack {
+
+                ForEach(values, id: \.self) { value in
+
+                    Button {
+
+                        selection.wrappedValue = value
+
+                    } label: {
+
+                        Text(value)
+                            .font(.subheadline.bold())
+                            .foregroundStyle(
+                                selection.wrappedValue == value
+                                ? .white
+                                : .primary
+                            )
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 38)
+                            .background {
+
+                                RoundedRectangle(
+                                    cornerRadius: 10
+                                )
+                                .fill(
+                                    selection.wrappedValue == value
+                                    ? accent
+                                    : Color.gray.opacity(0.08)
+                                )
+                            }
+                    }
+                }
+            }
+        }
+    }
+
+    func simpleField(
+        title: String,
+        text: Binding<String>
+    ) -> some View {
+
+        VStack(alignment: .leading, spacing: 8) {
+
+            Text(title)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+
+            TextField(title, text: text)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.gray.opacity(0.06))
+                )
         }
     }
 }
