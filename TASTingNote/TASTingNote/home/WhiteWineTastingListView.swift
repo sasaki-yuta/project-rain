@@ -10,9 +10,8 @@ import SwiftData
 import PhotosUI
 
 @Model
-final class Wine {
+class Wine {
 
-    var id: UUID
     var name: String
     var imageData: Data?
     var rating: Int
@@ -70,7 +69,6 @@ final class Wine {
         country: String = "",
         vintage: String = "",
     ) {
-        self.id = UUID()
         self.name = name
         self.imageData = imageData
         self.rating = rating
@@ -104,28 +102,14 @@ final class Wine {
 
 struct WhiteWineTastingListView: View {
     @State private var searchText = ""
-
-    @Environment(\.modelContext)
-    private var context
-    @Query(sort: \Wine.name)
-    private var wines: [Wine]
-
     @State private var showAddScreen = false
 
-    var filteredWines: [Wine] {
-        if searchText.isEmpty {
-            return wines
-        } else {
-            return wines.filter {
-                $0.name.localizedCaseInsensitiveContains(searchText)
-            }
-        }
-    }
+    @Query private var wines: [Wine]
 
     var body: some View {
         VStack{
             NavigationView {
-                List(filteredWines, id: \.persistentModelID) { wine in
+                List(wines) { wine in
 
                     NavigationLink {
 
