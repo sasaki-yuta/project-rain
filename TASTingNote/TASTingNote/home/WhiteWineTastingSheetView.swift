@@ -37,7 +37,7 @@ struct WhiteWineTastingSheetView: View {
                         options: [
                             "澄んだ",
                             "やや濁った",
-                            "濁った"
+                            "濁った",
                         ]
                     )
 
@@ -46,7 +46,8 @@ struct WhiteWineTastingSheetView: View {
                         text: $wine.appearance
                     )
 
-
+                    Divider()
+                        .padding(.vertical, 4)
 
                     tastingScaleRow(
                         title: "輝き",
@@ -54,39 +55,105 @@ struct WhiteWineTastingSheetView: View {
                         options: [
                             "輝きのある",
                             "ややくすんだ",
-                            "モヤがかった"
+                            "モヤがかった",
                         ]
                     )
 
+                    Divider()
+                        .padding(.vertical, 4)
+
                     tastingScaleRow(
-                        title: "色調",
+                        title: "色調（補助用語）",
+                        selection: $wine.colorTone,
+                        options: [
+                            "シルバーがかった ",
+                            "グリーンがかった",
+                            "黄金色がかった",
+                        ]
+                    )
+
+                    Divider()
+                        .padding(.vertical, 4)
+
+                    tastingScaleRow(
+                        title: "色調（メイン用語）",
                         selection: $wine.color,
                         options: [
-                            "レモン",
+                            "レモンイエロー",
                             "イエロー",
                             "黄金色",
                             "トパーズ",
-                            "アンバー"
+                            "オレンジ",
+                            "アンバー",
                         ]
                     )
+
+                    Divider()
+                        .padding(.vertical, 4)
 
                     tastingScaleRow(
                         title: "濃淡",
                         selection: $wine.density,
                         options: [
+                            "無色に近い",
                             "淡い",
                             "やや濃い",
-                            "濃い"
+                            "濃い",
+                            "非常に濃い",
                         ]
                     )
+
+                    Divider()
+                        .padding(.vertical, 4)
 
                     tastingScaleRow(
                         title: "粘性",
                         selection: $wine.viscosity,
                         options: [
-                            "弱い",
-                            "適度",
-                            "強い"
+                            "さらっとした",
+                            "適度な",
+                            "やや強い",
+                            "ねっとりとした",
+                        ]
+                    )
+
+                    Divider()
+                        .padding(.vertical, 4)
+
+                    tastingScaleRow(
+                        title: "外観の印象（若さ）",
+                        selection: $wine.youthfulness,
+                        options: [
+                            "若々しい",
+                            "やや発展した",
+                            "熟成のニュアンスが見える",
+                            "熟成した",
+                            "酸化が進んだ",
+                        ]
+                    )
+
+                    Divider()
+                        .padding(.vertical, 4)
+
+                    tastingScaleRow(
+                        title: "外観の印象（成熟度）",
+                        selection: $wine.maturity,
+                        options: [
+                            "軽快な",
+                            "成熟度が高い",
+                            "濃縮感がある",
+                        ]
+                    )
+
+                    Divider()
+                        .padding(.vertical, 4)
+
+                    tastingScaleRow(
+                        title: "外観の印象（発泡性）",
+                        selection: $wine.effervescence,
+                        options: [
+                            "気泡が見える",
+                            "発泡性",
                         ]
                     )
                 }
@@ -109,6 +176,9 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
 
+                    Divider()
+                        .padding(.vertical, 4)
+
                     tastingScaleRow(
                         title: "果実香",
                         selection: $wine.fruit,
@@ -121,6 +191,9 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
 
+                    Divider()
+                        .padding(.vertical, 4)
+
                     tastingScaleRow(
                         title: "花の香り",
                         selection: $wine.flower,
@@ -132,6 +205,9 @@ struct WhiteWineTastingSheetView: View {
                             "強い"
                         ]
                     )
+
+                    Divider()
+                        .padding(.vertical, 4)
 
                     tastingScaleRow(
                         title: "樽香",
@@ -157,11 +233,17 @@ struct WhiteWineTastingSheetView: View {
                         values: ["1", "2", "3", "4", "5"]
                     )
 
+                    Divider()
+                        .padding(.vertical, 4)
+
                     numberScaleRow(
                         title: "酸味",
                         selection: $wine.acidity,
                         values: ["1", "2", "3", "4", "5"]
                     )
+
+                    Divider()
+                        .padding(.vertical, 4)
 
                     numberScaleRow(
                         title: "ボディ",
@@ -169,11 +251,17 @@ struct WhiteWineTastingSheetView: View {
                         values: ["1", "2", "3", "4", "5"]
                     )
 
+                    Divider()
+                        .padding(.vertical, 4)
+
                     numberScaleRow(
                         title: "アルコール",
                         selection: $wine.alcohol,
                         values: ["1", "2", "3", "4", "5"]
                     )
+
+                    Divider()
+                        .padding(.vertical, 4)
 
                     tastingScaleRow(
                         title: "余韻",

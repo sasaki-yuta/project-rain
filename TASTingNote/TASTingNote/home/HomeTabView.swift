@@ -28,18 +28,6 @@ struct HomeTabView: View {
                             Text("スパークリング")
                         }
                     }
-                    Section(header: Text("ワインデータベース")) {
-                        Button("赤") {
-                            
-                        }
-                        Button("白") {
-                            /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
-                        }
-                        Button("スパークリング") {
-                            /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
-                        }
-                    }
-
                 }
                 .searchable(text: $searchText, prompt: "ワインの検索")
                 .keyboardType(.default)

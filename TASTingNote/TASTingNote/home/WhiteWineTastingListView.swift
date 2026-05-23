@@ -21,12 +21,16 @@ class Wine {
     var isFavorite = false
     
     // MARK: 外観
-    var clarity: String?
-    var brightness: String?
-    var color: String?
-    var density: String?
-    var viscosity: String?
-    var appearance = ""
+    var clarity: String?        // 清澄度
+    var brightness: String?     // 輝き
+    var colorTone: String?      // 色調（補助用語）
+    var color: String?          // 色調（メイン用語）
+    var density: String?        // 濃淡
+    var viscosity: String?      // 粘性
+    var youthfulness: String?   // 外観の印象（若さ）
+    var maturity: String?       // 外観の印象（成熟度）
+    var effervescence: String?  // 外観の印象（発泡性）
+    var appearance = ""         // その他
 
     // MARK: 香り
     var firstImpression: String? = nil
@@ -56,9 +60,13 @@ class Wine {
         tastingDate: Date = Date(),
         clarity: String? = nil,
         brightness: String? = nil,
+        colorTone: String? = "",
         color: String? = "",
         density: String? = "",
         viscosity: String? = "",
+        youthfulness: String? = nil,
+        maturity: String? = nil,
+        effervescence: String? = nil,
         appearance: String = "",
         firstImpression: String? = "",
         fruit: String? = "",
@@ -81,9 +89,13 @@ class Wine {
         self.tastingDate = tastingDate
         self.clarity = clarity
         self.brightness = brightness
+        self.colorTone = colorTone
         self.color = color
         self.density = density
         self.viscosity = viscosity
+        self.youthfulness = youthfulness
+        self.maturity = maturity
+        self.effervescence = effervescence
         self.appearance = appearance
         self.firstImpression = firstImpression
         self.fruit = fruit
