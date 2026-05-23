@@ -282,14 +282,34 @@ extension WhiteWineTastingSheetView {
             }
 
             VStack(alignment: .leading, spacing: 8) {
+
                 Text("ワイン名")
                     .font(.subheadline)
                     .fontWeight(.semibold)
 
-                TextField(
-                    "ワイン名を入力",
-                    text: $wine.name
-                )
+                HStack(spacing: 12) {
+
+                    TextField(
+                        "ワイン名を入力",
+                        text: $wine.name
+                    )
+
+                    Button {
+
+                        wine.isFavorite.toggle()
+
+                    } label: {
+
+                        Image(
+                            systemName:
+                                wine.isFavorite
+                                ? "star.fill"
+                                : "star"
+                        )
+                        .font(.title2)
+                        .foregroundStyle(.yellow)
+                    }
+                }
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 14)
@@ -303,7 +323,7 @@ extension WhiteWineTastingSheetView {
                         )
                 }
             }
-            
+
             // 日付
             VStack(alignment: .leading, spacing: 8) {
 

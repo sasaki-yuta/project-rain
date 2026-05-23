@@ -12,11 +12,13 @@ import PhotosUI
 @Model
 class Wine {
 
-    var name: String
+    // 基本データ
     var imageData: Data?
+    var name: String
+    var tastingDate: Date = Date()
     var rating: Int
     var comment: String
-    var tastingDate: Date = Date()
+    var isFavorite = false
     
     // MARK: 外観
     var clarity: String?
@@ -43,12 +45,14 @@ class Wine {
     var grape = ""
     var country = ""
     var vintage = ""
+    
 
     init(
         name: String,
         imageData: Data? = nil,
         rating: Int = 0,
         comment: String = "",
+        isFavorite: Bool = false,
         tastingDate: Date = Date(),
         clarity: String? = nil,
         brightness: String? = nil,
@@ -73,6 +77,7 @@ class Wine {
         self.imageData = imageData
         self.rating = rating
         self.comment = comment
+        self.isFavorite = isFavorite
         self.tastingDate = tastingDate
         self.clarity = clarity
         self.brightness = brightness
@@ -106,54 +111,62 @@ struct WhiteWineTastingListView: View {
 
     @Query private var wines: [Wine]
 
+    @Environment(\.modelContext)
+    private var context
+
     var body: some View {
         VStack{
             NavigationView {
-                List(wines) { wine in
+                List {
 
-                    NavigationLink {
+                    ForEach(wines) { wine in
 
-                        WhiteWineTastingSheetView(wine: wine)
+                        NavigationLink {
 
-                    } label: {
+                            WhiteWineTastingSheetView(wine: wine)
 
-                        HStack(spacing: 16) {
+                        } label: {
 
-                            if let image = wine.image {
+                            HStack(spacing: 16) {
 
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 80, height: 60)
-                                    .clipShape(
-                                        RoundedRectangle(cornerRadius: 12)
-                                    )
+                                if let image = wine.image {
 
-                            } else {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 80, height: 60)
+                                        .clipShape(
+                                            RoundedRectangle(cornerRadius: 12)
+                                        )
 
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color.gray.opacity(0.15))
-                                    .frame(width: 80, height: 60)
-                                    .overlay {
+                                } else {
 
-                                        Image(systemName: "wineglass")
-                                            .font(.title2)
-                                            .foregroundColor(.gray)
-                                    }
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.gray.opacity(0.15))
+                                        .frame(width: 80, height: 60)
+                                        .overlay {
+
+                                            Image(systemName: "wineglass")
+                                                .font(.title2)
+                                                .foregroundColor(.gray)
+                                        }
+                                }
+
+                                VStack(alignment: .leading) {
+
+                                    Text(wine.name)
+                                        .font(.headline)
+
+                                    Text("白ワイン")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
                             }
-
-                            VStack(alignment: .leading) {
-
-                                Text(wine.name)
-                                    .font(.headline)
-
-                                Text("白ワイン")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
+                            .padding(.vertical, 6)
                         }
-                        .padding(.vertical, 6)
                     }
+                    .onDelete(perform: deleteWine)
+                    
                 }
                 .searchable(
                     text: $searchText,
@@ -161,6 +174,11 @@ struct WhiteWineTastingListView: View {
                 )
                 .navigationTitle("白ワイン")
                 .toolbar {
+
+                    ToolbarItem(placement: .topBarLeading) {
+                        EditButton()
+                    }
+
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             showAddScreen = true
@@ -171,10 +189,20 @@ struct WhiteWineTastingListView: View {
                 }
                 .sheet(isPresented: $showAddScreen) {
                     AddWineView()
-                    
                 }
             }
         }
+    }
+
+    private func deleteWine(at offsets: IndexSet) {
+
+        for index in offsets {
+
+            let wine = wines[index]
+            context.delete(wine)
+        }
+
+        try? context.save()
     }
 }
 
