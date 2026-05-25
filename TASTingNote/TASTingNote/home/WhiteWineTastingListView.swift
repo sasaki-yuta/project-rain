@@ -13,52 +13,71 @@ import PhotosUI
 class Wine {
 
     // 基本データ
-    var imageData: Data?
-    var name: String
-    var tastingDate: Date = Date()
-    var rating: Int
-    var comment: String
-    var isFavorite = false
+    var imageData: Data?                    // ワイン画像
+    var name: String                        // ワイン名
+    var isFavorite = false                  // お気に入り
+    var tastingDate: Date = Date()          // 試飲日
+    var rating: Int                         // 評価
+    var comment: String                     // コメント
     
     // MARK: 外観
-    var clarity: String?        // 清澄度
-    var brightness: String?     // 輝き
-    var colorTone: String?      // 色調（補助用語）
-    var color: String?          // 色調（メイン用語）
-    var density: String?        // 濃淡
-    var viscosity: String?      // 粘性
-    var youthfulness: String?   // 外観の印象（若さ）
-    var maturity: String?       // 外観の印象（成熟度）
-    var effervescence: String?  // 外観の印象（発泡性）
-    var appearance = ""         // その他
+    var clarity: String?                    // 清澄度
+    var appearance = ""                     // その他
+    var brightness: String?                 // 輝き
+    var colorTone: String?                  // 色調（補助用語）
+    var color: String?                      // 色調（メイン用語）
+    var density: String?                    // 濃淡
+    var viscosity: String?                  // 粘性
+    var youthfulness: String?               // 外観の印象（若さ）
+    var maturity: String?                   // 外観の印象（成熟度）
+    var effervescence: String?              // 外観の印象（発泡性）
 
     // MARK: 香り
-    var firstImpression: String? = nil
-    var fruit: String? = nil
-    var flower: String? = nil
-    var spice: String? = nil
+    var firstImpIntensity: String? = nil    // 第一印象（強さ）
+    var firstImpCharacter: String? = nil    // 第一印象（性質）
+    var fruit: String? = nil                // 果実
+    var plantFlower: String? = nil          // 花・植物（花）
+    var plantHerb: String? = nil            // 花・植物（ハーブ）
+    var plantNuts: String? = nil            // 花・植物（ナッツ）
+    var spiceMineral: String? = nil         // 香辛料・芳香・化学物質（ミネラル）
+    var spicsOak: String? = nil             // 香辛料・芳香・化学物質（樽）
+    var spiceSpice: String? = nil           // 香辛料・芳香・化学物質（香辛料）
+    var spiceOthers: String? = nil          // 香辛料・芳香・化学物質（他）
+    var spiceMaturity: String? = nil        // 香りの印象（熟成感）
+    var spiceCharacteristic: String? = nil  // 香りの印象（特性）
 
     // MARK: 味わい
-    var sweetness: String? = nil
-    var acidity: String? = nil
-    var balance: String? = nil
-    var alcohol: String? = nil
-    var finish: String? = nil
+    var attack: String? = nil               // アタック
+    var sweetness: String? = nil            // 甘味
+    var acidity: String? = nil              // 酸味
+    var bitterness: String? = nil           // 苦味
+    var balanceBottomLeft: String? = nil    // バランンス（左下）
+    var balanceTopLeft: String? = nil       // バランンス（左上）
+    var balanceTopRight: String? = nil      // バランンス（右上）
+    var balanceBottmRight: String? = nil    // バランンス（右下）
+    var alcohol: String? = nil              // アルコール
+    var finish: String? = nil               // 余韻
 
     // MARK: 結論
-    var grape = ""
-    var country = ""
-    var vintage = ""
-    
+    var evaluation: String? = nil           // 評価
+    var eervingTemperature: String? = nil   // 適正温度
+    var glass: String? = nil                // グラス
+    var vintage = ""                        // 収穫年
+    var country = ""                        // 生産地
+    var grape = ""                          // 主なブドウ品種
+
 
     init(
-        name: String,
+        // 基本データ
         imageData: Data? = nil,
-        rating: Int = 0,
-        comment: String = "",
+        name: String,
         isFavorite: Bool = false,
         tastingDate: Date = Date(),
+        rating: Int = 0,
+        comment: String = "",
+        // MARK: 外観
         clarity: String? = nil,
+        appearance: String = "",
         brightness: String? = nil,
         colorTone: String? = "",
         color: String? = "",
@@ -67,27 +86,48 @@ class Wine {
         youthfulness: String? = nil,
         maturity: String? = nil,
         effervescence: String? = nil,
-        appearance: String = "",
-        firstImpression: String? = "",
+        // MARK: 香り
+        firstImpIntensity: String? = "",
+        firstImpCharacter: String? = "",
         fruit: String? = "",
-        flower: String? = "",
-        spice: String? = "",
+        plantFlower: String? = "",
+        plantHerb: String? = "",
+        plantNuts: String? = "",
+        spiceMineral: String? = "",
+        spicOak: String? = "",
+        spiceSpice: String? = "",
+        spiceOthers: String? = "",
+        spiceMaturity: String? = "",
+        spiceCharacteristic: String? = "",
+        // MARK: 味わい
+        attack: String? = "",
         sweetness: String? = "",
         acidity: String? = "",
-        balance: String? = "",
+        bitterness: String? = "",
+        balanceBottomLeft: String? = "",
+        balanceTopLeft: String? = "",
+        balanceTopRight: String? = "",
+        balanceBottmRight: String? = "",
         alcohol: String? = "",
         finish: String? = "",
-        grape: String = "",
-        country: String = "",
+        // MARK: 結論
+        evaluation: String? = "",
+        ervingTemperature: String? = "",
+        glass: String? = "",
         vintage: String = "",
+        country: String = "",
+        grape: String = "",
     ) {
-        self.name = name
+        // 基本データ
         self.imageData = imageData
-        self.rating = rating
-        self.comment = comment
+        self.name = name
         self.isFavorite = isFavorite
         self.tastingDate = tastingDate
+        self.rating = rating
+        self.comment = comment
+        // MARK: 外観
         self.clarity = clarity
+        self.appearance = appearance
         self.brightness = brightness
         self.colorTone = colorTone
         self.color = color
@@ -96,19 +136,37 @@ class Wine {
         self.youthfulness = youthfulness
         self.maturity = maturity
         self.effervescence = effervescence
-        self.appearance = appearance
-        self.firstImpression = firstImpression
+        // MARK: 香り
+        self.firstImpIntensity = firstImpIntensity
+        self.firstImpCharacter = firstImpCharacter
         self.fruit = fruit
-        self.flower = flower
-        self.spice = spice
+        self.plantFlower = plantFlower
+        self.plantHerb = plantHerb
+        self.plantNuts = plantNuts
+        self.spiceMineral = spiceMineral
+        self.spicsOak = spicsOak
+        self.spiceSpice = spiceSpice
+        self.spiceOthers = spiceOthers
+        self.spiceMaturity = spiceMaturity
+        self.spiceCharacteristic = spiceCharacteristic
+        // MARK: 味わい
+        self.attack = attack
         self.sweetness = sweetness
         self.acidity = acidity
-        self.balance = balance
+        self.bitterness = bitterness
+        self.balanceBottomLeft = balanceBottomLeft
+        self.balanceTopLeft = balanceTopLeft
+        self.balanceTopRight = balanceTopRight
+        self.balanceBottmRight = balanceBottmRight
         self.alcohol = alcohol
         self.finish = finish
-        self.grape = grape
-        self.country = country
+        // MARK: 結論
+        self.evaluation = evaluation
+        self.eervingTemperature = ervingTemperature
+        self.glass = glass
         self.vintage = vintage
+        self.country = country
+        self.grape = grape
     }
 
     var image: UIImage? {
@@ -130,19 +188,12 @@ struct WhiteWineTastingListView: View {
         VStack{
             NavigationView {
                 List {
-
                     ForEach(wines) { wine in
-
                         NavigationLink {
-
                             WhiteWineTastingSheetView(wine: wine)
-
                         } label: {
-
                             HStack(spacing: 16) {
-
                                 if let image = wine.image {
-
                                     Image(uiImage: image)
                                         .resizable()
                                         .scaledToFill()
@@ -150,14 +201,11 @@ struct WhiteWineTastingListView: View {
                                         .clipShape(
                                             RoundedRectangle(cornerRadius: 12)
                                         )
-
                                 } else {
-
                                     RoundedRectangle(cornerRadius: 12)
                                         .fill(Color.gray.opacity(0.15))
                                         .frame(width: 80, height: 60)
                                         .overlay {
-
                                             Image(systemName: "wineglass")
                                                 .font(.title2)
                                                 .foregroundColor(.gray)
@@ -165,10 +213,8 @@ struct WhiteWineTastingListView: View {
                                 }
 
                                 VStack(alignment: .leading) {
-
                                     Text(wine.name)
                                         .font(.headline)
-
                                     Text("白ワイン")
                                         .font(.caption)
                                         .foregroundColor(.secondary)
@@ -178,7 +224,6 @@ struct WhiteWineTastingListView: View {
                         }
                     }
                     .onDelete(perform: deleteWine)
-                    
                 }
                 .searchable(
                     text: $searchText,
@@ -274,8 +319,8 @@ struct AddWineView: View {
                         )
 
                         let wine = Wine(
-                            name: wineName,
-                            imageData: imageData
+                            imageData: imageData,
+                            name: wineName
                         )
 
                         context.insert(wine)
