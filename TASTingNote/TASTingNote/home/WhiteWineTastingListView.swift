@@ -277,16 +277,31 @@ struct WhiteWineTastingListView: View {
     @State private var searchText = ""
     @State private var showAddScreen = false
 
-    @Query private var wines: [Wine]
+    @Query(
+        sort: \Wine.tastingDate,
+        order: .reverse
+    )
+    private var wines: [Wine]
 
     @Environment(\.modelContext)
     private var context
+    
+    // 検索用
+    private var filteredWines: [Wine] {
+        if searchText.isEmpty {
+            return wines
+        }
+
+        return wines.filter {
+            $0.name.localizedCaseInsensitiveContains(searchText)
+        }
+    }
 
     var body: some View {
         VStack{
             NavigationView {
                 List {
-                    ForEach(wines) { wine in
+                    ForEach(filteredWines) { wine in
                         NavigationLink {
                             WhiteWineTastingSheetView(wine: wine)
                         } label: {
@@ -313,8 +328,16 @@ struct WhiteWineTastingListView: View {
                                 VStack(alignment: .leading) {
                                     Text(wine.name)
                                         .font(.headline)
+
+                                    Text(
+                                        wine.tastingDate,
+                                        format: .dateTime.year().month().day()
+                                    )
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+
                                     Text("白ワイン")
-                                        .font(.caption)
+                                        .font(.caption2)
                                         .foregroundColor(.secondary)
                                 }
                             }
@@ -366,6 +389,7 @@ struct AddWineView: View {
     @State private var wineName = ""
     @State private var selectedItem: PhotosPickerItem?
     @State private var selectedImage: UIImage?
+    @State private var tastingDate = Date()
     @Environment(\.modelContext)
     private var context
 
@@ -378,7 +402,15 @@ struct AddWineView: View {
                         text: $wineName
                     )
                 }
-
+                
+                Section("試飲日") {
+                    DatePicker(
+                        "試飲日",
+                        selection: $tastingDate,
+                        displayedComponents: .date
+                    )
+                }
+                
                 Section("写真") {
                     if let selectedImage {
                         Image(uiImage: selectedImage)
@@ -418,7 +450,8 @@ struct AddWineView: View {
 
                         let wine = Wine(
                             imageData: imageData,
-                            name: wineName
+                            name: wineName,
+                            tastingDate: tastingDate
                         )
 
                         context.insert(wine)

@@ -12,7 +12,8 @@ import SwiftData
 struct TASTingNoteApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Wine.self
+            Wine.self,
+//            redWine.self
         ])
         let modelConfiguration = ModelConfiguration(
             schema: schema,
@@ -35,6 +36,7 @@ struct TASTingNoteApp: App {
         WindowGroup {
             ContentView()
                 .modelContainer(for: Wine.self)
+//                .modelContainer(for: redWine.self)
         }
     }
 }
