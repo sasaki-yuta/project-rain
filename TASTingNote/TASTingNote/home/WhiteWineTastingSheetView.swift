@@ -738,7 +738,11 @@ extension WhiteWineTastingSheetView {
                 HStack(spacing: 10) {
                     ForEach(1...5, id: \.self) { star in
                         Button {
-                            wine.rating = star
+                            if wine.rating == star {
+                                wine.rating = 0
+                            } else {
+                                wine.rating = star
+                            }
                         } label: {
                             Image(
                                 systemName:
@@ -911,7 +915,11 @@ extension WhiteWineTastingSheetView {
 
                 ForEach(options, id: \.self) { option in
                     Button {
-                        selection.wrappedValue = option
+                        if selection.wrappedValue == option {
+                            selection.wrappedValue = nil   // 同じ場所を押したら解除
+                        } else {
+                            selection.wrappedValue = option
+                        }
                     } label: {
                         HStack(spacing: 6) {
                             Image(
