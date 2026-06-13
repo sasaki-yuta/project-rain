@@ -601,7 +601,11 @@ struct WhiteWineTastingSheetView: View {
         )
         .navigationTitle("テイスティングシート")
         .navigationBarTitleDisplayMode(.inline)
-
+        
+        .onAppear {
+            wine.chartLocked = true
+        }
+        
         .onChange(of: selectedItem) {
 
             Task {
@@ -748,7 +752,53 @@ extension WhiteWineTastingSheetView {
                     }
                 }
             }
- 
+            
+            VStack(alignment: .leading, spacing: 8) {
+
+                HStack {
+                    Text("ワインチャート")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+
+                    Spacer()
+
+                    Button {
+                        wine.chartLocked.toggle()
+                    } label: {
+                        Label(
+                            wine.chartLocked ? "ロック中" : "編集可能",
+                            systemImage: wine.chartLocked
+                            ? "lock.fill"
+                            : "lock.open.fill"
+                        )
+                        .font(.caption)
+                    }
+                }
+
+                HStack {
+                    Text("甘口")
+                    Spacer()
+                    Text("辛口")
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+                WineChartPickerView(
+                    xValue: $wine.chartX,
+                    yValue: $wine.chartY,
+                    isLocked: wine.chartLocked
+                )
+                .allowsHitTesting(!wine.chartLocked)
+
+                HStack {
+                    Text("軽め")
+                    Spacer()
+                    Text("重め")
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            }
+            
             VStack(alignment: .leading, spacing: 8) {
                 Text("コメント")
                     .font(.subheadline)

@@ -19,6 +19,11 @@ class Wine {
     var rating: Int                             // 評価
     var comment: String                         // コメント
     
+    // チャート
+    var chartX: Double = 0
+    var chartY: Double = 0
+    var chartLocked: Bool = true
+    
     // MARK: 外観
     var clarity: String?                        // 清澄度
     var clarityOther = ""                       // 清澄度(その他)
@@ -107,6 +112,10 @@ class Wine {
         tastingDate: Date = Date(),
         rating: Int = 0,
         comment: String = "",
+        // チャート
+        chartX: Double = 0,
+        chartY: Double = 0,
+        chartLocked:Bool = true,
         // MARK: 外観
         clarity: String? = nil,
         clarityOther: String = "",
@@ -190,6 +199,10 @@ class Wine {
         self.tastingDate = tastingDate
         self.rating = rating
         self.comment = comment
+        // チャート
+        self.chartX = chartX
+        self.chartY = chartY
+        self.chartLocked = chartLocked
         // MARK: 外観
         self.clarity = clarity
         self.clarityOther = clarityOther
