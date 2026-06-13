@@ -41,10 +41,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
 
-                    simpleField(
-                        title: "その他",
-                        text: $wine.clarityOther
-                    )
+                    otherField(text: $wine.clarityOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -59,11 +56,8 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.brightnessOther
-                    )
-                    
+                    otherField(text: $wine.brightnessOther)
+
                     Divider()
                         .padding(.vertical, 4)
 
@@ -76,11 +70,8 @@ struct WhiteWineTastingSheetView: View {
                             "黄金色がかった",
                         ]
                     )
-
-                    simpleField(
-                        title: "その他",
-                        text: $wine.colorToneOther
-                    )
+                    
+                    otherField(text: $wine.colorToneOther)
 
                     tastingScaleRow(
                         title: "色調（メイン用語）",
@@ -95,10 +86,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.colorOther
-                    )
+                    otherField(text: $wine.colorOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -114,11 +102,8 @@ struct WhiteWineTastingSheetView: View {
                             "非常に濃い",
                         ]
                     )
-
-                    simpleField(
-                        title: "その他",
-                        text: $wine.densityOther
-                    )
+                    
+                    otherField(text: $wine.densityOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -133,11 +118,8 @@ struct WhiteWineTastingSheetView: View {
                             "ねっとりとした",
                         ]
                     )
-
-                    simpleField(
-                        title: "その他",
-                        text: $wine.viscosityOther
-                    )
+                    
+                    otherField(text: $wine.viscosityOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -153,11 +135,8 @@ struct WhiteWineTastingSheetView: View {
                             "酸化が進んだ",
                         ]
                     )
-
-                    simpleField(
-                        title: "その他",
-                        text: $wine.youthfulnessOther
-                    )
+                    
+                    otherField(text: $wine.youthfulnessOther)
 
                     tastingScaleRow(
                         title: "外観の印象（成熟度）",
@@ -168,11 +147,8 @@ struct WhiteWineTastingSheetView: View {
                             "濃縮感がある",
                         ]
                     )
-
-                    simpleField(
-                        title: "その他",
-                        text: $wine.maturityOther
-                    )
+                    
+                    otherField(text: $wine.maturityOther)
 
                     tastingScaleRow(
                         title: "外観の印象（発泡性）",
@@ -182,12 +158,8 @@ struct WhiteWineTastingSheetView: View {
                             "発泡性",
                         ]
                     )
-
-                    simpleField(
-                        title: "その他",
-                        text: $wine.effervescenceOther
-                    )
-
+                    
+                    otherField(text: $wine.effervescenceOther)
                 }
 
                 sectionCard(
@@ -207,10 +179,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.firstImpIntensityOther
-                    )
+                    otherField(text: $wine.firstImpIntensityOther)
 
                     tastingScaleRow(
                         title: "第一印象（性質）",
@@ -227,10 +196,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.firstImpCharacterOther
-                    )
+                    otherField(text: $wine.firstImpCharacterOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -255,10 +221,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.fruitOther
-                    )
+                    otherField(text: $wine.fruitOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -276,10 +239,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.plantFlowerOther
-                    )
+                    otherField(text: $wine.plantFlowerOther)
 
                     tastingScaleRow(
                         title: "花・植物（ハーブ）",
@@ -293,10 +253,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.plantHerbOther
-                    )
+                    otherField(text: $wine.plantHerbOther)
 
                     tastingScaleRow(
                         title: "花・植物（ナッツ）",
@@ -307,10 +264,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.plantNutsOther
-                    )
+                    otherField(text: $wine.plantNutsOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -327,10 +281,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.spiceMineralOther
-                    )
+                    otherField(text: $wine.spiceMineralOther)
 
                     tastingScaleRow(
                         title: "香辛料・芳香・化学物質（樽）",
@@ -343,10 +294,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.spicsOakOther
-                    )
+                    otherField(text: $wine.spicsOakOther)
 
                     tastingScaleRow(
                         title: "香辛料・芳香・化学物質（香辛料）",
@@ -361,10 +309,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.spiceSpiceOther
-                    )
+                    otherField(text: $wine.spiceSpiceOther)
 
                     tastingScaleRow(
                         title: "香辛料・芳香・化学物質（他）",
@@ -383,10 +328,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.spiceOthersOther
-                    )
+                    otherField(text: $wine.spiceOthersOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -402,11 +344,8 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.spiceMaturityOther
-                    )
-                    
+                    otherField(text: $wine.spiceMaturityOther)
+
                     tastingScaleRow(
                         title: "香りの印象（特性）",
                         selection: $wine.spiceCharacteristic,
@@ -419,10 +358,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.spiceCharacteristicOther
-                    )
+                    otherField(text: $wine.spiceCharacteristicOther)
                 }
 
                 sectionCard(
@@ -443,10 +379,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.attackOther
-                    )
+                    otherField(text: $wine.attackOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -463,10 +396,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.sweetnessOther
-                    )
+                    otherField(text: $wine.sweetnessOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -485,10 +415,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.acidityOther
-                    )
+                    otherField(text: $wine.acidityOther)
                     
                     Divider()
                         .padding(.vertical, 4)
@@ -505,16 +432,13 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.bitternessOther
-                    )
+                    otherField(text: $wine.bitternessOther)
 
                     Divider()
                         .padding(.vertical, 4)
 
                     tastingScaleRow(
-                        title: "バランンス（左下）",
+                        title: "バランス（左下）",
                         selection: $wine.balanceBottomLeft,
                         options: [
                             "スムーズな",
@@ -522,13 +446,10 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.balanceBottomLeftOther
-                    )
+                    otherField(text: $wine.balanceBottomLeftOther)
 
                     tastingScaleRow(
-                        title: "バランンス（左上）",
+                        title: "バランス（左上）",
                         selection: $wine.balanceTopLeft,
                         options: [
                             "スリムな",
@@ -536,13 +457,10 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.balanceTopLeftOther
-                    )
+                    otherField(text: $wine.balanceTopLeftOther)
                     
                     tastingScaleRow(
-                        title: "バランンス（右上）",
+                        title: "バランス（右上）",
                         selection: $wine.balanceTopRight,
                         options: [
                             "ジューシーな",
@@ -551,13 +469,10 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.balanceTopRightOther
-                    )
+                    otherField(text: $wine.balanceTopRightOther)
                     
                     tastingScaleRow(
-                        title: "バランンス（右下）",
+                        title: "バランス（右下）",
                         selection: $wine.balanceBottmRight,
                         options: [
                             "まろやかな",
@@ -565,10 +480,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.balanceBottmRightOther
-                    )
+                    otherField(text: $wine.balanceBottmRightOther)
                     
                     Divider()
                         .padding(.vertical, 4)
@@ -585,10 +497,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.alcoholOther
-                    )
+                    otherField(text: $wine.alcoholOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -604,10 +513,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.finishOther
-                    )
+                    otherField(text: $wine.finishOther)
                 }
 
                 sectionCard(
@@ -629,10 +535,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.evaluationOther
-                    )
+                    otherField(text: $wine.evaluationOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -649,10 +552,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.eervingTemperatureOther
-                    )
+                    otherField(text: $wine.eervingTemperatureOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -669,10 +569,7 @@ struct WhiteWineTastingSheetView: View {
                         ]
                     )
                     
-                    simpleField(
-                        title: "その他",
-                        text: $wine.glassOther
-                    )
+                    otherField(text: $wine.glassOther)
 
                     Divider()
                         .padding(.vertical, 4)
@@ -1061,5 +958,17 @@ extension WhiteWineTastingSheetView {
                         .fill(Color.gray.opacity(0.06))
                 )
         }
+    }
+    
+    func otherField(
+        text: Binding<String>
+    ) -> some View {
+
+        TextField("その他", text: text)
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.gray.opacity(0.06))
+            )
     }
 }
