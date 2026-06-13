@@ -20,8 +20,8 @@ class Wine {
     var comment: String                         // コメント
     
     // チャート
-    var chartX: Double = 0
-    var chartY: Double = 0
+    var chartX: Double?
+    var chartY: Double?
     var chartLocked: Bool = true
     
     // MARK: 外観
@@ -113,8 +113,8 @@ class Wine {
         rating: Int = 0,
         comment: String = "",
         // チャート
-        chartX: Double = 0,
-        chartY: Double = 0,
+        chartX: Double? = nil,
+        chartY: Double? = nil,
         chartLocked:Bool = true,
         // MARK: 外観
         clarity: String? = nil,

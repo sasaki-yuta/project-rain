@@ -9,8 +9,8 @@ import SwiftUI
 
 struct WineChartPickerView: View {
 
-    @Binding var xValue: Double
-    @Binding var yValue: Double
+    @Binding var xValue: Double?
+    @Binding var yValue: Double?
     
     let isLocked: Bool
 
@@ -19,11 +19,93 @@ struct WineChartPickerView: View {
         GeometryReader { geo in
 
             ZStack {
-
                 // 背景
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.gray.opacity(0.05))
+                ZStack {
+                    // 左上（辛口・軽め）
+                    Rectangle()
+                        .fill(Color.green.opacity(0.15))
+                        .frame(
+                            width: geo.size.width / 2,
+                            height: geo.size.height / 2
+                        )
+                        .position(
+                            x: geo.size.width * 0.25,
+                            y: geo.size.height * 0.25
+                        )
 
+                    // 右上（辛口・重め）
+                    Rectangle()
+                        .fill(Color.orange.opacity(0.15))
+                        .frame(
+                            width: geo.size.width / 2,
+                            height: geo.size.height / 2
+                        )
+                        .position(
+                            x: geo.size.width * 0.75,
+                            y: geo.size.height * 0.25
+                        )
+
+                    // 左下（甘口・軽め）
+                    Rectangle()
+                        .fill(Color.blue.opacity(0.15))
+                        .frame(
+                            width: geo.size.width / 2,
+                            height: geo.size.height / 2
+                        )
+                        .position(
+                            x: geo.size.width * 0.25,
+                            y: geo.size.height * 0.75
+                        )
+
+                    // 右下（甘口・重め）
+                    Rectangle()
+                        .fill(Color.red.opacity(0.15))
+                        .frame(
+                            width: geo.size.width / 2,
+                            height: geo.size.height / 2
+                        )
+                        .position(
+                            x: geo.size.width * 0.75,
+                            y: geo.size.height * 0.75
+                        )
+
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.gray.opacity(0.3))
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                
+                Text("辛口\n軽め")
+                    .font(.caption2)
+                    .foregroundStyle(.green)
+                    .position(
+                        x: geo.size.width * 0.25,
+                        y: geo.size.height * 0.25
+                    )
+
+                Text("辛口\n重め")
+                    .font(.caption2)
+                    .foregroundStyle(.orange)
+                    .position(
+                        x: geo.size.width * 0.75,
+                        y: geo.size.height * 0.25
+                    )
+
+                Text("甘口\n軽め")
+                    .font(.caption2)
+                    .foregroundStyle(.blue)
+                    .position(
+                        x: geo.size.width * 0.25,
+                        y: geo.size.height * 0.75
+                    )
+
+                Text("甘口\n重め")
+                    .font(.caption2)
+                    .foregroundStyle(.red)
+                    .position(
+                        x: geo.size.width * 0.75,
+                        y: geo.size.height * 0.75
+                    )
+                
                 // 横軸
                 Path { path in
                     path.move(
@@ -60,13 +142,17 @@ struct WineChartPickerView: View {
                 }
                 .stroke(.gray)
 
-                Circle()
-                    .fill(.red)
-                    .frame(width: 24, height: 24)
-                    .position(
-                        x: geo.size.width * (xValue + 1) / 2,
-                        y: geo.size.height * (1 - (yValue + 1) / 2)
-                    )
+                if let xValue,
+                   let yValue {
+
+                    Circle()
+                        .fill(.red)
+                        .frame(width: 24, height: 24)
+                        .position(
+                            x: geo.size.width * (xValue + 1) / 2,
+                            y: geo.size.height * (1 - (yValue + 1) / 2)
+                        )
+                }
                 
                 if isLocked {
                     Image(systemName: "lock.fill")
