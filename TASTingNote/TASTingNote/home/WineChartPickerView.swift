@@ -23,7 +23,7 @@ struct WineChartPickerView: View {
                 ZStack {
                     // 左上（甘口・重め）
                     Rectangle()
-                        .fill(Color.red.opacity(0.15))
+                        .fill(Color.orange.opacity(0.15))
                         .frame(
                             width: geo.size.width / 2,
                             height: geo.size.height / 2
@@ -35,7 +35,7 @@ struct WineChartPickerView: View {
 
                     // 右上（辛口・重め）
                     Rectangle()
-                        .fill(Color.orange.opacity(0.15))
+                        .fill(Color.red.opacity(0.15))
                         .frame(
                             width: geo.size.width / 2,
                             height: geo.size.height / 2
