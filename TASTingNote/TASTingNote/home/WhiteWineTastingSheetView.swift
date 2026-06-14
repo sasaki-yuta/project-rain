@@ -6,11 +6,18 @@
 //
 import SwiftUI
 import PhotosUI
+import CoreLocation
+import Combine
 
 struct WhiteWineTastingSheetView: View {
 
     @Bindable var wine: Wine
     @State private var selectedItem: PhotosPickerItem?
+
+    @StateObject private var locationManager =
+        WineLocationManager()
+    
+    @State private var showMapPicker = false
 
     private let accent = Color(
         red: 0.52,
@@ -617,6 +624,13 @@ struct WhiteWineTastingSheetView: View {
                 }
             }
         }
+        .sheet(isPresented: $showMapPicker) {
+
+            MapLocationPickerView(
+                latitude: $wine.latitude,
+                longitude: $wine.longitude
+            )
+        }
     }
 }
 
@@ -793,6 +807,41 @@ extension WhiteWineTastingSheetView {
                     isLocked: wine.chartLocked
                 )
                 .allowsHitTesting(!wine.chartLocked)
+            }
+            
+            VStack(alignment: .leading) {
+                Text("飲んだ場所")
+
+                if let lat = wine.latitude,
+                   let lon = wine.longitude {
+
+                    Text(
+                        "\(lat), \(lon)"
+                    )
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                }
+
+                Button("現在地を保存") {
+                    guard let location =
+                        locationManager.location
+                    else { return }
+
+                    wine.latitude =
+                        location.coordinate.latitude
+
+                    wine.longitude =
+                        location.coordinate.longitude
+                }
+
+                Button {
+                    showMapPicker = true
+                } label: {
+                    Label(
+                        "地図から選択",
+                        systemImage: "map"
+                    )
+                }
             }
             
             VStack(alignment: .leading, spacing: 8) {
@@ -1020,5 +1069,31 @@ extension WhiteWineTastingSheetView {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color.gray.opacity(0.06))
             )
+    }
+}
+
+final class WineLocationManager:
+    NSObject,
+    ObservableObject,
+    CLLocationManagerDelegate {
+
+    private let manager = CLLocationManager()
+
+    @Published var location: CLLocation?
+
+    override init() {
+
+        super.init()
+
+        manager.delegate = self
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
+    }
+
+    func locationManager(
+        _ manager: CLLocationManager,
+        didUpdateLocations locations: [CLLocation]
+    ) {
+        location = locations.first
     }
 }

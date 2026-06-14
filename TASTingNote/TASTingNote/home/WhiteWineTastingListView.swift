@@ -24,6 +24,11 @@ class Wine {
     var chartY: Double?
     var chartLocked: Bool = true
     
+    // 飲んだ場所
+    var latitude: Double?
+    var longitude: Double?
+    var placeName: String = ""
+    
     // MARK: 外観
     var clarity: String?                        // 清澄度
     var clarityOther = ""                       // 清澄度(その他)
@@ -116,6 +121,10 @@ class Wine {
         chartX: Double? = nil,
         chartY: Double? = nil,
         chartLocked:Bool = true,
+        // 飲んだ場所
+        latitude: Double? = nil,
+        longitude: Double? = nil,
+        placeName: String = "",
         // MARK: 外観
         clarity: String? = nil,
         clarityOther: String = "",
@@ -203,6 +212,10 @@ class Wine {
         self.chartX = chartX
         self.chartY = chartY
         self.chartLocked = chartLocked
+        // 飲んだ場所
+        self.latitude = latitude
+        self.longitude = longitude
+        self.placeName = placeName
         // MARK: 外観
         self.clarity = clarity
         self.clarityOther = clarityOther

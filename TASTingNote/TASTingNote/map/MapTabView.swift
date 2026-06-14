@@ -10,10 +10,12 @@ import SwiftUI
 import MapKit
 import CoreLocation
 import Combine
+import SwiftData
 
 struct MapTabView: View {
 
     @StateObject private var locationManager = LocationManager()
+    @Query private var wines: [Wine]
 
     var body: some View {
 
@@ -21,8 +23,35 @@ struct MapTabView: View {
 
             Map(position: $locationManager.cameraPosition) {
 
-                // 現在地を表示
                 UserAnnotation()
+
+                ForEach(wines) { wine in
+                    if let lat = wine.latitude,
+                       let lon = wine.longitude {
+
+                        Annotation(
+                            wine.name,
+                            coordinate: CLLocationCoordinate2D(
+                                latitude: lat,
+                                longitude: lon
+                            )
+                        ) {
+
+                            VStack(spacing: 4) {
+
+                                Image(systemName: "wineglass.fill")
+                                    .font(.title2)
+                                    .foregroundStyle(.red)
+
+                                Text(wine.name)
+                                    .font(.caption2)
+                                    .padding(4)
+                                    .background(.white.opacity(0.9))
+                                    .cornerRadius(6)
+                            }
+                        }
+                    }
+                }
             }
             .ignoresSafeArea(edges: .bottom)
             .navigationTitle("Map")
