@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B78879BD2FDE83D200EC1079 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B78879AF2FDE83D200EC1079 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		B7663A182FAF37F900E9F225 /* TASTingNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TASTingNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B78879AF2FDE83D200EC1079 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,6 +38,7 @@
 			isa = PBXGroup;
 			children = (
 				B7663A1A2FAF37F900E9F225 /* TASTingNote */,
+				B78879AF2FDE83D200EC1079 /* Assets.xcassets */,
 				B7663A192FAF37F900E9F225 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B78879BD2FDE83D200EC1079 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
