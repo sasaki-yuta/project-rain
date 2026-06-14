@@ -21,9 +21,9 @@ struct WineChartPickerView: View {
             ZStack {
                 // 背景
                 ZStack {
-                    // 左上（辛口・軽め）
+                    // 左上（甘口・重め）
                     Rectangle()
-                        .fill(Color.green.opacity(0.15))
+                        .fill(Color.red.opacity(0.15))
                         .frame(
                             width: geo.size.width / 2,
                             height: geo.size.height / 2
@@ -57,9 +57,9 @@ struct WineChartPickerView: View {
                             y: geo.size.height * 0.75
                         )
 
-                    // 右下（甘口・重め）
+                    // 右下（辛口・軽め）
                     Rectangle()
-                        .fill(Color.red.opacity(0.15))
+                        .fill(Color.green.opacity(0.15))
                         .frame(
                             width: geo.size.width / 2,
                             height: geo.size.height / 2
@@ -74,9 +74,9 @@ struct WineChartPickerView: View {
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 
-                Text("辛口\n軽め")
+                Text("甘口\n重め")
                     .font(.caption2)
-                    .foregroundStyle(.green)
+                    .foregroundStyle(.red)
                     .position(
                         x: geo.size.width * 0.25,
                         y: geo.size.height * 0.25
@@ -98,12 +98,29 @@ struct WineChartPickerView: View {
                         y: geo.size.height * 0.75
                     )
 
-                Text("甘口\n重め")
+                Text("辛口\n軽め")
                     .font(.caption2)
-                    .foregroundStyle(.red)
+                    .foregroundStyle(.green)
                     .position(
                         x: geo.size.width * 0.75,
                         y: geo.size.height * 0.75
+                    )
+
+                // 上下ラベル
+                Text("重め")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .position(
+                        x: geo.size.width / 2,
+                        y: 12
+                    )
+
+                Text("軽め")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .position(
+                        x: geo.size.width / 2,
+                        y: geo.size.height - 12
                     )
                 
                 // 横軸

@@ -793,14 +793,6 @@ extension WhiteWineTastingSheetView {
                     isLocked: wine.chartLocked
                 )
                 .allowsHitTesting(!wine.chartLocked)
-
-                HStack {
-                    Text("軽め")
-                    Spacer()
-                    Text("重め")
-                }
-                .font(.caption)
-                .foregroundStyle(.secondary)
             }
             
             VStack(alignment: .leading, spacing: 8) {
