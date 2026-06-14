@@ -23,6 +23,8 @@ struct MapLocationPickerView: View {
 
     @State private var centerCoordinate =
         CLLocationCoordinate2D()
+    
+    @State private var hasMovedToCurrentLocation = false
 
     var body: some View {
 
@@ -94,10 +96,17 @@ struct MapLocationPickerView: View {
             }
             .onReceive(locationManager.$location) { location in
 
-                guard let location else { return }
+                guard !hasMovedToCurrentLocation else {
+                    return
+                }
 
-                let coordinate =
-                    location.coordinate
+                guard let location else {
+                    return
+                }
+
+                hasMovedToCurrentLocation = true
+
+                let coordinate = location.coordinate
 
                 centerCoordinate = coordinate
 
@@ -110,6 +119,31 @@ struct MapLocationPickerView: View {
                         )
                     )
                 )
+            }
+            .onAppear {
+
+                if let lat = latitude,
+                   let lon = longitude {
+
+                    let coordinate = CLLocationCoordinate2D(
+                        latitude: lat,
+                        longitude: lon
+                    )
+
+                    centerCoordinate = coordinate
+
+                    position = .region(
+                        MKCoordinateRegion(
+                            center: coordinate,
+                            span: MKCoordinateSpan(
+                                latitudeDelta: 0.01,
+                                longitudeDelta: 0.01
+                            )
+                        )
+                    )
+
+                    hasMovedToCurrentLocation = true
+                }
             }
         }
     }

@@ -16,6 +16,7 @@ struct MapTabView: View {
 
     @StateObject private var locationManager = LocationManager()
     @Query private var wines: [Wine]
+    @State private var selectedWine: Wine?
 
     var body: some View {
 
@@ -37,38 +38,43 @@ struct MapTabView: View {
                             )
                         ) {
 
-                            VStack(spacing: 0) {
+                            Button {
+
+                                selectedWine = wine
+
+                            } label: {
 
                                 if let image = wine.image {
 
                                     Image(uiImage: image)
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(
-                                            width: 55,
-                                            height: 55
-                                        )
+                                        .frame(width: 60, height: 60)
                                         .clipShape(Circle())
                                         .overlay(
                                             Circle()
-                                                .stroke(
-                                                    .white,
-                                                    lineWidth: 3
-                                                )
+                                                .stroke(.white, lineWidth: 3)
                                         )
-                                }
+                                        .shadow(radius: 4)
 
-                                Image(
-                                    systemName: "triangle.fill"
-                                )
-                                .font(.caption)
-                                .rotationEffect(
-                                    .degrees(180)
-                                )
-                                .offset(y: -4)
+                                } else {
+
+                                    Image(systemName: "wineglass.fill")
+                                        .font(.title)
+                                        .foregroundStyle(.red)
+                                }
                             }
                         }
                     }
+                }
+            }
+            .sheet(item: $selectedWine) { wine in
+
+                NavigationStack {
+
+                    WhiteWineTastingSheetView(
+                        wine: wine
+                    )
                 }
             }
             .ignoresSafeArea(edges: .bottom)
