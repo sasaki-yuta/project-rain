@@ -37,17 +37,35 @@ struct MapTabView: View {
                             )
                         ) {
 
-                            VStack(spacing: 4) {
+                            VStack(spacing: 0) {
 
-                                Image(systemName: "wineglass.fill")
-                                    .font(.title2)
-                                    .foregroundStyle(.red)
+                                if let image = wine.image {
 
-                                Text(wine.name)
-                                    .font(.caption2)
-                                    .padding(4)
-                                    .background(.white.opacity(0.9))
-                                    .cornerRadius(6)
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(
+                                            width: 55,
+                                            height: 55
+                                        )
+                                        .clipShape(Circle())
+                                        .overlay(
+                                            Circle()
+                                                .stroke(
+                                                    .white,
+                                                    lineWidth: 3
+                                                )
+                                        )
+                                }
+
+                                Image(
+                                    systemName: "triangle.fill"
+                                )
+                                .font(.caption)
+                                .rotationEffect(
+                                    .degrees(180)
+                                )
+                                .offset(y: -4)
                             }
                         }
                     }
