@@ -18,6 +18,9 @@ struct MapTabView: View {
     @Query private var wines: [Wine]
     @State private var selectedWine: Wine?
 
+    @State private var selectedLocationWines: [Wine] = []
+    @State private var showWineList = false
+    
     var body: some View {
 
         NavigationStack {
@@ -40,7 +43,39 @@ struct MapTabView: View {
 
                             Button {
 
-                                selectedWine = wine
+                                let nearbyWines = wines.filter { otherWine in
+
+                                    guard let otherLat = otherWine.latitude,
+                                          let otherLon = otherWine.longitude,
+                                          let wineLat = wine.latitude,
+                                          let wineLon = wine.longitude
+                                    else {
+                                        return false
+                                    }
+
+                                    let distance = CLLocation(
+                                        latitude: wineLat,
+                                        longitude: wineLon
+                                    )
+                                    .distance(
+                                        from: CLLocation(
+                                            latitude: otherLat,
+                                            longitude: otherLon
+                                        )
+                                    )
+
+                                    return distance < 30
+                                }
+
+                                if nearbyWines.count <= 1 {
+
+                                    selectedWine = wine
+
+                                } else {
+
+                                    selectedLocationWines = nearbyWines
+                                    showWineList = true
+                                }
 
                             } label: {
 
@@ -66,6 +101,55 @@ struct MapTabView: View {
                             }
                         }
                     }
+                }
+            }
+            .sheet(isPresented: $showWineList) {
+
+                NavigationStack {
+
+                    List(selectedLocationWines) { wine in
+
+                        Button {
+
+                            showWineList = false
+
+                            DispatchQueue.main.asyncAfter(
+                                deadline: .now() + 0.3
+                            ) {
+                                selectedWine = wine
+                            }
+
+                        } label: {
+
+                            HStack {
+
+                                if let image = wine.image {
+
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(
+                                            width: 50,
+                                            height: 50
+                                        )
+                                        .clipShape(Circle())
+                                }
+
+                                VStack(alignment: .leading) {
+
+                                    Text(wine.name)
+
+                                    Text(
+                                        wine.tastingDate,
+                                        format: .dateTime.year().month().day()
+                                    )
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                }
+                            }
+                        }
+                    }
+                    .navigationTitle("この場所のワイン")
                 }
             }
             .sheet(item: $selectedWine) { wine in
