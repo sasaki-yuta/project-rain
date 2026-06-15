@@ -12,6 +12,14 @@ import CoreLocation
 import Combine
 import SwiftData
 
+
+struct WineGroup: Identifiable {
+    let id = UUID()
+    let latitude: Double
+    let longitude: Double
+    let wines: [Wine]
+}
+
 struct MapTabView: View {
 
     @StateObject private var locationManager = LocationManager()
@@ -20,7 +28,7 @@ struct MapTabView: View {
 
     @State private var selectedLocationWines: [Wine] = []
     @State private var showWineList = false
-    
+
     var body: some View {
 
         NavigationStack {
@@ -28,58 +36,33 @@ struct MapTabView: View {
             Map(position: $locationManager.cameraPosition) {
 
                 UserAnnotation()
+                ForEach(groupedWines) { group in
 
-                ForEach(wines) { wine in
-                    if let lat = wine.latitude,
-                       let lon = wine.longitude {
+                    Annotation(
+                        "",
+                        coordinate: CLLocationCoordinate2D(
+                            latitude: group.latitude,
+                            longitude: group.longitude
+                        )
+                    ) {
 
-                        Annotation(
-                            wine.name,
-                            coordinate: CLLocationCoordinate2D(
-                                latitude: lat,
-                                longitude: lon
-                            )
-                        ) {
+                        Button {
 
-                            Button {
+                            if group.wines.count == 1 {
 
-                                let nearbyWines = wines.filter { otherWine in
+                                selectedWine = group.wines[0]
 
-                                    guard let otherLat = otherWine.latitude,
-                                          let otherLon = otherWine.longitude,
-                                          let wineLat = wine.latitude,
-                                          let wineLon = wine.longitude
-                                    else {
-                                        return false
-                                    }
+                            } else {
 
-                                    let distance = CLLocation(
-                                        latitude: wineLat,
-                                        longitude: wineLon
-                                    )
-                                    .distance(
-                                        from: CLLocation(
-                                            latitude: otherLat,
-                                            longitude: otherLon
-                                        )
-                                    )
+                                selectedLocationWines = group.wines
+                                showWineList = true
+                            }
 
-                                    return distance < 30
-                                }
+                        } label: {
 
-                                if nearbyWines.count <= 1 {
+                            VStack(spacing: 0) {
 
-                                    selectedWine = wine
-
-                                } else {
-
-                                    selectedLocationWines = nearbyWines
-                                    showWineList = true
-                                }
-
-                            } label: {
-
-                                if let image = wine.image {
+                                if let image = group.wines.first?.image {
 
                                     Image(uiImage: image)
                                         .resizable()
@@ -90,13 +73,23 @@ struct MapTabView: View {
                                             Circle()
                                                 .stroke(.white, lineWidth: 3)
                                         )
-                                        .shadow(radius: 4)
 
                                 } else {
 
                                     Image(systemName: "wineglass.fill")
                                         .font(.title)
                                         .foregroundStyle(.red)
+                                }
+
+                                if group.wines.count > 1 {
+
+                                    Text("\(group.wines.count)")
+                                        .font(.caption.bold())
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 3)
+                                        .background(.red)
+                                        .foregroundStyle(.white)
+                                        .clipShape(Capsule())
                                 }
                             }
                         }
@@ -183,6 +176,54 @@ struct MapTabView: View {
                 .padding()
             }
         }
+    }
+    
+    private var groupedWines: [WineGroup] {
+
+        var groups: [WineGroup] = []
+
+        for wine in wines {
+
+            guard let lat = wine.latitude,
+                  let lon = wine.longitude
+            else { continue }
+
+            if let index = groups.firstIndex(where: {
+
+                CLLocation(
+                    latitude: $0.latitude,
+                    longitude: $0.longitude
+                )
+                .distance(
+                    from: CLLocation(
+                        latitude: lat,
+                        longitude: lon
+                    )
+                ) < 30
+
+            }) {
+
+                let existing = groups[index]
+
+                groups[index] = WineGroup(
+                    latitude: existing.latitude,
+                    longitude: existing.longitude,
+                    wines: existing.wines + [wine]
+                )
+
+            } else {
+
+                groups.append(
+                    WineGroup(
+                        latitude: lat,
+                        longitude: lon,
+                        wines: [wine]
+                    )
+                )
+            }
+        }
+
+        return groups
     }
 }
 
