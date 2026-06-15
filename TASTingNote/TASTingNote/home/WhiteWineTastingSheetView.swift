@@ -603,6 +603,7 @@ struct WhiteWineTastingSheetView: View {
                 }
                 .padding()
             }
+            .scrollDismissesKeyboard(.interactively)
             .overlay(alignment: .bottomTrailing) {
 
                 Button {
