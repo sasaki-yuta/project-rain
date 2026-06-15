@@ -26,578 +26,606 @@ struct WhiteWineTastingSheetView: View {
     )
 
     var body: some View {
-
-        ScrollView {
-            VStack(spacing: 28) {
-
-                headerView
-
-                sectionCard(
-                    number: "1",
-                    title: "外観",
-                    english: "APPEARANCE"
-                ) {
-
-                    tastingScaleRow(
-                        title: "清澄度",
-                        selection: $wine.clarity,
-                        options: [
-                            "澄んだ",
-                            "やや濁った",
-                            "濁った",
-                        ]
-                    )
-
-                    otherField(text: $wine.clarityOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "輝き",
-                        selection: $wine.brightness,
-                        options: [
-                            "輝きのある",
-                            "ややくすんだ",
-                            "モヤがかった",
-                        ]
-                    )
+        ScrollViewReader { proxy in
+            ScrollView {
+                Color.clear
+                        .frame(height: 1)
+                        .id("top")
+                
+                VStack(spacing: 28) {
                     
-                    otherField(text: $wine.brightnessOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "色調（補助用語）",
-                        selection: $wine.colorTone,
-                        options: [
-                            "シルバーがかった ",
-                            "グリーンがかった",
-                            "黄金色がかった",
-                        ]
-                    )
+                    headerView
                     
-                    otherField(text: $wine.colorToneOther)
-
-                    tastingScaleRow(
-                        title: "色調（メイン用語）",
-                        selection: $wine.color,
-                        options: [
-                            "レモンイエロー",
-                            "イエロー",
-                            "黄金色",
-                            "トパーズ",
-                            "オレンジ",
-                            "アンバー",
-                        ]
-                    )
+                    sectionCard(
+                        number: "1",
+                        title: "外観",
+                        english: "APPEARANCE"
+                    ) {
+                        
+                        tastingScaleRow(
+                            title: "清澄度",
+                            selection: $wine.clarity,
+                            options: [
+                                "澄んだ",
+                                "やや濁った",
+                                "濁った",
+                            ]
+                        )
+                        
+                        otherField(text: $wine.clarityOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "輝き",
+                            selection: $wine.brightness,
+                            options: [
+                                "輝きのある",
+                                "ややくすんだ",
+                                "モヤがかった",
+                            ]
+                        )
+                        
+                        otherField(text: $wine.brightnessOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "色調（補助用語）",
+                            selection: $wine.colorTone,
+                            options: [
+                                "シルバーがかった ",
+                                "グリーンがかった",
+                                "黄金色がかった",
+                            ]
+                        )
+                        
+                        otherField(text: $wine.colorToneOther)
+                        
+                        tastingScaleRow(
+                            title: "色調（メイン用語）",
+                            selection: $wine.color,
+                            options: [
+                                "レモンイエロー",
+                                "イエロー",
+                                "黄金色",
+                                "トパーズ",
+                                "オレンジ",
+                                "アンバー",
+                            ]
+                        )
+                        
+                        otherField(text: $wine.colorOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "濃淡",
+                            selection: $wine.density,
+                            options: [
+                                "無色に近い",
+                                "淡い",
+                                "やや濃い",
+                                "濃い",
+                                "非常に濃い",
+                            ]
+                        )
+                        
+                        otherField(text: $wine.densityOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "粘性",
+                            selection: $wine.viscosity,
+                            options: [
+                                "さらっとした",
+                                "適度な",
+                                "やや強い",
+                                "ねっとりとした",
+                            ]
+                        )
+                        
+                        otherField(text: $wine.viscosityOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "外観の印象（若さ）",
+                            selection: $wine.youthfulness,
+                            options: [
+                                "若々しい",
+                                "やや発展した",
+                                "熟成のニュアンスが見える",
+                                "熟成した",
+                                "酸化が進んだ",
+                            ]
+                        )
+                        
+                        otherField(text: $wine.youthfulnessOther)
+                        
+                        tastingScaleRow(
+                            title: "外観の印象（成熟度）",
+                            selection: $wine.maturity,
+                            options: [
+                                "軽快な",
+                                "成熟度が高い",
+                                "濃縮感がある",
+                            ]
+                        )
+                        
+                        otherField(text: $wine.maturityOther)
+                        
+                        tastingScaleRow(
+                            title: "外観の印象（発泡性）",
+                            selection: $wine.effervescence,
+                            options: [
+                                "気泡が見える",
+                                "発泡性",
+                            ]
+                        )
+                        
+                        otherField(text: $wine.effervescenceOther)
+                    }
                     
-                    otherField(text: $wine.colorOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "濃淡",
-                        selection: $wine.density,
-                        options: [
-                            "無色に近い",
-                            "淡い",
-                            "やや濃い",
-                            "濃い",
-                            "非常に濃い",
-                        ]
-                    )
+                    sectionCard(
+                        number: "2",
+                        title: "香り",
+                        english: "AROMA"
+                    ) {
+                        
+                        tastingScaleRow(
+                            title: "第一印象(強さ)",
+                            selection: $wine.firstImpIntensity,
+                            options: [
+                                "閉じている",
+                                "控えめ",
+                                "開いている",
+                                "力強い"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.firstImpIntensityOther)
+                        
+                        tastingScaleRow(
+                            title: "第一印象（性質）",
+                            selection: $wine.firstImpCharacter,
+                            options: [
+                                "フレッシュな",
+                                "ミネラリー",
+                                "華やかな",
+                                "熟度の高い",
+                                "豊かな",
+                                "濃縮感がある",
+                                "セイボリーな ",
+                                "複雑な"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.firstImpCharacterOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "果実",
+                            selection: $wine.fruit,
+                            options: [
+                                "柑橘類",
+                                "青リンゴ",
+                                "リンゴ",
+                                "洋梨",
+                                "マスカット",
+                                "花梨",
+                                "パッションフルーツ",
+                                "白桃",
+                                "アプリコット",
+                                "パイナップル",
+                                "ライチ",
+                                "バナナ",
+                                "マンゴー"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.fruitOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "花・植物（花）",
+                            selection: $wine.plantFlower,
+                            options: [
+                                "スイカズラ",
+                                "アカシア",
+                                "白バラ",
+                                "キンモクセイ",
+                                "菩提樹",
+                                "柑橘系の花"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.plantFlowerOther)
+                        
+                        tastingScaleRow(
+                            title: "花・植物（ハーブ）",
+                            selection: $wine.plantHerb,
+                            options: [
+                                "ミント",
+                                "アニス",
+                                "ヴェルヴェーヌ",
+                                "ハーブ",
+                                "タイム"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.plantHerbOther)
+                        
+                        tastingScaleRow(
+                            title: "花・植物（ナッツ）",
+                            selection: $wine.plantNuts,
+                            options: [
+                                "フレッシュアーモンド",
+                                "ヘーゼルナッツ"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.plantNutsOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "香辛料・芳香・化学物質（ミネラル）",
+                            selection: $wine.spiceMineral,
+                            options: [
+                                "石灰",
+                                "火打石",
+                                "貝殻",
+                                "鉱物",
+                                "海の香り"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.spiceMineralOther)
+                        
+                        tastingScaleRow(
+                            title: "香辛料・芳香・化学物質（樽）",
+                            selection: $wine.spicsOak,
+                            options: [
+                                "トースト",
+                                "ヴァニラ",
+                                "煙",
+                                "薫製"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.spicsOakOther)
+                        
+                        tastingScaleRow(
+                            title: "香辛料・芳香・化学物質（香辛料）",
+                            selection: $wine.spiceSpice,
+                            options: [
+                                "シナモン",
+                                "白胡椒",
+                                "コリアンダーシード",
+                                "丁字",
+                                "香木",
+                                "ジンジャーブレッド"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.spiceSpiceOther)
+                        
+                        tastingScaleRow(
+                            title: "香辛料・芳香・化学物質（他）",
+                            selection: $wine.spiceOthers,
+                            options: [
+                                "硫黄",
+                                "ペトロール",
+                                "パン・ド・ミ",
+                                "乳製品",
+                                "フェノール",
+                                "麝香",
+                                "花の蜜",
+                                "蜂蜜",
+                                "ワックス",
+                                "蜜蝋"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.spiceOthersOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "香りの印象（熟成感）",
+                            selection: $wine.spiceMaturity,
+                            options: [
+                                "若々しい",
+                                "嫌気的な",
+                                "熟成感が現れている",
+                                "酸化熟成の段階"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.spiceMaturityOther)
+                        
+                        tastingScaleRow(
+                            title: "香りの印象（特性）",
+                            selection: $wine.spiceCharacteristic,
+                            options: [
+                                "第1アロマが強い",
+                                "第2アロマが強い",
+                                "ニュートラル",
+                                "木樽からのニュアンス",
+                                "成熟度が高い"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.spiceCharacteristicOther)
+                    }
                     
-                    otherField(text: $wine.densityOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "粘性",
-                        selection: $wine.viscosity,
-                        options: [
-                            "さらっとした",
-                            "適度な",
-                            "やや強い",
-                            "ねっとりとした",
-                        ]
-                    )
+                    sectionCard(
+                        number: "3",
+                        title: "味わい",
+                        english: "TASTE"
+                    ) {
+                        
+                        tastingScaleRow(
+                            title: "アタック",
+                            selection: $wine.attack,
+                            options: [
+                                "軽い",
+                                "やや軽い",
+                                "やや強い",
+                                "強い",
+                                "インパクトのある"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.attackOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "甘味",
+                            selection: $wine.sweetness,
+                            options: [
+                                "ドライ",
+                                "ソフトな",
+                                "まろやか",
+                                "豊かな",
+                                "残糖がある"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.sweetnessOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "酸味",
+                            selection: $wine.acidity,
+                            options: [
+                                "なめらかな",
+                                "軽やかな",
+                                "爽やかな",
+                                "はつらつとした",
+                                "力強い",
+                                "直線的",
+                                "堅固な"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.acidityOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "苦味",
+                            selection: $wine.bitterness,
+                            options: [
+                                "控えめ",
+                                "穏やかな",
+                                "コク(深み)を与える",
+                                "旨味をともなった",
+                                "強い(突出した)"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.bitternessOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "バランス（左下）",
+                            selection: $wine.balanceBottomLeft,
+                            options: [
+                                "スムーズな",
+                                "コンパクトな"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.balanceBottomLeftOther)
+                        
+                        tastingScaleRow(
+                            title: "バランス（左上）",
+                            selection: $wine.balanceTopLeft,
+                            options: [
+                                "スリムな",
+                                "ドライな"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.balanceTopLeftOther)
+                        
+                        tastingScaleRow(
+                            title: "バランス（右上）",
+                            selection: $wine.balanceTopRight,
+                            options: [
+                                "ジューシーな",
+                                "豊潤な",
+                                "厚みのある"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.balanceTopRightOther)
+                        
+                        tastingScaleRow(
+                            title: "バランス（右下）",
+                            selection: $wine.balanceBottmRight,
+                            options: [
+                                "まろやかな",
+                                "ねっとりした"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.balanceBottmRightOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "アルコール",
+                            selection: $wine.alcohol,
+                            options: [
+                                "11%未満",
+                                "11%～12%未満",
+                                "12%～13%未満",
+                                "13%～14%未満",
+                                "14%以上"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.alcoholOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "余韻",
+                            selection: $wine.finish,
+                            options: [
+                                "短い",
+                                "やや短い",
+                                "やや長い",
+                                "長い"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.finishOther)
+                    }
                     
-                    otherField(text: $wine.viscosityOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "外観の印象（若さ）",
-                        selection: $wine.youthfulness,
-                        options: [
-                            "若々しい",
-                            "やや発展した",
-                            "熟成のニュアンスが見える",
-                            "熟成した",
-                            "酸化が進んだ",
-                        ]
-                    )
-                    
-                    otherField(text: $wine.youthfulnessOther)
-
-                    tastingScaleRow(
-                        title: "外観の印象（成熟度）",
-                        selection: $wine.maturity,
-                        options: [
-                            "軽快な",
-                            "成熟度が高い",
-                            "濃縮感がある",
-                        ]
-                    )
-                    
-                    otherField(text: $wine.maturityOther)
-
-                    tastingScaleRow(
-                        title: "外観の印象（発泡性）",
-                        selection: $wine.effervescence,
-                        options: [
-                            "気泡が見える",
-                            "発泡性",
-                        ]
-                    )
-                    
-                    otherField(text: $wine.effervescenceOther)
+                    sectionCard(
+                        number: "4",
+                        title: "結論",
+                        english: "CONCLUSION"
+                    ) {
+                        
+                        tastingScaleRow(
+                            title: "評価",
+                            selection: $wine.evaluation,
+                            options: [
+                                "シンプル、フレッシュ感を楽しむ",
+                                "エレガントでミネラリー",
+                                "なめらかでバランスが良い",
+                                "成熟度が高く豊か",
+                                "濃縮し力強い",
+                                "ポテンシャルの高い"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.evaluationOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "適正温度",
+                            selection: $wine.eervingTemperature,
+                            options: [
+                                "8度未満",
+                                "8～10度",
+                                "11～14度",
+                                "15～18度",
+                                "19度以上"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.eervingTemperatureOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        tastingScaleRow(
+                            title: "グラス",
+                            selection: $wine.glass,
+                            options: [
+                                "小ぶり",
+                                "中庸",
+                                "大ぶり",
+                                "バルーン型",
+                                "チューリップ型"
+                            ]
+                        )
+                        
+                        otherField(text: $wine.glassOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+                        simpleField(
+                            title: "収穫年",
+                            text: $wine.vintage
+                        )
+                        
+                        simpleField(
+                            title: "生産地",
+                            text: $wine.country
+                        )
+                        
+                        simpleField(
+                            title: "主なブドウ品種",
+                            text: $wine.grape
+                        )
+                    }
                 }
-
-                sectionCard(
-                    number: "2",
-                    title: "香り",
-                    english: "AROMA"
-                ) {
-
-                    tastingScaleRow(
-                        title: "第一印象(強さ)",
-                        selection: $wine.firstImpIntensity,
-                        options: [
-                            "閉じている",
-                            "控えめ",
-                            "開いている",
-                            "力強い"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.firstImpIntensityOther)
-
-                    tastingScaleRow(
-                        title: "第一印象（性質）",
-                        selection: $wine.firstImpCharacter,
-                        options: [
-                            "フレッシュな",
-                            "ミネラリー",
-                            "華やかな",
-                            "熟度の高い",
-                            "豊かな",
-                            "濃縮感がある",
-                            "セイボリーな ",
-                            "複雑な"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.firstImpCharacterOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "果実",
-                        selection: $wine.fruit,
-                        options: [
-                            "柑橘類",
-                            "青リンゴ",
-                            "リンゴ",
-                            "洋梨",
-                            "マスカット",
-                            "花梨",
-                            "パッションフルーツ",
-                            "白桃",
-                            "アプリコット",
-                            "パイナップル",
-                            "ライチ",
-                            "バナナ",
-                            "マンゴー"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.fruitOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "花・植物（花）",
-                        selection: $wine.plantFlower,
-                        options: [
-                            "スイカズラ",
-                            "アカシア",
-                            "白バラ",
-                            "キンモクセイ",
-                            "菩提樹",
-                            "柑橘系の花"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.plantFlowerOther)
-
-                    tastingScaleRow(
-                        title: "花・植物（ハーブ）",
-                        selection: $wine.plantHerb,
-                        options: [
-                            "ミント",
-                            "アニス",
-                            "ヴェルヴェーヌ",
-                            "ハーブ",
-                            "タイム"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.plantHerbOther)
-
-                    tastingScaleRow(
-                        title: "花・植物（ナッツ）",
-                        selection: $wine.plantNuts,
-                        options: [
-                            "フレッシュアーモンド",
-                            "ヘーゼルナッツ"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.plantNutsOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "香辛料・芳香・化学物質（ミネラル）",
-                        selection: $wine.spiceMineral,
-                        options: [
-                            "石灰",
-                            "火打石",
-                            "貝殻",
-                            "鉱物",
-                            "海の香り"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.spiceMineralOther)
-
-                    tastingScaleRow(
-                        title: "香辛料・芳香・化学物質（樽）",
-                        selection: $wine.spicsOak,
-                        options: [
-                            "トースト",
-                            "ヴァニラ",
-                            "煙",
-                            "薫製"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.spicsOakOther)
-
-                    tastingScaleRow(
-                        title: "香辛料・芳香・化学物質（香辛料）",
-                        selection: $wine.spiceSpice,
-                        options: [
-                            "シナモン",
-                            "白胡椒",
-                            "コリアンダーシード",
-                            "丁字",
-                            "香木",
-                            "ジンジャーブレッド"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.spiceSpiceOther)
-
-                    tastingScaleRow(
-                        title: "香辛料・芳香・化学物質（他）",
-                        selection: $wine.spiceOthers,
-                        options: [
-                            "硫黄",
-                            "ペトロール",
-                            "パン・ド・ミ",
-                            "乳製品",
-                            "フェノール",
-                            "麝香",
-                            "花の蜜",
-                            "蜂蜜",
-                            "ワックス",
-                            "蜜蝋"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.spiceOthersOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "香りの印象（熟成感）",
-                        selection: $wine.spiceMaturity,
-                        options: [
-                            "若々しい",
-                            "嫌気的な",
-                            "熟成感が現れている",
-                            "酸化熟成の段階"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.spiceMaturityOther)
-
-                    tastingScaleRow(
-                        title: "香りの印象（特性）",
-                        selection: $wine.spiceCharacteristic,
-                        options: [
-                            "第1アロマが強い",
-                            "第2アロマが強い",
-                            "ニュートラル",
-                            "木樽からのニュアンス",
-                            "成熟度が高い"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.spiceCharacteristicOther)
-                }
-
-                sectionCard(
-                    number: "3",
-                    title: "味わい",
-                    english: "TASTE"
-                ) {
-
-                    tastingScaleRow(
-                        title: "アタック",
-                        selection: $wine.attack,
-                        options: [
-                            "軽い",
-                            "やや軽い",
-                            "やや強い",
-                            "強い",
-                            "インパクトのある"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.attackOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "甘味",
-                        selection: $wine.sweetness,
-                        options: [
-                            "ドライ",
-                            "ソフトな",
-                            "まろやか",
-                            "豊かな",
-                            "残糖がある"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.sweetnessOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "酸味",
-                        selection: $wine.acidity,
-                        options: [
-                            "なめらかな",
-                            "軽やかな",
-                            "爽やかな",
-                            "はつらつとした",
-                            "力強い",
-                            "直線的",
-                            "堅固な"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.acidityOther)
-                    
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "苦味",
-                        selection: $wine.bitterness,
-                        options: [
-                            "控えめ",
-                            "穏やかな",
-                            "コク(深み)を与える",
-                            "旨味をともなった",
-                            "強い(突出した)"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.bitternessOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "バランス（左下）",
-                        selection: $wine.balanceBottomLeft,
-                        options: [
-                            "スムーズな",
-                            "コンパクトな"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.balanceBottomLeftOther)
-
-                    tastingScaleRow(
-                        title: "バランス（左上）",
-                        selection: $wine.balanceTopLeft,
-                        options: [
-                            "スリムな",
-                            "ドライな"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.balanceTopLeftOther)
-                    
-                    tastingScaleRow(
-                        title: "バランス（右上）",
-                        selection: $wine.balanceTopRight,
-                        options: [
-                            "ジューシーな",
-                            "豊潤な",
-                            "厚みのある"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.balanceTopRightOther)
-                    
-                    tastingScaleRow(
-                        title: "バランス（右下）",
-                        selection: $wine.balanceBottmRight,
-                        options: [
-                            "まろやかな",
-                            "ねっとりした"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.balanceBottmRightOther)
-                    
-                    Divider()
-                        .padding(.vertical, 4)
-                    
-                    tastingScaleRow(
-                        title: "アルコール",
-                        selection: $wine.alcohol,
-                        options: [
-                            "11%未満",
-                            "11%～12%未満",
-                            "12%～13%未満",
-                            "13%～14%未満",
-                            "14%以上"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.alcoholOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "余韻",
-                        selection: $wine.finish,
-                        options: [
-                            "短い",
-                            "やや短い",
-                            "やや長い",
-                            "長い"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.finishOther)
-                }
-
-                sectionCard(
-                    number: "4",
-                    title: "結論",
-                    english: "CONCLUSION"
-                ) {
-
-                    tastingScaleRow(
-                        title: "評価",
-                        selection: $wine.evaluation,
-                        options: [
-                            "シンプル、フレッシュ感を楽しむ",
-                            "エレガントでミネラリー",
-                            "なめらかでバランスが良い",
-                            "成熟度が高く豊か",
-                            "濃縮し力強い",
-                            "ポテンシャルの高い"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.evaluationOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-                    
-                    tastingScaleRow(
-                        title: "適正温度",
-                        selection: $wine.eervingTemperature,
-                        options: [
-                            "8度未満",
-                            "8～10度",
-                            "11～14度",
-                            "15～18度",
-                            "19度以上"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.eervingTemperatureOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    tastingScaleRow(
-                        title: "グラス",
-                        selection: $wine.glass,
-                        options: [
-                            "小ぶり",
-                            "中庸",
-                            "大ぶり",
-                            "バルーン型",
-                            "チューリップ型"
-                        ]
-                    )
-                    
-                    otherField(text: $wine.glassOther)
-
-                    Divider()
-                        .padding(.vertical, 4)
-
-                    simpleField(
-                        title: "収穫年",
-                        text: $wine.vintage
-                    )
-
-                    simpleField(
-                        title: "生産地",
-                        text: $wine.country
-                    )
-
-                    simpleField(
-                        title: "主なブドウ品種",
-                        text: $wine.grape
-                    )
-                }
+                .padding()
             }
-            .padding()
+            .overlay(alignment: .bottomTrailing) {
+
+                Button {
+
+                    withAnimation {
+
+                        proxy.scrollTo(
+                            "top",
+                            anchor: .top
+                        )
+                    }
+
+                } label: {
+
+                    Image(systemName: "arrow.up.circle.fill")
+                        .font(.system(size: 50))
+                        .foregroundStyle(accent)
+                        .background(.white)
+                        .clipShape(Circle())
+                        .shadow(radius: 4)
+                }
+                .padding()
+            }
         }
         .background(
             Color(
