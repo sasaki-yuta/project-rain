@@ -90,34 +90,63 @@ struct HomeTabView: View {
     
     
     var body: some View {
-        VStack {
-            NavigationView {
-                List(filteredWines) { wine in
-                    NavigationLink {
-                        WineTastingSheetView(wine: wine, context: context)
-                    } label: {
-                        HStack {
-                            if let data = wine.imageData,
-                               let uiImage = UIImage(data: data) {
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 60, height: 60)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+        NavigationView {
+            VStack {
+
+                // 🔽 検索バー
+                List {
+                    if searchText.isEmpty {
+
+                        // ======================
+                        // 通常UI（白・赤ボタン）
+                        // ======================
+                        Section(header: Text("テイスティングリスト")) {
+
+                            NavigationLink {
+                                WhiteWineTastingListView()
+                            } label: {
+                                Text("白ワイン")
                             }
 
-                            VStack(alignment: .leading) {
-                                Text(wine.name)
+                            NavigationLink {
+                                RedWineTastingListView()
+                            } label: {
+                                Text("赤ワイン")
+                            }
+                        }
 
-                                Text(wine.kind == .white ? "白ワイン" : "赤ワイン")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
+                    } else {
+
+                        // ======================
+                        // 検索UI（横断一覧）
+                        // ======================
+                        ForEach(filteredWines) { wine in
+                            NavigationLink {
+                                WineTastingSheetView(wine: wine, context: context)
+                            } label: {
+                                HStack {
+                                    if let data = wine.imageData,
+                                       let uiImage = UIImage(data: data) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 60, height: 60)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    }
+
+                                    VStack(alignment: .leading) {
+                                        Text(wine.name)
+
+                                        Text(wine.kind == .white ? "白ワイン" : "赤ワイン")
+                                            .font(.caption)
+                                            .foregroundColor(wine.kind == .white ? .green : .red)
+                                    }
+                                }
                             }
                         }
                     }
                 }
                 .searchable(text: $searchText, prompt: "ワインの検索")
-                .keyboardType(.default)
                 .navigationBarTitle(userName.isEmpty ? "ゲスト" : userName)
             }
         }
