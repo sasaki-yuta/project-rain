@@ -241,7 +241,7 @@ struct WineOverlapListView: View {
                     .padding(.vertical, 4)
                 }
             }
-            .navigationTitle("重なったワイン")
+            .navigationTitle("選択したワイン")
         }
     }
 }
