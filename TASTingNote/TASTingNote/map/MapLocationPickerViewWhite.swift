@@ -1,14 +1,13 @@
 //
-//  MapLocationPickerView.swift
+//  MapLocationPickerViewWhite.swift
 //  TASTingNote
 //
 //  Created by 佐々木 勇太 on 2026/06/14.
 //
-
 import SwiftUI
 import MapKit
 
-struct MapLocationPickerView: View {
+struct MapLocationPickerViewWhite: View {
 
     @Environment(\.dismiss) private var dismiss
 
@@ -148,4 +147,3 @@ struct MapLocationPickerView: View {
         }
     }
 }
-
