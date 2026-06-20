@@ -14,7 +14,13 @@ import SwiftData
 
 struct MapWine: Identifiable {
 
-    let id = UUID()
+    var id: String {
+        if let whiteWine {
+            return "white-\(whiteWine.persistentModelID)"
+        }
+
+        return "red-\(redWine!.persistentModelID)"
+    }
 
     let name: String
     let image: UIImage?
@@ -42,7 +48,6 @@ struct MapTabView: View {
     @Query private var wines: [Wine]
     @Query private var redWines: [redWine]
     @State private var followUser = true
-    @State private var groupedWines: [WineGroup] = []
     
     enum ActiveSheet: Identifiable {
 
@@ -61,7 +66,7 @@ struct MapTabView: View {
                 return "red-\(wine.persistentModelID)"
 
             case .wineList(let wines):
-                return UUID().uuidString
+                return wines.map(\.id).joined(separator: "-")
             }
         }
     }
@@ -171,16 +176,6 @@ struct MapTabView: View {
             }
             .ignoresSafeArea(edges: .bottom)
             .navigationTitle("Map")
-            .onAppear {
-                groupedWines = makeWineGroups()
-            }
-            .onChange(of: wines.count) {
-                groupedWines = makeWineGroups()
-            }
-            .onChange(of: redWines.count) {
-                groupedWines = makeWineGroups()
-            }
-
             .overlay(alignment: .bottomTrailing) {
 
                 Button {
@@ -213,6 +208,10 @@ struct MapTabView: View {
                 locationManager.cameraPosition = .region(region)
             }
         }
+    }
+    
+    private var groupedWines: [WineGroup] {
+        makeWineGroups()
     }
     
     private func makeWineGroups() -> [WineGroup] {
