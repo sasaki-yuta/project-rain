@@ -104,7 +104,7 @@ struct AITabView: View {
                         // 描画
                         ForEach(chartPoints) { point in
 
-                            VStack {
+                            VStack(spacing: 2) {
 
                                 if let data = point.imageData,
                                    let uiImage = UIImage(data: data) {
@@ -124,6 +124,15 @@ struct AITabView: View {
                                         .fill(point.isWhite ? .green : .red)
                                         .frame(width: 12, height: 12)
                                 }
+
+                                // ★ワイン名追加
+                                Text(point.wineName)
+                                    .font(.caption2)
+                                    .lineLimit(1)
+                                    .padding(.horizontal, 4)
+                                    .padding(.vertical, 2)
+                                    .background(.ultraThinMaterial)
+                                    .clipShape(Capsule())
                             }
                             .position(
                                 x: geo.size.width * (point.x + 1) / 2,
