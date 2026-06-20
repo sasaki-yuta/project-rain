@@ -9,6 +9,8 @@ import SwiftData
 
 struct AITabView: View {
 
+    @Environment(\.modelContext) private var context
+
     @Query(sort: \Wine.tastingDate, order: .reverse)
     private var whiteWines: [Wine]
 
@@ -16,23 +18,20 @@ struct AITabView: View {
     private var redWines: [redWine]
 
     // ======================
-    // ChartPoint（固定オフセット付き）
+    // チャート用モデル
     // ======================
-    struct ChartPoint: Identifiable, Equatable {
-        let id = UUID()
+    struct ChartPoint: Identifiable {
+        let id: String
         let x: Double
         let y: Double
         let isWhite: Bool
-        let name: String
         let imageData: Data?
-
-        // ⭐ 固定オフセット（これが重要）
-        let offsetX: Double
-        let offsetY: Double
     }
 
+    @State private var selectedPoint: ChartPoint?
+
     // ======================
-    // データ生成（ここで完全固定化）
+    // データ統合
     // ======================
     private var chartPoints: [ChartPoint] {
 
@@ -40,16 +39,12 @@ struct AITabView: View {
             guard let x = wine.chartX,
                   let y = wine.chartY else { return nil }
 
-            let baseHash = wine.persistentModelID.hashValue
-
             return ChartPoint(
+                id: "white-\(wine.persistentModelID)",
                 x: x,
                 y: y,
                 isWhite: true,
-                name: wine.name,
-                imageData: wine.imageData,
-                offsetX: Double((abs(baseHash) % 7) - 3) * 0.003,
-                offsetY: Double((abs(baseHash) % 5) - 2) * 0.003
+                imageData: wine.imageData
             )
         }
 
@@ -57,28 +52,26 @@ struct AITabView: View {
             guard let x = wine.chartX,
                   let y = wine.chartY else { return nil }
 
-            let baseHash = wine.persistentModelID.hashValue
-
             return ChartPoint(
+                id: "red-\(wine.persistentModelID)",
                 x: x,
                 y: y,
                 isWhite: false,
-                name: wine.name,
-                imageData: wine.imageData,
-                offsetX: Double((abs(baseHash) % 7) - 3) * 0.003,
-                offsetY: Double((abs(baseHash) % 5) - 2) * 0.003
+                imageData: wine.imageData
             )
         }
 
         return whites + reds
     }
 
-    @State private var selectedPoints: [ChartPoint] = []
-
     var body: some View {
         NavigationStack {
+
             VStack {
 
+                // ======================
+                // チャート
+                // ======================
                 ZStack {
 
                     WineChartPickerView(
@@ -91,11 +84,7 @@ struct AITabView: View {
 
                         ForEach(chartPoints) { point in
 
-                            VStack(spacing: 0) {
-
-                                // ======================
-                                // ピン表示
-                                // ======================
+                            VStack {
                                 if let data = point.imageData,
                                    let uiImage = UIImage(data: data) {
 
@@ -106,97 +95,73 @@ struct AITabView: View {
                                         .clipShape(Circle())
                                         .overlay(
                                             Circle()
-                                                .stroke(point.isWhite ? .green : .red,
-                                                        lineWidth: 2)
+                                                .stroke(point.isWhite ? .green : .red, lineWidth: 2)
                                         )
 
                                 } else {
-
                                     Circle()
                                         .fill(point.isWhite ? .green : .red)
                                         .frame(width: 12, height: 12)
                                 }
                             }
                             .position(
-                                x: screenX(point.x, geo, point.offsetX),
-                                y: screenY(point.y, geo, point.offsetY)
+                                x: geo.size.width * (point.x + 1) / 2,
+                                y: geo.size.height * (1 - (point.y + 1) / 2)
                             )
-
-                            // ======================
-                            // タップ → クラスタ表示
-                            // ======================
                             .onTapGesture {
-
-                                let threshold = 0.08
-
-                                selectedPoints = chartPoints.filter {
-                                    abs($0.x - point.x) < threshold &&
-                                    abs($0.y - point.y) < threshold
-                                }
+                                selectedPoint = point
                             }
                         }
                     }
                 }
                 .frame(height: 300)
 
-                // ======================
-                // 凡例
-                // ======================
-                HStack(spacing: 20) {
-                    HStack {
-                        Image(systemName: "circle.fill")
-                            .foregroundStyle(.green)
-                        Text("白ワイン")
-                    }
-
-                    HStack {
-                        Image(systemName: "circle.fill")
-                            .foregroundStyle(.red)
-                        Text("赤ワイン")
-                    }
-                }
-                .font(.caption)
-
-                // ======================
-                // クラスタ表示
-                // ======================
-                if !selectedPoints.isEmpty {
-
-                    VStack(alignment: .leading, spacing: 6) {
-
-                        Text("このエリアのワイン")
-                            .font(.caption.bold())
-                            .foregroundStyle(.secondary)
-
-                        ForEach(selectedPoints) { point in
-                            HStack {
-                                Circle()
-                                    .fill(point.isWhite ? .green : .red)
-                                    .frame(width: 8, height: 8)
-
-                                Text(point.name)
-                                    .font(.caption)
-                            }
-                        }
-                    }
-                    .padding(.top, 8)
-                }
+                Spacer()
             }
             .padding()
             .navigationTitle("ワインチャート")
+
+            // ======================
+            // ★ ここが修正ポイント（完全解決）
+            // ======================
+            .sheet(item: $selectedPoint) { point in
+                WineDetailRouterView(point: point)
+                    .environment(\.modelContext, context)
+            }
+        }
+    }
+}
+
+struct WineDetailRouterView: View {
+
+    let point: AITabView.ChartPoint
+    @Environment(\.modelContext) private var context
+
+    var body: some View {
+
+        Group {
+            if point.isWhite {
+                if let wine = fetchWhite(id: point.id) {
+                    WhiteWineTastingSheetView(wine: wine)
+                }
+            } else {
+                if let wine = fetchRed(id: point.id) {
+                    RedWineTastingSheetView(wine: wine)
+                }
+            }
         }
     }
 
     // ======================
-    // 座標変換（安定版）
+    // fetch
     // ======================
-    private func screenX(_ x: Double, _ geo: GeometryProxy, _ offset: Double) -> CGFloat {
-        let normalized = (x + offset + 1) / 2
-        return geo.size.width * CGFloat(normalized)
+    private func fetchWhite(id: String) -> Wine? {
+        let wines = (try? context.fetch(FetchDescriptor<Wine>())) ?? []
+        return wines.first { "white-\($0.persistentModelID)" == id }
     }
 
-    private func screenY(_ y: Double, _ geo: GeometryProxy, _ offset: Double) -> CGFloat {
-        let normalized = 1 - ((y + offset + 1) / 2)
-        return geo.size.height * CGFloat(normalized)
+    private func fetchRed(id: String) -> redWine? {
+        let wines = (try? context.fetch(FetchDescriptor<redWine>())) ?? []
+        return wines.first { "red-\($0.persistentModelID)" == id }
     }
 }
