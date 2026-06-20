@@ -24,11 +24,19 @@ struct MapTabView: View {
 
     @StateObject private var locationManager = LocationManager()
     @Query private var wines: [Wine]
-    @State private var selectedWine: Wine?
+    
+    enum ActiveSheet: Identifiable {
 
-    @State private var selectedLocationWines: [Wine] = []
-    @State private var showWineList = false
+        case wine(Wine)
+        case wineList([Wine])
 
+        var id: UUID {
+            UUID()
+        }
+    }
+
+    @State private var activeSheet: ActiveSheet?
+    
     var body: some View {
 
         NavigationStack {
@@ -47,21 +55,14 @@ struct MapTabView: View {
                     ) {
 
                         Button {
-
                             if group.wines.count == 1 {
-
-                                selectedWine = group.wines[0]
-
+                                activeSheet = .wine(group.wines[0])
                             } else {
-
-                                selectedLocationWines = group.wines
-                                showWineList = true
+                                activeSheet = .wineList(group.wines)
                             }
-
                         } label: {
 
                             VStack(spacing: 0) {
-
                                 if let image = group.wines.first?.image {
 
                                     Image(uiImage: image)
@@ -96,62 +97,19 @@ struct MapTabView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showWineList) {
+            .sheet(item: $activeSheet) { sheet in
 
-                NavigationStack {
-
-                    List(selectedLocationWines) { wine in
-
-                        Button {
-
-                            showWineList = false
-
-                            DispatchQueue.main.asyncAfter(
-                                deadline: .now() + 0.3
-                            ) {
-                                selectedWine = wine
-                            }
-
-                        } label: {
-
-                            HStack {
-
-                                if let image = wine.image {
-
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(
-                                            width: 50,
-                                            height: 50
-                                        )
-                                        .clipShape(Circle())
-                                }
-
-                                VStack(alignment: .leading) {
-
-                                    Text(wine.name)
-
-                                    Text(
-                                        wine.tastingDate,
-                                        format: .dateTime.year().month().day()
-                                    )
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                }
-                            }
-                        }
+                switch sheet {
+                    
+                case .wine(let wine):
+                    
+                    NavigationStack {
+                        WhiteWineTastingSheetView(wine: wine)
                     }
-                    .navigationTitle("この場所のワイン")
-                }
-            }
-            .sheet(item: $selectedWine) { wine in
-
-                NavigationStack {
-
-                    WhiteWineTastingSheetView(
-                        wine: wine
-                    )
+                    
+                case .wineList(let wines):
+                    
+                    WineListView(wines: wines)
                 }
             }
             .ignoresSafeArea(edges: .bottom)
