@@ -26,9 +26,11 @@ struct AITabView: View {
         let y: Double
         let isWhite: Bool
         let imageData: Data?
+        let wineName: String   // ★追加
     }
 
-    @State private var selectedPoint: ChartPoint?
+    // 重なり選択
+    @State private var selectedPoints: [ChartPoint] = []
 
     // ======================
     // データ統合
@@ -44,7 +46,8 @@ struct AITabView: View {
                 x: x,
                 y: y,
                 isWhite: true,
-                imageData: wine.imageData
+                imageData: wine.imageData,
+                wineName: wine.name   // ★追加
             )
         }
 
@@ -57,7 +60,8 @@ struct AITabView: View {
                 x: x,
                 y: y,
                 isWhite: false,
-                imageData: wine.imageData
+                imageData: wine.imageData,
+                wineName: wine.name   // ★追加
             )
         }
 
@@ -69,9 +73,6 @@ struct AITabView: View {
 
             VStack {
 
-                // ======================
-                // チャート
-                // ======================
                 ZStack {
 
                     WineChartPickerView(
@@ -82,9 +83,29 @@ struct AITabView: View {
 
                     GeometryReader { geo in
 
+                        // タップ検出
+                        Color.clear
+                            .contentShape(Rectangle())
+                            .onTapGesture { location in
+
+                                let tapped = chartPoints.filter { point in
+                                    let px = geo.size.width * (point.x + 1) / 2
+                                    let py = geo.size.height * (1 - (point.y + 1) / 2)
+
+                                    let dx = px - location.x
+                                    let dy = py - location.y
+
+                                    return sqrt(dx*dx + dy*dy) < 20
+                                }
+
+                                selectedPoints = tapped
+                            }
+
+                        // 描画
                         ForEach(chartPoints) { point in
 
                             VStack {
+
                                 if let data = point.imageData,
                                    let uiImage = UIImage(data: data) {
 
@@ -108,9 +129,6 @@ struct AITabView: View {
                                 x: geo.size.width * (point.x + 1) / 2,
                                 y: geo.size.height * (1 - (point.y + 1) / 2)
                             )
-                            .onTapGesture {
-                                selectedPoint = point
-                            }
                         }
                     }
                 }
@@ -122,10 +140,13 @@ struct AITabView: View {
             .navigationTitle("ワインチャート")
 
             // ======================
-            // ★ ここが修正ポイント（完全解決）
+            // 重なり表示シート
             // ======================
-            .sheet(item: $selectedPoint) { point in
-                WineDetailRouterView(point: point)
+            .sheet(isPresented: Binding(
+                get: { !selectedPoints.isEmpty },
+                set: { if !$0 { selectedPoints = [] } }
+            )) {
+                WineOverlapListView(points: selectedPoints)
                     .environment(\.modelContext, context)
             }
         }
@@ -163,5 +184,45 @@ struct WineDetailRouterView: View {
     private func fetchRed(id: String) -> redWine? {
         let wines = (try? context.fetch(FetchDescriptor<redWine>())) ?? []
         return wines.first { "red-\($0.persistentModelID)" == id }
+    }
+}
+
+struct WineOverlapListView: View {
+
+    let points: [AITabView.ChartPoint]
+
+    var body: some View {
+        NavigationStack {
+
+            List(points) { point in
+
+                HStack {
+
+                    if let data = point.imageData,
+                       let uiImage = UIImage(data: data) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .frame(width: 44, height: 44)
+                            .clipShape(Circle())
+                    }
+
+                    VStack(alignment: .leading) {
+
+                        Text(point.wineName)
+                            .font(.headline)
+
+                        Text(point.isWhite ? "白ワイン" : "赤ワイン")
+                            .font(.subheadline)
+                            .foregroundStyle(point.isWhite ? .green : .red)
+
+                        Text("X: \(String(format: "%.2f", point.x))  Y: \(String(format: "%.2f", point.y))")
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                    }
+                }
+                .padding(.vertical, 4)
+            }
+            .navigationTitle("重なったワイン")
+        }
     }
 }
