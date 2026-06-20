@@ -31,6 +31,83 @@ class redWine {
     var placeName: String = ""
     
     // MARK: 外観
+    var clarity: String?                        // 清澄度
+    var clarityOther = ""                       // 清澄度(その他)
+    var brightness: String?                     // 輝き
+    var brightnessOther = ""                    // 輝き(その他)
+    var colorTone: String?                      // 色調（補助用語）
+    var colorToneOther = ""                 // 色調（補助用語）(その他)
+    var color: String?                          // 色調（メイン用語）
+    var colorOther = ""                     // 色調（メイン用語）(その他)
+    var density: String?                        // 濃淡
+    var densityOther = ""                   // 濃淡(その他)
+    var viscosity: String?                      // 粘性
+    var viscosityOther = ""                 // 粘性(その他)
+    var youthfulness: String?                   // 外観の印象（若さ）
+    var youthfulnessOther = ""              // 外観の印象（若さ）(その他)
+    var maturity: String?                       // 外観の印象（成熟度）
+    var maturityOther = ""                  // 外観の印象（成熟度）(その他)
+    var effervescence: String?                  // 外観の印象（発泡性）
+    var effervescenceOther = ""             // 外観の印象（発泡性）(その他)
+
+    // MARK: 香り
+    var firstImpIntensity: String? = nil        // 第一印象（強さ）
+    var firstImpIntensityOther = ""   // 第一印象（強さ）(その他)
+    var firstImpCharacter: String? = nil        // 第一印象（性質）
+    var firstImpCharacterOther = ""   // 第一印象（性質）(その他)
+    var fruit: String? = nil                    // 果実
+    var fruitOther = ""               // 果実(その他)
+    var plantFlower: String? = nil              // 花・植物（花）
+    var plantFlowerOther = ""         // 花・植物（花）(その他)
+    var plantHerb: String? = nil                // 花・植物（ハーブ）
+    var plantHerbOther = ""           // 花・植物（ハーブ）(その他)
+    var plantNuts: String? = nil                // 花・植物（ナッツ）
+    var plantNutsOther = ""           // 花・植物（ナッツ）(その他)
+    var spiceMineral: String? = nil             // 香辛料・芳香・化学物質（ミネラル）
+    var spiceMineralOther = ""        // 香辛料・芳香・化学物質（ミネラル）(その他)
+    var spicsOak: String? = nil                 // 香辛料・芳香・化学物質（樽）
+    var spicsOakOther = ""            // 香辛料・芳香・化学物質（樽）(その他)
+    var spiceSpice: String? = nil               // 香辛料・芳香・化学物質（香辛料）
+    var spiceSpiceOther = ""          // 香辛料・芳香・化学物質（香辛料）(その他)
+    var spiceOthers: String? = nil              // 香辛料・芳香・化学物質（他）
+    var spiceOthersOther = ""         // 香辛料・芳香・化学物質（他）(その他)
+    var spiceMaturity: String? = nil            // 香りの印象（熟成感）
+    var spiceMaturityOther = ""       // 香りの印象（熟成感）(その他)
+    var spiceCharacteristic: String? = nil      // 香りの印象（特性）
+    var spiceCharacteristicOther = "" // 香りの印象（特性）(その他)
+
+    // MARK: 味わい
+    var attack: String? = nil                   // アタック
+    var attackOther = ""              // アタック(その他)
+    var sweetness: String? = nil                // 甘味
+    var sweetnessOther = ""           // 甘味(その他)
+    var acidity: String? = nil                  // 酸味
+    var acidityOther = ""             // 酸味(その他)
+    var bitterness: String? = nil               // 苦味
+    var bitternessOther = ""          // 苦味(その他)
+    var balanceBottomLeft: String? = nil        // バランンス（左下）
+    var balanceBottomLeftOther = ""   // バランンス（左下）(その他)
+    var balanceTopLeft: String? = nil           // バランンス（左上）
+    var balanceTopLeftOther = ""      // バランンス（左上）(その他)
+    var balanceTopRight: String? = nil          // バランンス（右上）
+    var balanceTopRightOther = ""     // バランンス（右上）(その他)
+    var balanceBottmRight: String? = nil        // バランンス（右下）
+    var balanceBottmRightOther = ""   // バランンス（右下）(その他)
+    var alcohol: String? = nil                  // アルコール
+    var alcoholOther = ""             // アルコール(その他)
+    var finish: String? = nil                   // 余韻
+    var finishOther = ""              // 余韻(その他)
+
+    // MARK: 結論
+    var evaluation: String? = nil               // 評価
+    var evaluationOther = ""          // 評価(その他)
+    var eervingTemperature: String? = nil       // 適正温度
+    var eervingTemperatureOther = ""  // 適正温度(その他)
+    var glass: String? = nil                    // グラス
+    var glassOther = ""               // グラス(その他)
+    var vintage = ""                            // 収穫年
+    var country = ""                            // 生産地
+    var grape = ""                              // 主なブドウ品種
 
     
     init(
@@ -50,6 +127,80 @@ class redWine {
         longitude: Double? = nil,
         placeName: String = "",
         // MARK: 外観
+        clarity: String? = nil,
+        clarityOther: String = "",
+        brightness: String? = nil,
+        brightnessOther: String = "",
+        colorTone: String? = "",
+        colorToneOther: String = "",
+        color: String? = "",
+        colorOther: String = "",
+        density: String? = "",
+        densityOther: String = "",
+        viscosity: String? = "",
+        viscosityOther: String = "",
+        youthfulness: String? = nil,
+        youthfulnessOther: String = "",
+        maturity: String? = nil,
+        maturityOther: String = "",
+        effervescence: String? = nil,
+        effervescenceOther: String = "",
+        // MARK: 香り
+        firstImpIntensity: String? = "",
+        firstImpIntensityOther: String = "",
+        firstImpCharacter: String? = "",
+        firstImpCharacterOther: String = "",
+        fruit: String? = "",
+        fruitOther: String = "",
+        plantFlower: String? = "",
+        plantFlowerOther: String = "",
+        plantHerb: String? = "",
+        plantHerbOther: String = "",
+        plantNuts: String? = "",
+        plantNutsOther: String = "",
+        spiceMineral: String? = "",
+        spiceMineralOther: String = "",
+        spicOak: String? = "",
+        spicOakOther: String = "",
+        spiceSpice: String? = "",
+        spiceSpiceOther: String = "",
+        spiceOthers: String? = "",
+        spiceOthersOther: String = "",
+        spiceMaturity: String? = "",
+        spiceMaturityOther: String = "",
+        spiceCharacteristic: String? = "",
+        spiceCharacteristicOther: String = "",
+        // MARK: 味わい
+        attack: String? = "",
+        attackOther: String = "",
+        sweetness: String? = "",
+        sweetnessOther: String = "",
+        acidity: String? = "",
+        acidityOther: String = "",
+        bitterness: String? = "",
+        bitternessOther: String = "",
+        balanceBottomLeft: String? = "",
+        balanceBottomLeftOther: String = "",
+        balanceTopLeft: String? = "",
+        balanceTopLeftOther: String = "",
+        balanceTopRight: String? = "",
+        balanceTopRightOther: String = "",
+        balanceBottmRight: String? = "",
+        balanceBottmRightOther: String = "",
+        alcohol: String? = "",
+        alcoholOther: String = "",
+        finish: String? = "",
+        finishOther: String = "",
+        // MARK: 結論
+        evaluation: String? = "",
+        evaluationOther: String = "",
+        ervingTemperature: String? = "",
+        ervingTemperatureOther: String = "",
+        glass: String? = "",
+        glassOther: String = "",
+        vintage: String = "",
+        country: String = "",
+        grape: String = "",
     ) {
         // 基本データ
         self.imageData = imageData
@@ -67,6 +218,80 @@ class redWine {
         self.longitude = longitude
         self.placeName = placeName
         // MARK: 外観
+        self.clarity = clarity
+        self.clarityOther = clarityOther
+        self.brightness = brightness
+        self.brightnessOther = brightnessOther
+        self.colorTone = colorTone
+        self.colorToneOther = colorToneOther
+        self.color = color
+        self.colorOther = colorOther
+        self.density = density
+        self.densityOther = densityOther
+        self.viscosity = viscosity
+        self.viscosityOther = viscosityOther
+        self.youthfulness = youthfulness
+        self.youthfulnessOther = youthfulnessOther
+        self.maturity = maturity
+        self.maturityOther = maturityOther
+        self.effervescence = effervescence
+        self.effervescenceOther = effervescenceOther
+        // MARK: 香り
+        self.firstImpIntensity = firstImpIntensity
+        self.firstImpIntensityOther = firstImpIntensityOther
+        self.firstImpCharacter = firstImpCharacter
+        self.firstImpCharacterOther = firstImpCharacterOther
+        self.fruit = fruit
+        self.fruitOther = fruitOther
+        self.plantFlower = plantFlower
+        self.plantFlowerOther = plantFlowerOther
+        self.plantHerb = plantHerb
+        self.plantHerbOther = plantHerbOther
+        self.plantNuts = plantNuts
+        self.plantNutsOther = plantNutsOther
+        self.spiceMineral = spiceMineral
+        self.spiceMineralOther = spiceMineralOther
+        self.spicsOak = spicsOak
+        self.spicsOakOther = spicsOakOther
+        self.spiceSpice = spiceSpice
+        self.spiceSpiceOther = spiceSpiceOther
+        self.spiceOthers = spiceOthers
+        self.spiceOthersOther = spiceOthersOther
+        self.spiceMaturity = spiceMaturity
+        self.spiceMaturityOther = spiceMaturityOther
+        self.spiceCharacteristic = spiceCharacteristic
+        self.spiceCharacteristicOther = spiceCharacteristicOther
+        // MARK: 味わい
+        self.attack = attack
+        self.attackOther = attackOther
+        self.sweetness = sweetness
+        self.sweetnessOther = sweetnessOther
+        self.acidity = acidity
+        self.acidityOther = acidityOther
+        self.bitterness = bitterness
+        self.bitternessOther = bitternessOther
+        self.balanceBottomLeft = balanceBottomLeft
+        self.balanceBottomLeftOther = balanceBottomLeftOther
+        self.balanceTopLeft = balanceTopLeft
+        self.balanceTopLeftOther = balanceTopLeftOther
+        self.balanceTopRight = balanceTopRight
+        self.balanceTopRightOther = balanceTopRightOther
+        self.balanceBottmRight = balanceBottmRight
+        self.balanceBottmRightOther = balanceBottmRightOther
+        self.alcohol = alcohol
+        self.alcoholOther = alcoholOther
+        self.finish = finish
+        self.finishOther = finishOther
+        // MARK: 結論
+        self.evaluation = evaluation
+        self.evaluationOther = evaluationOther
+        self.eervingTemperature = ervingTemperature
+        self.eervingTemperatureOther = ervingTemperatureOther
+        self.glass = glass
+        self.glassOther = glassOther
+        self.vintage = vintage
+        self.country = country
+        self.grape = grape
     }
     
     var image: UIImage? {
@@ -105,7 +330,7 @@ struct RedWineTastingListView: View {
                 List {
                     ForEach(filteredWines) { wine in
                         NavigationLink {
-//                            WhiteWineTastingSheetView(wine: wine)
+                            RedWineTastingSheetView(wine: wine)
                         } label: {
                             HStack(spacing: 16) {
                                 if let image = wine.image {
