@@ -224,7 +224,7 @@ struct WineOverlapListView: View {
                                 .font(.subheadline)
                                 .foregroundStyle(point.isWhite ? .green : .red)
 
-                            Text("X: \(String(format: "%.2f", point.x))  Y: \(String(format: "%.2f", point.y))")
+                            Text("X（辛甘）: \(String(format: "%.2f", point.x))  Y（重軽）: \(String(format: "%.2f", point.y))")
                                 .font(.caption)
                                 .foregroundStyle(.gray)
                         }
