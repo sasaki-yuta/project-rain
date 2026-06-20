@@ -24,6 +24,7 @@ struct MapTabView: View {
 
     @StateObject private var locationManager = LocationManager()
     @Query private var wines: [Wine]
+    @State private var followUser = true
     
     enum ActiveSheet: Identifiable {
 
@@ -70,7 +71,8 @@ struct MapTabView: View {
                             }
                         } label: {
 
-                            VStack(spacing: 0) {
+                            VStack(spacing: 4) {
+
                                 if let image = group.wines.first?.image {
 
                                     Image(uiImage: image)
@@ -90,14 +92,23 @@ struct MapTabView: View {
                                         .foregroundStyle(.red)
                                 }
 
-                                if group.wines.count > 1 {
+                                if group.wines.count == 1 {
 
-                                    Text("\(group.wines.count)")
-                                        .font(.caption.bold())
-                                        .padding(.horizontal, 8)
-                                        .padding(.vertical, 3)
-                                        .background(.red)
-                                        .foregroundStyle(.white)
+                                    Text(group.wines[0].name)
+                                        .font(.caption2)
+                                        .lineLimit(1)
+                                        .padding(.horizontal, 6)
+                                        .padding(.vertical, 2)
+                                        .background(.ultraThinMaterial)
+                                        .clipShape(Capsule())
+
+                                } else {
+
+                                    Text("\(group.wines.count)本のワイン")
+                                        .font(.caption2.bold())
+                                        .padding(.horizontal, 6)
+                                        .padding(.vertical, 2)
+                                        .background(.ultraThinMaterial)
                                         .clipShape(Capsule())
                                 }
                             }
@@ -123,8 +134,8 @@ struct MapTabView: View {
 
                 Button {
 
+                    followUser = true
                     locationManager.moveToCurrentLocation()
-
                 } label: {
 
                     Image(systemName: "location.fill")
@@ -136,6 +147,22 @@ struct MapTabView: View {
                         .shadow(radius: 3)
                 }
                 .padding()
+            }
+            .onReceive(locationManager.$currentLocation.compactMap { $0 }) { location in
+
+                guard followUser else {
+                    return
+                }
+
+                let region = MKCoordinateRegion(
+                    center: location.coordinate,
+                    span: MKCoordinateSpan(
+                        latitudeDelta: 0.01,
+                        longitudeDelta: 0.01
+                    )
+                )
+
+                locationManager.cameraPosition = .region(region)
             }
         }
     }
@@ -202,9 +229,6 @@ final class LocationManager:
     @Published var currentLocation:
         CLLocation?
 
-    // 初回だけ現在地へ移動するためのフラグ
-    private var hasCenteredMap = false
-
     override init() {
 
         super.init()
@@ -250,13 +274,6 @@ final class LocationManager:
 
         currentLocation = location
 
-        // 初回のみ現在地へ移動
-        guard !hasCenteredMap else {
-            return
-        }
-
-        hasCenteredMap = true
-
         let region = MKCoordinateRegion(
             center: location.coordinate,
             span: MKCoordinateSpan(
@@ -267,8 +284,6 @@ final class LocationManager:
 
         cameraPosition = .region(region)
 
-        // 以降は更新停止
-        manager.stopUpdatingLocation()
     }
 
     func locationManager(
