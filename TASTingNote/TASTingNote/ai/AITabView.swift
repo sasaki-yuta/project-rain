@@ -190,37 +190,47 @@ struct WineDetailRouterView: View {
 struct WineOverlapListView: View {
 
     let points: [AITabView.ChartPoint]
+    @Environment(\.modelContext) private var context
 
     var body: some View {
         NavigationStack {
 
             List(points) { point in
 
-                HStack {
+                NavigationLink {
 
-                    if let data = point.imageData,
-                       let uiImage = UIImage(data: data) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .frame(width: 44, height: 44)
-                            .clipShape(Circle())
+                    // ★ここで詳細へ遷移
+                    WineDetailRouterView(point: point)
+                        .environment(\.modelContext, context)
+
+                } label: {
+
+                    HStack {
+
+                        if let data = point.imageData,
+                           let uiImage = UIImage(data: data) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .frame(width: 44, height: 44)
+                                .clipShape(Circle())
+                        }
+
+                        VStack(alignment: .leading) {
+
+                            Text(point.wineName)
+                                .font(.headline)
+
+                            Text(point.isWhite ? "白ワイン" : "赤ワイン")
+                                .font(.subheadline)
+                                .foregroundStyle(point.isWhite ? .green : .red)
+
+                            Text("X: \(String(format: "%.2f", point.x))  Y: \(String(format: "%.2f", point.y))")
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                        }
                     }
-
-                    VStack(alignment: .leading) {
-
-                        Text(point.wineName)
-                            .font(.headline)
-
-                        Text(point.isWhite ? "白ワイン" : "赤ワイン")
-                            .font(.subheadline)
-                            .foregroundStyle(point.isWhite ? .green : .red)
-
-                        Text("X: \(String(format: "%.2f", point.x))  Y: \(String(format: "%.2f", point.y))")
-                            .font(.caption)
-                            .foregroundStyle(.gray)
-                    }
+                    .padding(.vertical, 4)
                 }
-                .padding(.vertical, 4)
             }
             .navigationTitle("重なったワイン")
         }
