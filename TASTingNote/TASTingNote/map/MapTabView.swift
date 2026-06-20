@@ -12,6 +12,19 @@ import CoreLocation
 import Combine
 import SwiftData
 
+struct MapWine: Identifiable {
+
+    let id = UUID()
+
+    let name: String
+    let image: UIImage?
+    let latitude: Double
+    let longitude: Double
+    let tastingDate: Date
+
+    let whiteWine: Wine?
+    let redWine: redWine?
+}
 
 struct WineGroup: Identifiable {
     var id: String {
@@ -20,30 +33,35 @@ struct WineGroup: Identifiable {
 
     let latitude: Double
     let longitude: Double
-    let wines: [Wine]
+    let wines: [MapWine]
 }
 
 struct MapTabView: View {
 
     @StateObject private var locationManager = LocationManager()
     @Query private var wines: [Wine]
+    @Query private var redWines: [redWine]
     @State private var followUser = true
     @State private var groupedWines: [WineGroup] = []
     
     enum ActiveSheet: Identifiable {
 
-        case wine(Wine)
-        case wineList([Wine])
+        case whiteWine(Wine)
+        case redWine(redWine)
+        case wineList([MapWine])
 
         var id: String {
 
             switch self {
 
-            case .wine(let wine):
-                return "wine-\(wine.persistentModelID)"
+            case .whiteWine(let wine):
+                return "white-\(wine.persistentModelID)"
+
+            case .redWine(let wine):
+                return "red-\(wine.persistentModelID)"
 
             case .wineList(let wines):
-                return "list-\(wines.map(\.persistentModelID))"
+                return UUID().uuidString
             }
         }
     }
@@ -68,11 +86,22 @@ struct MapTabView: View {
                     ) {
 
                         Button {
+
                             if group.wines.count == 1 {
-                                activeSheet = .wine(group.wines[0])
+
+                                let wine = group.wines[0]
+
+                                if let white = wine.whiteWine {
+                                    activeSheet = .whiteWine(white)
+                                } else if let red = wine.redWine {
+                                    activeSheet = .redWine(red)
+                                }
+
                             } else {
+
                                 activeSheet = .wineList(group.wines)
                             }
+
                         } label: {
 
                             VStack(spacing: 4) {
@@ -127,11 +156,14 @@ struct MapTabView: View {
                     }
             )
             .sheet(item: $activeSheet) { sheet in
-                
+
                 switch sheet {
 
-                case .wine(let wine):
+                case .whiteWine(let wine):
                     WhiteWineTastingSheetView(wine: wine)
+
+                case .redWine(let wine):
+                    RedWineTastingSheetView(wine: wine)
 
                 case .wineList(let wines):
                     WineListView(wines: wines)
@@ -143,6 +175,9 @@ struct MapTabView: View {
                 groupedWines = makeWineGroups()
             }
             .onChange(of: wines.count) {
+                groupedWines = makeWineGroups()
+            }
+            .onChange(of: redWines.count) {
                 groupedWines = makeWineGroups()
             }
 
@@ -181,13 +216,56 @@ struct MapTabView: View {
     }
     
     private func makeWineGroups() -> [WineGroup] {
-        var groups: [WineGroup] = []
+
+        // 白・赤をまとめた配列
+        var allWines: [MapWine] = []
+
+        // 白ワイン
         for wine in wines {
 
             guard let lat = wine.latitude,
                   let lon = wine.longitude else {
                 continue
             }
+
+            allWines.append(
+                MapWine(
+                    name: wine.name,
+                    image: wine.image,
+                    latitude: lat,
+                    longitude: lon,
+                    tastingDate: wine.tastingDate,
+                    whiteWine: wine,
+                    redWine: nil
+                )
+            )
+        }
+
+        // 赤ワイン
+        for wine in redWines {
+
+            guard let lat = wine.latitude,
+                  let lon = wine.longitude else {
+                continue
+            }
+
+            allWines.append(
+                MapWine(
+                    name: wine.name,
+                    image: wine.image,
+                    latitude: lat,
+                    longitude: lon,
+                    tastingDate: wine.tastingDate,
+                    whiteWine: nil,
+                    redWine: wine
+                )
+            )
+        }
+
+        // 同じ場所をまとめる
+        var groups: [WineGroup] = []
+
+        for wine in allWines {
 
             if let index = groups.firstIndex(where: {
 
@@ -197,8 +275,8 @@ struct MapTabView: View {
                 )
                 .distance(
                     from: CLLocation(
-                        latitude: lat,
-                        longitude: lon
+                        latitude: wine.latitude,
+                        longitude: wine.longitude
                     )
                 ) < 30
 
@@ -216,8 +294,8 @@ struct MapTabView: View {
 
                 groups.append(
                     WineGroup(
-                        latitude: lat,
-                        longitude: lon,
+                        latitude: wine.latitude,
+                        longitude: wine.longitude,
                         wines: [wine]
                     )
                 )

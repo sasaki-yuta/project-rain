@@ -9,43 +9,76 @@ import SwiftUI
 
 struct WineListView: View {
 
-    let wines: [Wine]
+    let wines: [MapWine]
 
     var body: some View {
 
         NavigationStack {
 
             List(wines) { wine in
-                NavigationLink {
-                    WhiteWineTastingSheetView(wine: wine)
+                if let whiteWine = wine.whiteWine {
 
-                } label: {
-                    HStack {
-                        if let image = wine.image {
+                    NavigationLink {
+                        WhiteWineTastingSheetView(wine: whiteWine)
 
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle())
-                        }
+                    } label: {
 
-                        VStack(alignment: .leading) {
-
-                            Text(wine.name)
-
-                            Text(
-                                wine.tastingDate,
-                                format: .dateTime.year().month().day()
-                            )
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        }
+                        rowView(for: wine)
                     }
+                    .buttonStyle(.plain)
+
+                } else if let redWine = wine.redWine {
+
+                    NavigationLink {
+                        RedWineTastingSheetView(wine: redWine)
+
+                    } label: {
+
+                        rowView(for: wine)
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
             }
             .navigationTitle("この場所のワイン")
+        }
+    }
+    
+    private func rowView(for wine: MapWine) -> some View {
+        HStack {
+
+            if let image = wine.image {
+
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 50, height: 50)
+                    .clipShape(Circle())
+            }
+
+            VStack(alignment: .leading) {
+
+                Text(wine.name)
+
+                Text(
+                    wine.tastingDate,
+                    format: .dateTime.year().month().day()
+                )
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+                if wine.whiteWine != nil {
+
+                    Text("白ワイン")
+                        .font(.caption2)
+                        .foregroundStyle(.green)
+
+                } else {
+
+                    Text("赤ワイン")
+                        .font(.caption2)
+                        .foregroundStyle(.red)
+                }
+            }
         }
     }
 }
