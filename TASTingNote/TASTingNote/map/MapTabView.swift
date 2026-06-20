@@ -116,6 +116,12 @@ struct MapTabView: View {
                     }
                 }
             }
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 1)
+                    .onChanged { _ in
+                        followUser = false
+                    }
+            )
             .sheet(item: $activeSheet) { sheet in
                 
                 switch sheet {
@@ -149,10 +155,7 @@ struct MapTabView: View {
                 .padding()
             }
             .onReceive(locationManager.$currentLocation.compactMap { $0 }) { location in
-
-                guard followUser else {
-                    return
-                }
+                guard followUser else { return }
 
                 let region = MKCoordinateRegion(
                     center: location.coordinate,
@@ -266,24 +269,9 @@ final class LocationManager:
         _ manager: CLLocationManager,
         didUpdateLocations locations: [CLLocation]
     ) {
-
-        guard let location =
-            locations.first else {
-            return
-        }
+        guard let location = locations.first else { return }
 
         currentLocation = location
-
-        let region = MKCoordinateRegion(
-            center: location.coordinate,
-            span: MKCoordinateSpan(
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.01
-            )
-        )
-
-        cameraPosition = .region(region)
-
     }
 
     func locationManager(
