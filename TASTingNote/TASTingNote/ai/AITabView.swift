@@ -21,6 +21,7 @@ struct AITabView: View {
         let y: Double
         let isWhite: Bool
         let name: String
+        let imageData: Data?
     }
 
     private var chartPoints: [ChartPoint] {
@@ -33,7 +34,8 @@ struct AITabView: View {
                 x: x,
                 y: y,
                 isWhite: true,
-                name: wine.name
+                name: wine.name,
+                imageData: wine.imageData
             )
         }
 
@@ -45,7 +47,8 @@ struct AITabView: View {
                 x: x,
                 y: y,
                 isWhite: false,
-                name: wine.name
+                name: wine.name,
+                imageData: wine.imageData
             )
         }
 
@@ -68,21 +71,67 @@ struct AITabView: View {
                     GeometryReader { geo in
 
                         ForEach(chartPoints) { point in
-                            Circle()
-                                .fill(point.isWhite ? .green : .red)
-                                .frame(width: 10, height: 10)
-                                .position(
-                                    x: geo.size.width * (point.x + 1) / 2,
-                                    y: geo.size.height * (1 - (point.y + 1) / 2)
-                                )
-                                .onTapGesture {
-                                    selectedName = point.name
+
+                            VStack(spacing: 0) {
+
+                                // ======================
+                                // ワイン画像ピン
+                                // ======================
+                                if let data = point.imageData,
+                                   let uiImage = UIImage(data: data) {
+
+                                    Image(uiImage: uiImage)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 28, height: 28)
+                                        .clipShape(Circle())
+                                        .overlay(
+                                            Circle()
+                                                .stroke(point.isWhite ? .green : .red,
+                                                        lineWidth: 2)
+                                        )
+                                } else {
+
+                                    // 画像なしの場合フォールバック
+                                    Circle()
+                                        .fill(point.isWhite ? .green : .red)
+                                        .frame(width: 12, height: 12)
                                 }
+                            }
+                            .position(
+                                x: geo.size.width * (point.x + 1) / 2,
+                                y: geo.size.height * (1 - (point.y + 1) / 2)
+                            )
+                            .onTapGesture {
+                                selectedName = point.name
+                            }
                         }
                     }
                 }
                 .frame(height: 300)
 
+                // ======================
+                // 凡例
+                // ======================
+                HStack(spacing: 20) {
+
+                    HStack {
+                        Image(systemName: "circle.fill")
+                            .foregroundStyle(.green)
+                        Text("白ワイン")
+                    }
+
+                    HStack {
+                        Image(systemName: "circle.fill")
+                            .foregroundStyle(.red)
+                        Text("赤ワイン")
+                    }
+                }
+                .font(.caption)
+
+                // ======================
+                // 選択表示
+                // ======================
                 if let selectedName {
                     Text("選択中: \(selectedName)")
                         .font(.caption)
