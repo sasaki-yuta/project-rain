@@ -24,9 +24,6 @@ struct HomeTabView: View {
                         NavigationLink(destination: RedWineTastingListView()) {
                             Text("赤")
                         }
-                        NavigationLink(destination: SparklingWineTastingListView()) {
-                            Text("スパークリング")
-                        }
                     }
                 }
                 .searchable(text: $searchText, prompt: "ワインの検索")
