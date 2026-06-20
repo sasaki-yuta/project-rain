@@ -14,7 +14,10 @@ import SwiftData
 
 
 struct WineGroup: Identifiable {
-    let id = UUID()
+    var id: String {
+        "\(latitude),\(longitude)"
+    }
+
     let latitude: Double
     let longitude: Double
     let wines: [Wine]
@@ -25,6 +28,7 @@ struct MapTabView: View {
     @StateObject private var locationManager = LocationManager()
     @Query private var wines: [Wine]
     @State private var followUser = true
+    @State private var groupedWines: [WineGroup] = []
     
     enum ActiveSheet: Identifiable {
 
@@ -135,6 +139,12 @@ struct MapTabView: View {
             }
             .ignoresSafeArea(edges: .bottom)
             .navigationTitle("Map")
+            .onAppear {
+                groupedWines = makeWineGroups()
+            }
+            .onChange(of: wines.count) {
+                groupedWines = makeWineGroups()
+            }
 
             .overlay(alignment: .bottomTrailing) {
 
@@ -170,15 +180,14 @@ struct MapTabView: View {
         }
     }
     
-    private var groupedWines: [WineGroup] {
-
+    private func makeWineGroups() -> [WineGroup] {
         var groups: [WineGroup] = []
-
         for wine in wines {
 
             guard let lat = wine.latitude,
-                  let lon = wine.longitude
-            else { continue }
+                  let lon = wine.longitude else {
+                continue
+            }
 
             if let index = groups.firstIndex(where: {
 
