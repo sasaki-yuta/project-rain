@@ -30,8 +30,16 @@ struct MapTabView: View {
         case wine(Wine)
         case wineList([Wine])
 
-        var id: UUID {
-            UUID()
+        var id: String {
+
+            switch self {
+
+            case .wine(let wine):
+                return "wine-\(wine.persistentModelID)"
+
+            case .wineList(let wines):
+                return "list-\(wines.map(\.persistentModelID))"
+            }
         }
     }
 
@@ -98,17 +106,13 @@ struct MapTabView: View {
                 }
             }
             .sheet(item: $activeSheet) { sheet in
-
+                
                 switch sheet {
-                    
+
                 case .wine(let wine):
-                    
-                    NavigationStack {
-                        WhiteWineTastingSheetView(wine: wine)
-                    }
-                    
+                    WhiteWineTastingSheetView(wine: wine)
+
                 case .wineList(let wines):
-                    
                     WineListView(wines: wines)
                 }
             }
