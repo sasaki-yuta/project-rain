@@ -55,44 +55,42 @@ struct AITabView: View {
     @State private var selectedName: String?
 
     var body: some View {
+        NavigationStack {
+            VStack {
+                ZStack {
 
-        VStack {
+                    WineChartPickerView(
+                        xValue: .constant(nil),
+                        yValue: .constant(nil),
+                        isLocked: true
+                    )
 
-            Text("ワインチャート分析")
-                .font(.title2.bold())
+                    GeometryReader { geo in
 
-            ZStack {
-
-                WineChartPickerView(
-                    xValue: .constant(nil),
-                    yValue: .constant(nil),
-                    isLocked: true
-                )
-
-                GeometryReader { geo in
-
-                    ForEach(chartPoints) { point in
-                        Circle()
-                            .fill(point.isWhite ? .green : .red)
-                            .frame(width: 10, height: 10)
-                            .position(
-                                x: geo.size.width * (point.x + 1) / 2,
-                                y: geo.size.height * (1 - (point.y + 1) / 2)
-                            )
-                            .onTapGesture {
-                                selectedName = point.name
-                            }
+                        ForEach(chartPoints) { point in
+                            Circle()
+                                .fill(point.isWhite ? .green : .red)
+                                .frame(width: 10, height: 10)
+                                .position(
+                                    x: geo.size.width * (point.x + 1) / 2,
+                                    y: geo.size.height * (1 - (point.y + 1) / 2)
+                                )
+                                .onTapGesture {
+                                    selectedName = point.name
+                                }
+                        }
                     }
                 }
-            }
-            .frame(height: 300)
+                .frame(height: 300)
 
-            if let selectedName {
-                Text("選択中: \(selectedName)")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                if let selectedName {
+                    Text("選択中: \(selectedName)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
+            .padding()
+            .navigationTitle("ワインチャート")
         }
-        .padding()
     }
 }
