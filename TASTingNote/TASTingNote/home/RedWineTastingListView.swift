@@ -363,7 +363,7 @@ struct RedWineTastingListView: View {
                                     .font(.caption)
                                     .foregroundColor(.secondary)
 
-                                    Text("白ワイン")
+                                    Text("赤ワイン")
                                         .font(.caption2)
                                         .foregroundColor(.secondary)
                                 }
@@ -377,7 +377,7 @@ struct RedWineTastingListView: View {
                     text: $searchText,
                     prompt: "ワイン検索"
                 )
-                .navigationTitle("白ワイン")
+                .navigationTitle("赤ワイン")
                 .toolbar {
 
                     ToolbarItem(placement: .topBarLeading) {
