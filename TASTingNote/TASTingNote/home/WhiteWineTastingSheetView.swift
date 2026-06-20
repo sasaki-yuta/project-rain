@@ -978,7 +978,8 @@ extension WhiteWineTastingSheetView {
 
             LazyVGrid(
                 columns: [
-                    GridItem(.adaptive(minimum: 88))
+                    GridItem(.flexible()),
+                    GridItem(.flexible())
                 ],
                 spacing: 10
             ) {
@@ -999,17 +1000,25 @@ extension WhiteWineTastingSheetView {
                                     : "circle"
                             )
 
+                            .padding(.top, 2)
+                            
                             Text(option)
                                 .font(.caption)
-                                .lineLimit(1)
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(2)
+                                .fixedSize(horizontal: false, vertical: true)
+                            
+                            Spacer()
                         }
                         .foregroundStyle(
                             selection.wrappedValue == option
                             ? .white
                             : .primary
                         )
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(minHeight: 30)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 8)
                         .background {
 
                             RoundedRectangle(cornerRadius: 12)
