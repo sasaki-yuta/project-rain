@@ -10,33 +10,29 @@ import SwiftData
 
 @main
 struct TASTingNoteApp: App {
+    
     var sharedModelContainer: ModelContainer = {
+
         let schema = Schema([
             Wine.self,
-//            redWine.self
+            redWine.self
         ])
-        let modelConfiguration = ModelConfiguration(
+
+        let configuration = ModelConfiguration(
             schema: schema,
             isStoredInMemoryOnly: false
         )
 
-        do {
-            return try ModelContainer(
-                for: schema,
-                configurations: [modelConfiguration]
-            )
-        } catch {
-            fatalError(
-                "Could not create ModelContainer: \(error)"
-            )
-        }
+        return try! ModelContainer(
+            for: schema,
+            configurations: [configuration]
+        )
     }()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .modelContainer(for: Wine.self)
-//                .modelContainer(for: redWine.self)
+                .modelContainer(sharedModelContainer)
         }
     }
 }
