@@ -28,7 +28,7 @@ struct ContentView: View {
                 }
             AITabView()
                 .tabItem {
-                    Label("AI", systemImage: "brain")
+                    Label("チャート", systemImage: "chart.dots.scatter")
                 }
 
             SettingsTabView()
