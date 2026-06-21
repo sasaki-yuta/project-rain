@@ -600,30 +600,42 @@ struct WhiteWineTastingSheetView: View {
                             text: $wine.grape
                         )
                     }
+                    Color.clear
+                        .frame(height: 1)
+                        .id("bottom")
                 }
                 .padding()
             }
             .scrollDismissesKeyboard(.interactively)
             .overlay(alignment: .bottomTrailing) {
-
-                Button {
-
-                    withAnimation {
-
-                        proxy.scrollTo(
-                            "top",
-                            anchor: .top
-                        )
+                HStack(spacing: 12) {
+                    // 一番上へ
+                    Button {
+                        withAnimation {
+                            proxy.scrollTo("top", anchor: .top)
+                        }
+                    } label: {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .font(.system(size: 50))
+                            .foregroundStyle(accent)
+                            .background(.white)
+                            .clipShape(Circle())
+                            .shadow(radius: 4)
                     }
 
-                } label: {
-
-                    Image(systemName: "arrow.up.circle.fill")
-                        .font(.system(size: 50))
-                        .foregroundStyle(accent)
-                        .background(.white)
-                        .clipShape(Circle())
-                        .shadow(radius: 4)
+                    // 一番下へ
+                    Button {
+                        withAnimation {
+                            proxy.scrollTo("bottom", anchor: .bottom)
+                        }
+                    } label: {
+                        Image(systemName: "arrow.down.circle.fill")
+                            .font(.system(size: 50))
+                            .foregroundStyle(accent)
+                            .background(.white)
+                            .clipShape(Circle())
+                            .shadow(radius: 4)
+                    }
                 }
                 .padding()
             }
