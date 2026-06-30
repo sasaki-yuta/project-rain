@@ -18,6 +18,7 @@ struct WhiteWineTastingSheetView: View {
         WineLocationManager()
     
     @State private var showMapPicker = false
+    @State private var selectedItems: [PhotosPickerItem] = []
 
     private let accent = Color(
         red: 0.52,
@@ -665,6 +666,23 @@ struct WhiteWineTastingSheetView: View {
                 }
             }
         }
+        
+        .onChange(of: selectedItems) {
+
+            Task {
+
+                for item in selectedItems {
+
+                    if let data = try? await item.loadTransferable(type: Data.self) {
+
+                        wine.subImagesData.append(data)
+                    }
+                }
+
+                selectedItems.removeAll()
+            }
+        }
+        
         .sheet(isPresented: $showMapPicker) {
 
             MapLocationPickerViewWhite(
@@ -720,7 +738,50 @@ extension WhiteWineTastingSheetView {
                 .font(.subheadline)
                 .foregroundStyle(accent)
             }
+            
+            PhotosPicker(
+                selection: $selectedItems,
+                matching: .images
+            ) {
+                Label("追加画像", systemImage: "photo.on.rectangle")
+            }
 
+            // 画像複数枚登録する
+            if !wine.subImages.isEmpty {
+
+                ScrollView(.horizontal, showsIndicators: false) {
+
+                    HStack(spacing: 12) {
+
+                        ForEach(Array(wine.subImages.enumerated()), id: \.offset) { index, image in
+
+                            ZStack(alignment: .topTrailing) {
+
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 140, height: 140)
+
+                                Button {
+
+                                    if wine.subImagesData.indices.contains(index) {
+                                        wine.subImagesData.remove(at: index)
+                                    }
+
+                                } label: {
+
+                                    Image(systemName: "trash.circle.fill")
+                                        .font(.system(size: 22))
+                                        .foregroundStyle(.white, Color.black.opacity(0.65))
+                                }
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 4)
+                    .padding(.top, 8)
+                }
+            }
+            
             VStack(alignment: .leading, spacing: 8) {
 
                 Text("ワイン名")

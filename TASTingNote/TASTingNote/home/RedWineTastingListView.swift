@@ -14,6 +14,7 @@ import PhotosUI
 class redWine {
     // 基本データ
     var imageData: Data?                        // ワイン画像
+    var subImagesData: [Data] = []              // 追加画像（複数）
     var name: String                            // ワイン名
     var isFavorite = false                      // お気に入り
     var tastingDate: Date = Date()              // 試飲日
@@ -297,6 +298,12 @@ class redWine {
     var image: UIImage? {
         guard let imageData else { return nil }
         return UIImage(data: imageData)
+    }
+    
+    var subImages: [UIImage] {
+        subImagesData.compactMap {
+            UIImage(data: $0)
+        }
     }
 }
 
