@@ -336,11 +336,10 @@ struct RedWineTastingListView: View {
                                 if let image = wine.image {
                                     Image(uiImage: image)
                                         .resizable()
-                                        .scaledToFill()
+                                        .scaledToFit()
                                         .frame(width: 80, height: 60)
-                                        .clipShape(
-                                            RoundedRectangle(cornerRadius: 12)
-                                        )
+                                        .background(Color.gray.opacity(0.1))
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
                                 } else {
                                     RoundedRectangle(cornerRadius: 12)
                                         .fill(Color.gray.opacity(0.15))
@@ -441,12 +440,14 @@ struct AddRedWineView: View {
                 Section("写真") {
                     if let selectedImage {
                         Image(uiImage: selectedImage)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 220)
-                            .clipShape(
-                                RoundedRectangle(cornerRadius: 16)
-                            )
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 220)
+                                .background(Color(.systemGray6))
+                                .clipShape(
+                                    RoundedRectangle(cornerRadius: 16)
+                                )
                     }
 
                     PhotosPicker(

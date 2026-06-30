@@ -687,9 +687,10 @@ extension WhiteWineTastingSheetView {
 
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFill()
-                    .frame(height: 220)
+                    .scaledToFit()
                     .frame(maxWidth: .infinity)
+                    .frame(height: 220)
+                    .background(Color(.systemGray6))
                     .clipShape(
                         RoundedRectangle(cornerRadius: 20)
                     )
