@@ -19,6 +19,8 @@ struct WhiteWineTastingSheetView: View {
     
     @State private var showMapPicker = false
     @State private var selectedItems: [PhotosPickerItem] = []
+    @State private var selectedFullScreenImage: UIImage?
+    @State private var showFullScreenImage = false
 
     private let accent = Color(
         red: 0.52,
@@ -690,6 +692,44 @@ struct WhiteWineTastingSheetView: View {
                 longitude: $wine.longitude
             )
         }
+        
+        .fullScreenCover(isPresented: $showFullScreenImage) {
+
+            if let image = selectedFullScreenImage {
+
+                ZStack {
+
+                    Color.black
+                        .ignoresSafeArea()
+
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+
+                    VStack {
+
+                        HStack {
+
+                            Spacer()
+
+                            Button {
+
+                                showFullScreenImage = false
+
+                            } label: {
+
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.system(size: 34))
+                                    .foregroundStyle(.white)
+                                    .padding()
+                            }
+                        }
+
+                        Spacer()
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -709,9 +749,11 @@ extension WhiteWineTastingSheetView {
                     .frame(maxWidth: .infinity)
                     .frame(height: 220)
                     .background(Color(.systemGray6))
-                    .clipShape(
-                        RoundedRectangle(cornerRadius: 20)
-                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .onTapGesture {
+                        selectedFullScreenImage = image
+                        showFullScreenImage = true
+                    }
 
             } else {
 
@@ -761,6 +803,10 @@ extension WhiteWineTastingSheetView {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 140, height: 140)
+                                    .onTapGesture {
+                                        selectedFullScreenImage = image
+                                        showFullScreenImage = true
+                                    }
 
                                 Button {
 
