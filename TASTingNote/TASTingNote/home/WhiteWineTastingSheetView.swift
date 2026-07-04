@@ -698,44 +698,6 @@ struct WhiteWineTastingSheetView: View {
             )
         }
         
-        .fullScreenCover(isPresented: $showFullScreenImage) {
-
-            if let image = selectedFullScreenImage {
-
-                ZStack {
-
-                    Color.black
-                        .ignoresSafeArea()
-
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-
-                    VStack {
-
-                        HStack {
-
-                            Spacer()
-
-                            Button {
-
-                                showFullScreenImage = false
-
-                            } label: {
-
-                                Image(systemName: "xmark.circle.fill")
-                                    .font(.system(size: 34))
-                                    .foregroundStyle(.white)
-                                    .padding()
-                            }
-                        }
-
-                        Spacer()
-                    }
-                }
-            }
-        }
-        
         .alert(
             "画像を削除しますか？",
             isPresented: $showDeleteAlert
@@ -761,6 +723,57 @@ struct WhiteWineTastingSheetView: View {
 
             Text("このワインの写真を削除します。\nこの操作は取り消せません。")
         }
+        
+        .overlay {
+
+            if showFullScreenImage,
+               let image = selectedFullScreenImage {
+
+                ZStack {
+
+                    Color.black
+                        .ignoresSafeArea()
+                        .opacity(0.95)
+                        .onTapGesture {
+                            withAnimation(.easeInOut) {
+                                showFullScreenImage = false
+                            }
+                        }
+
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+
+                    VStack {
+
+                        HStack {
+
+                            Spacer()
+
+                            Button {
+
+                                withAnimation(.easeInOut) {
+                                    showFullScreenImage = false
+                                }
+
+                            } label: {
+
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.system(size: 34))
+                                    .foregroundStyle(.white)
+                            }
+                            .padding()
+                        }
+
+                        Spacer()
+                    }
+                }
+                .transition(.opacity)
+                .zIndex(999)
+            }
+        }
+        .animation(.easeInOut(duration: 0.2), value: showFullScreenImage)
     }
 }
 
@@ -783,7 +796,9 @@ extension WhiteWineTastingSheetView {
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     .onTapGesture {
                         selectedFullScreenImage = image
-                        showFullScreenImage = true
+                        withAnimation(.easeInOut) {
+                            showFullScreenImage = true
+                        }
                     }
 
             } else {
@@ -836,7 +851,9 @@ extension WhiteWineTastingSheetView {
                                     .frame(width: 140, height: 140)
                                     .onTapGesture {
                                         selectedFullScreenImage = image
-                                        showFullScreenImage = true
+                                        withAnimation(.easeInOut) {
+                                            showFullScreenImage = true
+                                        }
                                     }
 
                                 Button {
