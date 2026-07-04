@@ -309,6 +309,8 @@ class Wine {
 struct WhiteWineTastingListView: View {
     @State private var searchText = ""
     @State private var showAddScreen = false
+    @State private var showDeleteAlert = false
+    @State private var deleteOffsets: IndexSet?
 
     @Query(
         sort: \Wine.tastingDate,
@@ -376,7 +378,10 @@ struct WhiteWineTastingListView: View {
                             .padding(.vertical, 6)
                         }
                     }
-                    .onDelete(perform: deleteWine)
+                    .onDelete { offsets in
+                        deleteOffsets = offsets
+                        showDeleteAlert = true
+                    }
                 }
                 .searchable(
                     text: $searchText,
@@ -399,6 +404,24 @@ struct WhiteWineTastingListView: View {
                 }
                 .sheet(isPresented: $showAddScreen) {
                     AddWineView()
+                }
+                .alert(
+                    "ワインを削除しますか？",
+                    isPresented: $showDeleteAlert
+                ) {
+                    Button("削除", role: .destructive) {
+
+                        if let offsets = deleteOffsets {
+                            deleteWine(at: offsets)
+                        }
+
+                        deleteOffsets = nil
+                    }
+                    Button("キャンセル", role: .cancel) {
+                        deleteOffsets = nil
+                    }
+                } message: {
+                    Text("このワインの記録を削除します。\nこの操作は取り消せません。")
                 }
             }
         }

@@ -21,6 +21,10 @@ struct WhiteWineTastingSheetView: View {
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var selectedFullScreenImage: UIImage?
     @State private var showFullScreenImage = false
+    
+    // 削除時のダイアログ
+    @State private var showDeleteAlert = false
+    @State private var imageIndexToDelete: Int?
 
     private let accent = Color(
         red: 0.52,
@@ -730,6 +734,32 @@ struct WhiteWineTastingSheetView: View {
                 }
             }
         }
+        
+        .alert(
+            "画像を削除しますか？",
+            isPresented: $showDeleteAlert
+        ) {
+
+            Button("削除", role: .destructive) {
+
+                if let index = imageIndexToDelete,
+                   wine.subImagesData.indices.contains(index) {
+
+                    wine.subImagesData.remove(at: index)
+                }
+
+                imageIndexToDelete = nil
+            }
+
+            Button("キャンセル", role: .cancel) {
+
+                imageIndexToDelete = nil
+            }
+
+        } message: {
+
+            Text("このワインの写真を削除します。\nこの操作は取り消せません。")
+        }
     }
 }
 
@@ -809,10 +839,8 @@ extension WhiteWineTastingSheetView {
                                     }
 
                                 Button {
-
-                                    if wine.subImagesData.indices.contains(index) {
-                                        wine.subImagesData.remove(at: index)
-                                    }
+                                    imageIndexToDelete = index
+                                    showDeleteAlert = true
 
                                 } label: {
 

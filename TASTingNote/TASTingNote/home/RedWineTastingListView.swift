@@ -109,7 +109,6 @@ class redWine {
     var vintage = ""                            // 収穫年
     var country = ""                            // 生産地
     var grape = ""                              // 主なブドウ品種
-
     
     init(
         // 基本データ
@@ -310,6 +309,8 @@ class redWine {
 struct RedWineTastingListView: View {
     @State private var searchText = ""
     @State private var showAddScreen = false
+    @State private var showDeleteAlert = false
+    @State private var deleteOffsets: IndexSet?
 
     @Query(
         sort: \redWine.tastingDate,
@@ -377,7 +378,10 @@ struct RedWineTastingListView: View {
                             .padding(.vertical, 6)
                         }
                     }
-                    .onDelete(perform: deleteWine)
+                    .onDelete { offsets in
+                        deleteOffsets = offsets
+                        showDeleteAlert = true
+                    }
                 }
                 .searchable(
                     text: $searchText,
@@ -400,6 +404,24 @@ struct RedWineTastingListView: View {
                 }
                 .sheet(isPresented: $showAddScreen) {
                     AddRedWineView()
+                }
+                .alert(
+                    "ワインを削除しますか？",
+                    isPresented: $showDeleteAlert
+                ) {
+                    Button("削除", role: .destructive) {
+
+                        if let offsets = deleteOffsets {
+                            deleteWine(at: offsets)
+                        }
+
+                        deleteOffsets = nil
+                    }
+                    Button("キャンセル", role: .cancel) {
+                        deleteOffsets = nil
+                    }
+                } message: {
+                    Text("このワインの記録を削除します。\nこの操作は取り消せません。")
                 }
             }
         }
