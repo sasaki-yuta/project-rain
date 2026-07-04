@@ -338,6 +338,148 @@ class redWine {
             UIImage(data: $0)
         }
     }
+    
+    func migrateSelections() {
+        // MARK: 外観
+        if claritys.isEmpty, let value = clarity {
+            claritys = [value]
+        }
+
+        if brightnesss.isEmpty, let value = brightness {
+            brightnesss = [value]
+        }
+
+        if colorTones.isEmpty, let value = colorTone {
+            colorTones = [value]
+        }
+
+        if colors.isEmpty, let value = color {
+            colors = [value]
+        }
+
+        if densitys.isEmpty, let value = density {
+            densitys = [value]
+        }
+
+        if viscositys.isEmpty, let value = viscosity {
+            viscositys = [value]
+        }
+
+        if youthfulnesss.isEmpty, let value = youthfulness {
+            youthfulnesss = [value]
+        }
+
+        if maturitys.isEmpty, let value = maturity {
+            maturitys = [value]
+        }
+
+        if effervescences.isEmpty, let value = effervescence {
+            effervescences = [value]
+        }
+
+        // MARK: 香り
+        if firstImpIntensitys.isEmpty, let value = firstImpIntensity {
+            firstImpIntensitys = [value]
+        }
+
+        if firstImpCharacters.isEmpty, let value = firstImpCharacter {
+            firstImpCharacters = [value]
+        }
+
+        if fruits.isEmpty, let value = fruit {
+            fruits = [value]
+        }
+
+        if plantFlowers.isEmpty, let value = plantFlower {
+            plantFlowers = [value]
+        }
+
+        if plantHerbs.isEmpty, let value = plantHerb {
+            plantHerbs = [value]
+        }
+
+        if plantNutss.isEmpty, let value = plantNuts {
+            plantNutss = [value]
+        }
+
+        if spiceMinerals.isEmpty, let value = spiceMineral {
+            spiceMinerals = [value]
+        }
+
+        if spicsOaks.isEmpty, let value = spicsOak {
+            spicsOaks = [value]
+        }
+
+        if spiceSpices.isEmpty, let value = spiceSpice {
+            spiceSpices = [value]
+        }
+
+        if spiceOtherss.isEmpty, let value = spiceOthers {
+            spiceOtherss = [value]
+        }
+
+        if spiceMaturitys.isEmpty, let value = spiceMaturity {
+            spiceMaturitys = [value]
+        }
+
+        if spiceCharacteristics.isEmpty, let value = spiceCharacteristic {
+            spiceCharacteristics = [value]
+        }
+
+        // MARK: 味わい
+        if attacks.isEmpty, let value = attack {
+            attacks = [value]
+        }
+
+        if sweetnesss.isEmpty, let value = sweetness {
+            sweetnesss = [value]
+        }
+
+        if aciditys.isEmpty, let value = acidity {
+            aciditys = [value]
+        }
+
+        if bitternesss.isEmpty, let value = bitterness {
+            bitternesss = [value]
+        }
+
+        if balanceBottomLefts.isEmpty, let value = balanceBottomLeft {
+            balanceBottomLefts = [value]
+        }
+
+        if balanceTopLefts.isEmpty, let value = balanceTopLeft {
+            balanceTopLefts = [value]
+        }
+
+        if balanceTopRights.isEmpty, let value = balanceTopRight {
+            balanceTopRights = [value]
+        }
+
+        if balanceBottmRights.isEmpty, let value = balanceBottmRight {
+            balanceBottmRights = [value]
+        }
+
+        if alcohols.isEmpty, let value = alcohol {
+            alcohols = [value]
+        }
+
+        if finishs.isEmpty, let value = finish {
+            finishs = [value]
+        }
+
+        // MARK: 結論
+        if evaluations.isEmpty, let value = evaluation {
+            evaluations = [value]
+        }
+
+        if eervingTemperatures.isEmpty, let value = eervingTemperature {
+            eervingTemperatures = [value]
+        }
+
+        if glasss.isEmpty, let value = glass {
+            glasss = [value]
+        }
+    }
 }
 
 struct RedWineTastingListView: View {

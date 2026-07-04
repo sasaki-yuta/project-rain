@@ -673,6 +673,7 @@ struct RedWineTastingSheetView: View {
         
         .onAppear {
             wine.chartLocked = true
+            wine.migrateSelections()
         }
         
         .onChange(of: selectedItem) {
