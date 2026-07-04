@@ -21,7 +21,6 @@ struct WhiteWineTastingSheetView: View {
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var selectedFullScreenImage: UIImage?
     @State private var showFullScreenImage = false
-    @State private var imageScale: CGFloat = 1.0
     
     // 削除時のダイアログ
     @State private var showDeleteAlert = false
@@ -737,32 +736,11 @@ struct WhiteWineTastingSheetView: View {
                         .opacity(0.95)
                         .onTapGesture {
                             withAnimation(.easeInOut) {
-                                imageScale = 1
                                 showFullScreenImage = false
                             }
                         }
 
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .scaleEffect(imageScale)
-                        .gesture(
-                            MagnificationGesture()
-                                .onChanged { value in
-                                    imageScale = value
-                                }
-                                .onEnded { value in
-
-                                    if imageScale < 1 {
-                                        imageScale = 1
-                                    }
-
-                                    if imageScale > 5 {
-                                        imageScale = 5
-                                    }
-                                }
-                        )
-                        .padding()
+                    ZoomableImageView(image: image)
 
                     VStack {
 
@@ -773,7 +751,6 @@ struct WhiteWineTastingSheetView: View {
                             Button {
 
                                 withAnimation(.easeInOut) {
-                                    imageScale = 1
                                     showFullScreenImage = false
                                 }
 
@@ -810,29 +787,11 @@ extension WhiteWineTastingSheetView {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-                    .scaleEffect(imageScale)
-                    .gesture(
-                        MagnificationGesture()
-                            .onChanged { value in
-                                imageScale = value
-                            }
-                            .onEnded { value in
-
-                                if imageScale < 1 {
-                                    imageScale = 1
-                                }
-
-                                if imageScale > 5 {
-                                    imageScale = 5
-                                }
-                            }
-                    )
                     .frame(maxWidth: .infinity)
                     .frame(height: 220)
                     .background(Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     .onTapGesture {
-                        imageScale = 1
                         selectedFullScreenImage = image
                         withAnimation(.easeInOut) {
                             showFullScreenImage = true
@@ -886,26 +845,8 @@ extension WhiteWineTastingSheetView {
                                 Image(uiImage: image)
                                     .resizable()
                                     .scaledToFit()
-                                    .scaleEffect(imageScale)
-                                    .gesture(
-                                        MagnificationGesture()
-                                            .onChanged { value in
-                                                imageScale = value
-                                            }
-                                            .onEnded { value in
-
-                                                if imageScale < 1 {
-                                                    imageScale = 1
-                                                }
-
-                                                if imageScale > 5 {
-                                                    imageScale = 5
-                                                }
-                                            }
-                                    )
                                     .frame(width: 140, height: 140)
                                     .onTapGesture {
-                                        imageScale = 1
                                         selectedFullScreenImage = image
                                         withAnimation(.easeInOut) {
                                             showFullScreenImage = true
@@ -1329,6 +1270,97 @@ extension WhiteWineTastingSheetView {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color.gray.opacity(0.06))
             )
+    }
+    
+    struct ZoomableImageView: View {
+
+        let image: UIImage
+
+        @State private var scale: CGFloat = 1
+        @State private var lastScale: CGFloat = 1
+
+        @State private var offset: CGSize = .zero
+        @State private var lastOffset: CGSize = .zero
+
+        var body: some View {
+
+            GeometryReader { geo in
+
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .scaleEffect(scale)
+                    .offset(offset)
+                    .simultaneousGesture(
+
+                        MagnificationGesture()
+
+                            .onChanged { value in
+
+                                scale = lastScale * value
+                            }
+
+                            .onEnded { _ in
+
+                                if scale < 1 {
+                                    scale = 1
+                                }
+
+                                if scale > 5 {
+                                    scale = 5
+                                }
+
+                                lastScale = scale
+                            }
+                    )
+                    // ドラッグ
+                    .simultaneousGesture(
+
+                        DragGesture()
+
+                            .onChanged { value in
+
+                                if scale > 1 {
+
+                                    offset = CGSize(
+                                        width: lastOffset.width + value.translation.width,
+                                        height: lastOffset.height + value.translation.height
+                                    )
+                                }
+                            }
+
+                            .onEnded { _ in
+
+                                lastOffset = offset
+                            }
+                    )
+
+                    // ダブルタップ
+                    .onTapGesture(count: 2) {
+
+                        withAnimation {
+
+                            if scale == 1 {
+
+                                scale = 3
+                                lastScale = 3
+
+                            } else {
+
+                                scale = 1
+                                lastScale = 1
+                                offset = .zero
+                                lastOffset = .zero
+                            }
+                        }
+                    }
+
+                    .frame(
+                        width: geo.size.width,
+                        height: geo.size.height
+                    )
+            }
+        }
     }
 }
 
