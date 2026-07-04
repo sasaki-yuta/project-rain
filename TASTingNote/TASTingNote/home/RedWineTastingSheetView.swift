@@ -21,6 +21,7 @@ struct RedWineTastingSheetView: View {
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var selectedFullScreenImage: UIImage?
     @State private var showFullScreenImage = false
+    @State private var imageScale: CGFloat = 1.0
 
     // 削除時のダイアログ
     @State private var showDeleteAlert = false
@@ -749,6 +750,7 @@ struct RedWineTastingSheetView: View {
                         .opacity(0.95)
                         .onTapGesture {
                             withAnimation(.easeInOut) {
+                                imageScale = 1
                                 showFullScreenImage = false
                             }
                         }
@@ -756,6 +758,23 @@ struct RedWineTastingSheetView: View {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
+                        .scaleEffect(imageScale)
+                        .gesture(
+                            MagnificationGesture()
+                                .onChanged { value in
+                                    imageScale = value
+                                }
+                                .onEnded { value in
+
+                                    if imageScale < 1 {
+                                        imageScale = 1
+                                    }
+
+                                    if imageScale > 5 {
+                                        imageScale = 5
+                                    }
+                                }
+                        )
                         .padding()
 
                     VStack {
@@ -767,6 +786,7 @@ struct RedWineTastingSheetView: View {
                             Button {
 
                                 withAnimation(.easeInOut) {
+                                    imageScale = 1
                                     showFullScreenImage = false
                                 }
 
@@ -803,11 +823,29 @@ extension RedWineTastingSheetView {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
+                    .scaleEffect(imageScale)
+                    .gesture(
+                        MagnificationGesture()
+                            .onChanged { value in
+                                imageScale = value
+                            }
+                            .onEnded { value in
+
+                                if imageScale < 1 {
+                                    imageScale = 1
+                                }
+
+                                if imageScale > 5 {
+                                    imageScale = 5
+                                }
+                            }
+                    )
                     .frame(maxWidth: .infinity)
                     .frame(height: 220)
                     .background(Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     .onTapGesture {
+                        imageScale = 1
                         selectedFullScreenImage = image
                         withAnimation(.easeInOut) {
                             showFullScreenImage = true
@@ -861,8 +899,26 @@ extension RedWineTastingSheetView {
                                 Image(uiImage: image)
                                     .resizable()
                                     .scaledToFit()
+                                    .scaleEffect(imageScale)
+                                    .gesture(
+                                        MagnificationGesture()
+                                            .onChanged { value in
+                                                imageScale = value
+                                            }
+                                            .onEnded { value in
+
+                                                if imageScale < 1 {
+                                                    imageScale = 1
+                                                }
+
+                                                if imageScale > 5 {
+                                                    imageScale = 5
+                                                }
+                                            }
+                                    )
                                     .frame(width: 140, height: 140)
                                     .onTapGesture {
+                                        imageScale = 1
                                         selectedFullScreenImage = image
                                         withAnimation(.easeInOut) {
                                             showFullScreenImage = true
