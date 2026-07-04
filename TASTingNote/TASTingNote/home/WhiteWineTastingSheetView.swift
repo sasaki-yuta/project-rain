@@ -51,7 +51,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "清澄度",
-                            selection: $wine.clarity,
+                            selection: $wine.claritys,
                             options: [
                                 "澄んだ",
                                 "やや濁った",
@@ -66,7 +66,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "輝き",
-                            selection: $wine.brightness,
+                            selection: $wine.brightnesss,
                             options: [
                                 "輝きのある",
                                 "ややくすんだ",
@@ -81,7 +81,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "色調（補助用語）",
-                            selection: $wine.colorTone,
+                            selection: $wine.colorTones,
                             options: [
                                 "シルバーがかった ",
                                 "グリーンがかった",
@@ -93,7 +93,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "色調（メイン用語）",
-                            selection: $wine.color,
+                            selection: $wine.colors,
                             options: [
                                 "レモンイエロー",
                                 "イエロー",
@@ -111,7 +111,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "濃淡",
-                            selection: $wine.density,
+                            selection: $wine.densitys,
                             options: [
                                 "無色に近い",
                                 "淡い",
@@ -128,7 +128,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "粘性",
-                            selection: $wine.viscosity,
+                            selection: $wine.viscositys,
                             options: [
                                 "さらっとした",
                                 "適度な",
@@ -144,7 +144,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "外観の印象（若さ）",
-                            selection: $wine.youthfulness,
+                            selection: $wine.youthfulnesss,
                             options: [
                                 "若々しい",
                                 "やや発展した",
@@ -158,7 +158,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "外観の印象（成熟度）",
-                            selection: $wine.maturity,
+                            selection: $wine.maturitys,
                             options: [
                                 "軽快な",
                                 "成熟度が高い",
@@ -170,7 +170,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "外観の印象（発泡性）",
-                            selection: $wine.effervescence,
+                            selection: $wine.effervescences,
                             options: [
                                 "気泡が見える",
                                 "発泡性",
@@ -188,7 +188,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "第一印象(強さ)",
-                            selection: $wine.firstImpIntensity,
+                            selection: $wine.firstImpIntensitys,
                             options: [
                                 "閉じている",
                                 "控えめ",
@@ -201,7 +201,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "第一印象（性質）",
-                            selection: $wine.firstImpCharacter,
+                            selection: $wine.firstImpCharacters,
                             options: [
                                 "フレッシュな",
                                 "ミネラリー",
@@ -221,7 +221,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "果実",
-                            selection: $wine.fruit,
+                            selection: $wine.fruits,
                             options: [
                                 "柑橘類",
                                 "青リンゴ",
@@ -246,7 +246,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "花・植物（花）",
-                            selection: $wine.plantFlower,
+                            selection: $wine.plantFlowers,
                             options: [
                                 "スイカズラ",
                                 "アカシア",
@@ -261,7 +261,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "花・植物（ハーブ）",
-                            selection: $wine.plantHerb,
+                            selection: $wine.plantHerbs,
                             options: [
                                 "ミント",
                                 "アニス",
@@ -275,7 +275,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "花・植物（ナッツ）",
-                            selection: $wine.plantNuts,
+                            selection: $wine.plantNutss,
                             options: [
                                 "フレッシュアーモンド",
                                 "ヘーゼルナッツ"
@@ -289,7 +289,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "香辛料・芳香・化学物質（ミネラル）",
-                            selection: $wine.spiceMineral,
+                            selection: $wine.spiceMinerals,
                             options: [
                                 "石灰",
                                 "火打石",
@@ -303,7 +303,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "香辛料・芳香・化学物質（樽）",
-                            selection: $wine.spicsOak,
+                            selection: $wine.spicsOaks,
                             options: [
                                 "トースト",
                                 "ヴァニラ",
@@ -316,7 +316,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "香辛料・芳香・化学物質（香辛料）",
-                            selection: $wine.spiceSpice,
+                            selection: $wine.spiceSpices,
                             options: [
                                 "シナモン",
                                 "白胡椒",
@@ -331,7 +331,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "香辛料・芳香・化学物質（他）",
-                            selection: $wine.spiceOthers,
+                            selection: $wine.spiceOtherss,
                             options: [
                                 "硫黄",
                                 "ペトロール",
@@ -353,7 +353,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "香りの印象（熟成感）",
-                            selection: $wine.spiceMaturity,
+                            selection: $wine.spiceMaturitys,
                             options: [
                                 "若々しい",
                                 "嫌気的な",
@@ -366,7 +366,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "香りの印象（特性）",
-                            selection: $wine.spiceCharacteristic,
+                            selection: $wine.spiceCharacteristics,
                             options: [
                                 "第1アロマが強い",
                                 "第2アロマが強い",
@@ -387,7 +387,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "アタック",
-                            selection: $wine.attack,
+                            selection: $wine.attacks,
                             options: [
                                 "軽い",
                                 "やや軽い",
@@ -404,7 +404,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "甘味",
-                            selection: $wine.sweetness,
+                            selection: $wine.sweetnesss,
                             options: [
                                 "ドライ",
                                 "ソフトな",
@@ -421,7 +421,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "酸味",
-                            selection: $wine.acidity,
+                            selection: $wine.aciditys,
                             options: [
                                 "なめらかな",
                                 "軽やかな",
@@ -440,7 +440,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "苦味",
-                            selection: $wine.bitterness,
+                            selection: $wine.bitternesss,
                             options: [
                                 "控えめ",
                                 "穏やかな",
@@ -457,7 +457,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "バランス（左下）",
-                            selection: $wine.balanceBottomLeft,
+                            selection: $wine.balanceBottomLefts,
                             options: [
                                 "スムーズな",
                                 "コンパクトな"
@@ -468,7 +468,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "バランス（左上）",
-                            selection: $wine.balanceTopLeft,
+                            selection: $wine.balanceTopLefts,
                             options: [
                                 "スリムな",
                                 "ドライな"
@@ -479,7 +479,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "バランス（右上）",
-                            selection: $wine.balanceTopRight,
+                            selection: $wine.balanceTopRights,
                             options: [
                                 "ジューシーな",
                                 "豊潤な",
@@ -491,7 +491,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "バランス（右下）",
-                            selection: $wine.balanceBottmRight,
+                            selection: $wine.balanceBottmRights,
                             options: [
                                 "まろやかな",
                                 "ねっとりした"
@@ -505,7 +505,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "アルコール",
-                            selection: $wine.alcohol,
+                            selection: $wine.alcohols,
                             options: [
                                 "11%未満",
                                 "11%～12%未満",
@@ -522,7 +522,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "余韻",
-                            selection: $wine.finish,
+                            selection: $wine.finishs,
                             options: [
                                 "短い",
                                 "やや短い",
@@ -542,7 +542,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "評価",
-                            selection: $wine.evaluation,
+                            selection: $wine.evaluations,
                             options: [
                                 "シンプル、フレッシュ感を楽しむ",
                                 "エレガントでミネラリー",
@@ -560,7 +560,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "適正温度",
-                            selection: $wine.eervingTemperature,
+                            selection: $wine.eervingTemperatures,
                             options: [
                                 "8度未満",
                                 "8～10度",
@@ -577,7 +577,7 @@ struct WhiteWineTastingSheetView: View {
                         
                         tastingScaleRow(
                             title: "グラス",
-                            selection: $wine.glass,
+                            selection: $wine.glasss,
                             options: [
                                 "小ぶり",
                                 "中庸",
@@ -1114,7 +1114,7 @@ extension WhiteWineTastingSheetView {
 
     func tastingScaleRow(
         title: String,
-        selection: Binding<String?>,
+        selection: Binding<[String]>,
         options: [String]
     ) -> some View {
 
@@ -1134,16 +1134,16 @@ extension WhiteWineTastingSheetView {
 
                 ForEach(options, id: \.self) { option in
                     Button {
-                        if selection.wrappedValue == option {
-                            selection.wrappedValue = nil   // 同じ場所を押したら解除
+                        if selection.wrappedValue.contains(option) {
+                            selection.wrappedValue.removeAll { $0 == option }
                         } else {
-                            selection.wrappedValue = option
+                            selection.wrappedValue.append(option)
                         }
                     } label: {
                         HStack(spacing: 6) {
                             Image(
                                 systemName:
-                                    selection.wrappedValue == option
+                                    selection.wrappedValue.contains(option)
                                     ? "record.circle.fill"
                                     : "circle"
                             )
@@ -1159,7 +1159,7 @@ extension WhiteWineTastingSheetView {
                             Spacer()
                         }
                         .foregroundStyle(
-                            selection.wrappedValue == option
+                            selection.wrappedValue.contains(option)
                             ? .white
                             : .primary
                         )
@@ -1171,7 +1171,7 @@ extension WhiteWineTastingSheetView {
 
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(
-                                    selection.wrappedValue == option
+                                    selection.wrappedValue.contains(option)
                                     ? accent
                                     : Color.gray.opacity(0.08)
                                 )
