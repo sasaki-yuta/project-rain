@@ -75,19 +75,19 @@ struct AITabView: View {
 
                 ZStack {
 
-                    WineChartPickerView(
-                        xValue: .constant(nil),
-                        yValue: .constant(nil),
-                        isLocked: true
-                    )
-
                     GeometryReader { geo in
 
-                        // タップ検出
+                        AIWineChartPickerView(
+                            xValue: .constant(nil),
+                            yValue: .constant(nil),
+                            isLocked: true
+                        )
+                        .frame(width: geo.size.width, height: geo.size.height)
+
+                        // タップ＆描画も同じgeoを使う
                         Color.clear
                             .contentShape(Rectangle())
                             .onTapGesture { location in
-
                                 let tapped = chartPoints.filter { point in
                                     let px = geo.size.width * (point.x + 1) / 2
                                     let py = geo.size.height * (1 - (point.y + 1) / 2)
@@ -97,13 +97,10 @@ struct AITabView: View {
 
                                     return sqrt(dx*dx + dy*dy) < 20
                                 }
-
                                 selectedPoints = tapped
                             }
 
-                        // 描画
                         ForEach(chartPoints) { point in
-
                             VStack(spacing: 2) {
 
                                 if let data = point.imageData,
@@ -114,25 +111,14 @@ struct AITabView: View {
                                         .scaledToFill()
                                         .frame(width: 28, height: 28)
                                         .clipShape(Circle())
-                                        .overlay(
-                                            Circle()
-                                                .stroke(point.isWhite ? .green : .red, lineWidth: 2)
-                                        )
-
                                 } else {
                                     Circle()
                                         .fill(point.isWhite ? .green : .red)
                                         .frame(width: 12, height: 12)
                                 }
 
-                                // ★ワイン名追加
                                 Text(point.wineName)
                                     .font(.caption2)
-                                    .lineLimit(1)
-                                    .padding(.horizontal, 4)
-                                    .padding(.vertical, 2)
-                                    .background(.ultraThinMaterial)
-                                    .clipShape(Capsule())
                             }
                             .position(
                                 x: geo.size.width * (point.x + 1) / 2,
@@ -141,7 +127,7 @@ struct AITabView: View {
                         }
                     }
                 }
-                .frame(height: 300)
+                .frame(height: 500)
 
                 Spacer()
             }
