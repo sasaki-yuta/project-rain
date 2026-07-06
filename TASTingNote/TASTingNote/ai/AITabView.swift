@@ -70,79 +70,81 @@ struct AITabView: View {
 
     var body: some View {
         NavigationStack {
+            GeometryReader { screen in
+                VStack {
 
-            VStack {
+                    ZStack {
 
-                ZStack {
+                        GeometryReader { geo in
 
-                    GeometryReader { geo in
-
-                        AIWineChartPickerView(
-                            xValue: .constant(nil),
-                            yValue: .constant(nil),
-                            isLocked: true
-                        )
-                        .frame(width: geo.size.width, height: geo.size.height)
-
-                        // タップ＆描画も同じgeoを使う
-                        Color.clear
-                            .contentShape(Rectangle())
-                            .onTapGesture { location in
-                                let tapped = chartPoints.filter { point in
-                                    let px = geo.size.width * (point.x + 1) / 2
-                                    let py = geo.size.height * (1 - (point.y + 1) / 2)
-
-                                    let dx = px - location.x
-                                    let dy = py - location.y
-
-                                    return sqrt(dx*dx + dy*dy) < 20
-                                }
-                                selectedPoints = tapped
-                            }
-
-                        ForEach(chartPoints) { point in
-                            VStack(spacing: 2) {
-
-                                if let data = point.imageData,
-                                   let uiImage = UIImage(data: data) {
-
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 28, height: 28)
-                                        .clipShape(Circle())
-                                } else {
-                                    Circle()
-                                        .fill(point.isWhite ? .green : .red)
-                                        .frame(width: 12, height: 12)
-                                }
-
-                                Text(point.wineName)
-                                    .font(.caption2)
-                            }
-                            .position(
-                                x: geo.size.width * (point.x + 1) / 2,
-                                y: geo.size.height * (1 - (point.y + 1) / 2)
+                            AIWineChartPickerView(
+                                xValue: .constant(nil),
+                                yValue: .constant(nil),
+                                isLocked: true
                             )
+                            .frame(width: geo.size.width, height: geo.size.height)
+
+                            // タップ＆描画も同じgeoを使う
+                            Color.clear
+                                .contentShape(Rectangle())
+                                .onTapGesture { location in
+                                    let tapped = chartPoints.filter { point in
+                                        let px = geo.size.width * (point.x + 1) / 2
+                                        let py = geo.size.height * (1 - (point.y + 1) / 2)
+
+                                        let dx = px - location.x
+                                        let dy = py - location.y
+
+                                        return sqrt(dx*dx + dy*dy) < 20
+                                    }
+                                    selectedPoints = tapped
+                                }
+
+                            ForEach(chartPoints) { point in
+                                VStack(spacing: 2) {
+
+                                    if let data = point.imageData,
+                                       let uiImage = UIImage(data: data) {
+
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 28, height: 28)
+                                            .clipShape(Circle())
+                                    } else {
+                                        Circle()
+                                            .fill(point.isWhite ? .green : .red)
+                                            .frame(width: 12, height: 12)
+                                    }
+
+                                    Text(point.wineName)
+                                        .font(.caption2)
+                                }
+                                .position(
+                                    x: geo.size.width * (point.x + 1) / 2,
+                                    y: geo.size.height * (1 - (point.y + 1) / 2)
+                                )
+                            }
                         }
                     }
+                    .aspectRatio(1, contentMode: .fit)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                    Spacer()
                 }
-                .frame(height: 500)
+                .padding()
+                .navigationTitle("ワインチャート")
 
-                Spacer()
-            }
-            .padding()
-            .navigationTitle("ワインチャート")
-
-            // ======================
-            // 重なり表示シート
-            // ======================
-            .sheet(isPresented: Binding(
-                get: { !selectedPoints.isEmpty },
-                set: { if !$0 { selectedPoints = [] } }
-            )) {
-                WineOverlapListView(points: selectedPoints)
-                    .environment(\.modelContext, context)
+                // ======================
+                // 重なり表示シート
+                // ======================
+                .sheet(isPresented: Binding(
+                    get: { !selectedPoints.isEmpty },
+                    set: { if !$0 { selectedPoints = [] } }
+                )) {
+                    WineOverlapListView(points: selectedPoints)
+                        .environment(\.modelContext, context)
+                }
             }
         }
     }
