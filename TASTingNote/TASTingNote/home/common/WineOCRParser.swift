@@ -57,34 +57,16 @@ enum WineOCRParser {
         }
 
         // 国
-        let countries = [
-            "France": "フランス",
-            "FRANCE": "フランス",
-            "Italy": "イタリア",
-            "ITALY": "イタリア",
-            "Chile": "チリ",
-            "CHILE": "チリ",
-            "ニュージーランド": "ニュージーランド"
-        ]
-
-        for (key, value) in countries {
-            if text.contains(key) {
+        for (key, value) in WineOCRDictionaryCountries.countries {
+            if text.localizedCaseInsensitiveContains(key) {
                 result.country = value
                 break
             }
         }
 
         // 品種
-        let grapes = [
-            "Cabernet Sauvignon": "カベルネ・ソーヴィニヨン",
-            "Pinot Noir": "ピノ・ノワール",
-            "Merlot": "メルロー",
-            "Chardonnay": "シャルドネ",
-            "Sauvignon Blanc": "ソーヴィニヨン・ブラン"
-        ]
-
-        for (key, value) in grapes {
-            if text.contains(key) {
+        for (key, value) in WineOCRDictionaryGrapes.grapes {
+            if text.localizedCaseInsensitiveContains(key) {
                 result.grape = value
                 break
             }
