@@ -888,7 +888,16 @@ struct WhiteWineTastingSheetView: View {
 
                 print(recognizedText)
 
-                parseWineInformation(from: recognizedText)
+                let result = WineOCRParser.parse(
+                    from: recognizedText
+                )
+
+                ocrName = result.name
+                ocrVintage = result.vintage
+                ocrCountry = result.country
+                ocrGrape = result.grape
+
+                showOCRResultSheet = true
             }
         }
 
@@ -910,100 +919,6 @@ struct WhiteWineTastingSheetView: View {
 
             try? handler.perform([request])
         }
-    }
-    
-    func parseWineInformation(
-        from text: String
-    ) {
-
-        let lines = text.components(
-            separatedBy: .newlines
-        )
-
-        if let first =
-            lines.first(where: {
-                $0.count > 3
-            }) {
-
-            ocrName = first
-        }
-
-        let pattern = "\\b(19|20)\\d{2}\\b"
-
-        if let regex =
-            try? NSRegularExpression(
-                pattern: pattern
-            ) {
-
-            let range = NSRange(
-                text.startIndex...,
-                in: text
-            )
-
-            if let match =
-                regex.firstMatch(
-                    in: text,
-                    range: range
-                ),
-               let r = Range(
-                    match.range,
-                    in: text
-               ) {
-
-                ocrVintage =
-                    String(text[r])
-            }
-        }
-
-        if text.contains("France") ||
-            text.contains("FRANCE") {
-
-            ocrCountry = "フランス"
-        }
-
-        if text.contains("Italy") ||
-            text.contains("ITALY") {
-
-            ocrCountry = "イタリア"
-        }
-
-        if text.contains("Chile") ||
-            text.contains("CHILE") {
-
-            ocrCountry = "チリ"
-        }
-        
-        if text.contains("ニュージーランド") {
-
-            ocrCountry = "ニュージーランド"
-        }
-
-        if text.contains("Cabernet Sauvignon") {
-
-            ocrGrape = "カベルネ・ソーヴィニヨン"
-        }
-
-        if text.contains("Pinot Noir") {
-
-            ocrGrape = "ピノ・ノワール"
-        }
-
-        if text.contains("Merlot") {
-
-            ocrGrape = "メルロー"
-        }
-
-        if text.contains("Chardonnay") {
-
-            ocrGrape = "シャルドネ"
-        }
-
-        if text.contains("Sauvignon Blanc") {
-
-            ocrGrape = "ソーヴィニヨン・ブラン"
-        }
-        
-        showOCRResultSheet = true
     }
     
     func applyOCRResults() {
