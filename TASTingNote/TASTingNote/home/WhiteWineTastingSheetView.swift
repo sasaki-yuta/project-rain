@@ -8,6 +8,7 @@ import SwiftUI
 import PhotosUI
 import CoreLocation
 import Combine
+import Vision
 
 struct WhiteWineTastingSheetView: View {
 
@@ -25,6 +26,24 @@ struct WhiteWineTastingSheetView: View {
     // 削除時のダイアログ
     @State private var showDeleteAlert = false
     @State private var imageIndexToDelete: Int?
+    
+    // OCR
+    @State private var showOCRMenu = false
+    @State private var showCamera = false
+    @State private var showPhotoPicker = false
+    @State private var capturedImage: UIImage?
+    
+    @State private var ocrName = ""
+    @State private var ocrVintage = ""
+    @State private var ocrCountry = ""
+    @State private var ocrGrape = ""
+
+    @State private var showOCRResultSheet = false
+    
+    @State private var applyName = true
+    @State private var applyVintage = true
+    @State private var applyCountry = true
+    @State private var applyGrape = true
 
     private let accent = Color(
         red: 0.52,
@@ -656,6 +675,11 @@ struct WhiteWineTastingSheetView: View {
         )
         .navigationTitle("テイスティングシート")
         .navigationBarTitleDisplayMode(.inline)
+        .photosPicker(
+            isPresented: $showPhotoPicker,
+            selection: $selectedItem,
+            matching: .images
+        )
         
         .onAppear {
             wine.chartLocked = true
@@ -669,8 +693,15 @@ struct WhiteWineTastingSheetView: View {
                 if let data = try? await selectedItem?
                     .loadTransferable(type: Data.self) {
 
-                    wine.imageData = data
+                    if let image = UIImage(data: data) {
+                        recognizeWineLabel(
+                            image: image
+                        )
+                    }
                 }
+                
+                // 次回開いた時にチェックを残さない
+                selectedItem = nil
             }
         }
         
@@ -771,6 +802,279 @@ struct WhiteWineTastingSheetView: View {
             }
         }
         .animation(.easeInOut(duration: 0.2), value: showFullScreenImage)
+        .confirmationDialog(
+            "ラベル画像の取得方法",
+            isPresented: $showOCRMenu
+        ) {
+
+            Button("カメラで撮影") {
+                showCamera = true
+            }
+
+            Button("写真ライブラリから選択") {
+                showPhotoPicker = true
+            }
+
+            Button(
+                "キャンセル",
+                role: .cancel
+            ) {}
+        }
+        .sheet(isPresented: $showCamera) {
+
+            CameraPicker(
+                image: $capturedImage
+            )
+        }
+        .onChange(of: capturedImage) { _, image in
+
+            guard let image else {
+                return
+            }
+
+            recognizeWineLabel(
+                image: image
+            )
+        }
+        .overlay {
+
+            if showOCRResultSheet {
+
+                Color.black
+                    .opacity(0.35)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        showOCRResultSheet = false
+                    }
+
+                OCRResultCard()
+            }
+        }
+    }
+    
+    func recognizeWineLabel(
+        image: UIImage
+    ) {
+        applyName = true
+        applyVintage = true
+        applyCountry = true
+        applyGrape = true
+
+        ocrName = ""
+        ocrVintage = ""
+        ocrCountry = ""
+        ocrGrape = ""
+        
+        guard let cgImage =
+            image.cgImage
+        else {
+            return
+        }
+
+        let request = VNRecognizeTextRequest { request, error in
+
+            guard let observations =
+                    request.results as? [VNRecognizedTextObservation]
+            else {
+                return
+            }
+
+            let recognizedText = observations.compactMap {
+                $0.topCandidates(1).first?.string
+            }
+            .joined(separator: "\n")
+
+            DispatchQueue.main.async {
+
+                print(recognizedText)
+
+                parseWineInformation(from: recognizedText)
+            }
+        }
+
+        request.recognitionLevel = .accurate
+        request.recognitionLanguages = [
+            "ja-JP",
+            "en-US",
+            "fr-FR",
+            "it-IT",
+            "es-ES"
+        ]
+
+        DispatchQueue.global(qos: .userInitiated).async {
+
+            let handler = VNImageRequestHandler(
+                cgImage: cgImage,
+                options: [:]
+            )
+
+            try? handler.perform([request])
+        }
+    }
+    
+    func parseWineInformation(
+        from text: String
+    ) {
+
+        let lines = text.components(
+            separatedBy: .newlines
+        )
+
+        if let first =
+            lines.first(where: {
+                $0.count > 3
+            }) {
+
+            ocrName = first
+        }
+
+        let pattern = "\\b(19|20)\\d{2}\\b"
+
+        if let regex =
+            try? NSRegularExpression(
+                pattern: pattern
+            ) {
+
+            let range = NSRange(
+                text.startIndex...,
+                in: text
+            )
+
+            if let match =
+                regex.firstMatch(
+                    in: text,
+                    range: range
+                ),
+               let r = Range(
+                    match.range,
+                    in: text
+               ) {
+
+                ocrVintage =
+                    String(text[r])
+            }
+        }
+
+        if text.contains("France") ||
+            text.contains("FRANCE") {
+
+            ocrCountry = "フランス"
+        }
+
+        if text.contains("Italy") ||
+            text.contains("ITALY") {
+
+            ocrCountry = "イタリア"
+        }
+
+        if text.contains("Chile") ||
+            text.contains("CHILE") {
+
+            ocrCountry = "チリ"
+        }
+        
+        if text.contains("ニュージーランド") {
+
+            ocrCountry = "ニュージーランド"
+        }
+
+        if text.contains("Cabernet Sauvignon") {
+
+            ocrGrape = "カベルネ・ソーヴィニヨン"
+        }
+
+        if text.contains("Pinot Noir") {
+
+            ocrGrape = "ピノ・ノワール"
+        }
+
+        if text.contains("Merlot") {
+
+            ocrGrape = "メルロー"
+        }
+
+        if text.contains("Chardonnay") {
+
+            ocrGrape = "シャルドネ"
+        }
+
+        if text.contains("Sauvignon Blanc") {
+
+            ocrGrape = "ソーヴィニヨン・ブラン"
+        }
+        
+        showOCRResultSheet = true
+    }
+    
+    func applyOCRResults() {
+
+        if applyName && !ocrName.isEmpty {
+            wine.name = ocrName
+        }
+
+        if applyVintage && !ocrVintage.isEmpty {
+            wine.vintage = ocrVintage
+        }
+
+        if applyCountry && !ocrCountry.isEmpty {
+            wine.country = ocrCountry
+        }
+
+        if applyGrape && !ocrGrape.isEmpty {
+            wine.grape = ocrGrape
+        }
+
+        showOCRResultSheet = false
+    }
+    
+    func OCRResultCard() -> some View {
+
+        VStack(spacing: 20) {
+
+            Text("OCR認識結果")
+                .font(.headline)
+
+            if !ocrName.isEmpty {
+                Toggle("ワイン名\n\(ocrName)", isOn: $applyName)
+            }
+
+            if !ocrVintage.isEmpty {
+                Toggle("ヴィンテージ\n\(ocrVintage)", isOn: $applyVintage)
+            }
+
+            if !ocrCountry.isEmpty {
+                Toggle("生産国\n\(ocrCountry)", isOn: $applyCountry)
+            }
+
+            if !ocrGrape.isEmpty {
+                Toggle("品種\n\(ocrGrape)", isOn: $applyGrape)
+            }
+
+            Divider()
+
+            HStack {
+
+                Button("キャンセル") {
+                    showOCRResultSheet = false
+                }
+
+                Spacer()
+
+                Button("反映する") {
+                    applyOCRResults()
+                }
+                .buttonStyle(.borderedProminent)
+            }
+        }
+        .padding(24)
+        .frame(maxWidth: 350)
+        .background(.white)
+        .clipShape(
+            RoundedRectangle(
+                cornerRadius: 24
+            )
+        )
+        .shadow(radius: 20)
     }
 }
 
@@ -870,6 +1174,18 @@ extension WhiteWineTastingSheetView {
                     .padding(.top, 8)
                 }
             }
+            
+            // OCR
+            Button {
+                showOCRMenu = true
+            } label: {
+                Label(
+                    "AIラベル認識",
+                    systemImage: "text.viewfinder"
+                )
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(accent)
             
             VStack(alignment: .leading, spacing: 8) {
 

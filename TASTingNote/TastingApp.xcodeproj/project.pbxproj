@@ -12,6 +12,7 @@
 
 /* Begin PBXFileReference section */
 		B7663A182FAF37F900E9F225 /* TastingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TastingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B78856FF30030F7000BE3F69 /* TastingApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "TastingApp-Info.plist"; sourceTree = "<group>"; };
 		B78879AF2FDE83D200EC1079 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -37,6 +38,7 @@
 		B7663A0F2FAF37F900E9F225 = {
 			isa = PBXGroup;
 			children = (
+				B78856FF30030F7000BE3F69 /* TastingApp-Info.plist */,
 				B7663A1A2FAF37F900E9F225 /* TASTingNote */,
 				B78879AF2FDE83D200EC1079 /* Assets.xcassets */,
 				B7663A192FAF37F900E9F225 /* Products */,
@@ -263,7 +265,9 @@
 				DEVELOPMENT_TEAM = KJD33B7KR7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TastingApp-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_NSCameraUsageDescription = "ワインラベルを撮影して自動入力するために使用します。";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "現在地を地図に表示するために使用します";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "ワインの写真を記録し、テイスティングノートに保存するために写真へのアクセスが必要です。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -300,7 +304,9 @@
 				DEVELOPMENT_TEAM = KJD33B7KR7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TastingApp-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_NSCameraUsageDescription = "ワインラベルを撮影して自動入力するために使用します。";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "現在地を地図に表示するために使用します";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "ワインの写真を記録し、テイスティングノートに保存するために写真へのアクセスが必要です。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
