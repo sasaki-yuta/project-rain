@@ -57,13 +57,43 @@ enum WineOCRParser {
         }
 
         // 国
-        for (key, value) in WineOCRDictionaryCountries.countries {
-            if text.localizedCaseInsensitiveContains(key) {
-                result.country = value
-                break
+        let countryPatterns = [
+            "原産国[:：]\\s*([^\\n]+)",
+            "原産国名[:：]\\s*([^\\n]+)",
+            "Product of\\s+([^\\n]+)",
+            "Produced in\\s+([^\\n]+)"
+        ]
+
+        var isEmpty = true
+        for pattern in countryPatterns {
+            if let regex = try? NSRegularExpression(pattern: pattern),
+               let match = regex.firstMatch(
+                    in: text,
+                    range: NSRange(text.startIndex..., in: text)
+               ),
+               let range = Range(match.range(at: 1), in: text) {
+
+                let countryText = String(text[range])
+
+                for (key, value) in WineOCRDictionaryCountries.countries {
+                    if countryText.localizedCaseInsensitiveContains(key) {
+                        result.country = value
+                        isEmpty = false
+                        return result
+                    }
+                }
             }
         }
-
+        
+        if isEmpty {
+            for (key, value) in WineOCRDictionaryCountries.countries {
+                    if text.localizedCaseInsensitiveContains(key) {
+                        result.country = value
+                        break
+                    }
+                }
+        }
+        
         // 品種
         for (key, value) in WineOCRDictionaryGrapes.grapes {
             if text.localizedCaseInsensitiveContains(key) {
