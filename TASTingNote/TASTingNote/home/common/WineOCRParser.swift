@@ -58,10 +58,58 @@ enum WineOCRParser {
 
         // 国
         let countryPatterns = [
+            // 日本語
             "原産国[:：]\\s*([^\\n]+)",
             "原産国名[:：]\\s*([^\\n]+)",
+            "生産国[:：]\\s*([^\\n]+)",
+            "生産国名[:：]\\s*([^\\n]+)",
+            "製造国[:：]\\s*([^\\n]+)",
+            "醸造国[:：]\\s*([^\\n]+)",
+            "産地[:：]\\s*([^\\n]+)",
+            "原産地[:：]\\s*([^\\n]+)",
+            "生産地[:：]\\s*([^\\n]+)",
+            "葡萄産地[:：]\\s*([^\\n]+)",
+            "ぶどう産地[:：]\\s*([^\\n]+)",
+
+            // 英語
+            "Country of Origin[:：]?\\s*([^\\n]+)",
+            "Origin[:：]?\\s*([^\\n]+)",
+            "Country[:：]?\\s*([^\\n]+)",
+            "Made in\\s+([^\\n]+)",
+            "Produced in\\s+([^\\n]+)",
             "Product of\\s+([^\\n]+)",
-            "Produced in\\s+([^\\n]+)"
+            "Produce of\\s+([^\\n]+)",
+            "Grown in\\s+([^\\n]+)",
+            "Wine of\\s+([^\\n]+)",
+            "Estate Bottled in\\s+([^\\n]+)",
+            "Bottled in\\s+([^\\n]+)",
+            "Imported from\\s+([^\\n]+)",
+
+            // フランス語
+            "Produit de\\s+([^\\n]+)",
+            "Origine[:：]?\\s*([^\\n]+)",
+            "Pays d'origine[:：]?\\s*([^\\n]+)",
+            "Mis en bouteille en\\s+([^\\n]+)",
+
+            // イタリア語
+            "Prodotto in\\s+([^\\n]+)",
+            "Paese d'origine[:：]?\\s*([^\\n]+)",
+            "Imbottigliato in\\s+([^\\n]+)",
+
+            // スペイン語
+            "Producto de\\s+([^\\n]+)",
+            "Origen[:：]?\\s*([^\\n]+)",
+            "Embotellado en\\s+([^\\n]+)",
+
+            // ドイツ語
+            "Erzeugnis aus\\s+([^\\n]+)",
+            "Herkunftsland[:：]?\\s*([^\\n]+)",
+            "Abgefüllt in\\s+([^\\n]+)",
+
+            // ポルトガル語
+            "Produto de\\s+([^\\n]+)",
+            "Origem[:：]?\\s*([^\\n]+)",
+            "Engarrafado em\\s+([^\\n]+)"
         ]
 
         var isEmpty = true
