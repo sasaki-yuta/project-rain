@@ -10,6 +10,8 @@ struct OCRWineResult {
     var name = ""
     var vintage = ""
     var country = ""
+    var region = ""
+    var productionArea = ""
     var grape = ""
 }
 
@@ -173,6 +175,33 @@ enum WineOCRParser {
             }
         }
         
+        // 国判定後、または国が見つからなかった場合に産地検索を行います。
+        for (key, value) in WineOCRDictionaryRegions.regions {
+            if text.localizedCaseInsensitiveContains(key) {
+                result.region = value.region
+                if result.country.isEmpty {
+                    result.country = value.country
+                }
+                break
+            }
+        }
+        
+        // 国＋半角スペース＋産地で、生産地の文字列を保存
+        if !result.country.isEmpty && !result.region.isEmpty {
+            result.productionArea =
+                "\(result.country) \(result.region)"
+
+        } else if !result.country.isEmpty {
+
+            result.productionArea =
+                result.country
+
+        } else if !result.region.isEmpty {
+
+            result.productionArea =
+                result.region
+        }
+        
         // 品種
         for (key, value) in WineOCRDictionaryGrapes.grapes {
             if text.localizedCaseInsensitiveContains(key) {
@@ -180,7 +209,9 @@ enum WineOCRParser {
                 break
             }
         }
-
+        
+        
+        
         return result
     }
 }
