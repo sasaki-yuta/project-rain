@@ -14,6 +14,7 @@ struct RedWineTastingSheetView: View {
 
     @Bindable var wine: redWine
     @State private var selectedItem: PhotosPickerItem?
+    @State private var ocrSelectedItem: PhotosPickerItem?
 
     @StateObject private var locationManager =
         RedWineLocationManager()
@@ -691,7 +692,7 @@ struct RedWineTastingSheetView: View {
         .navigationBarTitleDisplayMode(.inline)
         .photosPicker(
             isPresented: $showPhotoPicker,
-            selection: $selectedItem,
+            selection: $ocrSelectedItem,
             matching: .images
         )
         
@@ -701,20 +702,12 @@ struct RedWineTastingSheetView: View {
         }
         
         .onChange(of: selectedItem) {
-
             Task {
-
                 if let data = try? await selectedItem?
                     .loadTransferable(type: Data.self) {
-
-                    if let image = UIImage(data: data) {
-                        recognizeWineLabel(
-                            image: image
-                        )
-                    }
+                    wine.imageData = data
                 }
-                
-                // 次回開いた時にチェックを残さない
+
                 selectedItem = nil
             }
         }
@@ -732,6 +725,20 @@ struct RedWineTastingSheetView: View {
                 }
 
                 selectedItems.removeAll()
+            }
+        }
+        
+        .onChange(of: ocrSelectedItem) {
+            Task {
+                if let data = try? await ocrSelectedItem?
+                .loadTransferable(type: Data.self),
+                let image = UIImage(data: data) {
+                    recognizeWineLabel(
+                        image: image
+                    )
+                }
+
+                ocrSelectedItem = nil
             }
         }
         
