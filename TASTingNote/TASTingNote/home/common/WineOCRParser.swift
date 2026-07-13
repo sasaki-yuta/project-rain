@@ -127,19 +127,50 @@ enum WineOCRParser {
                     if countryText.localizedCaseInsensitiveContains(key) {
                         result.country = value
                         isEmpty = false
-                        return result
+                        break
                     }
                 }
             }
         }
         
+        let ignoreKeywords = [
+            "輸入者",
+            "輸入元",
+            "販売者",
+            "製造者",
+            "加工所",
+            "発売元",
+            "販売元",
+
+            "Importer",
+            "Imported by",
+            "Distributed by",
+            "Imported and Distributed by",
+            "Bottled for",
+            "Packed by"
+        ]
+        
         if isEmpty {
-            for (key, value) in WineOCRDictionaryCountries.countries {
-                    if text.localizedCaseInsensitiveContains(key) {
+            for line in lines {
+                // 輸入者などの行は無視
+                if ignoreKeywords.contains(where: {
+                    line.localizedCaseInsensitiveContains($0)
+                }) {
+                    continue
+                }
+                
+                for (key, value) in WineOCRDictionaryCountries.countries {
+                    if line.localizedCaseInsensitiveContains(key) {
                         result.country = value
+                        isEmpty = false
                         break
                     }
                 }
+
+                if !isEmpty {
+                    break
+                }
+            }
         }
         
         // 品種
