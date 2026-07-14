@@ -914,7 +914,7 @@ struct RedWineTastingSheetView: View {
 
                 ocrName = result.name
                 ocrVintage = result.vintage
-                ocrCountry = result.country
+                ocrCountry = result.productionArea
                 ocrGrape = result.grape
 
                 showOCRResultSheet = true
@@ -978,7 +978,7 @@ struct RedWineTastingSheetView: View {
             }
 
             if !ocrCountry.isEmpty {
-                Toggle("生産国\n\(ocrCountry)", isOn: $applyCountry)
+                Toggle("生産地\n\(ocrCountry)", isOn: $applyCountry)
             }
 
             if !ocrGrape.isEmpty {
