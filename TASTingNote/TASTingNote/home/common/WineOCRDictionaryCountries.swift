@@ -187,7 +187,7 @@ enum WineOCRDictionaryCountries {
         "United States of America": "アメリカ",
         "USA": "アメリカ",
         "U.S.A.": "アメリカ",
-        "US": "アメリカ",
+//        "US": "アメリカ",
         "American": "アメリカ",
         "AMERICA": "アメリカ",
         "アメリカ": "アメリカ",

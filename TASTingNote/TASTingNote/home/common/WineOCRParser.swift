@@ -16,6 +16,35 @@ struct OCRWineResult {
 }
 
 enum WineOCRParser {
+    static func containsWord(
+        _ text: String,
+        word: String
+    ) -> Bool {
+
+        let pattern =
+            "\\b" +
+            NSRegularExpression.escapedPattern(
+                for: word
+            ) +
+            "\\b"
+
+        guard let regex =
+            try? NSRegularExpression(
+                pattern: pattern,
+                options: [.caseInsensitive]
+            )
+        else {
+            return false
+        }
+
+        return regex.firstMatch(
+            in: text,
+            range: NSRange(
+                text.startIndex...,
+                in: text
+            )
+        ) != nil
+    }
 
     static func parse(
         from text: String
@@ -126,7 +155,10 @@ enum WineOCRParser {
                 let countryText = String(text[range])
 
                 for (key, value) in WineOCRDictionaryCountries.countries {
-                    if countryText.localizedCaseInsensitiveContains(key) {
+                    if containsWord(
+                        countryText,
+                        word: key
+                    ) {
                         result.country = value
                         isEmpty = false
                         break
@@ -162,7 +194,10 @@ enum WineOCRParser {
                 }
                 
                 for (key, value) in WineOCRDictionaryCountries.countries {
-                    if line.localizedCaseInsensitiveContains(key) {
+                    if containsWord(
+                        line,
+                        word: key
+                    ) {
                         result.country = value
                         isEmpty = false
                         break
