@@ -212,13 +212,18 @@ enum WineOCRParser {
         
         // 国判定後、または国が見つからなかった場合に産地検索を行います。
         for (key, value) in WineOCRDictionaryRegions.regions {
-            if text.localizedCaseInsensitiveContains(key) {
-                result.region = value.region
-                if result.country.isEmpty {
-                    result.country = value.country
-                }
-                break
+            result.region = value.region
+
+            // 日本の産地なら国を強制上書き
+            if value.country == "日本" {
+                result.country = "日本"
             }
+            // 国未検出の場合
+            else if result.country.isEmpty {
+                result.country = value.country
+            }
+
+            break
         }
         
         // 国＋半角スペース＋産地で、生産地の文字列を保存
@@ -238,14 +243,23 @@ enum WineOCRParser {
         }
         
         // 品種
-        for (key, value) in WineOCRDictionaryGrapes.grapes {
+        let sortedRegions =
+            WineOCRDictionaryRegions.regions
+                .sorted {
+                    $0.key.count > $1.key.count
+                }
+
+        for (key, value) in sortedRegions {
             if text.localizedCaseInsensitiveContains(key) {
-                result.grape = value
+                result.region = value.region
+
+                if result.country.isEmpty {
+                    result.country = value.country
+                }
+
                 break
             }
         }
-        
-        
         
         return result
     }

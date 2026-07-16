@@ -69,6 +69,38 @@ enum WineOCRDictionaryRegions {
         "Crozes Hermitage": ("フランス", "Crozes-Hermitage"),
         "Condrieu": ("フランス", "Condrieu"),
         "Chateauneuf du Pape": ("フランス", "Châteauneuf-du-Pape"),
+        
+        // ボルドー
+        "Graves": ("フランス", "Graves"),
+        "Pessac Leognan": ("フランス", "Pessac-Léognan"),
+        "Pessac-Léognan": ("フランス", "Pessac-Léognan"),
+        "Listrac": ("フランス", "Listrac-Médoc"),
+        "Moulis": ("フランス", "Moulis-en-Médoc"),
+        "Fronsac": ("フランス", "Fronsac"),
+        "Canon Fronsac": ("フランス", "Canon-Fronsac"),
+        "Lalande de Pomerol": ("フランス", "Lalande-de-Pomerol"),
+        "Cotes de Castillon": ("フランス", "Castillon Côtes de Bordeaux"),
+        
+        // ブルゴーニュ
+        "Corton": ("フランス", "Corton"),
+        "Corton Charlemagne": ("フランス", "Corton-Charlemagne"),
+        "Montrachet": ("フランス", "Montrachet"),
+        "Batard Montrachet": ("フランス", "Bâtard-Montrachet"),
+        "Chevalier Montrachet": ("フランス", "Chevalier-Montrachet"),
+        "Bienvenues Batard Montrachet": ("フランス", "Bienvenues-Bâtard-Montrachet"),
+        
+        // ローヌ
+        "Saint Joseph": ("フランス", "Saint-Joseph"),
+        "Cornas": ("フランス", "Cornas"),
+        "Vacqueyras": ("フランス", "Vacqueyras"),
+        "Gigondas": ("フランス", "Gigondas"),
+        "Tavel": ("フランス", "Tavel"),
+        
+        // ロワール
+        "Vouvray": ("フランス", "Vouvray"),
+        "Chinon": ("フランス", "Chinon"),
+        "Muscadet": ("フランス", "Muscadet"),
+        "Saumur": ("フランス", "Saumur"),
 
         // =====================================================
         // イタリア
@@ -93,6 +125,15 @@ enum WineOCRDictionaryRegions {
 
         "Sicilia": ("イタリア", "Sicilia"),
         "Etna": ("イタリア", "Etna"),
+        
+        "Gattinara": ("イタリア", "Gattinara"),
+        "Ghemme": ("イタリア", "Ghemme"),
+        "Monferrato": ("イタリア", "Monferrato"),
+        "Montalcino": ("イタリア", "Montalcino"),
+        "Maremma": ("イタリア", "Maremma"),
+        "Montepulciano d'Abruzzo": ("イタリア", "Montepulciano d'Abruzzo"),
+        "Franciacorta": ("イタリア", "Franciacorta"),
+        "Lugana": ("イタリア", "Lugana"),
 
         // =====================================================
         // スペイン
@@ -105,6 +146,12 @@ enum WineOCRDictionaryRegions {
         "Rias Baixas": ("スペイン", "Rías Baixas"),
         "Jerez": ("スペイン", "Jerez"),
         "Cava": ("スペイン", "Cava"),
+        
+        "Toro": ("スペイン", "Toro"),
+        "Rueda": ("スペイン", "Rueda"),
+        "Bierzo": ("スペイン", "Bierzo"),
+        "Jumilla": ("スペイン", "Jumilla"),
+        "Montsant": ("スペイン", "Montsant"),
 
         // =====================================================
         // ドイツ
@@ -117,6 +164,10 @@ enum WineOCRDictionaryRegions {
         "Franken": ("ドイツ", "Franken"),
         "Baden": ("ドイツ", "Baden"),
 
+        "Ahr": ("ドイツ", "Ahr"),
+        "Mittelrhein": ("ドイツ", "Mittelrhein"),
+        "Wurttemberg": ("ドイツ", "Württemberg"),
+        
         // =====================================================
         // オーストリア
         // =====================================================
@@ -124,6 +175,9 @@ enum WineOCRDictionaryRegions {
         "Kamptal": ("オーストリア", "Kamptal"),
         "Kremstal": ("オーストリア", "Kremstal"),
         "Burgenland": ("オーストリア", "Burgenland"),
+        
+        "Weinviertel": ("オーストリア", "Weinviertel"),
+        "Thermenregion": ("オーストリア", "Thermenregion"),
 
         // =====================================================
         // アメリカ
@@ -139,6 +193,11 @@ enum WineOCRDictionaryRegions {
         "Oregon": ("アメリカ", "Oregon"),
         "Washington State": ("アメリカ", "Washington State"),
 
+        "Alexander Valley": ("アメリカ", "Alexander Valley"),
+        "Dry Creek Valley": ("アメリカ", "Dry Creek Valley"),
+        "Carneros": ("アメリカ", "Carneros"),
+        "Santa Rita Hills": ("アメリカ", "Santa Rita Hills"),
+        
         // =====================================================
         // カナダ
         // =====================================================
@@ -156,7 +215,12 @@ enum WineOCRDictionaryRegions {
         "Yarra Valley": ("オーストラリア", "Yarra Valley"),
         "Coonawarra": ("オーストラリア", "Coonawarra"),
         "Adelaide Hills": ("オーストラリア", "Adelaide Hills"),
-
+        
+        "Eden Valley": ("オーストラリア", "Eden Valley"),
+        "Clare Valley": ("オーストラリア", "Clare Valley"),
+        "Mornington Peninsula": ("オーストラリア", "Mornington Peninsula"),
+        "Tasmania": ("オーストラリア", "Tasmania"),
+        
         // =====================================================
         // ニュージーランド
         // =====================================================
@@ -165,7 +229,11 @@ enum WineOCRDictionaryRegions {
         "Hawke's Bay": ("ニュージーランド", "Hawke's Bay"),
         "Wairarapa": ("ニュージーランド", "Wairarapa"),
         "Gisborne": ("ニュージーランド", "Gisborne"),
-
+        
+        "Canterbury": ("ニュージーランド", "Canterbury"),
+        "Nelson": ("ニュージーランド", "Nelson"),
+        "North Canterbury": ("ニュージーランド", "North Canterbury"),
+        
         // =====================================================
         // チリ
         // =====================================================
@@ -190,12 +258,18 @@ enum WineOCRDictionaryRegions {
         "Swartland": ("南アフリカ", "Swartland"),
         "Walker Bay": ("南アフリカ", "Walker Bay"),
 
+        "Constantia": ("南アフリカ", "Constantia"),
+        "Elgin": ("南アフリカ", "Elgin"),
+        
         // =====================================================
         // ポルトガル
         // =====================================================
         "Douro": ("ポルトガル", "Douro"),
         "Dao": ("ポルトガル", "Dão"),
         "Vinho Verde": ("ポルトガル", "Vinho Verde"),
+
+        "Alentejo": ("ポルトガル", "Alentejo"),
+        "Bairrada": ("ポルトガル", "Bairrada"),
 
         // =====================================================
         // ギリシャ
@@ -206,6 +280,37 @@ enum WineOCRDictionaryRegions {
         // =====================================================
         // ハンガリー
         // =====================================================
-        "Tokaji": ("ハンガリー", "Tokaji")
+        "Tokaji": ("ハンガリー", "Tokaji"),
+        
+        // =====================================================
+        // ジョージア
+        // =====================================================
+        "Kakheti": ("ジョージア", "Kakheti"),
+        "Kartli": ("ジョージア", "Kartli"),
+        "Imereti": ("ジョージア", "Imereti"),
+        
+        // =====================================================
+        // イギリス
+        // =====================================================
+        "Sussex": ("イギリス", "Sussex"),
+        "Kent": ("イギリス", "Kent"),
+        "Hampshire": ("イギリス", "Hampshire"),
+        
+        // =====================================================
+        // 中国
+        // =====================================================
+        "Ningxia": ("中国", "Ningxia"),
+        "Shandong": ("中国", "Shandong"),
+        "Xinjiang": ("中国", "Xinjiang"),
+        
+        // =====================================================
+        // ブラジル
+        // =====================================================
+        "Serra Gaucha": ("ブラジル", "Serra Gaúcha"),
+        
+        // =====================================================
+        // ウルグアイ
+        // =====================================================
+        "Canelones": ("ウルグアイ", "Canelones"),
     ]
 }
