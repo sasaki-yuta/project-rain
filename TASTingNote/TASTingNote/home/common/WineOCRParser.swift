@@ -210,20 +210,29 @@ enum WineOCRParser {
             }
         }
         
-        // 国判定後、または国が見つからなかった場合に産地検索を行います。
-        for (key, value) in WineOCRDictionaryRegions.regions {
-            result.region = value.region
+        print("======== OCR ========")
+        print(text)
+        
+        // 品種
+        let sortedRegions =
+        WineOCRDictionaryRegions.regions.sorted {
+            $0.key.count > $1.key.count
+        }
 
-            // 日本の産地なら国を強制上書き
-            if value.country == "日本" {
-                result.country = "日本"
-            }
-            // 国未検出の場合
-            else if result.country.isEmpty {
-                result.country = value.country
-            }
+        for (key, value) in sortedRegions {
 
-            break
+            if containsWord(text, word: key) {
+
+                print("Region Hit =", key)
+
+                result.region = value.region
+
+                if result.country.isEmpty {
+                    result.country = value.country
+                }
+
+                break
+            }
         }
         
         // 国＋半角スペース＋産地で、生産地の文字列を保存
@@ -240,25 +249,6 @@ enum WineOCRParser {
 
             result.productionArea =
                 result.region
-        }
-        
-        // 品種
-        let sortedRegions =
-            WineOCRDictionaryRegions.regions
-                .sorted {
-                    $0.key.count > $1.key.count
-                }
-
-        for (key, value) in sortedRegions {
-            if text.localizedCaseInsensitiveContains(key) {
-                result.region = value.region
-
-                if result.country.isEmpty {
-                    result.country = value.country
-                }
-
-                break
-            }
         }
         
         return result
