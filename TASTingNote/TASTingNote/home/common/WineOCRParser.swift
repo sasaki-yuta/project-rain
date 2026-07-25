@@ -56,6 +56,17 @@ enum WineOCRParser {
             separatedBy: .newlines
         )
 
+        // OCR文字列を検索しやすい形に変換
+        var normalizedText = text
+        normalizedText = normalizedText.replacingOccurrences(of: "-", with: " ")
+        normalizedText = normalizedText.replacingOccurrences(of: "–", with: " ")
+        normalizedText = normalizedText.replacingOccurrences(of: "—", with: " ")
+        normalizedText = normalizedText.replacingOccurrences(of: ".", with: "")
+        normalizedText = normalizedText.replacingOccurrences(of: ",", with: "")
+        normalizedText = normalizedText.replacingOccurrences(of: "(", with: "")
+        normalizedText = normalizedText.replacingOccurrences(of: ")", with: "")
+        normalizedText = normalizedText.replacingOccurrences(of: "\n", with: " ")
+        
         if let first = lines.first(where: {
             $0.count > 3
         }) {
@@ -213,7 +224,7 @@ enum WineOCRParser {
         print("======== OCR ========")
         print(text)
         
-        // 品種
+        
         let sortedRegions =
         WineOCRDictionaryRegions.regions.sorted {
             $0.key.count > $1.key.count
@@ -231,6 +242,23 @@ enum WineOCRParser {
                     result.country = value.country
                 }
 
+                break
+            }
+        }
+        
+        // 品種検索
+        let sortedGrapes =
+        WineOCRDictionaryGrapes.grapes.sorted {
+            $0.key.count > $1.key.count
+        }
+
+        for (key, value) in sortedGrapes {
+
+            if normalizedText.localizedCaseInsensitiveContains(key) {
+
+                print("Grape Hit =", key)
+
+                result.grape = value
                 break
             }
         }
