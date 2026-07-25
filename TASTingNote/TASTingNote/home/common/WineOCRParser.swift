@@ -193,16 +193,29 @@ enum WineOCRParser {
         ]
         
         if isEmpty {
+
             for line in lines {
+
+                let normalizedLine = line
+                    .replacingOccurrences(of: "-", with: " ")
+                    .replacingOccurrences(of: "–", with: " ")
+                    .replacingOccurrences(of: "—", with: " ")
+                    .replacingOccurrences(of: ".", with: "")
+                    .replacingOccurrences(of: ",", with: "")
+                    .replacingOccurrences(of: "(", with: "")
+                    .replacingOccurrences(of: ")", with: "")
+
                 // 輸入者などの行は無視
                 if ignoreKeywords.contains(where: {
-                    line.localizedCaseInsensitiveContains($0)
+                    normalizedLine.localizedCaseInsensitiveContains($0)
                 }) {
                     continue
                 }
-                
+
                 for (key, value) in WineOCRDictionaryCountries.countries {
-                    if line.localizedCaseInsensitiveContains(key) {
+
+                    if normalizedLine.localizedCaseInsensitiveContains(key) {
+
                         result.country = value
                         isEmpty = false
                         break
