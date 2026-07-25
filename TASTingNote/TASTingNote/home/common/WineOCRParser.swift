@@ -166,10 +166,7 @@ enum WineOCRParser {
                 let countryText = String(text[range])
 
                 for (key, value) in WineOCRDictionaryCountries.countries {
-                    if containsWord(
-                        countryText,
-                        word: key
-                    ) {
+                    if countryText.localizedCaseInsensitiveContains(key) {
                         result.country = value
                         isEmpty = false
                         break
@@ -205,10 +202,7 @@ enum WineOCRParser {
                 }
                 
                 for (key, value) in WineOCRDictionaryCountries.countries {
-                    if containsWord(
-                        line,
-                        word: key
-                    ) {
+                    if line.localizedCaseInsensitiveContains(key) {
                         result.country = value
                         isEmpty = false
                         break
@@ -232,7 +226,7 @@ enum WineOCRParser {
 
         for (key, value) in sortedRegions {
 
-            if containsWord(text, word: key) {
+            if normalizedText.localizedCaseInsensitiveContains(key) {
 
                 print("Region Hit =", key)
 
