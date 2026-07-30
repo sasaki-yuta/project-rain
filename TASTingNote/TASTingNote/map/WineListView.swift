@@ -37,6 +37,63 @@ struct WineListView: View {
                         rowView(for: wine)
                     }
                     .buttonStyle(.plain)
+                    
+                } else if let sparklingWine = wine.sparklingWine {
+                    
+                    NavigationLink {
+
+                        SparklingWineTastingSheetView(wine: sparklingWine)
+
+                    } label: {
+
+                        rowView(for: wine)
+                    }
+                    .buttonStyle(.plain)
+                    
+                } else if let roseWine = wine.roseWine {
+                    
+                    NavigationLink {
+
+                        RoseWineTastingSheetView(wine: roseWine)
+
+                    } label: {
+
+                        rowView(for: wine)
+                    }
+                    .buttonStyle(.plain)
+                } else if let orangeWine = wine.orangeWine {
+                    
+                    NavigationLink {
+
+                        OrangeWineTastingSheetView(wine: orangeWine)
+
+                    } label: {
+
+                        rowView(for: wine)
+                    }
+                    .buttonStyle(.plain)
+                } else if let fortifiedWine = wine.fortifiedWine {
+                    
+                    NavigationLink {
+
+                        FortifiedWineTastingSheetView(wine: fortifiedWine)
+
+                    } label: {
+
+                        rowView(for: wine)
+                    }
+                    .buttonStyle(.plain)
+                } else if let dessertWine = wine.dessertWine {
+                    
+                    NavigationLink {
+
+                        DessertWineTastingSheetView(wine: dessertWine)
+
+                    } label: {
+
+                        rowView(for: wine)
+                    }
+                    .buttonStyle(.plain)
                 }
             }
             .navigationTitle("この場所のワイン")
@@ -72,11 +129,38 @@ struct WineListView: View {
                         .font(.caption2)
                         .foregroundStyle(.green)
 
-                } else {
+                } else if wine.redWine != nil {
 
                     Text("赤ワイン")
                         .font(.caption2)
                         .foregroundStyle(.red)
+
+                } else if wine.sparklingWine != nil {
+
+                    Text("スパークリングワイン")
+                        .font(.caption2)
+                        .foregroundStyle(.orange)
+                    
+                } else if wine.roseWine != nil {
+                    
+                    Text("ロゼワイン")
+                        .font(.caption2)
+                        .foregroundStyle(.pink)
+                } else if wine.orangeWine != nil {
+                    
+                    Text("オレンジワイン")
+                        .font(.caption2)
+                        .foregroundStyle(.brown)
+                } else if wine.fortifiedWine != nil {
+                    
+                    Text("酒精強化ワイン")
+                        .font(.caption2)
+                        .foregroundStyle(.purple)
+                } else if wine.dessertWine != nil {
+                    
+                    Text("デザートワイン")
+                        .font(.caption2)
+                        .foregroundStyle(.purple)
                 }
             }
         }

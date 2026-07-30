@@ -16,17 +16,42 @@ struct AITabView: View {
 
     @Query(sort: \redWine.tastingDate, order: .reverse)
     private var redWines: [redWine]
+    
+    @Query(sort: \spWine.tastingDate, order: .reverse)
+    private var sparklingWines: [spWine]
+
+    @Query(sort: \roseWine.tastingDate, order: .reverse)
+    private var roseWines: [roseWine]
+    
+    @Query(sort: \orangeWine.tastingDate, order: .reverse)
+    private var orangeWines: [orangeWine]
+    
+    @Query(sort: \fortifiedWine.tastingDate, order: .reverse)
+    private var fortifiedWines: [fortifiedWine]
+    
+    @Query(sort: \dessertWine.tastingDate, order: .reverse)
+    private var dessertWines: [dessertWine]
 
     // ======================
     // チャート用モデル
     // ======================
+    enum WineKind {
+        case white
+        case red
+        case sparkling
+        case rose
+        case orange
+        case fortified
+        case dessert
+    }
+    
     struct ChartPoint: Identifiable {
         let id: String
         let x: Double
         let y: Double
-        let isWhite: Bool
+        let kind: WineKind
         let imageData: Data?
-        let wineName: String   // ★追加
+        let wineName: String
     }
 
     // 重なり選択
@@ -45,9 +70,9 @@ struct AITabView: View {
                 id: "white-\(wine.persistentModelID)",
                 x: x,
                 y: y,
-                isWhite: true,
+                kind: .white,
                 imageData: wine.imageData,
-                wineName: wine.name   // ★追加
+                wineName: wine.name
             )
         }
 
@@ -59,13 +84,100 @@ struct AITabView: View {
                 id: "red-\(wine.persistentModelID)",
                 x: x,
                 y: y,
-                isWhite: false,
+                kind: .red,
                 imageData: wine.imageData,
-                wineName: wine.name   // ★追加
+                wineName: wine.name
+            )
+        }
+        
+        let sparkling = sparklingWines.compactMap { wine -> ChartPoint? in
+
+            guard let x = wine.chartX,
+                  let y = wine.chartY else {
+                return nil
+            }
+
+            return ChartPoint(
+                id: "sparkling-\(wine.persistentModelID)",
+                x: x,
+                y: y,
+                kind: .sparkling,
+                imageData: wine.imageData,
+                wineName: wine.name
+            )
+        }
+        
+        let roses = roseWines.compactMap { wine -> ChartPoint? in
+
+            guard let x = wine.chartX,
+                  let y = wine.chartY else {
+                return nil
+            }
+
+            return ChartPoint(
+                id: "rose-\(wine.persistentModelID)",
+                x: x,
+                y: y,
+                kind: .rose,
+                imageData: wine.imageData,
+                wineName: wine.name
+            )
+        }
+        
+        let oranges = orangeWines.compactMap { wine -> ChartPoint? in
+
+            guard let x = wine.chartX,
+                  let y = wine.chartY else {
+                return nil
+            }
+
+            return ChartPoint(
+                id: "orange-\(wine.persistentModelID)",
+                x: x,
+                y: y,
+                kind: .orange,
+                imageData: wine.imageData,
+                wineName: wine.name
+            )
+        }
+        
+        let fortifieds = fortifiedWines.compactMap { wine -> ChartPoint? in
+
+            guard let x = wine.chartX,
+                  let y = wine.chartY
+            else {
+                return nil
+            }
+
+            return ChartPoint(
+                id: "fortified-\(wine.persistentModelID)",
+                x: x,
+                y: y,
+                kind: .fortified,
+                imageData: wine.imageData,
+                wineName: wine.name
+            )
+        }
+        
+        let desserts = dessertWines.compactMap { wine -> ChartPoint? in
+
+            guard let x = wine.chartX,
+                  let y = wine.chartY
+            else {
+                return nil
+            }
+
+            return ChartPoint(
+                id: "dessert-\(wine.persistentModelID)",
+                x: x,
+                y: y,
+                kind: .dessert,
+                imageData: wine.imageData,
+                wineName: wine.name
             )
         }
 
-        return whites + reds
+        return whites + reds + sparkling + roses + oranges + fortifieds + desserts
     }
 
     var body: some View {
@@ -113,8 +225,21 @@ struct AITabView: View {
                                             .clipShape(Circle())
                                     } else {
                                         Circle()
-                                            .fill(point.isWhite ? .green : .red)
-                                            .frame(width: 12, height: 12)
+                                            .fill(
+                                                point.kind == .white
+                                                ? .green
+                                                : point.kind == .red
+                                                    ? .red
+                                                    : point.kind == .sparkling
+                                                        ? .orange
+                                                        : point.kind == .rose
+                                                            ? .pink
+                                                            : point.kind == .orange
+                                                                ? Color.orange.opacity(0.75)
+                                                                : point.kind == .fortified
+                                                                    ? .purple
+                                                                    : .yellow
+                                            )
                                     }
 
                                     Text(point.wineName)
@@ -158,13 +283,48 @@ struct WineDetailRouterView: View {
     var body: some View {
 
         Group {
-            if point.isWhite {
+            switch point.kind {
+
+            case .white:
+
                 if let wine = fetchWhite(id: point.id) {
                     WhiteWineTastingSheetView(wine: wine)
                 }
-            } else {
+
+            case .red:
+
                 if let wine = fetchRed(id: point.id) {
                     RedWineTastingSheetView(wine: wine)
+                }
+
+            case .sparkling:
+
+                if let wine = fetchSparkling(id: point.id) {
+                    SparklingWineTastingSheetView(wine: wine)
+                }
+                
+            case .rose:
+
+                if let wine = fetchRose(id: point.id) {
+                    RoseWineTastingSheetView(wine: wine)
+                }
+                
+            case .orange:
+
+                if let wine = fetchOrange(id: point.id) {
+                    OrangeWineTastingSheetView(wine: wine)
+                }
+                
+            case .fortified:
+
+                if let wine = fetchFortified(id: point.id) {
+                    FortifiedWineTastingSheetView(wine: wine)
+                }
+                
+            case .dessert:
+
+                if let wine = fetchDessert(id: point.id) {
+                    DessertWineTastingSheetView(wine: wine)
                 }
             }
         }
@@ -181,6 +341,55 @@ struct WineDetailRouterView: View {
     private func fetchRed(id: String) -> redWine? {
         let wines = (try? context.fetch(FetchDescriptor<redWine>())) ?? []
         return wines.first { "red-\($0.persistentModelID)" == id }
+    }
+    
+    private func fetchSparkling(id: String) -> spWine? {
+
+        let wines = (try? context.fetch(FetchDescriptor<spWine>())) ?? []
+
+        return wines.first {
+            "sparkling-\($0.persistentModelID)" == id
+        }
+    }
+    
+    private func fetchRose(id: String) -> roseWine? {
+
+        let wines = (try? context.fetch(FetchDescriptor<roseWine>())) ?? []
+
+        return wines.first {
+            "rose-\($0.persistentModelID)" == id
+        }
+    }
+    
+    private func fetchOrange(id: String) -> orangeWine? {
+
+        let wines = (try? context.fetch(FetchDescriptor<orangeWine>())) ?? []
+
+        return wines.first {
+            "orange-\($0.persistentModelID)" == id
+        }
+    }
+    
+    private func fetchFortified(id: String) -> fortifiedWine? {
+
+        let wines =
+            (try? context.fetch(FetchDescriptor<fortifiedWine>()))
+            ?? []
+
+        return wines.first {
+            "fortified-\($0.persistentModelID)" == id
+        }
+    }
+    
+    private func fetchDessert(id: String) -> dessertWine? {
+
+        let wines =
+            (try? context.fetch(FetchDescriptor<dessertWine>()))
+            ?? []
+
+        return wines.first {
+            "dessert-\($0.persistentModelID)" == id
+        }
     }
 }
 
@@ -217,9 +426,37 @@ struct WineOverlapListView: View {
                             Text(point.wineName)
                                 .font(.headline)
 
-                            Text(point.isWhite ? "白ワイン" : "赤ワイン")
-                                .font(.subheadline)
-                                .foregroundStyle(point.isWhite ? .green : .red)
+                            Text(
+                                point.kind == .white
+                                ? "白ワイン"
+                                : point.kind == .red
+                                    ? "赤ワイン"
+                                    : point.kind == .sparkling
+                                        ? "スパークリングワイン"
+                                        : point.kind == .rose
+                                            ? "ロゼワイン"
+                                            : point.kind == .orange
+                                                ? "オレンジワイン"
+                                                : point.kind == .fortified
+                                                    ? "酒精強化ワイン"
+                                                    : "デザートワイン"
+                            )
+                            .font(.subheadline)
+                            .foregroundStyle(
+                                point.kind == .white
+                                ? .green
+                                : point.kind == .red
+                                    ? .red
+                                    : point.kind == .sparkling
+                                        ? .orange
+                                        : point.kind == .rose
+                                            ? .pink
+                                            : point.kind == .orange
+                                                ? Color.orange.opacity(0.75)
+                                                : point.kind == .fortified
+                                                    ? .purple
+                                                    : .yellow
+                            )
 
                             Text("X（辛甘）: \(String(format: "%.2f", point.x))  Y（重軽）: \(String(format: "%.2f", point.y))")
                                 .font(.caption)

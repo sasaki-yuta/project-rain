@@ -744,7 +744,7 @@ struct RedWineTastingSheetView: View {
         
         .sheet(isPresented: $showMapPicker) {
 
-            MapLocationPickerViewRed(
+            MapLocationPickerView(
                 latitude: $wine.latitude,
                 longitude: $wine.longitude
             )

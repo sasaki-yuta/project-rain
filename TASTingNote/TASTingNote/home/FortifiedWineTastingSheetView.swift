@@ -1,8 +1,8 @@
 //
-//  WhiteWineTastingSheetView.swift
-//  TASTingNote
+//  FortifiedWineTastingSheetView.swift
+//  TastingApp
 //
-//  Created by 佐々木 勇太 on 2026/05/15.
+//  Created by 佐々木 勇太 on 2026/07/30.
 //
 import SwiftUI
 import PhotosUI
@@ -10,14 +10,14 @@ import CoreLocation
 import Combine
 import Vision
 
-struct WhiteWineTastingSheetView: View {
+struct FortifiedWineTastingSheetView: View {
 
-    @Bindable var wine: Wine
+    @Bindable var wine: fortifiedWine
     @State private var selectedItem: PhotosPickerItem?
     @State private var ocrSelectedItem: PhotosPickerItem?
 
     @StateObject private var locationManager =
-        WineLocationManager()
+        FortifiedWineLocationManager()
     
     @State private var showMapPicker = false
     @State private var selectedItems: [PhotosPickerItem] = []
@@ -1003,7 +1003,7 @@ struct WhiteWineTastingSheetView: View {
 
 // MARK: - Header
 
-extension WhiteWineTastingSheetView {
+extension FortifiedWineTastingSheetView {
 
     var headerView: some View {
 
@@ -1317,7 +1317,7 @@ extension WhiteWineTastingSheetView {
 
 // MARK: - Section
 
-extension WhiteWineTastingSheetView {
+extension FortifiedWineTastingSheetView {
 
     func sectionCard<Content: View>(
         number: String,
@@ -1364,7 +1364,7 @@ extension WhiteWineTastingSheetView {
 
 // MARK: - Rows
 
-extension WhiteWineTastingSheetView {
+extension FortifiedWineTastingSheetView {
 
     func tastingScaleRow(
         title: String,
@@ -1603,7 +1603,7 @@ extension WhiteWineTastingSheetView {
     }
 }
 
-final class WineLocationManager:
+final class FortifiedWineLocationManager:
     NSObject,
     ObservableObject,
     CLLocationManagerDelegate {

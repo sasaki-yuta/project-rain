@@ -15,7 +15,12 @@ struct TASTingNoteApp: App {
 
         let schema = Schema([
             Wine.self,
-            redWine.self
+            redWine.self,
+            spWine.self,
+            roseWine.self,
+            orangeWine.self,
+            fortifiedWine.self,
+            dessertWine.self,
         ])
 
         let configuration = ModelConfiguration(

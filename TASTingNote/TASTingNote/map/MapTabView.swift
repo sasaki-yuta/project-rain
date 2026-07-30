@@ -19,7 +19,27 @@ struct MapWine: Identifiable {
             return "white-\(whiteWine.persistentModelID)"
         }
 
-        return "red-\(redWine!.persistentModelID)"
+        if let redWine {
+            return "red-\(redWine.persistentModelID)"
+        }
+
+        if let sparklingWine {
+            return "sparkling-\(sparklingWine.persistentModelID)"
+        }
+
+        if let roseWine {
+            return "rose-\(roseWine.persistentModelID)"
+        }
+
+        if let orangeWine {
+            return "orange-\(orangeWine.persistentModelID)"
+        }
+
+        if let fortifiedWine {
+            return "fortified-\(fortifiedWine.persistentModelID)"
+        }
+
+        return "dessert-\(dessertWine!.persistentModelID)"
     }
 
     let name: String
@@ -30,6 +50,11 @@ struct MapWine: Identifiable {
 
     let whiteWine: Wine?
     let redWine: redWine?
+    let sparklingWine: spWine?
+    let roseWine: roseWine?
+    let orangeWine: orangeWine?
+    let fortifiedWine: fortifiedWine?
+    let dessertWine: dessertWine?
 }
 
 struct WineGroup: Identifiable {
@@ -47,12 +72,24 @@ struct MapTabView: View {
     @StateObject private var locationManager = LocationManager()
     @Query private var wines: [Wine]
     @Query private var redWines: [redWine]
+    @Query private var spWines: [spWine]
+    @Query private var roseWines: [roseWine]
+    @Query private var orangeWines: [orangeWine]
+    @Query private var fortifiedWines: [fortifiedWine]
+    @Query private var dessertWines: [dessertWine]
+    
     @State private var followUser = true
     
     enum ActiveSheet: Identifiable {
 
         case whiteWine(Wine)
         case redWine(redWine)
+        case sparklingWine(spWine)
+        case roseWine(roseWine)
+        case orangeWine(orangeWine)
+        case fortifiedWine(fortifiedWine)
+        case dessertWine(dessertWine)
+        
         case wineList([MapWine])
 
         var id: String {
@@ -64,9 +101,24 @@ struct MapTabView: View {
 
             case .redWine(let wine):
                 return "red-\(wine.persistentModelID)"
-
+            
+            case .sparklingWine(let wine):
+                return "sparkling-\(wine.persistentModelID)"
+                
+            case .roseWine(let wine):
+                return "rose-\(wine.persistentModelID)"
+            
+            case .orangeWine(let wine):
+                return "orange-\(wine.persistentModelID)"
+                
             case .wineList(let wines):
                 return wines.map(\.id).joined(separator: "-")
+                
+            case .fortifiedWine(let wine):
+                return "fortified-\(wine.persistentModelID)"
+                
+            case .dessertWine(let wine):
+                return "dessert-\(wine.persistentModelID)"
             }
         }
     }
@@ -100,6 +152,16 @@ struct MapTabView: View {
                                     activeSheet = .whiteWine(white)
                                 } else if let red = wine.redWine {
                                     activeSheet = .redWine(red)
+                                } else if let sparkling = wine.sparklingWine {
+                                    activeSheet = .sparklingWine(sparkling)
+                                } else if let rose = wine.roseWine {
+                                    activeSheet = .roseWine(rose)
+                                } else if let orange = wine.orangeWine {
+                                    activeSheet = .orangeWine(orange)
+                                } else if let fortified = wine.fortifiedWine {
+                                    activeSheet = .fortifiedWine(fortified)
+                                } else if let dessert = wine.dessertWine {
+                                    activeSheet = .dessertWine(dessert)
                                 }
 
                             } else {
@@ -169,9 +231,24 @@ struct MapTabView: View {
 
                 case .redWine(let wine):
                     RedWineTastingSheetView(wine: wine)
-
+                
+                case .sparklingWine(let wine):
+                    SparklingWineTastingSheetView(wine: wine)
+                    
+                case .roseWine(let wine):
+                    RoseWineTastingSheetView(wine: wine)
+                
+                case .orangeWine(let wine):
+                    OrangeWineTastingSheetView(wine: wine)
+                    
                 case .wineList(let wines):
                     WineListView(wines: wines)
+                    
+                case .fortifiedWine(let wine):
+                    FortifiedWineTastingSheetView(wine: wine)
+                    
+                case .dessertWine(let wine):
+                    DessertWineTastingSheetView(wine: wine)
                 }
             }
             .ignoresSafeArea(edges: .bottom)
@@ -235,7 +312,12 @@ struct MapTabView: View {
                     longitude: lon,
                     tastingDate: wine.tastingDate,
                     whiteWine: wine,
-                    redWine: nil
+                    redWine: nil,
+                    sparklingWine: nil,
+                    roseWine: nil,
+                    orangeWine: nil,
+                    fortifiedWine: nil,
+                    dessertWine: nil,
                 )
             )
         }
@@ -256,11 +338,146 @@ struct MapTabView: View {
                     longitude: lon,
                     tastingDate: wine.tastingDate,
                     whiteWine: nil,
-                    redWine: wine
+                    redWine: wine,
+                    sparklingWine: nil,
+                    roseWine: nil,
+                    orangeWine: nil,
+                    fortifiedWine: nil,
+                    dessertWine: nil,
                 )
             )
         }
+        
+        // スパークリングワイン
+        for wine in spWines {
 
+            guard let lat = wine.latitude,
+                  let lon = wine.longitude else {
+                continue
+            }
+
+            allWines.append(
+                MapWine(
+                    name: wine.name,
+                    image: wine.image,
+                    latitude: lat,
+                    longitude: lon,
+                    tastingDate: wine.tastingDate,
+                    whiteWine: nil,
+                    redWine: nil,
+                    sparklingWine: wine,
+                    roseWine: nil,
+                    orangeWine: nil,
+                    fortifiedWine: nil,
+                    dessertWine: nil,
+                )
+            )
+        }
+        
+        // ロゼワイン
+        for wine in roseWines {
+
+            guard let lat = wine.latitude,
+                  let lon = wine.longitude else {
+                continue
+            }
+
+            allWines.append(
+                MapWine(
+                    name: wine.name,
+                    image: wine.image,
+                    latitude: lat,
+                    longitude: lon,
+                    tastingDate: wine.tastingDate,
+                    whiteWine: nil,
+                    redWine: nil,
+                    sparklingWine: nil,
+                    roseWine: wine,
+                    orangeWine: nil,
+                    fortifiedWine: nil,
+                    dessertWine: nil,
+                )
+            )
+        }
+        
+        // オレンジワイン
+        for wine in orangeWines {
+
+            guard let lat = wine.latitude,
+                  let lon = wine.longitude else {
+                continue
+            }
+
+            allWines.append(
+                MapWine(
+                    name: wine.name,
+                    image: wine.image,
+                    latitude: lat,
+                    longitude: lon,
+                    tastingDate: wine.tastingDate,
+                    whiteWine: nil,
+                    redWine: nil,
+                    sparklingWine: nil,
+                    roseWine: nil,
+                    orangeWine: wine,
+                    fortifiedWine: nil,
+                    dessertWine: nil,
+                )
+            )
+        }
+        
+        // 酒精強化ワイン
+        for wine in fortifiedWines {
+
+            guard let lat = wine.latitude,
+                  let lon = wine.longitude else {
+                continue
+            }
+
+            allWines.append(
+                MapWine(
+                    name: wine.name,
+                    image: wine.image,
+                    latitude: lat,
+                    longitude: lon,
+                    tastingDate: wine.tastingDate,
+                    whiteWine: nil,
+                    redWine: nil,
+                    sparklingWine: nil,
+                    roseWine: nil,
+                    orangeWine: nil,
+                    fortifiedWine: wine,
+                    dessertWine: nil,
+                )
+            )
+        }
+        
+        // デザートワイン
+        for wine in dessertWines {
+
+            guard let lat = wine.latitude,
+                  let lon = wine.longitude else {
+                continue
+            }
+
+            allWines.append(
+                MapWine(
+                    name: wine.name,
+                    image: wine.image,
+                    latitude: lat,
+                    longitude: lon,
+                    tastingDate: wine.tastingDate,
+                    whiteWine: nil,
+                    redWine: nil,
+                    sparklingWine: nil,
+                    roseWine: nil,
+                    orangeWine: nil,
+                    fortifiedWine: nil,
+                    dessertWine: wine,
+                )
+            )
+        }
+        
         // 同じ場所をまとめる
         var groups: [WineGroup] = []
 

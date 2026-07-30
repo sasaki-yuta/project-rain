@@ -1,15 +1,15 @@
 //
-//  WhiteWineTastingListView.swift
-//  TASTingNote
+//  RoseWineTastingListView.swift
+//  TastingApp
 //
-//  Created by 佐々木 勇太 on 2026/05/15.
+//  Created by 佐々木 勇太 on 2026/07/26.
 //
 import SwiftUI
 import SwiftData
 import PhotosUI
 
 @Model
-class Wine {
+class roseWine {
     // 基本データ
     var imageData: Data?                        // ワイン画像
     var subImagesData: [Data] = []              // 追加画像（複数）
@@ -481,23 +481,23 @@ class Wine {
     }
 }
 
-struct WhiteWineTastingListView: View {
+struct RoseWineTastingListView: View {
     @State private var searchText = ""
     @State private var showAddScreen = false
     @State private var showDeleteAlert = false
     @State private var deleteOffsets: IndexSet?
 
     @Query(
-        sort: \Wine.tastingDate,
+        sort: \roseWine.tastingDate,
         order: .reverse
     )
-    private var wines: [Wine]
+    private var wines: [roseWine]
 
     @Environment(\.modelContext)
     private var context
     
     // 検索用
-    private var filteredWines: [Wine] {
+    private var filteredWines: [roseWine] {
         if searchText.isEmpty {
             return wines
         }
@@ -513,7 +513,7 @@ struct WhiteWineTastingListView: View {
                 List {
                     ForEach(filteredWines) { wine in
                         NavigationLink {
-                            WhiteWineTastingSheetView(wine: wine)
+                            RoseWineTastingSheetView(wine: wine)
                         } label: {
                             HStack(spacing: 16) {
                                 if let image = wine.image {
@@ -545,7 +545,7 @@ struct WhiteWineTastingListView: View {
                                     .font(.caption)
                                     .foregroundColor(.secondary)
 
-                                    Text("白ワイン")
+                                    Text("ロゼワイン")
                                         .font(.caption2)
                                         .foregroundColor(.secondary)
                                 }
@@ -562,7 +562,7 @@ struct WhiteWineTastingListView: View {
                     text: $searchText,
                     prompt: "ワイン検索"
                 )
-                .navigationTitle("白ワイン")
+                .navigationTitle("ロゼワイン")
                 .toolbar {
 
                     ToolbarItem(placement: .topBarLeading) {
@@ -578,7 +578,7 @@ struct WhiteWineTastingListView: View {
                     }
                 }
                 .sheet(isPresented: $showAddScreen) {
-                    AddWineView()
+                    AddRoseWineView()
                 }
                 .alert(
                     "ワインを削除しますか？",
@@ -614,7 +614,7 @@ struct WhiteWineTastingListView: View {
     }
 }
 
-struct AddWineView: View {
+struct AddRoseWineView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var wineName = ""
     @State private var selectedItem: PhotosPickerItem?
@@ -680,7 +680,7 @@ struct AddWineView: View {
                             compressionQuality: 0.8
                         )
 
-                        let wine = Wine(
+                        let wine = roseWine(
                             imageData: imageData,
                             name: wineName,
                             tastingDate: tastingDate
