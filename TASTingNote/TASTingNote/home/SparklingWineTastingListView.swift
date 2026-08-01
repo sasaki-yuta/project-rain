@@ -112,6 +112,7 @@ class spWine {
     var balanceBottomLeft: String? = nil        // バランンス（左下）
     var balanceBottomLefts: [String] = []        // バランンス（左下）
     var balanceBottomLeftOther = ""   // バランンス（左下）(その他)
+/*
     var balanceTopLeft: String? = nil           // バランンス（左上）
     var balanceTopLefts: [String] = []           // バランンス（左上）
     var balanceTopLeftOther = ""      // バランンス（左上）(その他)
@@ -121,6 +122,7 @@ class spWine {
     var balanceBottmRight: String? = nil        // バランンス（右下）
     var balanceBottmRights: [String] = []        // バランンス（右下）
     var balanceBottmRightOther = ""   // バランンス（右下）(その他)
+ */
     var alcohol: String? = nil                  // アルコール
     var alcohols: [String] = []                  // アルコール
     var alcoholOther = ""             // アルコール(その他)
@@ -214,12 +216,14 @@ class spWine {
         bitternessOther: String = "",
         balanceBottomLeft: String? = "",
         balanceBottomLeftOther: String = "",
+/*
         balanceTopLeft: String? = "",
         balanceTopLeftOther: String = "",
         balanceTopRight: String? = "",
         balanceTopRightOther: String = "",
         balanceBottmRight: String? = "",
         balanceBottmRightOther: String = "",
+ */
         alcohol: String? = "",
         alcoholOther: String = "",
         finish: String? = "",
@@ -305,12 +309,14 @@ class spWine {
         self.bitternessOther = bitternessOther
         self.balanceBottomLeft = balanceBottomLeft
         self.balanceBottomLeftOther = balanceBottomLeftOther
+/*
         self.balanceTopLeft = balanceTopLeft
         self.balanceTopLeftOther = balanceTopLeftOther
         self.balanceTopRight = balanceTopRight
         self.balanceTopRightOther = balanceTopRightOther
         self.balanceBottmRight = balanceBottmRight
         self.balanceBottmRightOther = balanceBottmRightOther
+ */
         self.alcohol = alcohol
         self.alcoholOther = alcoholOther
         self.finish = finish
@@ -445,7 +451,7 @@ class spWine {
         if balanceBottomLefts.isEmpty, let value = balanceBottomLeft, !value.isEmpty {
             balanceBottomLefts = [value]
         }
-
+/*
         if balanceTopLefts.isEmpty, let value = balanceTopLeft, !value.isEmpty {
             balanceTopLefts = [value]
         }
@@ -457,7 +463,7 @@ class spWine {
         if balanceBottmRights.isEmpty, let value = balanceBottmRight, !value.isEmpty {
             balanceBottmRights = [value]
         }
-
+ */
         if alcohols.isEmpty, let value = alcohol, !value.isEmpty {
             alcohols = [value]
         }

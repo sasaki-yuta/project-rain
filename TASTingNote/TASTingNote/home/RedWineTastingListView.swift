@@ -111,18 +111,22 @@ class redWine {
     var bitterness: String? = nil               // 苦味
     var bitternesss: [String] = []               // 苦味
     var bitternessOther = ""          // 苦味(その他)
+/*
     var balanceBottomLeft: String? = nil        // バランンス（左下）
     var balanceBottomLefts: [String] = []        // バランンス（左下）
     var balanceBottomLeftOther = ""   // バランンス（左下）(その他)
+ */
     var balanceTopLeft: String? = nil           // バランンス（左上）
     var balanceTopLefts: [String] = []           // バランンス（左上）
     var balanceTopLeftOther = ""      // バランンス（左上）(その他)
+/*
     var balanceTopRight: String? = nil          // バランンス（右上）
     var balanceTopRights: [String] = []          // バランンス（右上）
     var balanceTopRightOther = ""     // バランンス（右上）(その他)
     var balanceBottmRight: String? = nil        // バランンス（右下）
     var balanceBottmRights: [String] = []        // バランンス（右下）
     var balanceBottmRightOther = ""   // バランンス（右下）(その他)
+ */
     var alcohol: String? = nil                  // アルコール
     var alcohols: [String] = []                  // アルコール
     var alcoholOther = ""             // アルコール(その他)
@@ -213,14 +217,18 @@ class redWine {
         acidityOther: String = "",
         bitterness: String? = "",
         bitternessOther: String = "",
+/*
         balanceBottomLeft: String? = "",
         balanceBottomLeftOther: String = "",
+ */
         balanceTopLeft: String? = "",
         balanceTopLeftOther: String = "",
+/*
         balanceTopRight: String? = "",
         balanceTopRightOther: String = "",
         balanceBottmRight: String? = "",
         balanceBottmRightOther: String = "",
+ */
         alcohol: String? = "",
         alcoholOther: String = "",
         finish: String? = "",
@@ -304,14 +312,18 @@ class redWine {
         self.acidityOther = acidityOther
         self.bitterness = bitterness
         self.bitternessOther = bitternessOther
+/*
         self.balanceBottomLeft = balanceBottomLeft
         self.balanceBottomLeftOther = balanceBottomLeftOther
+ */
         self.balanceTopLeft = balanceTopLeft
         self.balanceTopLeftOther = balanceTopLeftOther
+/*
         self.balanceTopRight = balanceTopRight
         self.balanceTopRightOther = balanceTopRightOther
         self.balanceBottmRight = balanceBottmRight
         self.balanceBottmRightOther = balanceBottmRightOther
+ */
         self.alcohol = alcohol
         self.alcoholOther = alcoholOther
         self.finish = finish
@@ -442,15 +454,15 @@ class redWine {
         if bitternesss.isEmpty, let value = bitterness {
             bitternesss = [value]
         }
-
+/*
         if balanceBottomLefts.isEmpty, let value = balanceBottomLeft {
             balanceBottomLefts = [value]
         }
-
+ */
         if balanceTopLefts.isEmpty, let value = balanceTopLeft {
             balanceTopLefts = [value]
         }
-
+/*
         if balanceTopRights.isEmpty, let value = balanceTopRight {
             balanceTopRights = [value]
         }
@@ -458,7 +470,7 @@ class redWine {
         if balanceBottmRights.isEmpty, let value = balanceBottmRight {
             balanceBottmRights = [value]
         }
-
+ */
         if alcohols.isEmpty, let value = alcohol {
             alcohols = [value]
         }

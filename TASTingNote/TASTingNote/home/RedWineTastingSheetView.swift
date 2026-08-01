@@ -500,18 +500,23 @@ struct RedWineTastingSheetView: View {
  */
 
                         tastingScaleRow(
-                            title: "バランス（左上）",
+                            title: "バランス",
                             selection: $wine.balanceTopLefts,
                             options: [
                                 "スマートな",
                                 "骨格のしっかりとした",
                                 "堅固な",
                                 "痩せた、渇いた",
+                                "ジューシーな",
+                                "豊満な",
+                                "力強い",
+                                "流れるような",
+                                "ふくよかな",
                             ]
                         )
                         
                         otherField(text: $wine.balanceTopLeftOther)
-                        
+/*
                         tastingScaleRow(
                             title: "バランス（右上）",
                             selection: $wine.balanceTopRights,
@@ -534,7 +539,7 @@ struct RedWineTastingSheetView: View {
                         )
                         
                         otherField(text: $wine.balanceBottmRightOther)
-                        
+ */
                         Divider()
                             .padding(.vertical, 4)
                         

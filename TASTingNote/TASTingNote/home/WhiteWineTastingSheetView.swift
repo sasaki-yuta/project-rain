@@ -476,16 +476,24 @@ struct WhiteWineTastingSheetView: View {
                             .padding(.vertical, 4)
                         
                         tastingScaleRow(
-                            title: "バランス（左下）",
+                            title: "バランス",
                             selection: $wine.balanceBottomLefts,
                             options: [
                                 "スムーズな",
-                                "コンパクトな"
+                                "コンパクトな",
+                                "スリムな",
+                                "ドライな",
+                                "ジューシーな",
+                                "豊潤な",
+                                "厚みのある",
+                                "まろやかな",
+                                "ねっとりした",
                             ]
                         )
                         
                         otherField(text: $wine.balanceBottomLeftOther)
                         
+/*
                         tastingScaleRow(
                             title: "バランス（左上）",
                             selection: $wine.balanceTopLefts,
@@ -503,7 +511,7 @@ struct WhiteWineTastingSheetView: View {
                             options: [
                                 "ジューシーな",
                                 "豊潤な",
-                                "厚みのある"
+                                "厚みのある",
                             ]
                         )
                         
@@ -514,12 +522,12 @@ struct WhiteWineTastingSheetView: View {
                             selection: $wine.balanceBottmRights,
                             options: [
                                 "まろやかな",
-                                "ねっとりした"
+                                "ねっとりした",
                             ]
                         )
                         
                         otherField(text: $wine.balanceBottmRightOther)
-                        
+ */
                         Divider()
                             .padding(.vertical, 4)
                         
