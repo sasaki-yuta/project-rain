@@ -145,7 +145,7 @@ struct SparklingWineTastingSheetView: View {
                         
                         Divider()
                             .padding(.vertical, 4)
-                        
+/*
                         tastingScaleRow(
                             title: "粘性",
                             selection: $wine.viscositys,
@@ -160,7 +160,7 @@ struct SparklingWineTastingSheetView: View {
                         
                         Divider()
                             .padding(.vertical, 4)
-                        
+ */
                         tastingScaleRow(
                             title: "外観の印象（若さ）",
                             selection: $wine.youthfulnesss,
@@ -174,7 +174,7 @@ struct SparklingWineTastingSheetView: View {
                         )
                         
                         otherField(text: $wine.youthfulnessOther)
-                        
+/*
                         tastingScaleRow(
                             title: "外観の印象（成熟度）",
                             selection: $wine.maturitys,
@@ -186,23 +186,51 @@ struct SparklingWineTastingSheetView: View {
                         )
                         
                         otherField(text: $wine.maturityOther)
-                        
+ */
                         tastingScaleRow(
-                            title: "外観の印象（発泡性）",
+                            title: "泡のきめ細かさ",
                             selection: $wine.effervescences,
                             options: [
-                                "泡：非常に細かい",
-                                "泡：細かい",
-                                "泡：やや粗い",
-                                "泡：粗い",
-                                "持続：非常に長い",
-                                "持続：長い",
-                                "持続：普通",
-                                "持続：短い",
+                                "非常に細かい",
+                                "細かい",
+                                "やや粗い",
+                                "粗い"
                             ]
                         )
-                        
+
                         otherField(text: $wine.effervescenceOther)
+
+                        Divider()
+                            .padding(.vertical, 4)
+
+                        tastingScaleRow(
+                            title: "泡の持続性",
+                            selection: $wine.effervescencePersistences,
+                            options: [
+                                "非常に長い",
+                                "長い",
+                                "普通",
+                                "短い"
+                            ]
+                        )
+
+                        otherField(text: $wine.effervescencePersistenceOther)
+
+                        Divider()
+                            .padding(.vertical, 4)
+
+                        tastingScaleRow(
+                            title: "泡立ち",
+                            selection: $wine.effervescenceIntensitys,
+                            options: [
+                                "非常に強い",
+                                "強い",
+                                "中程度",
+                                "弱い"
+                            ]
+                        )
+
+                        otherField(text: $wine.effervescenceIntensityOther)
                     }
                     
                     sectionCard(
@@ -332,9 +360,10 @@ struct SparklingWineTastingSheetView: View {
                         otherField(text: $wine.spiceMineralOther)
                         
                         tastingScaleRow(
-                            title: "香辛料・芳香・化学物質（樽）",
+                            title: "樽・木樽由来",
                             selection: $wine.spicsOaks,
                             options: [
+                                "バニラ",
                                 "トースト",
                                 "煙",
                                 "薫製"
@@ -400,15 +429,33 @@ struct SparklingWineTastingSheetView: View {
                             title: "香りの印象（特性）",
                             selection: $wine.spiceCharacteristics,
                             options: [
-                                "第1アロマが強い",
-                                "第2アロマが強い",
+                                "第1アロマが主体",
+                                "第2アロマが主体",
                                 "ニュートラル",
-                                "瓶内熟成由来",
-                                "熟成感がある",
+                                "複雑"
                             ]
                         )
                         
                         otherField(text: $wine.spiceCharacteristicOther)
+                        Divider()
+                            .padding(.vertical, 4)
+
+                        tastingScaleRow(
+                            title: "瓶内熟成由来の香り",
+                            selection: $wine.bottleAgingAromas,
+                            options: [
+                                "酵母",
+                                "パン生地",
+                                "パン・ド・ミ",
+                                "ブリオッシュ",
+                                "ビスケット",
+                                "トースト",
+                                "ナッツ",
+                                "アーモンド"
+                            ]
+                        )
+
+                        otherField(text: $wine.bottleAgingAromaOther)
                     }
                     
                     sectionCard(
@@ -571,6 +618,25 @@ struct SparklingWineTastingSheetView: View {
                         )
                         
                         otherField(text: $wine.finishOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+
+                        tastingScaleRow(
+                            title: "泡の質感",
+                            selection: $wine.bubbleTextures,
+                            options: [
+                                "非常に繊細",
+                                "繊細",
+                                "クリーミー",
+                                "柔らかい",
+                                "軽快",
+                                "力強い",
+                                "粗い"
+                            ]
+                        )
+
+                        otherField(text: $wine.bubbleTextureOther)
                     }
                     
                     sectionCard(
@@ -589,8 +655,6 @@ struct SparklingWineTastingSheetView: View {
                                 "瓶内熟成による複雑さ",
                                 "泡立ちが繊細",
                                 "ポテンシャルの高い",
-                                "瓶内二次発酵らしい",
-                                "シャルマ方式らしい",
                                 "長期熟成タイプ",
                                 "フレッシュタイプ",
                                 "アペリティフ向き",
@@ -602,6 +666,24 @@ struct SparklingWineTastingSheetView: View {
                         )
                         
                         otherField(text: $wine.evaluationOther)
+                        
+                        Divider()
+                            .padding(.vertical, 4)
+
+                        tastingScaleRow(
+                            title: "推定される製法",
+                            selection: $wine.productionMethods,
+                            options: [
+                                "瓶内二次発酵",
+                                "シャルマ方式",
+                                "トランスファー方式",
+                                "アスティ方式",
+                                "炭酸ガス注入",
+                                "判断できない"
+                            ]
+                        )
+
+                        otherField(text: $wine.productionMethodOther)
                         
                         Divider()
                             .padding(.vertical, 4)

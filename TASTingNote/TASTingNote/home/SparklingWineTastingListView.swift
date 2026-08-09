@@ -31,115 +31,136 @@ class spWine {
     
     // MARK: 外観
     var clarity: String?                        // 清澄度
-    var claritys: [String] = []                        // 清澄度
+    var claritys: [String] = []                 // 清澄度
     var clarityOther = ""                       // 清澄度(その他)
     var brightness: String?                     // 輝き
-    var brightnesss: [String] = []                     // 輝き
+    var brightnesss: [String] = []              // 輝き
     var brightnessOther = ""                    // 輝き(その他)
     var colorTone: String?                      // 色調（補助用語）
-    var colorTones: [String] = []                      // 色調（補助用語）
-    var colorToneOther = ""                 // 色調（補助用語）(その他)
+    var colorTones: [String] = []               // 色調（補助用語）
+    var colorToneOther = ""                     // 色調（補助用語）(その他)
     var color: String?                          // 色調（メイン用語）
-    var colors: [String] = []                          // 色調（メイン用語）
-    var colorOther = ""                     // 色調（メイン用語）(その他)
+    var colors: [String] = []                   // 色調（メイン用語）
+    var colorOther = ""                         // 色調（メイン用語）(その他)
     var density: String?                        // 濃淡
-    var densitys: [String] = []                        // 濃淡
-    var densityOther = ""                   // 濃淡(その他)
+    var densitys: [String] = []                 // 濃淡
+    var densityOther = ""                       // 濃淡(その他)
+/*
     var viscosity: String?                      // 粘性
-    var viscositys: [String] = []                      // 粘性
-    var viscosityOther = ""                 // 粘性(その他)
+    var viscositys: [String] = []               // 粘性
+    var viscosityOther = ""                     // 粘性(その他)
+ */
     var youthfulness: String?                   // 外観の印象（若さ）
-    var youthfulnesss: [String] = []                   // 外観の印象（若さ）
-    var youthfulnessOther = ""              // 外観の印象（若さ）(その他)
+    var youthfulnesss: [String] = []            // 外観の印象（若さ）
+    var youthfulnessOther = ""                  // 外観の印象（若さ）(その他)
+/*
     var maturity: String?                       // 外観の印象（成熟度）
-    var maturitys: [String] = []                       // 外観の印象（成熟度）
-    var maturityOther = ""                  // 外観の印象（成熟度）(その他)
-    var effervescence: String?                  // 外観の印象（発泡性）
-    var effervescences: [String] = []                  // 外観の印象（発泡性）
-    var effervescenceOther = ""             // 外観の印象（発泡性）(その他)
+    var maturitys: [String] = []                // 外観の印象（成熟度）
+    var maturityOther = ""                      // 外観の印象（成熟度）(その他)
+*/
+    var effervescence: String?                  // 泡のきめ細かさ
+    var effervescences: [String] = []           // 泡のきめ細かさ
+    var effervescenceOther = ""                 // 泡のきめ細かさ(その他)
+
+    var effervescencePersistence: String?       // 泡の持続性
+    var effervescencePersistences: [String] = []// 泡の持続性
+    var effervescencePersistenceOther = ""      // 泡の持続性(その他)
+
+    var effervescenceIntensity: String?         // 泡立ち
+    var effervescenceIntensitys: [String] = []  // 泡立ち
+    var effervescenceIntensityOther = ""        // 泡立ち(その他)
 
     // MARK: 香り
     var firstImpIntensity: String? = nil        // 第一印象（強さ）
-    var firstImpIntensitys: [String] = []        // 第一印象（強さ）
-    var firstImpIntensityOther = ""   // 第一印象（強さ）(その他)
+    var firstImpIntensitys: [String] = []       // 第一印象（強さ）
+    var firstImpIntensityOther = ""             // 第一印象（強さ）(その他)
     var firstImpCharacter: String? = nil        // 第一印象（性質）
-    var firstImpCharacters: [String] = []        // 第一印象（性質）
-    var firstImpCharacterOther = ""   // 第一印象（性質）(その他)
+    var firstImpCharacters: [String] = []       // 第一印象（性質）
+    var firstImpCharacterOther = ""             // 第一印象（性質）(その他)
     var fruit: String? = nil                    // 果実
-    var fruits: [String] = []                    // 果実
-    var fruitOther = ""               // 果実(その他)
+    var fruits: [String] = []                   // 果実
+    var fruitOther = ""                         // 果実(その他)
     var plantFlower: String? = nil              // 花・植物（花）
-    var plantFlowers: [String] = []              // 花・植物（花）
-    var plantFlowerOther = ""         // 花・植物（花）(その他)
+    var plantFlowers: [String] = []             // 花・植物（花）
+    var plantFlowerOther = ""                   // 花・植物（花）(その他)
     var plantHerb: String? = nil                // 花・植物（ハーブ）
-    var plantHerbs: [String] = []                // 花・植物（ハーブ）
-    var plantHerbOther = ""           // 花・植物（ハーブ）(その他)
+    var plantHerbs: [String] = []               // 花・植物（ハーブ）
+    var plantHerbOther = ""                     // 花・植物（ハーブ）(その他)
     var plantNuts: String? = nil                // 花・植物（ナッツ）
-    var plantNutss: [String] = []                // 花・植物（ナッツ）
-    var plantNutsOther = ""           // 花・植物（ナッツ）(その他)
+    var plantNutss: [String] = []               // 花・植物（ナッツ）
+    var plantNutsOther = ""                     // 花・植物（ナッツ）(その他)
     var spiceMineral: String? = nil             // 香辛料・芳香・化学物質（ミネラル）
-    var spiceMinerals: [String] = []             // 香辛料・芳香・化学物質（ミネラル）
-    var spiceMineralOther = ""        // 香辛料・芳香・化学物質（ミネラル）(その他)
+    var spiceMinerals: [String] = []            // 香辛料・芳香・化学物質（ミネラル）
+    var spiceMineralOther = ""                  // 香辛料・芳香・化学物質（ミネラル）(その他)
     var spicsOak: String? = nil                 // 香辛料・芳香・化学物質（樽）
-    var spicsOaks: [String] = []                 // 香辛料・芳香・化学物質（樽）
-    var spicsOakOther = ""            // 香辛料・芳香・化学物質（樽）(その他)
+    var spicsOaks: [String] = []                // 香辛料・芳香・化学物質（樽）
+    var spicsOakOther = ""                      // 香辛料・芳香・化学物質（樽）(その他)
     var spiceSpice: String? = nil               // 香辛料・芳香・化学物質（香辛料）
-    var spiceSpices: [String] = []               // 香辛料・芳香・化学物質（香辛料）
-    var spiceSpiceOther = ""          // 香辛料・芳香・化学物質（香辛料）(その他)
+    var spiceSpices: [String] = []              // 香辛料・芳香・化学物質（香辛料）
+    var spiceSpiceOther = ""                    // 香辛料・芳香・化学物質（香辛料）(その他)
     var spiceOthers: String? = nil              // 香辛料・芳香・化学物質（他）
-    var spiceOtherss: [String] = []              // 香辛料・芳香・化学物質（他）
-    var spiceOthersOther = ""         // 香辛料・芳香・化学物質（他）(その他)
+    var spiceOtherss: [String] = []             // 香辛料・芳香・化学物質（他）
+    var spiceOthersOther = ""                   // 香辛料・芳香・化学物質（他）(その他)
     var spiceMaturity: String? = nil            // 香りの印象（熟成感）
-    var spiceMaturitys: [String] = []            // 香りの印象（熟成感）
-    var spiceMaturityOther = ""       // 香りの印象（熟成感）(その他)
-    var spiceCharacteristic: String? = nil      // 香りの印象（特性）
-    var spiceCharacteristics: [String] = []      // 香りの印象（特性）
-    var spiceCharacteristicOther = "" // 香りの印象（特性）(その他)
+    var spiceMaturitys: [String] = []           // 香りの印象（熟成感）
+    var spiceMaturityOther = ""                 // 香りの印象（熟成感）(その他)
+    var spiceCharacteristic: String? = nil      // 香りの印象（アロマ）
+    var spiceCharacteristics: [String] = []     // 香りの印象（アロマ）
+    var spiceCharacteristicOther = ""           // 香りの印象（アロマ）(その他)
+    var bottleAgingAroma: String? = nil         // 瓶内熟成由来の香り
+    var bottleAgingAromas: [String] = []        // 瓶内熟成由来の香り
+    var bottleAgingAromaOther = ""              // 瓶内熟成由来の香り(その他)
 
     // MARK: 味わい
     var attack: String? = nil                   // アタック
-    var attacks: [String] = []                   // アタック
-    var attackOther = ""              // アタック(その他)
+    var attacks: [String] = []                  // アタック
+    var attackOther = ""                        // アタック(その他)
     var sweetness: String? = nil                // 甘味
-    var sweetnesss: [String] = []                // 甘味
-    var sweetnessOther = ""           // 甘味(その他)
+    var sweetnesss: [String] = []               // 甘味
+    var sweetnessOther = ""                     // 甘味(その他)
     var acidity: String? = nil                  // 酸味
-    var aciditys: [String] = []                  // 酸味
-    var acidityOther = ""             // 酸味(その他)
+    var aciditys: [String] = []                 // 酸味
+    var acidityOther = ""                       // 酸味(その他)
     var bitterness: String? = nil               // 苦味
-    var bitternesss: [String] = []               // 苦味
-    var bitternessOther = ""          // 苦味(その他)
+    var bitternesss: [String] = []              // 苦味
+    var bitternessOther = ""                    // 苦味(その他)
     var balanceBottomLeft: String? = nil        // バランンス（左下）
-    var balanceBottomLefts: [String] = []        // バランンス（左下）
-    var balanceBottomLeftOther = ""   // バランンス（左下）(その他)
+    var balanceBottomLefts: [String] = []       // バランンス（左下）
+    var balanceBottomLeftOther = ""             // バランンス（左下）(その他)
 /*
     var balanceTopLeft: String? = nil           // バランンス（左上）
-    var balanceTopLefts: [String] = []           // バランンス（左上）
-    var balanceTopLeftOther = ""      // バランンス（左上）(その他)
+    var balanceTopLefts: [String] = []          // バランンス（左上）
+    var balanceTopLeftOther = ""                // バランンス（左上）(その他)
     var balanceTopRight: String? = nil          // バランンス（右上）
-    var balanceTopRights: [String] = []          // バランンス（右上）
-    var balanceTopRightOther = ""     // バランンス（右上）(その他)
+    var balanceTopRights: [String] = []         // バランンス（右上）
+    var balanceTopRightOther = ""               // バランンス（右上）(その他)
     var balanceBottmRight: String? = nil        // バランンス（右下）
-    var balanceBottmRights: [String] = []        // バランンス（右下）
-    var balanceBottmRightOther = ""   // バランンス（右下）(その他)
+    var balanceBottmRights: [String] = []       // バランンス（右下）
+    var balanceBottmRightOther = ""             // バランンス（右下）(その他)
  */
     var alcohol: String? = nil                  // アルコール
-    var alcohols: [String] = []                  // アルコール
-    var alcoholOther = ""             // アルコール(その他)
+    var alcohols: [String] = []                 // アルコール
+    var alcoholOther = ""                       // アルコール(その他)
     var finish: String? = nil                   // 余韻
-    var finishs: [String] = []                   // 余韻
-    var finishOther = ""              // 余韻(その他)
+    var finishs: [String] = []                  // 余韻
+    var finishOther = ""                        // 余韻(その他)
+    var bubbleTexture: String? = nil            // 泡の質感
+    var bubbleTextures: [String] = []           // 泡の質感
+    var bubbleTextureOther = ""                 // 泡の質感(その他)
 
     // MARK: 結論
     var evaluation: String? = nil               // 評価
-    var evaluations: [String] = []               // 評価
-    var evaluationOther = ""          // 評価(その他)
+    var evaluations: [String] = []              // 評価
+    var evaluationOther = ""                    // 評価(その他)
+    var productionMethod: String? = nil         // 評価
+    var productionMethods: [String] = []        // 評価
+    var productionMethodOther = ""              // 評価(その他)
     var eervingTemperature: String? = nil       // 適正温度
-    var eervingTemperatures: [String] = []       // 適正温度
-    var eervingTemperatureOther = ""  // 適正温度(その他)
+    var eervingTemperatures: [String] = []      // 適正温度
+    var eervingTemperatureOther = ""            // 適正温度(その他)
     var glass: String? = nil                    // グラス
-    var glasss: [String] = []                    // グラス
-    var glassOther = ""               // グラス(その他)
+    var glasss: [String] = []                   // グラス
+    var glassOther = ""                         // グラス(その他)
     var vintage = ""                            // 収穫年
     var country = ""                            // 生産地
     var grape = ""                              // 主なブドウ品種
@@ -172,14 +193,22 @@ class spWine {
         colorOther: String = "",
         density: String? = "",
         densityOther: String = "",
+/*
         viscosity: String? = "",
         viscosityOther: String = "",
+ */
         youthfulness: String? = nil,
         youthfulnessOther: String = "",
+/*
         maturity: String? = nil,
         maturityOther: String = "",
+ */
         effervescence: String? = nil,
         effervescenceOther: String = "",
+        effervescencePersistence: String? = nil,
+        effervescencePersistenceOther :String = "",
+        effervescenceIntensity: String? = nil,
+        effervescenceIntensityOther:String = "",
         // MARK: 香り
         firstImpIntensity: String? = "",
         firstImpIntensityOther: String = "",
@@ -205,6 +234,8 @@ class spWine {
         spiceMaturityOther: String = "",
         spiceCharacteristic: String? = "",
         spiceCharacteristicOther: String = "",
+        bottleAgingAroma: String? = "",
+        bottleAgingAromaOther: String = "",
         // MARK: 味わい
         attack: String? = "",
         attackOther: String = "",
@@ -228,9 +259,13 @@ class spWine {
         alcoholOther: String = "",
         finish: String? = "",
         finishOther: String = "",
+        bubbleTexture: String? = "",
+        bubbleTextureOther: String = "",
         // MARK: 結論
         evaluation: String? = "",
         evaluationOther: String = "",
+        productionMethod: String? = "",
+        productionMethodOther: String = "",
         ervingTemperature: String? = "",
         ervingTemperatureOther: String = "",
         glass: String? = "",
@@ -265,14 +300,22 @@ class spWine {
         self.colorOther = colorOther
         self.density = density
         self.densityOther = densityOther
+/*
         self.viscosity = viscosity
         self.viscosityOther = viscosityOther
+ */
         self.youthfulness = youthfulness
         self.youthfulnessOther = youthfulnessOther
+/*
         self.maturity = maturity
         self.maturityOther = maturityOther
+ */
         self.effervescence = effervescence
         self.effervescenceOther = effervescenceOther
+        self.effervescencePersistence = effervescencePersistence
+        self.effervescencePersistenceOther = effervescencePersistenceOther
+        self.effervescenceIntensity = effervescenceIntensity
+        self.effervescenceIntensityOther = effervescenceIntensityOther
         // MARK: 香り
         self.firstImpIntensity = firstImpIntensity
         self.firstImpIntensityOther = firstImpIntensityOther
@@ -298,6 +341,8 @@ class spWine {
         self.spiceMaturityOther = spiceMaturityOther
         self.spiceCharacteristic = spiceCharacteristic
         self.spiceCharacteristicOther = spiceCharacteristicOther
+        self.bottleAgingAroma = bottleAgingAroma
+        self.bottleAgingAromaOther = bottleAgingAromaOther
         // MARK: 味わい
         self.attack = attack
         self.attackOther = attackOther
@@ -321,9 +366,13 @@ class spWine {
         self.alcoholOther = alcoholOther
         self.finish = finish
         self.finishOther = finishOther
+        self.bubbleTexture = bubbleTexture
+        self.bubbleTextureOther = bubbleTextureOther
         // MARK: 結論
         self.evaluation = evaluation
         self.evaluationOther = evaluationOther
+        self.productionMethod = productionMethod
+        self.productionMethodOther = productionMethodOther
         self.eervingTemperature = ervingTemperature
         self.eervingTemperatureOther = ervingTemperatureOther
         self.glass = glass
@@ -365,21 +414,29 @@ class spWine {
         if densitys.isEmpty, let value = density, !value.isEmpty {
             densitys = [value]
         }
-
+/*
         if viscositys.isEmpty, let value = viscosity, !value.isEmpty {
             viscositys = [value]
         }
-
+ */
         if youthfulnesss.isEmpty, let value = youthfulness, !value.isEmpty {
             youthfulnesss = [value]
         }
-
+/*
         if maturitys.isEmpty, let value = maturity, !value.isEmpty {
             maturitys = [value]
         }
-
+ */
         if effervescences.isEmpty, let value = effervescence, !value.isEmpty {
             effervescences = [value]
+        }
+        
+        if effervescencePersistences.isEmpty, let value = effervescencePersistence, !value.isEmpty {
+            effervescencePersistences = [value]
+        }
+        
+        if effervescenceIntensitys.isEmpty, let value = effervescenceIntensity, !value.isEmpty {
+            effervescenceIntensitys = [value]
         }
 
         // MARK: 香り
@@ -430,7 +487,11 @@ class spWine {
         if spiceCharacteristics.isEmpty, let value = spiceCharacteristic, !value.isEmpty {
             spiceCharacteristics = [value]
         }
-
+        
+        if bottleAgingAromas.isEmpty, let value = bottleAgingAroma, !value.isEmpty {
+            bottleAgingAromas = [value]
+        }
+        
         // MARK: 味わい
         if attacks.isEmpty, let value = attack, !value.isEmpty {
             attacks = [value]
@@ -471,11 +532,20 @@ class spWine {
         if finishs.isEmpty, let value = finish, !value.isEmpty {
             finishs = [value]
         }
+        
+        if bubbleTextures.isEmpty, let value = bubbleTexture, !value.isEmpty {
+            bubbleTextures = [value]
+        }
 
         // MARK: 結論
         if evaluations.isEmpty, let value = evaluation, !value.isEmpty {
             evaluations = [value]
         }
+                
+        if productionMethods.isEmpty, let value = productionMethod, !value.isEmpty {
+            productionMethods = [value]
+        }
+
 
         if eervingTemperatures.isEmpty, let value = eervingTemperature, !value.isEmpty {
             eervingTemperatures = [value]
