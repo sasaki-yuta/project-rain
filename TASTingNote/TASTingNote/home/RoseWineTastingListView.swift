@@ -51,13 +51,14 @@ class roseWine {
     var youthfulness: String?                   // 外観の印象（若さ）
     var youthfulnesss: [String] = []                   // 外観の印象（若さ）
     var youthfulnessOther = ""              // 外観の印象（若さ）(その他)
+/*
     var maturity: String?                       // 外観の印象（成熟度）
     var maturitys: [String] = []                       // 外観の印象（成熟度）
     var maturityOther = ""                  // 外観の印象（成熟度）(その他)
     var effervescence: String?                  // 外観の印象（発泡性）
     var effervescences: [String] = []                  // 外観の印象（発泡性）
     var effervescenceOther = ""             // 外観の印象（発泡性）(その他)
-
+ */
     // MARK: 香り
     var firstImpIntensity: String? = nil        // 第一印象（強さ）
     var firstImpIntensitys: [String] = []        // 第一印象（強さ）
@@ -86,9 +87,11 @@ class roseWine {
     var spiceSpice: String? = nil               // 香辛料・芳香・化学物質（香辛料）
     var spiceSpices: [String] = []               // 香辛料・芳香・化学物質（香辛料）
     var spiceSpiceOther = ""          // 香辛料・芳香・化学物質（香辛料）(その他)
+/*
     var spiceOthers: String? = nil              // 香辛料・芳香・化学物質（他）
     var spiceOtherss: [String] = []              // 香辛料・芳香・化学物質（他）
     var spiceOthersOther = ""         // 香辛料・芳香・化学物質（他）(その他)
+ */
     var spiceMaturity: String? = nil            // 香りの印象（熟成感）
     var spiceMaturitys: [String] = []            // 香りの印象（熟成感）
     var spiceMaturityOther = ""       // 香りの印象（熟成感）(その他)
@@ -112,13 +115,13 @@ class roseWine {
     var balanceBottomLeft: String? = nil        // バランンス（左下）
     var balanceBottomLefts: [String] = []        // バランンス（左下）
     var balanceBottomLeftOther = ""   // バランンス（左下）(その他)
-/*
     var balanceTopLeft: String? = nil           // バランンス（左上）
     var balanceTopLefts: [String] = []           // バランンス（左上）
     var balanceTopLeftOther = ""      // バランンス（左上）(その他)
     var balanceTopRight: String? = nil          // バランンス（右上）
     var balanceTopRights: [String] = []          // バランンス（右上）
     var balanceTopRightOther = ""     // バランンス（右上）(その他)
+/*
     var balanceBottmRight: String? = nil        // バランンス（右下）
     var balanceBottmRights: [String] = []        // バランンス（右下）
     var balanceBottmRightOther = ""   // バランンス（右下）(その他)
@@ -176,10 +179,12 @@ class roseWine {
         viscosityOther: String = "",
         youthfulness: String? = nil,
         youthfulnessOther: String = "",
+/*
         maturity: String? = nil,
         maturityOther: String = "",
         effervescence: String? = nil,
         effervescenceOther: String = "",
+ */
         // MARK: 香り
         firstImpIntensity: String? = "",
         firstImpIntensityOther: String = "",
@@ -199,8 +204,10 @@ class roseWine {
         spicOakOther: String = "",
         spiceSpice: String? = "",
         spiceSpiceOther: String = "",
+/*
         spiceOthers: String? = "",
         spiceOthersOther: String = "",
+ */
         spiceMaturity: String? = "",
         spiceMaturityOther: String = "",
         spiceCharacteristic: String? = "",
@@ -216,11 +223,11 @@ class roseWine {
         bitternessOther: String = "",
         balanceBottomLeft: String? = "",
         balanceBottomLeftOther: String = "",
-/*
         balanceTopLeft: String? = "",
         balanceTopLeftOther: String = "",
         balanceTopRight: String? = "",
         balanceTopRightOther: String = "",
+/*
         balanceBottmRight: String? = "",
         balanceBottmRightOther: String = "",
  */
@@ -269,10 +276,12 @@ class roseWine {
         self.viscosityOther = viscosityOther
         self.youthfulness = youthfulness
         self.youthfulnessOther = youthfulnessOther
+/*
         self.maturity = maturity
         self.maturityOther = maturityOther
         self.effervescence = effervescence
         self.effervescenceOther = effervescenceOther
+ */
         // MARK: 香り
         self.firstImpIntensity = firstImpIntensity
         self.firstImpIntensityOther = firstImpIntensityOther
@@ -292,8 +301,10 @@ class roseWine {
         self.spicsOakOther = spicsOakOther
         self.spiceSpice = spiceSpice
         self.spiceSpiceOther = spiceSpiceOther
+/*
         self.spiceOthers = spiceOthers
         self.spiceOthersOther = spiceOthersOther
+ */
         self.spiceMaturity = spiceMaturity
         self.spiceMaturityOther = spiceMaturityOther
         self.spiceCharacteristic = spiceCharacteristic
@@ -309,11 +320,11 @@ class roseWine {
         self.bitternessOther = bitternessOther
         self.balanceBottomLeft = balanceBottomLeft
         self.balanceBottomLeftOther = balanceBottomLeftOther
-/*
         self.balanceTopLeft = balanceTopLeft
         self.balanceTopLeftOther = balanceTopLeftOther
         self.balanceTopRight = balanceTopRight
         self.balanceTopRightOther = balanceTopRightOther
+/*
         self.balanceBottmRight = balanceBottmRight
         self.balanceBottmRightOther = balanceBottmRightOther
  */
@@ -373,15 +384,15 @@ class roseWine {
         if youthfulnesss.isEmpty, let value = youthfulness, !value.isEmpty {
             youthfulnesss = [value]
         }
-
+/*
         if maturitys.isEmpty, let value = maturity, !value.isEmpty {
             maturitys = [value]
         }
-
+ 
         if effervescences.isEmpty, let value = effervescence, !value.isEmpty {
             effervescences = [value]
         }
-
+ */
         // MARK: 香り
         if firstImpIntensitys.isEmpty, let value = firstImpIntensity, !value.isEmpty {
             firstImpIntensitys = [value]
@@ -418,11 +429,11 @@ class roseWine {
         if spiceSpices.isEmpty, let value = spiceSpice, !value.isEmpty {
             spiceSpices = [value]
         }
-
+/*
         if spiceOtherss.isEmpty, let value = spiceOthers, !value.isEmpty {
             spiceOtherss = [value]
         }
-
+ */
         if spiceMaturitys.isEmpty, let value = spiceMaturity, !value.isEmpty {
             spiceMaturitys = [value]
         }
@@ -451,7 +462,6 @@ class roseWine {
         if balanceBottomLefts.isEmpty, let value = balanceBottomLeft, !value.isEmpty {
             balanceBottomLefts = [value]
         }
-/*
         if balanceTopLefts.isEmpty, let value = balanceTopLeft, !value.isEmpty {
             balanceTopLefts = [value]
         }
@@ -459,7 +469,7 @@ class roseWine {
         if balanceTopRights.isEmpty, let value = balanceTopRight, !value.isEmpty {
             balanceTopRights = [value]
         }
-
+/*
         if balanceBottmRights.isEmpty, let value = balanceBottmRight, !value.isEmpty {
             balanceBottmRights = [value]
         }
