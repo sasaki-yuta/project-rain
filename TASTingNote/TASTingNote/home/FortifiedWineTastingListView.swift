@@ -51,13 +51,14 @@ class fortifiedWine {
     var youthfulness: String?                   // 外観の印象（若さ）
     var youthfulnesss: [String] = []                   // 外観の印象（若さ）
     var youthfulnessOther = ""              // 外観の印象（若さ）(その他)
+/*
     var maturity: String?                       // 外観の印象（成熟度）
     var maturitys: [String] = []                       // 外観の印象（成熟度）
     var maturityOther = ""                  // 外観の印象（成熟度）(その他)
     var effervescence: String?                  // 外観の印象（発泡性）
     var effervescences: [String] = []                  // 外観の印象（発泡性）
     var effervescenceOther = ""             // 外観の印象（発泡性）(その他)
-
+ */
     // MARK: 香り
     var firstImpIntensity: String? = nil        // 第一印象（強さ）
     var firstImpIntensitys: [String] = []        // 第一印象（強さ）
@@ -71,18 +72,22 @@ class fortifiedWine {
     var plantFlower: String? = nil              // 花・植物（花）
     var plantFlowers: [String] = []              // 花・植物（花）
     var plantFlowerOther = ""         // 花・植物（花）(その他)
+/*
     var plantHerb: String? = nil                // 花・植物（ハーブ）
     var plantHerbs: [String] = []                // 花・植物（ハーブ）
     var plantHerbOther = ""           // 花・植物（ハーブ）(その他)
+ */
     var plantNuts: String? = nil                // 花・植物（ナッツ）
     var plantNutss: [String] = []                // 花・植物（ナッツ）
     var plantNutsOther = ""           // 花・植物（ナッツ）(その他)
     var spiceMineral: String? = nil             // 香辛料・芳香・化学物質（ミネラル）
     var spiceMinerals: [String] = []             // 香辛料・芳香・化学物質（ミネラル）
     var spiceMineralOther = ""        // 香辛料・芳香・化学物質（ミネラル）(その他)
+/*
     var spicsOak: String? = nil                 // 香辛料・芳香・化学物質（樽）
     var spicsOaks: [String] = []                 // 香辛料・芳香・化学物質（樽）
     var spicsOakOther = ""            // 香辛料・芳香・化学物質（樽）(その他)
+ */
     var spiceSpice: String? = nil               // 香辛料・芳香・化学物質（香辛料）
     var spiceSpices: [String] = []               // 香辛料・芳香・化学物質（香辛料）
     var spiceSpiceOther = ""          // 香辛料・芳香・化学物質（香辛料）(その他)
@@ -112,10 +117,10 @@ class fortifiedWine {
     var balanceBottomLeft: String? = nil        // バランンス（左下）
     var balanceBottomLefts: [String] = []        // バランンス（左下）
     var balanceBottomLeftOther = ""   // バランンス（左下）(その他)
-/*
     var balanceTopLeft: String? = nil           // バランンス（左上）
     var balanceTopLefts: [String] = []           // バランンス（左上）
     var balanceTopLeftOther = ""      // バランンス（左上）(その他)
+/*
     var balanceTopRight: String? = nil          // バランンス（右上）
     var balanceTopRights: [String] = []          // バランンス（右上）
     var balanceTopRightOther = ""     // バランンス（右上）(その他)
@@ -176,10 +181,12 @@ class fortifiedWine {
         viscosityOther: String = "",
         youthfulness: String? = nil,
         youthfulnessOther: String = "",
+/*
         maturity: String? = nil,
         maturityOther: String = "",
         effervescence: String? = nil,
         effervescenceOther: String = "",
+ */
         // MARK: 香り
         firstImpIntensity: String? = "",
         firstImpIntensityOther: String = "",
@@ -189,8 +196,10 @@ class fortifiedWine {
         fruitOther: String = "",
         plantFlower: String? = "",
         plantFlowerOther: String = "",
+/*
         plantHerb: String? = "",
         plantHerbOther: String = "",
+ */
         plantNuts: String? = "",
         plantNutsOther: String = "",
         spiceMineral: String? = "",
@@ -216,9 +225,9 @@ class fortifiedWine {
         bitternessOther: String = "",
         balanceBottomLeft: String? = "",
         balanceBottomLeftOther: String = "",
-/*
         balanceTopLeft: String? = "",
         balanceTopLeftOther: String = "",
+/*
         balanceTopRight: String? = "",
         balanceTopRightOther: String = "",
         balanceBottmRight: String? = "",
@@ -269,10 +278,12 @@ class fortifiedWine {
         self.viscosityOther = viscosityOther
         self.youthfulness = youthfulness
         self.youthfulnessOther = youthfulnessOther
+/*
         self.maturity = maturity
         self.maturityOther = maturityOther
         self.effervescence = effervescence
         self.effervescenceOther = effervescenceOther
+ */
         // MARK: 香り
         self.firstImpIntensity = firstImpIntensity
         self.firstImpIntensityOther = firstImpIntensityOther
@@ -282,14 +293,18 @@ class fortifiedWine {
         self.fruitOther = fruitOther
         self.plantFlower = plantFlower
         self.plantFlowerOther = plantFlowerOther
+/*
         self.plantHerb = plantHerb
         self.plantHerbOther = plantHerbOther
+ */
         self.plantNuts = plantNuts
         self.plantNutsOther = plantNutsOther
         self.spiceMineral = spiceMineral
         self.spiceMineralOther = spiceMineralOther
+/*
         self.spicsOak = spicsOak
         self.spicsOakOther = spicsOakOther
+ */
         self.spiceSpice = spiceSpice
         self.spiceSpiceOther = spiceSpiceOther
         self.spiceOthers = spiceOthers
@@ -309,9 +324,9 @@ class fortifiedWine {
         self.bitternessOther = bitternessOther
         self.balanceBottomLeft = balanceBottomLeft
         self.balanceBottomLeftOther = balanceBottomLeftOther
-/*
         self.balanceTopLeft = balanceTopLeft
         self.balanceTopLeftOther = balanceTopLeftOther
+/*
         self.balanceTopRight = balanceTopRight
         self.balanceTopRightOther = balanceTopRightOther
         self.balanceBottmRight = balanceBottmRight
@@ -373,7 +388,7 @@ class fortifiedWine {
         if youthfulnesss.isEmpty, let value = youthfulness, !value.isEmpty {
             youthfulnesss = [value]
         }
-
+/*
         if maturitys.isEmpty, let value = maturity, !value.isEmpty {
             maturitys = [value]
         }
@@ -381,7 +396,7 @@ class fortifiedWine {
         if effervescences.isEmpty, let value = effervescence, !value.isEmpty {
             effervescences = [value]
         }
-
+ */
         // MARK: 香り
         if firstImpIntensitys.isEmpty, let value = firstImpIntensity, !value.isEmpty {
             firstImpIntensitys = [value]
@@ -398,11 +413,11 @@ class fortifiedWine {
         if plantFlowers.isEmpty, let value = plantFlower, !value.isEmpty {
             plantFlowers = [value]
         }
-
+/*
         if plantHerbs.isEmpty, let value = plantHerb, !value.isEmpty {
             plantHerbs = [value]
         }
-
+ */
         if plantNutss.isEmpty, let value = plantNuts, !value.isEmpty {
             plantNutss = [value]
         }
@@ -410,11 +425,11 @@ class fortifiedWine {
         if spiceMinerals.isEmpty, let value = spiceMineral, !value.isEmpty {
             spiceMinerals = [value]
         }
-
+/*
         if spicsOaks.isEmpty, let value = spicsOak, !value.isEmpty {
             spicsOaks = [value]
         }
-
+ */
         if spiceSpices.isEmpty, let value = spiceSpice, !value.isEmpty {
             spiceSpices = [value]
         }
@@ -451,11 +466,11 @@ class fortifiedWine {
         if balanceBottomLefts.isEmpty, let value = balanceBottomLeft, !value.isEmpty {
             balanceBottomLefts = [value]
         }
-/*
+
         if balanceTopLefts.isEmpty, let value = balanceTopLeft, !value.isEmpty {
             balanceTopLefts = [value]
         }
-
+/*
         if balanceTopRights.isEmpty, let value = balanceTopRight, !value.isEmpty {
             balanceTopRights = [value]
         }

@@ -103,9 +103,11 @@ struct DessertWineTastingSheetView: View {
                             title: "色調（補助用語）",
                             selection: $wine.colorTones,
                             options: [
-                                "シルバーがかった ",
+                                "シルバーがかった",
                                 "グリーンがかった",
-                                "黄金色がかった",
+                                "ゴールドがかった",
+                                "琥珀色がかった",
+                                "褐色がかった",
                             ]
                         )
                         
@@ -118,9 +120,10 @@ struct DessertWineTastingSheetView: View {
                                 "レモンイエロー",
                                 "イエロー",
                                 "黄金色",
+                                "琥珀色",
                                 "トパーズ",
-                                "オレンジ",
                                 "アンバー",
+                                "褐色",
                             ]
                         )
                         
@@ -153,6 +156,7 @@ struct DessertWineTastingSheetView: View {
                                 "さらっとした",
                                 "適度な",
                                 "やや強い",
+                                "強い",
                                 "ねっとりとした",
                             ]
                         )
@@ -163,7 +167,7 @@ struct DessertWineTastingSheetView: View {
                             .padding(.vertical, 4)
                         
                         tastingScaleRow(
-                            title: "外観の印象（若さ）",
+                            title: "外観の印象（熟成）",
                             selection: $wine.youthfulnesss,
                             options: [
                                 "若々しい",
@@ -187,7 +191,7 @@ struct DessertWineTastingSheetView: View {
                         )
                         
                         otherField(text: $wine.maturityOther)
-                        
+/*
                         tastingScaleRow(
                             title: "外観の印象（発泡性）",
                             selection: $wine.effervescences,
@@ -198,6 +202,7 @@ struct DessertWineTastingSheetView: View {
                         )
                         
                         otherField(text: $wine.effervescenceOther)
+ */
                     }
                     
                     sectionCard(
@@ -213,7 +218,7 @@ struct DessertWineTastingSheetView: View {
                                 "閉じている",
                                 "控えめ",
                                 "開いている",
-                                "力強い"
+                                "力強い",
                             ]
                         )
                         
@@ -224,13 +229,13 @@ struct DessertWineTastingSheetView: View {
                             selection: $wine.firstImpCharacters,
                             options: [
                                 "フレッシュな",
-                                "ミネラリー",
                                 "華やかな",
                                 "熟度の高い",
                                 "豊かな",
                                 "濃縮感がある",
-                                "セイボリーな ",
-                                "複雑な"
+                                "複雑な",
+                                "酸化熟成を感じる",
+                                "力強い",
                             ]
                         )
                         
@@ -244,18 +249,15 @@ struct DessertWineTastingSheetView: View {
                             selection: $wine.fruits,
                             options: [
                                 "柑橘類",
-                                "青リンゴ",
                                 "リンゴ",
                                 "洋梨",
-                                "マスカット",
-                                "花梨",
-                                "パッションフルーツ",
                                 "白桃",
                                 "アプリコット",
-                                "パイナップル",
-                                "ライチ",
-                                "バナナ",
-                                "マンゴー"
+                                "レーズン",
+                                "プルーン",
+                                "イチジク",
+                                "ドライフルーツ",
+                                "黒系果実",
                             ]
                         )
                         
@@ -265,20 +267,23 @@ struct DessertWineTastingSheetView: View {
                             .padding(.vertical, 4)
                         
                         tastingScaleRow(
-                            title: "花・植物（花）",
+                            title: "花・植物",
                             selection: $wine.plantFlowers,
                             options: [
-                                "スイカズラ",
+                                "白い花",
+                                "バラ",
                                 "アカシア",
-                                "白バラ",
-                                "キンモクセイ",
-                                "菩提樹",
-                                "柑橘系の花"
+                                "ドライフラワー",
+                                "ハーブ",
                             ]
                         )
                         
                         otherField(text: $wine.plantFlowerOther)
                         
+                        Divider()
+                            .padding(.vertical, 4)
+                        
+/*
                         tastingScaleRow(
                             title: "花・植物（ハーブ）",
                             selection: $wine.plantHerbs,
@@ -292,13 +297,15 @@ struct DessertWineTastingSheetView: View {
                         )
                         
                         otherField(text: $wine.plantHerbOther)
-                        
+ */
                         tastingScaleRow(
-                            title: "花・植物（ナッツ）",
+                            title: "ナッツ・種実",
                             selection: $wine.plantNutss,
                             options: [
-                                "フレッシュアーモンド",
-                                "ヘーゼルナッツ"
+                                "アーモンド",
+                                "ヘーゼルナッツ",
+                                "クルミ",
+                                "ローストナッツ",
                             ]
                         )
                         
@@ -308,32 +315,43 @@ struct DessertWineTastingSheetView: View {
                             .padding(.vertical, 4)
                         
                         tastingScaleRow(
-                            title: "香辛料・芳香・化学物質（ミネラル）",
+                            title: "熟成・酸化由来",
                             selection: $wine.spiceMinerals,
                             options: [
-                                "石灰",
-                                "火打石",
-                                "貝殻",
-                                "鉱物",
-                                "海の香り"
+                                "蜂蜜",
+                                "蜜蝋",
+                                "ワックス",
+                                "キャラメル",
+                                "トフィー",
+                                "コーヒー",
+                                "チョコレート",
+                                "カカオ",
+                                "酸化熟成香",
+                                "ドライフルーツ",
                             ]
                         )
                         
                         otherField(text: $wine.spiceMineralOther)
                         
                         tastingScaleRow(
-                            title: "香辛料・芳香・化学物質（樽）",
+                            title: "樽・香辛料",
                             selection: $wine.spicsOaks,
                             options: [
                                 "トースト",
                                 "ヴァニラ",
                                 "煙",
-                                "薫製"
+                                "シナモン",
+                                "クローブ",
+                                "ナツメグ",
+                                "香木",
                             ]
                         )
                         
                         otherField(text: $wine.spicsOakOther)
                         
+                        Divider()
+                           .padding(.vertical, 4)
+/*
                         tastingScaleRow(
                             title: "香辛料・芳香・化学物質（香辛料）",
                             selection: $wine.spiceSpices,
@@ -367,18 +385,16 @@ struct DessertWineTastingSheetView: View {
                         )
                         
                         otherField(text: $wine.spiceOthersOther)
-                        
-                        Divider()
-                            .padding(.vertical, 4)
-                        
+ */
                         tastingScaleRow(
                             title: "香りの印象（熟成感）",
                             selection: $wine.spiceMaturitys,
                             options: [
                                 "若々しい",
-                                "嫌気的な",
+                                "フレッシュな",
                                 "熟成感が現れている",
-                                "酸化熟成の段階"
+                                "酸化熟成のニュアンス",
+                                "長期熟成のニュアンス",
                             ]
                         )
                         
@@ -392,7 +408,8 @@ struct DessertWineTastingSheetView: View {
                                 "第2アロマが強い",
                                 "ニュートラル",
                                 "木樽からのニュアンス",
-                                "成熟度が高い"
+                                "成熟度が高い",
+                                "複雑",
                             ]
                         )
                         
@@ -413,7 +430,7 @@ struct DessertWineTastingSheetView: View {
                                 "やや軽い",
                                 "やや強い",
                                 "強い",
-                                "インパクトのある"
+                                "インパクトのある",
                             ]
                         )
                         
@@ -426,11 +443,11 @@ struct DessertWineTastingSheetView: View {
                             title: "甘味",
                             selection: $wine.sweetnesss,
                             options: [
-                                "ドライ",
-                                "ソフトな",
-                                "まろやか",
-                                "豊かな",
-                                "残糖がある"
+                                "辛口",
+                                "中辛口",
+                                "中甘口",
+                                "甘口",
+                                "極甘口",
                             ]
                         )
                         
@@ -443,13 +460,13 @@ struct DessertWineTastingSheetView: View {
                             title: "酸味",
                             selection: $wine.aciditys,
                             options: [
+                                "穏やかな",
                                 "なめらかな",
-                                "軽やかな",
                                 "爽やかな",
                                 "はつらつとした",
                                 "力強い",
-                                "直線的",
-                                "堅固な"
+                                "シャープな",
+                                "堅固な",
                             ]
                         )
                         
@@ -464,9 +481,9 @@ struct DessertWineTastingSheetView: View {
                             options: [
                                 "控えめ",
                                 "穏やかな",
-                                "コク(深み)を与える",
+                                "コクを与える",
                                 "旨味をともなった",
-                                "強い(突出した)"
+                                "強い",
                             ]
                         )
                         
@@ -474,7 +491,7 @@ struct DessertWineTastingSheetView: View {
                         
                         Divider()
                             .padding(.vertical, 4)
-                        
+
                         tastingScaleRow(
                             title: "バランス",
                             selection: $wine.balanceBottomLefts,
@@ -490,7 +507,7 @@ struct DessertWineTastingSheetView: View {
                                 "ねっとりした",
                             ]
                         )
-                        
+
                         otherField(text: $wine.balanceBottomLeftOther)
 /*
                         tastingScaleRow(
@@ -534,11 +551,11 @@ struct DessertWineTastingSheetView: View {
                             title: "アルコール",
                             selection: $wine.alcohols,
                             options: [
-                                "11%未満",
-                                "11%～12%未満",
-                                "12%～13%未満",
-                                "13%～14%未満",
-                                "14%以上"
+                                "15%未満",
+                                "15～17%",
+                                "17～19%",
+                                "19～20%",
+                                "20%以上",
                             ]
                         )
                         
@@ -554,7 +571,8 @@ struct DessertWineTastingSheetView: View {
                                 "短い",
                                 "やや短い",
                                 "やや長い",
-                                "長い"
+                                "長い",
+                                "非常に長い"
                             ]
                         )
                         
@@ -571,12 +589,13 @@ struct DessertWineTastingSheetView: View {
                             title: "評価",
                             selection: $wine.evaluations,
                             options: [
-                                "シンプル、フレッシュ感を楽しむ",
-                                "エレガントでミネラリー",
-                                "なめらかでバランスが良い",
-                                "成熟度が高く豊か",
-                                "濃縮し力強い",
-                                "ポテンシャルの高い"
+                                "フレッシュで軽快",
+                                "エレガントでバランスが良い",
+                                "熟成感があり複雑",
+                                "酸化熟成のニュアンスが魅力的",
+                                "濃縮感があり力強い",
+                                "余韻が長く複雑",
+                                "長期熟成のポテンシャルが高い",
                             ]
                         )
                         
@@ -591,9 +610,10 @@ struct DessertWineTastingSheetView: View {
                             options: [
                                 "8度未満",
                                 "8～10度",
-                                "11～14度",
-                                "15～18度",
-                                "19度以上"
+                                "11～13度",
+                                "14～16度",
+                                "17～18度",
+                                "19度以上",
                             ]
                         )
                         
@@ -609,8 +629,8 @@ struct DessertWineTastingSheetView: View {
                                 "小ぶり",
                                 "中庸",
                                 "大ぶり",
-                                "バルーン型",
-                                "チューリップ型"
+                                "チューリップ型",
+                                "シェリーグラス",
                             ]
                         )
                         

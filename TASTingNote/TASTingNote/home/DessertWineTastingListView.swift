@@ -54,10 +54,11 @@ class dessertWine {
     var maturity: String?                       // 外観の印象（成熟度）
     var maturitys: [String] = []                       // 外観の印象（成熟度）
     var maturityOther = ""                  // 外観の印象（成熟度）(その他)
+/*
     var effervescence: String?                  // 外観の印象（発泡性）
     var effervescences: [String] = []                  // 外観の印象（発泡性）
     var effervescenceOther = ""             // 外観の印象（発泡性）(その他)
-
+ */
     // MARK: 香り
     var firstImpIntensity: String? = nil        // 第一印象（強さ）
     var firstImpIntensitys: [String] = []        // 第一印象（強さ）
@@ -71,9 +72,11 @@ class dessertWine {
     var plantFlower: String? = nil              // 花・植物（花）
     var plantFlowers: [String] = []              // 花・植物（花）
     var plantFlowerOther = ""         // 花・植物（花）(その他)
+/*
     var plantHerb: String? = nil                // 花・植物（ハーブ）
     var plantHerbs: [String] = []                // 花・植物（ハーブ）
     var plantHerbOther = ""           // 花・植物（ハーブ）(その他)
+ */
     var plantNuts: String? = nil                // 花・植物（ナッツ）
     var plantNutss: [String] = []                // 花・植物（ナッツ）
     var plantNutsOther = ""           // 花・植物（ナッツ）(その他)
@@ -83,12 +86,14 @@ class dessertWine {
     var spicsOak: String? = nil                 // 香辛料・芳香・化学物質（樽）
     var spicsOaks: [String] = []                 // 香辛料・芳香・化学物質（樽）
     var spicsOakOther = ""            // 香辛料・芳香・化学物質（樽）(その他)
+/*
     var spiceSpice: String? = nil               // 香辛料・芳香・化学物質（香辛料）
     var spiceSpices: [String] = []               // 香辛料・芳香・化学物質（香辛料）
     var spiceSpiceOther = ""          // 香辛料・芳香・化学物質（香辛料）(その他)
     var spiceOthers: String? = nil              // 香辛料・芳香・化学物質（他）
     var spiceOtherss: [String] = []              // 香辛料・芳香・化学物質（他）
     var spiceOthersOther = ""         // 香辛料・芳香・化学物質（他）(その他)
+ */
     var spiceMaturity: String? = nil            // 香りの印象（熟成感）
     var spiceMaturitys: [String] = []            // 香りの印象（熟成感）
     var spiceMaturityOther = ""       // 香りの印象（熟成感）(その他)
@@ -178,8 +183,10 @@ class dessertWine {
         youthfulnessOther: String = "",
         maturity: String? = nil,
         maturityOther: String = "",
+/*
         effervescence: String? = nil,
         effervescenceOther: String = "",
+ */
         // MARK: 香り
         firstImpIntensity: String? = "",
         firstImpIntensityOther: String = "",
@@ -189,18 +196,22 @@ class dessertWine {
         fruitOther: String = "",
         plantFlower: String? = "",
         plantFlowerOther: String = "",
+/*
         plantHerb: String? = "",
         plantHerbOther: String = "",
+ */
         plantNuts: String? = "",
         plantNutsOther: String = "",
         spiceMineral: String? = "",
         spiceMineralOther: String = "",
         spicOak: String? = "",
         spicOakOther: String = "",
+/*
         spiceSpice: String? = "",
         spiceSpiceOther: String = "",
         spiceOthers: String? = "",
         spiceOthersOther: String = "",
+ */
         spiceMaturity: String? = "",
         spiceMaturityOther: String = "",
         spiceCharacteristic: String? = "",
@@ -271,8 +282,10 @@ class dessertWine {
         self.youthfulnessOther = youthfulnessOther
         self.maturity = maturity
         self.maturityOther = maturityOther
+/*
         self.effervescence = effervescence
         self.effervescenceOther = effervescenceOther
+ */
         // MARK: 香り
         self.firstImpIntensity = firstImpIntensity
         self.firstImpIntensityOther = firstImpIntensityOther
@@ -282,18 +295,22 @@ class dessertWine {
         self.fruitOther = fruitOther
         self.plantFlower = plantFlower
         self.plantFlowerOther = plantFlowerOther
+/*
         self.plantHerb = plantHerb
         self.plantHerbOther = plantHerbOther
+ */
         self.plantNuts = plantNuts
         self.plantNutsOther = plantNutsOther
         self.spiceMineral = spiceMineral
         self.spiceMineralOther = spiceMineralOther
         self.spicsOak = spicsOak
         self.spicsOakOther = spicsOakOther
+/*
         self.spiceSpice = spiceSpice
         self.spiceSpiceOther = spiceSpiceOther
         self.spiceOthers = spiceOthers
         self.spiceOthersOther = spiceOthersOther
+ */
         self.spiceMaturity = spiceMaturity
         self.spiceMaturityOther = spiceMaturityOther
         self.spiceCharacteristic = spiceCharacteristic
@@ -377,11 +394,11 @@ class dessertWine {
         if maturitys.isEmpty, let value = maturity, !value.isEmpty {
             maturitys = [value]
         }
-
+/*
         if effervescences.isEmpty, let value = effervescence, !value.isEmpty {
             effervescences = [value]
         }
-
+ */
         // MARK: 香り
         if firstImpIntensitys.isEmpty, let value = firstImpIntensity, !value.isEmpty {
             firstImpIntensitys = [value]
@@ -398,11 +415,11 @@ class dessertWine {
         if plantFlowers.isEmpty, let value = plantFlower, !value.isEmpty {
             plantFlowers = [value]
         }
-
+/*
         if plantHerbs.isEmpty, let value = plantHerb, !value.isEmpty {
             plantHerbs = [value]
         }
-
+ */
         if plantNutss.isEmpty, let value = plantNuts, !value.isEmpty {
             plantNutss = [value]
         }
@@ -414,7 +431,7 @@ class dessertWine {
         if spicsOaks.isEmpty, let value = spicsOak, !value.isEmpty {
             spicsOaks = [value]
         }
-
+/*
         if spiceSpices.isEmpty, let value = spiceSpice, !value.isEmpty {
             spiceSpices = [value]
         }
@@ -422,7 +439,7 @@ class dessertWine {
         if spiceOtherss.isEmpty, let value = spiceOthers, !value.isEmpty {
             spiceOtherss = [value]
         }
-
+ */
         if spiceMaturitys.isEmpty, let value = spiceMaturity, !value.isEmpty {
             spiceMaturitys = [value]
         }
@@ -447,7 +464,6 @@ class dessertWine {
         if bitternesss.isEmpty, let value = bitterness, !value.isEmpty {
             bitternesss = [value]
         }
-
         if balanceBottomLefts.isEmpty, let value = balanceBottomLeft, !value.isEmpty {
             balanceBottomLefts = [value]
         }
