@@ -544,7 +544,7 @@ struct OrangeWineTastingListView: View {
                                         .overlay {
                                             Image(systemName: "wineglass")
                                                 .font(.title2)
-                                                .foregroundColor(.gray)
+                                                .foregroundColor(.brown)
                                         }
                                 }
 
@@ -561,7 +561,7 @@ struct OrangeWineTastingListView: View {
 
                                     Text("オレンジワイン")
                                         .font(.caption2)
-                                        .foregroundColor(.secondary)
+                                        .foregroundStyle(.brown)
                                 }
                             }
                             .padding(.vertical, 6)

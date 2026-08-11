@@ -270,40 +270,47 @@ struct HomeTabView: View {
                                 WhiteWineTastingListView()
                             } label: {
                                 Text("白ワイン")
+//                                    .foregroundStyle(.green)
                             }
 
                             NavigationLink {
                                 RedWineTastingListView()
                             } label: {
                                 Text("赤ワイン")
+//                                    .foregroundStyle(wineKindColor(.red))
                             }
                             
                             NavigationLink {
                                 SparklingWineTastingListView()
                             } label: {
                                 Text("スパークリングワイン")
+//                                    .foregroundStyle(wineKindColor(.sparkling))
                             }
                             
                             NavigationLink {
                                 RoseWineTastingListView()
                             } label: {
                                 Text("ロゼワイン")
+//                                    .foregroundStyle(wineKindColor(.rose))
                             }
                             
                             NavigationLink {
                                 OrangeWineTastingListView()
                             } label: {
                                 Text("オレンジワイン")
+//                                    .foregroundStyle(wineKindColor(.orange))
                             }
                             NavigationLink {
                                 FortifiedWineTastingListView()
                             } label: {
                                 Text("酒精強化ワイン")
+//                                    .foregroundStyle(wineKindColor(.fortified))
                             }
                             NavigationLink {
                                 DessertWineTastingListView()
                             } label: {
                                 Text("デザートワイン")
+//                                    .foregroundStyle(wineKindColor(.dessert))
                             }
                         }
 

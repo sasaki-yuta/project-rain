@@ -563,7 +563,7 @@ struct RoseWineTastingListView: View {
 
                                     Text("ロゼワイン")
                                         .font(.caption2)
-                                        .foregroundColor(.secondary)
+                                        .foregroundStyle(.pink)
                                 }
                             }
                             .padding(.vertical, 6)

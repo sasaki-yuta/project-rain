@@ -11,31 +11,38 @@ struct AITabView: View {
 
     @Environment(\.modelContext) private var context
 
+    // ======================
+    // Wine Query
+    // ======================
+
     @Query(sort: \Wine.tastingDate, order: .reverse)
     private var whiteWines: [Wine]
 
     @Query(sort: \redWine.tastingDate, order: .reverse)
     private var redWines: [redWine]
-    
+
     @Query(sort: \spWine.tastingDate, order: .reverse)
     private var sparklingWines: [spWine]
 
     @Query(sort: \roseWine.tastingDate, order: .reverse)
     private var roseWines: [roseWine]
-    
+
     @Query(sort: \orangeWine.tastingDate, order: .reverse)
     private var orangeWines: [orangeWine]
-    
+
     @Query(sort: \fortifiedWine.tastingDate, order: .reverse)
     private var fortifiedWines: [fortifiedWine]
-    
+
     @Query(sort: \dessertWine.tastingDate, order: .reverse)
     private var dessertWines: [dessertWine]
 
+
     // ======================
-    // チャート用モデル
+    // ワイン種類
     // ======================
-    enum WineKind {
+
+    enum WineKind: String, CaseIterable, Identifiable {
+
         case white
         case red
         case sparkling
@@ -43,9 +50,97 @@ struct AITabView: View {
         case orange
         case fortified
         case dessert
+
+        var id: String {
+            rawValue
+        }
+
+        var title: String {
+
+            switch self {
+            case .white:
+                return "白"
+
+            case .red:
+                return "赤"
+
+            case .sparkling:
+                return "泡"
+
+            case .rose:
+                return "ロゼ"
+
+            case .orange:
+                return "オレンジ"
+
+            case .fortified:
+                return "酒精強化"
+
+            case .dessert:
+                return "デザート"
+            }
+        }
+
+        var fullName: String {
+
+            switch self {
+            case .white:
+                return "白ワイン"
+
+            case .red:
+                return "赤ワイン"
+
+            case .sparkling:
+                return "スパークリングワイン"
+
+            case .rose:
+                return "ロゼワイン"
+
+            case .orange:
+                return "オレンジワイン"
+
+            case .fortified:
+                return "酒精強化ワイン"
+
+            case .dessert:
+                return "デザートワイン"
+            }
+        }
+
+        var color: Color {
+
+            switch self {
+            case .white:
+                return .green
+
+            case .red:
+                return .red
+
+            case .sparkling:
+                return .orange
+
+            case .rose:
+                return .pink
+
+            case .orange:
+                return Color.orange.opacity(0.75)
+
+            case .fortified:
+                return .purple
+
+            case .dessert:
+                return .yellow
+            }
+        }
     }
-    
+
+
+    // ======================
+    // チャートモデル
+    // ======================
+
     struct ChartPoint: Identifiable {
+
         let id: String
         let x: Double
         let y: Double
@@ -54,17 +149,28 @@ struct AITabView: View {
         let wineName: String
     }
 
-    // 重なり選択
-    @State private var selectedPoints: [ChartPoint] = []
 
     // ======================
-    // データ統合
+    // 状態
     // ======================
+
+    @State private var selectedKind: WineKind = .white
+
+    @State private var selectedPoints: [ChartPoint] = []
+
+
+    // ======================
+    // 全ワインのChartPoint
+    // ======================
+
     private var chartPoints: [ChartPoint] {
 
         let whites = whiteWines.compactMap { wine -> ChartPoint? in
+
             guard let x = wine.chartX,
-                  let y = wine.chartY else { return nil }
+                  let y = wine.chartY else {
+                return nil
+            }
 
             return ChartPoint(
                 id: "white-\(wine.persistentModelID)",
@@ -76,9 +182,13 @@ struct AITabView: View {
             )
         }
 
+
         let reds = redWines.compactMap { wine -> ChartPoint? in
+
             guard let x = wine.chartX,
-                  let y = wine.chartY else { return nil }
+                  let y = wine.chartY else {
+                return nil
+            }
 
             return ChartPoint(
                 id: "red-\(wine.persistentModelID)",
@@ -89,7 +199,8 @@ struct AITabView: View {
                 wineName: wine.name
             )
         }
-        
+
+
         let sparkling = sparklingWines.compactMap { wine -> ChartPoint? in
 
             guard let x = wine.chartX,
@@ -106,7 +217,8 @@ struct AITabView: View {
                 wineName: wine.name
             )
         }
-        
+
+
         let roses = roseWines.compactMap { wine -> ChartPoint? in
 
             guard let x = wine.chartX,
@@ -123,7 +235,8 @@ struct AITabView: View {
                 wineName: wine.name
             )
         }
-        
+
+
         let oranges = orangeWines.compactMap { wine -> ChartPoint? in
 
             guard let x = wine.chartX,
@@ -140,12 +253,12 @@ struct AITabView: View {
                 wineName: wine.name
             )
         }
-        
+
+
         let fortifieds = fortifiedWines.compactMap { wine -> ChartPoint? in
 
             guard let x = wine.chartX,
-                  let y = wine.chartY
-            else {
+                  let y = wine.chartY else {
                 return nil
             }
 
@@ -158,12 +271,12 @@ struct AITabView: View {
                 wineName: wine.name
             )
         }
-        
+
+
         let desserts = dessertWines.compactMap { wine -> ChartPoint? in
 
             guard let x = wine.chartX,
-                  let y = wine.chartY
-            else {
+                  let y = wine.chartY else {
                 return nil
             }
 
@@ -177,13 +290,109 @@ struct AITabView: View {
             )
         }
 
-        return whites + reds + sparkling + roses + oranges + fortifieds + desserts
+
+        return whites
+            + reds
+            + sparkling
+            + roses
+            + oranges
+            + fortifieds
+            + desserts
     }
 
+
+    // ======================
+    // 選択中のワインだけ
+    // ======================
+
+    private var filteredChartPoints: [ChartPoint] {
+
+        chartPoints.filter {
+            $0.kind == selectedKind
+        }
+    }
+
+
+    // ======================
+    // Body
+    // ======================
+
     var body: some View {
+
         NavigationStack {
-            GeometryReader { screen in
-                VStack {
+
+            VStack(spacing: 0) {
+
+                // ======================
+                // ワイン種類選択
+                // ======================
+
+                ScrollView(.horizontal, showsIndicators: false) {
+
+                    HStack(spacing: 8) {
+
+                        ForEach(WineKind.allCases) { kind in
+
+                            Button {
+
+                                selectedKind = kind
+
+                                // 種類変更時は重なり選択を解除
+                                selectedPoints = []
+
+                            } label: {
+
+                                Text(kind.title)
+                                    .font(.subheadline)
+                                    .fontWeight(
+                                        selectedKind == kind
+                                        ? .bold
+                                        : .regular
+                                    )
+                                    .foregroundStyle(
+                                        selectedKind == kind
+                                        ? .white
+                                        : kind.color
+                                    )
+                                    .padding(.horizontal, 14)
+                                    .padding(.vertical, 8)
+                                    .background(
+                                        selectedKind == kind
+                                        ? kind.color
+                                        : kind.color.opacity(0.12)
+                                    )
+                                    .clipShape(Capsule())
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
+                }
+
+
+                // ======================
+                // タイトル
+                // ======================
+
+                HStack {
+
+                    Text(selectedKind.fullName)
+                        .font(.headline)
+
+                    Spacer()
+
+                    Text("\(filteredChartPoints.count)本")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.horizontal)
+
+
+                // ======================
+                // チャート
+                // ======================
+
+                GeometryReader { screen in
 
                     ZStack {
 
@@ -194,25 +403,52 @@ struct AITabView: View {
                                 yValue: .constant(nil),
                                 isLocked: true
                             )
-                            .frame(width: geo.size.width, height: geo.size.height)
+                            .frame(
+                                width: geo.size.width,
+                                height: geo.size.height
+                            )
 
-                            // タップ＆描画も同じgeoを使う
+
+                            // ======================
+                            // タップ判定
+                            // ======================
+
                             Color.clear
                                 .contentShape(Rectangle())
                                 .onTapGesture { location in
-                                    let tapped = chartPoints.filter { point in
-                                        let px = geo.size.width * (point.x + 1) / 2
-                                        let py = geo.size.height * (1 - (point.y + 1) / 2)
 
-                                        let dx = px - location.x
-                                        let dy = py - location.y
+                                    let tapped =
+                                        filteredChartPoints.filter { point in
 
-                                        return sqrt(dx*dx + dy*dy) < 20
-                                    }
+                                            let px =
+                                                geo.size.width
+                                                * (point.x + 1) / 2
+
+                                            let py =
+                                                geo.size.height
+                                                * (1 - (point.y + 1) / 2)
+
+                                            let dx =
+                                                px - location.x
+
+                                            let dy =
+                                                py - location.y
+
+                                            return sqrt(
+                                                dx * dx + dy * dy
+                                            ) < 20
+                                        }
+
                                     selectedPoints = tapped
                                 }
 
-                            ForEach(chartPoints) { point in
+
+                            // ======================
+                            // ワイン表示
+                            // ======================
+
+                            ForEach(filteredChartPoints) { point in
+
                                 VStack(spacing: 2) {
 
                                     if let data = point.imageData,
@@ -221,55 +457,74 @@ struct AITabView: View {
                                         Image(uiImage: uiImage)
                                             .resizable()
                                             .scaledToFill()
-                                            .frame(width: 28, height: 28)
+                                            .frame(
+                                                width: 28,
+                                                height: 28
+                                            )
                                             .clipShape(Circle())
+
                                     } else {
+
                                         Circle()
-                                            .fill(
-                                                point.kind == .white
-                                                ? .green
-                                                : point.kind == .red
-                                                    ? .red
-                                                    : point.kind == .sparkling
-                                                        ? .orange
-                                                        : point.kind == .rose
-                                                            ? .pink
-                                                            : point.kind == .orange
-                                                                ? Color.orange.opacity(0.75)
-                                                                : point.kind == .fortified
-                                                                    ? .purple
-                                                                    : .yellow
+                                            .fill(point.kind.color)
+                                            .frame(
+                                                width: 28,
+                                                height: 28
                                             )
                                     }
 
+
                                     Text(point.wineName)
                                         .font(.caption2)
+                                        .lineLimit(1)
                                 }
                                 .position(
-                                    x: geo.size.width * (point.x + 1) / 2,
-                                    y: geo.size.height * (1 - (point.y + 1) / 2)
+                                    x:
+                                        geo.size.width
+                                        * (point.x + 1) / 2,
+
+                                    y:
+                                        geo.size.height
+                                        * (1 - (point.y + 1) / 2)
                                 )
                             }
                         }
                     }
-                    .aspectRatio(1, contentMode: .fit)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-                    Spacer()
                 }
+                .aspectRatio(1, contentMode: .fit)
+                .frame(maxWidth: .infinity)
                 .padding()
-                .navigationTitle("ワインチャート")
 
-                // ======================
-                // 重なり表示シート
-                // ======================
-                .sheet(isPresented: Binding(
-                    get: { !selectedPoints.isEmpty },
-                    set: { if !$0 { selectedPoints = [] } }
-                )) {
-                    WineOverlapListView(points: selectedPoints)
-                        .environment(\.modelContext, context)
-                }
+
+                Spacer()
+            }
+            .navigationTitle("ワインチャート")
+
+
+            // ======================
+            // 重なり表示
+            // ======================
+
+            .sheet(
+                isPresented: Binding(
+                    get: {
+                        !selectedPoints.isEmpty
+                    },
+                    set: {
+                        if !$0 {
+                            selectedPoints = []
+                        }
+                    }
+                )
+            ) {
+
+                WineOverlapListView(
+                    points: selectedPoints
+                )
+                .environment(
+                    \.modelContext,
+                    context
+                )
             }
         }
     }
@@ -426,21 +681,9 @@ struct WineOverlapListView: View {
                             Text(point.wineName)
                                 .font(.headline)
 
-                            Text(
-                                point.kind == .white
-                                ? "白ワイン"
-                                : point.kind == .red
-                                    ? "赤ワイン"
-                                    : point.kind == .sparkling
-                                        ? "スパークリングワイン"
-                                        : point.kind == .rose
-                                            ? "ロゼワイン"
-                                            : point.kind == .orange
-                                                ? "オレンジワイン"
-                                                : point.kind == .fortified
-                                                    ? "酒精強化ワイン"
-                                                    : "デザートワイン"
-                            )
+                            Text(point.kind.fullName)
+                                .font(.subheadline)
+                                .foregroundStyle(point.kind.color)
                             .font(.subheadline)
                             .foregroundStyle(
                                 point.kind == .white

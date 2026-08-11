@@ -569,7 +569,7 @@ struct DessertWineTastingListView: View {
 
                                     Text("デザートワイン")
                                         .font(.caption2)
-                                        .foregroundStyle(.orange)
+                                        .foregroundStyle(.yellow)
                                 }
                             }
                             .padding(.vertical, 6)

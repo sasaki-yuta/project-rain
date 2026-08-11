@@ -568,7 +568,7 @@ struct FortifiedWineTastingListView: View {
 
                                     Text("酒精強化ワイン")
                                         .font(.caption2)
-                                        .foregroundStyle(.brown)
+                                        .foregroundStyle(.purple)
                                 }
                             }
                             .padding(.vertical, 6)

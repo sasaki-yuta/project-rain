@@ -560,7 +560,7 @@ struct RedWineTastingListView: View {
 
                                     Text("赤ワイン")
                                         .font(.caption2)
-                                        .foregroundColor(.secondary)
+                                        .foregroundStyle(.red)
                                 }
                             }
                             .padding(.vertical, 6)

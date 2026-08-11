@@ -553,7 +553,7 @@ struct WhiteWineTastingListView: View {
 
                                     Text("白ワイン")
                                         .font(.caption2)
-                                        .foregroundColor(.secondary)
+                                        .foregroundStyle(.green)
                                 }
                             }
                             .padding(.vertical, 6)
