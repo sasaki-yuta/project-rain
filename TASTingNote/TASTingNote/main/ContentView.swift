@@ -30,7 +30,13 @@ struct ContentView: View {
                 .tabItem {
                     Label("チャート", systemImage: "chart.dots.scatter")
                 }
-
+            QuizCategoryView()
+                .tabItem {
+                    Label(
+                        "学習",
+                        systemImage: "questionmark.circle"
+                    )
+                }
             SettingsTabView()
                 .tabItem {
                     Label("設定", systemImage: "gear")
