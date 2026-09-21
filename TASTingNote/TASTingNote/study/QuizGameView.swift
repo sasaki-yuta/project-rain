@@ -12,6 +12,7 @@ struct QuizGameView: View {
     let categoryId: Int?
 
     @State private var quizzes: [Quiz] = []
+    @State private var categoryNames: [Int: String] = [:]
     @State private var currentIndex = 0
     @State private var selectedAnswer: String?
     @State private var showResult = false
@@ -55,10 +56,18 @@ struct QuizGameView: View {
                 Text("第 \(currentIndex + 1) 問 / \(quizzes.count)")
                     .font(.headline)
 
-                HStack(spacing: 6) {
-                    Text("難易度：\(quiz.difficultyText)")
-                    Text(quiz.difficultyStars)
-                        .foregroundStyle(.orange)
+                VStack(alignment: .leading, spacing: 8) {
+                    Label(
+                        categoryName(for: quiz),
+                        systemImage: "globe.asia.australia.fill"
+                    )
+                    .foregroundStyle(.blue)
+
+                    HStack(spacing: 6) {
+                        Text("難易度：\(quiz.difficultyText)")
+                        Text(quiz.difficultyStars)
+                            .foregroundStyle(.orange)
+                    }
                 }
                 .font(.subheadline)
                 .fontWeight(.semibold)
@@ -233,15 +242,33 @@ struct QuizGameView: View {
         }
     }
 
+    private func categoryName(for quiz: Quiz) -> String {
+        if let name = categoryNames[quiz.categoryId] {
+            return "カテゴリ：\(name)"
+        }
+
+        return "カテゴリ：不明"
+    }
+
     private func loadQuizzes() async {
 
         do {
 
-            quizzes =
-                try await api.fetchQuizzes(
-                    categoryId: categoryId,
-                    limit: 10
-                )
+            async let quizzesRequest = api.fetchQuizzes(
+                categoryId: categoryId,
+                limit: 10
+            )
+            async let categoriesRequest = api.fetchCategories()
+
+            let (loadedQuizzes, loadedCategories) =
+                try await (quizzesRequest, categoriesRequest)
+
+            quizzes = loadedQuizzes
+            categoryNames = Dictionary(
+                uniqueKeysWithValues: loadedCategories.map {
+                    ($0.id, $0.name)
+                }
+            )
 
             currentIndex = 0
             score = 0

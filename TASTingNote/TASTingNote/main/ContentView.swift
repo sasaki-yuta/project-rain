@@ -34,11 +34,11 @@ struct ContentView: View {
                 .tabItem {
                     Label(
                         "学習",
-                        systemImage: "questionmark.circle"
+                        systemImage: "graduationcap.fill"
                     )
                 }
             SettingsTabView()
-                .tabItem {
+                .tabItem {１４
                     Label("設定", systemImage: "gear")
                 }
         }
