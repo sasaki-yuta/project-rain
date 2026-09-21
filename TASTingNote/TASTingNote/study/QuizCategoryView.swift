@@ -22,46 +22,66 @@ struct QuizCategoryView: View {
 
             List {
 
-                // すべて
-                Button {
-                    selectedCategory = nil
-                } label: {
+                if isLoading {
                     HStack {
-                        Text("すべて")
-                            .foregroundStyle(.primary)
-
                         Spacer()
+                        ProgressView("出題範囲を読み込み中...")
+                        Spacer()
+                    }
+                } else if let errorMessage {
+                    ContentUnavailableView(
+                        "読み込めませんでした",
+                        systemImage: "exclamationmark.triangle",
+                        description: Text(errorMessage)
+                    )
+                } else if categories.isEmpty {
+                    ContentUnavailableView(
+                        "問題がありません",
+                        systemImage: "questionmark.folder"
+                    )
+                } else {
 
-                        if selectedCategory == nil {
-                            Image(systemName: "checkmark")
-                                .foregroundStyle(.blue)
+                    // すべて
+                    Button {
+                        selectedCategory = nil
+                    } label: {
+                        HStack {
+                            Text("すべて")
+                                .foregroundStyle(.primary)
+
+                            Spacer()
+
+                            if selectedCategory == nil {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(.blue)
+                            }
                         }
                     }
-                }
 
-                Section("出題範囲") {
+                    Section("出題範囲") {
 
-                    ForEach(categories) { category in
+                        ForEach(categories) { category in
 
-                        Button {
+                            Button {
 
-                            selectedCategory = category
+                                selectedCategory = category
 
-                        } label: {
+                            } label: {
 
-                            HStack {
+                                HStack {
 
-                                Text(category.name)
-                                    .foregroundStyle(.primary)
+                                    Text(category.name)
+                                        .foregroundStyle(.primary)
 
-                                Spacer()
+                                    Spacer()
 
-                                if selectedCategory?.id == category.id {
+                                    if selectedCategory?.id == category.id {
 
-                                    Image(
-                                        systemName: "checkmark"
-                                    )
-                                    .foregroundStyle(.blue)
+                                        Image(
+                                            systemName: "checkmark"
+                                        )
+                                        .foregroundStyle(.blue)
+                                    }
                                 }
                             }
                         }
@@ -86,6 +106,7 @@ struct QuizCategoryView: View {
                         .padding()
                 }
                 .buttonStyle(.borderedProminent)
+                .disabled(isLoading || categories.isEmpty)
                 .padding()
             }
         }
@@ -96,7 +117,7 @@ struct QuizCategoryView: View {
         do {
 
             categories =
-                try await api.fetchCategories()
+                try await api.fetchAvailableCategories()
 
             isLoading = false
 

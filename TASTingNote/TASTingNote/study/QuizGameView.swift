@@ -55,6 +55,18 @@ struct QuizGameView: View {
                 Text("第 \(currentIndex + 1) 問 / \(quizzes.count)")
                     .font(.headline)
 
+                HStack(spacing: 6) {
+                    Text("難易度：\(quiz.difficultyText)")
+                    Text(quiz.difficultyStars)
+                        .foregroundStyle(.orange)
+                }
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .frame(
+                    maxWidth: .infinity,
+                    alignment: .leading
+                )
+
                 Text(quiz.question)
                     .font(.title3)
                     .fontWeight(.bold)

@@ -23,6 +23,25 @@ struct Quiz: Codable, Identifiable {
 
     let difficulty: Int
 
+    var difficultyText: String {
+        switch difficulty {
+        case 1:
+            return "初級"
+        case 2:
+            return "中級"
+        case 3:
+            return "上級"
+        default:
+            return "レベル \(difficulty)"
+        }
+    }
+
+    var difficultyStars: String {
+        let level = min(max(difficulty, 1), 3)
+        return String(repeating: "★", count: level)
+            + String(repeating: "☆", count: 3 - level)
+    }
+
     enum CodingKeys: String, CodingKey {
         case id
         case categoryId = "category_id"

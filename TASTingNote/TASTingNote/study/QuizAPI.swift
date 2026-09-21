@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class QuizAPI {
+final class QuizAPI: Sendable {
 
     private let baseURL =
         "https://project-rain.jp/api"
@@ -35,6 +35,39 @@ final class QuizAPI {
             )
 
         return result.categories
+    }
+
+    /// 問題が1問以上登録されているカテゴリだけを返す
+    func fetchAvailableCategories() async throws -> [Category] {
+
+        let categories = try await fetchCategories()
+
+        return try await withThrowingTaskGroup(
+            of: Category?.self
+        ) { group in
+
+            for category in categories {
+                group.addTask {
+                    let quizzes = try await self.fetchQuizzes(
+                        categoryId: category.id,
+                        limit: 1
+                    )
+                    return quizzes.isEmpty ? nil : category
+                }
+            }
+
+            var availableCategories: [Category] = []
+
+            for try await category in group {
+                if let category {
+                    availableCategories.append(category)
+                }
+            }
+
+            return availableCategories.sorted {
+                $0.sortOrder < $1.sortOrder
+            }
+        }
     }
 
     func fetchQuizzes(
