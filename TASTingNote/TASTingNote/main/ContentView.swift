@@ -38,7 +38,7 @@ struct ContentView: View {
                     )
                 }
             SettingsTabView()
-                .tabItem {１４
+                .tabItem {
                     Label("設定", systemImage: "gear")
                 }
         }
